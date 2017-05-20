@@ -1,0 +1,93 @@
+.home_pane {
+    -fx-background-image: url("/application/images/accueil_01.jpg");
+    -fx-background-size: cover;
+}
+
+.pane_title {
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 2, 0, 1, 1);
+    -fx-font-size: 34px;
+}
+
+.pane_black {
+    -fx-background-color: #000000;
+
+}
+
+.label_status {
+    -fx-font-weight: 400;
+}
+
+.btn {
+    -fx-font-size: 14px;
+    -fx-text-fill: WHITE;
+}
+
+.btn-default {
+    -fx-background-color: WHITE;
+    -fx-text-fill: BLACK;
+}
+
+.btn-success {
+    -fx-background-color: #4CAF50;
+}
+
+.btn-primary {
+    -fx-background-color: #1565C0;
+}
+
+.btn-danger {
+    -fx-background-color: #F44336;
+}
+
+.jfx-text-field, .jfx-password-field, .jfx-text-area {
+    -fx-background-color: transparent;
+    -fx-font-weight: BOLD;
+    -fx-prompt-text-fill: #808080;
+    -fx-alignment: top-left;
+    -fx-max-width: 300.0;
+    -fx-pref-width: 300.0;
+    -jfx-focus-color: #4059A9;
+    -jfx-unfocus-color: #4d4d4d;
+}
+
+
+.form-control-light {
+    -fx-text-fill: #151515;
+    -fx-prompt-text-fill: #dbdbdb;
+    -jfx-focus-color: #dbdbdb;
+    -jfx-unfocus-color: #c1c1c1;
+}
+
+.rect {
+    -fx-fill: rgba(34, 36, 47, 0.75);
+    -fx-stroke: rgba(34, 36, 47, 0.80);
+}
+
+.home_box {
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0, 0.25), 6.0, 0.7, 0.0, 1.5);
+    -fx-background-radius: 8;
+}
+
+.home_box:hover {
+    -fx-opacity: 0.95;
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0, 0), 6.0, 0.7, 0.0, 1.5);
+}
+
+.home_box_selected {
+    -fx-opacity: 0.95;
+}
+
+.box {
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0, 0.25), 6.0, 0.7, 0.0, 1.5);
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 8;
+}
+.box:hover {
+    -fx-opacity: 0.8;
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0, 0), 6.0, 0.7, 0.0, 1.5);
+}
+.box_selected {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0, 0), 6.0, 0.7, 0.0, 1.5);
+    -fx-background-radius: 8;
+}

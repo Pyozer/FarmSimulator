@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXButton?>
+<BorderPane fx:id="bpane" styleClass="home_pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ParamsAccountController">
+    <center>
+        <StackPane BorderPane.alignment="CENTER">
+            <Rectangle styleClass="rect" width="800.0" height="600"/>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
+
+                <Text styleClass="pane_title" fill="white" text="Paramètres du compte" />
+
+                <GridPane alignment="CENTER" hgap="25" vgap="25">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" maxWidth="200" minWidth="200" />
+                        <ColumnConstraints halignment="LEFT" />
+                        <ColumnConstraints maxWidth="200" minWidth="200" />
+                    </columnConstraints>
+
+                    <padding><Insets bottom="10" left="25" right="25" top="30" /></padding>
+
+                    <Label text="Nom :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <JFXTextField fx:id="nom" labelFloat="true" promptText="Saisissez votre nom" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Prénom :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <JFXTextField fx:id="prenom" labelFloat="true" promptText="Saisissez votre prénom" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Email :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <JFXTextField fx:id="email" labelFloat="true" promptText="Saisissez votre adresse mail" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Mot de passe :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <JFXPasswordField fx:id="password" labelFloat="true" promptText="Saisissez un mot de passe" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <Label text="Confirmer mot de passe :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <JFXPasswordField fx:id="passwordconfirm" labelFloat="true" promptText="Confirmez votre mot de passe" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                    <JFXButton text="Valider" onAction="#btnNextAction" buttonType="RAISED" styleClass="btn, btn-primary"  minWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                </GridPane>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

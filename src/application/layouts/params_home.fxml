@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<BorderPane fx:id="bpane" styleClass="home_pane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ParamsHomeController">
+    <center>
+        <StackPane BorderPane.alignment="CENTER">
+            <Rectangle styleClass="rect" height="600" width="800.0" />
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
+
+                <Text fill="white" styleClass="pane_title" text="Configuration du logiciel">
+                    <VBox.margin>
+                        <Insets bottom="80.0" />
+                    </VBox.margin>
+                </Text>
+
+                <Text fx:id="text_home" fill="white" wrappingWidth="650" textAlignment="JUSTIFY">
+                    <VBox.margin>
+                        <Insets bottom="60.0" />
+                    </VBox.margin>
+                </Text>
+
+                <JFXButton text="Commencer" onAction="#btnNextAction" buttonType="RAISED" styleClass="btn, btn-primary" minWidth="350.0"  />
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

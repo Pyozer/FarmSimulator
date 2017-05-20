@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<?import com.jfoenix.controls.JFXButton?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXTextField?>
+<BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.GlobalController">
+
+    <center>
+        <VBox BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">
+                <VBox minWidth="400" maxWidth="400" spacing="25">
+                    <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
+
+                    <Label text="Calculer un itinéraire">
+                        <font><Font name="Roboto Medium" size="30.0" /></font>
+                    </Label>
+
+                    <Label text="Origine :">
+                        <font><Font name="Roboto Medium" size="15.0" /></font>
+                    </Label>
+
+                    <JFXTextField fx:id="FChamp" promptText="Position du 1er champ" labelFloat="true" />
+
+
+                    <Label text="Destination :">
+                        <font><Font name="Roboto Medium" size="15.0" /></font>
+                    </Label>
+
+                    <JFXTextField fx:id="SChamp" promptText="Position du 2ème champ" labelFloat="true" />
+
+                    <JFXButton text="Calculer" onAction="#calculIntineraire" styleClass="btn, btn-primary" buttonType="RAISED" />
+
+                </VBox>
+                <StackPane fx:id="googleMaps" />
+            </SplitPane>
+        </VBox>
+    </center>
+</BorderPane>
