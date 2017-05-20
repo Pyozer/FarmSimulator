@@ -1,6 +1,10 @@
 package application.modeles;
 
+import application.classes.ElementPair;
 import javafx.beans.property.SimpleBooleanProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe pour les Botteleuse
@@ -14,6 +18,8 @@ public class Botteleuse extends Vehicule {
     public Botteleuse(int id, String marque, String modele, String etat, boolean botte_ronde) {
         super(id, TYPE, marque, modele, etat);
         this.botte_ronde = new SimpleBooleanProperty(botte_ronde);
+
+        getInformations().add(new ElementPair("Botte ronde", botte_ronde));
     }
 
     public boolean isBotte_ronde() {

@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.ElementPair;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -21,6 +22,7 @@ public class Moissonneuse extends Vehicule {
 
     public Moissonneuse(int id, String marque, String modele, String etat, int capacite_tremis, int capacite_reservoir, float largeur, float hauteur, float taille_coupe, int conso_fonctionnement, int conso_route, float poids) {
         super(id, TYPE, marque, modele, etat);
+
         this.capacite_tremis = new SimpleIntegerProperty(capacite_tremis);
         this.capacite_reservoir = new SimpleIntegerProperty(capacite_reservoir);
         this.largeur = new SimpleFloatProperty(largeur);
@@ -29,6 +31,15 @@ public class Moissonneuse extends Vehicule {
         this.conso_fonctionnement = new SimpleIntegerProperty(conso_fonctionnement);
         this.conso_route = new SimpleIntegerProperty(conso_route);
         this.poids = new SimpleFloatProperty(poids);
+
+        getInformations().add(new ElementPair("Capacité trémis", capacite_tremis));
+        getInformations().add(new ElementPair("Capacité réservoir", capacite_reservoir));
+        getInformations().add(new ElementPair("Largeur", largeur));
+        getInformations().add(new ElementPair("Hauteur", hauteur));
+        getInformations().add(new ElementPair("Taille de coupe", taille_coupe));
+        getInformations().add(new ElementPair("Consommation fonctionnement", conso_fonctionnement));
+        getInformations().add(new ElementPair("Consommation sur route", conso_route));
+        getInformations().add(new ElementPair("Poids", poids));
     }
 
     public int getCapacite_tremis() {

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,6 +35,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Vehicule, String> column_marque;
     @FXML private TableColumn<Vehicule, String> column_modele;
     @FXML private TableColumn<Vehicule, String> column_etat;
+
+    @FXML private ListView<ElementPair> listInfos;
 
     private ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
     private int idCount = 0;
@@ -68,9 +71,14 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
 
         tableView.getItems().addAll(vehiculeList);
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> System.out.println(newvalue));
+    }
 
+    public void showInformationsVehicule(Vehicule vehicule) {
+        listInfos.getItems().clear();
+        for(ElementPair information : vehicule.getInformations())
+            listInfos.getItems().add(information);
     }
 
     @FXML
