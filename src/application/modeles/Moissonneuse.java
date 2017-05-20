@@ -1,6 +1,7 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -11,26 +12,26 @@ public class Moissonneuse extends Vehicule {
 
     private SimpleIntegerProperty capacite_tremis; // Capacité du trémis en Litre
     private SimpleIntegerProperty capacite_reservoir; // Capacité du réservoir en Litre
-    private SimpleFloatProperty largeur; // Largeur en Mètre
-    private SimpleFloatProperty hauteur; // Hauteur en Mètre
-    private SimpleFloatProperty taille_coupe; // Taille de coupe en Mètre
+    private SimpleDoubleProperty largeur; // Largeur en Mètre
+    private SimpleDoubleProperty hauteur; // Hauteur en Mètre
+    private SimpleDoubleProperty taille_coupe; // Taille de coupe en Mètre
     private SimpleIntegerProperty conso_fonctionnement; // Consommation en fonctionnement en Litre par Heure
     private SimpleIntegerProperty conso_route; // Consommation sur route en Litre par Heure
-    private SimpleFloatProperty poids; // Poids en Tonne
+    private SimpleDoubleProperty poids; // Poids en Tonne
 
     private final static String TYPE = "Moissonneuse";
 
-    public Moissonneuse(int id, String marque, String modele, String etat, int capacite_tremis, int capacite_reservoir, float largeur, float hauteur, float taille_coupe, int conso_fonctionnement, int conso_route, float poids) {
+    public Moissonneuse(int id, String marque, String modele, String etat, int capacite_tremis, int capacite_reservoir, double largeur, double hauteur, double taille_coupe, int conso_fonctionnement, int conso_route, double poids) {
         super(id, TYPE, marque, modele, etat);
 
         this.capacite_tremis = new SimpleIntegerProperty(capacite_tremis);
         this.capacite_reservoir = new SimpleIntegerProperty(capacite_reservoir);
-        this.largeur = new SimpleFloatProperty(largeur);
-        this.hauteur = new SimpleFloatProperty(hauteur);
-        this.taille_coupe = new SimpleFloatProperty(taille_coupe);
+        this.largeur = new SimpleDoubleProperty(largeur);
+        this.hauteur = new SimpleDoubleProperty(hauteur);
+        this.taille_coupe = new SimpleDoubleProperty(taille_coupe);
         this.conso_fonctionnement = new SimpleIntegerProperty(conso_fonctionnement);
         this.conso_route = new SimpleIntegerProperty(conso_route);
-        this.poids = new SimpleFloatProperty(poids);
+        this.poids = new SimpleDoubleProperty(poids);
 
         getInformations().add(new ElementPair("Capacité trémis", capacite_tremis));
         getInformations().add(new ElementPair("Capacité réservoir", capacite_reservoir));
@@ -58,7 +59,7 @@ public class Moissonneuse extends Vehicule {
         this.capacite_reservoir.set(capacite_reservoir);
     }
 
-    public float getLargeur() {
+    public double getLargeur() {
         return largeur.get();
     }
 
@@ -66,7 +67,7 @@ public class Moissonneuse extends Vehicule {
         this.largeur.set(largeur);
     }
 
-    public float getHauteur() {
+    public double getHauteur() {
         return hauteur.get();
     }
 
@@ -74,7 +75,7 @@ public class Moissonneuse extends Vehicule {
         this.hauteur.set(hauteur);
     }
 
-    public float getTaille_coupe() {
+    public double getTaille_coupe() {
         return taille_coupe.get();
     }
 
@@ -98,7 +99,7 @@ public class Moissonneuse extends Vehicule {
         this.conso_route.set(conso_route);
     }
 
-    public float getPoids() {
+    public double getPoids() {
         return poids.get();
     }
 

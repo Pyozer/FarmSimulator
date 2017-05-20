@@ -21,7 +21,7 @@
                     <Insets bottom="30"/>
                 </padding>
             </Label>
-            <GridPane alignment="TOP_CENTER" hgap="25" vgap="15">
+            <GridPane alignment="TOP_CENTER" hgap="25" vgap="25">
                 <columnConstraints>
                     <ColumnConstraints minWidth="200" maxWidth="200" halignment="RIGHT"/>
                     <ColumnConstraints halignment="LEFT"/>

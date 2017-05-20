@@ -2,9 +2,7 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.Agriculteur;
-import application.modeles.Botteleuse;
-import application.modeles.Vehicule;
+import application.modeles.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -62,9 +60,9 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
         vehiculeList.add(new Botteleuse(idCount++, "Volvo", "V70", "Non utilisé", true));
         vehiculeList.add(new Botteleuse(idCount++, "Volvo", "850", "En cours d'utilisation", false));
+        vehiculeList.add(new Tracteur(idCount++, "Renault", "Laguna", "En maintenance", 125));
         vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
+        vehiculeList.add(new Moissonneuse(idCount++, "Porsche", "911 GT3 Cup", "En moisson", 25, 260, 25, 20, 1305, 20, 15, 10));
         vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
         vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
         vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
@@ -72,6 +70,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
         tableView.getItems().addAll(vehiculeList);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
+
+        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
 
     }
 

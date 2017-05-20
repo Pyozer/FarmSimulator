@@ -19,7 +19,7 @@ public class Botteleuse extends Vehicule {
         super(id, TYPE, marque, modele, etat);
         this.botte_ronde = new SimpleBooleanProperty(botte_ronde);
 
-        getInformations().add(new ElementPair("Botte ronde", botte_ronde));
+        getInformations().add(new ElementPair("Botte ronde", (botte_ronde) ? "Rond" : "Carré"));
     }
 
     public boolean isBotte_ronde() {
