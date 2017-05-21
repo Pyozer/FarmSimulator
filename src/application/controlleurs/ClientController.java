@@ -30,12 +30,8 @@ public class ClientController implements Initializable, APIGoogleMap {
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
     @FXML private TableView<Agriculteur> tableView;
-    @FXML private TableColumn<Agriculteur, Integer> column_id;
     @FXML private TableColumn<Agriculteur, String> column_nom;
     @FXML private TableColumn<Agriculteur, String> column_prenom;
-    @FXML private TableColumn<Agriculteur, String> column_num_tel;
-    @FXML private TableColumn<Agriculteur, String> column_adresse;
-    @FXML private TableColumn<Agriculteur, String> column_email;
 
     @FXML private ListView<ElementPair> listInfos;
 
@@ -54,12 +50,8 @@ public class ClientController implements Initializable, APIGoogleMap {
         GoogleMaps gMaps = new GoogleMaps("maps_client", this);
         gMaps.setParent(googleMaps);
 
-        column_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        column_num_tel.setCellValueFactory(new PropertyValueFactory<>("num_tel"));
-        column_adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        column_email.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
         clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));

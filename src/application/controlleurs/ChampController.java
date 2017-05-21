@@ -32,12 +32,8 @@ public class ChampController implements Initializable, APIGoogleMap {
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
     @FXML private TableView<Champ> tableView;
-    @FXML private TableColumn<Champ, Integer> column_id;
-    @FXML private TableColumn<Champ, Integer> column_surface;
     @FXML private TableColumn<Champ, String> column_type_culture;
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
-    @FXML private TableColumn<Champ, String> column_bottelage;
-    @FXML private TableColumn<Champ, String> column_transport;
 
     @FXML private ListView<ElementPair> listInfos;
 
@@ -57,12 +53,8 @@ public class ChampController implements Initializable, APIGoogleMap {
         GoogleMaps gMaps = new GoogleMaps("maps_champ", this);
         gMaps.setParent(googleMaps);
 
-        column_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        column_surface.setCellValueFactory(new PropertyValueFactory<>("surface"));
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
-        column_bottelage.setCellValueFactory(new PropertyValueFactory<>("bottelage"));
-        column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
 
         Agriculteur client1 = new Agriculteur(1, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr");
         Agriculteur client2 = new Agriculteur(2, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr");

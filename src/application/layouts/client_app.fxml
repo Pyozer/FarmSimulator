@@ -13,17 +13,14 @@
 
 <?import javafx.scene.control.Label?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ClientController">
     <center>
         <VBox BorderPane.alignment="CENTER">
             <TableView fx:id="tableView" minHeight="200.0" prefWidth="200.0">
                 <columns>
-                    <TableColumn fx:id="column_id" minWidth="50.0" text="ID"/>
                     <TableColumn fx:id="column_nom" minWidth="115.0" text="Nom" />
                     <TableColumn fx:id="column_prenom" minWidth="115.0" text="Prenom" />
-                    <TableColumn fx:id="column_num_tel" minWidth="175.0" text="Numéro de téléphone" />
-                    <TableColumn fx:id="column_adresse" minWidth="275.0" text="Adresse" />
-                    <TableColumn fx:id="column_email" minWidth="250.0" text="Email" />
                 </columns>
             </TableView>
             <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">

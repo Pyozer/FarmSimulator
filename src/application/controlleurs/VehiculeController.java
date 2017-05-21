@@ -31,15 +31,12 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
     @FXML private TableView<Vehicule> tableView;
-    @FXML private TableColumn<Vehicule, Integer> column_id;
     @FXML private TableColumn<Vehicule, String> column_type;
     @FXML private TableColumn<Vehicule, String> column_marque;
     @FXML private TableColumn<Vehicule, String> column_modele;
     @FXML private TableColumn<Vehicule, String> column_etat;
 
     @FXML private ListView<ElementPair> listInfos;
-
-    @FXML private JFXButton btnAdd;
 
     private ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
     private int idCount = 0;
@@ -57,7 +54,6 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         GoogleMaps gMaps = new GoogleMaps("maps_champ", this);
         gMaps.setParent(googleMaps);
 
-        column_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         column_type.setCellValueFactory(new PropertyValueFactory<>("type"));
         column_marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
