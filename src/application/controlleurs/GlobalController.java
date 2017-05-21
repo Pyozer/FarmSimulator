@@ -36,7 +36,6 @@ public class GlobalController implements Initializable, APIGoogleMap {
         gMaps = new GoogleMaps("maps_global", this);
         gMaps.setParent(googleMaps);
 
-
     }
 
     public void setFirstChamp(String firstChamp) {
