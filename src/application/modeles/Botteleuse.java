@@ -3,9 +3,6 @@ package application.modeles;
 import application.classes.ElementPair;
 import javafx.beans.property.SimpleBooleanProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Classe pour les Botteleuse
  */

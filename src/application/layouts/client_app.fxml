@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ClientController">
     <center>
         <VBox BorderPane.alignment="CENTER">
@@ -25,19 +27,36 @@
                 </columns>
             </TableView>
             <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">
-                    <VBox minWidth="450.0" maxWidth="450">
-                        <ListView fx:id="listInfos" />
-                        <HBox alignment="CENTER" spacing="10">
-                            <JFXButton text="Ajouter un client" onAction="#addClient" buttonType="RAISED" styleClass="btn, btn-success" prefHeight="40" />
-                            <JFXButton text="Modifier le client" onAction="#editClient" buttonType="RAISED" styleClass="btn, btn-primary" prefHeight="40" />
-                            <JFXButton text="Supprimer le client" onAction="#deleteClient" buttonType="RAISED" styleClass="btn, btn-danger" prefHeight="40" />
+                <BorderPane minWidth="500" maxWidth="500">
+                    <padding><Insets left="15" right="15" bottom="15"/></padding>
 
-                            <padding>
-                                <Insets top="20.0" />
-                            </padding>
+                    <top>
+                        <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
+                    </top>
+                    <center>
+                        <ListView fx:id="listInfos" />
+                    </center>
+                    <bottom>
+                        <HBox alignment="CENTER" spacing="10" minHeight="70" maxHeight="70">
+                            <JFXButton fx:id="btnAdd" text="Ajouter un client" onAction="#addClient" styleClass="btn, btn-success" prefHeight="40">
+                                <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton fx:id="btnEdit" text="Modifier le client" onAction="#editClient" styleClass="btn, btn-primary" prefHeight="40">
+                                <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton fx:id="btnDelete" text="Supprimer le client" onAction="#deleteClient" styleClass="btn, btn-danger" prefHeight="40">
+                                <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
+                                </graphic>
+                            </JFXButton>
                         </HBox>
-                    </VBox>
-                    <StackPane fx:id="googleMaps" />
+                    </bottom>
+                </BorderPane>
+                <StackPane fx:id="googleMaps" />
             </SplitPane>
         </VBox>
     </center>

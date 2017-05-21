@@ -12,6 +12,9 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.VehiculeController">
     <center>
         <VBox BorderPane.alignment="CENTER">
@@ -25,8 +28,8 @@
                 </columns>
             </TableView>
             <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">
-                <BorderPane>
-                    <padding><Insets left="15" right="15" bottom="15" top="15"/></padding>
+                <BorderPane minWidth="575" maxWidth="575">
+                    <padding><Insets left="15" right="15" bottom="15"/></padding>
 
                     <top>
                         <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
@@ -36,9 +39,21 @@
                     </center>
                     <bottom>
                         <HBox alignment="CENTER" spacing="10" minHeight="70" maxHeight="70">
-                            <JFXButton text="Ajouter un vehicule" onAction="#addVehicule" buttonType="RAISED" styleClass="btn, btn-success" prefHeight="40"/>
-                            <JFXButton fx:id="btnEdit" text="Modifier le vehicule" onAction="#editVehicule" buttonType="RAISED" styleClass="btn, btn-primary" prefHeight="40" />
-                            <JFXButton fx:id="btnDelete" text="Supprimer le vehicule" onAction="#deleteVehicule" buttonType="RAISED" styleClass="btn, btn-danger" prefHeight="40" />
+                            <JFXButton fx:id="btnAdd" text="Ajouter un vehicule" onAction="#addVehicule" styleClass="btn, btn-success" prefHeight="40">
+                                <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton fx:id="btnEdit" text="Modifier le vehicule" onAction="#editVehicule" styleClass="btn, btn-primary" prefHeight="40">
+                                <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
+                                </graphic>
+                            </JFXButton>
+                            <JFXButton fx:id="btnDelete" text="Supprimer le vehicule" onAction="#deleteVehicule" styleClass="btn, btn-danger" prefHeight="40">
+                                <graphic>
+                                    <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
+                                </graphic>
+                            </JFXButton>
                         </HBox>
                     </bottom>
                 </BorderPane>

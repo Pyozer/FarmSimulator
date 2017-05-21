@@ -1,14 +1,12 @@
 package application.controlleurs;
 
-import application.classes.APIGoogleMap;
-import application.classes.Point;
+import application.classes.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-import application.classes.GoogleMaps;
-import application.classes.MenuApp;
 import javafx.fxml.Initializable;
 
 
@@ -51,6 +49,11 @@ public class GlobalController implements Initializable, APIGoogleMap {
     }
 
     public void calculIntineraire() {
-        gMaps.changeRoute(FChamp.getText(), SChamp.getText());
+        if (FChamp.getText().isEmpty() || SChamp.getText().isEmpty()) {
+            AlertDialog alert = new AlertDialog("Erreur", null, "Veuillez saisir tous les champs de texte !", Alert.AlertType.ERROR);
+            alert.show();
+        } else {
+            gMaps.changeRoute(FChamp.getText(), SChamp.getText());
+        }
     }
 }

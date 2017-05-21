@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.ElementPair;
 import application.classes.Point;
 import javafx.beans.property.*;
 
@@ -8,34 +9,32 @@ import java.util.List;
 /**
  * Classe pour les Champs
  */
-public class Champ {
+public class Champ extends Element {
 
-    private SimpleIntegerProperty id; // ID du champs
     private SimpleIntegerProperty surface; // Surface en m2
     private SimpleObjectProperty<Point> coord_center;
     private SimpleObjectProperty<List<Point>> coord_champ; // Longitude du champs
     private SimpleStringProperty type_culture; // Type de culture (Blé, Orge,..)
     private SimpleObjectProperty<Agriculteur> proprietaire; // Nom du propriétaire
-    private SimpleBooleanProperty bottelage; // Si bottelage ou non
+    private SimpleStringProperty bottelage; // Si bottelage ou non
     private SimpleStringProperty transport; // Qui réalise le transport (ETA, Lui, Negociant)
 
     public Champ(int id, int surface, Point coord_center, List<Point> coord_champ, String type_culture, Agriculteur proprietaire, boolean bottelage, String transport) {
-        this.id = new SimpleIntegerProperty(id);
+        super(id);
         this.surface = new SimpleIntegerProperty(surface);
         this.coord_center = new SimpleObjectProperty<>(coord_center);
         this.coord_champ = new SimpleObjectProperty<>(coord_champ);
         this.type_culture = new SimpleStringProperty(type_culture);
         this.proprietaire = new SimpleObjectProperty<>(proprietaire);
-        this.bottelage = new SimpleBooleanProperty(bottelage);
+        this.bottelage = new SimpleStringProperty(bottelage ? "Oui" : "Non");
         this.transport = new SimpleStringProperty(transport);
-    }
 
-    public int getId() {
-        return id.get();
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+        getInformations().add(new ElementPair("Surface", surface + " m²"));
+        getInformations().add(new ElementPair("Coordonnées du centre", coord_center));
+        getInformations().add(new ElementPair("Type de culture", type_culture));
+        getInformations().add(new ElementPair("Proprietaire", proprietaire));
+        getInformations().add(new ElementPair("Bottelage", (bottelage) ? "Oui" : "Non"));
+        getInformations().add(new ElementPair("Transport", transport));
     }
 
     public int getSurface() {
@@ -76,12 +75,12 @@ public class Champ {
         this.proprietaire.set(proprietaire);
     }
 
-    public boolean isBottelage() {
+    public String getBottelage() {
         return bottelage.get();
     }
 
     public void setBottelage(boolean bottelage) {
-        this.bottelage.set(bottelage);
+        this.bottelage.set(bottelage ? "Oui" : "Non");
     }
 
     public String getTransport() {
@@ -91,4 +90,5 @@ public class Champ {
     public void setTransport(String transport) {
         this.transport.set(transport);
     }
+
 }

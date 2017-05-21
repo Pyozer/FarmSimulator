@@ -1,14 +1,13 @@
 package application.modeles;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import application.classes.ElementPair;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Classe pour les Agriculteurs
  */
-public class Agriculteur {
+public class Agriculteur extends Element {
 
-    private SimpleIntegerProperty id; // ID de l'agriculteur
     private SimpleStringProperty nom; // Nom de l'agriculteur
     private SimpleStringProperty prenom; // Prénom de l'agriculteur
     private SimpleStringProperty num_tel; // Numéro de téléphone de l'agriculteur
@@ -16,20 +15,18 @@ public class Agriculteur {
     private SimpleStringProperty email; // Adresse email de l'agriculteur
 
     public Agriculteur(int id, String nom, String prenom, String num_tel, String adresse, String email) {
-        this.id = new SimpleIntegerProperty(id);
+        super(id);
         this.nom = new SimpleStringProperty(nom);
         this.prenom = new SimpleStringProperty(prenom);
         this.num_tel = new SimpleStringProperty(num_tel);
         this.adresse = new SimpleStringProperty(adresse);
         this.email = new SimpleStringProperty(email);
-    }
 
-    public int getId() {
-        return id.get();
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
+        getInformations().add(new ElementPair("Nom", nom));
+        getInformations().add(new ElementPair("Prénom", prenom));
+        getInformations().add(new ElementPair("Numéro téléphone", num_tel));
+        getInformations().add(new ElementPair("Adresse", adresse));
+        getInformations().add(new ElementPair("Email", email));
     }
 
     public String getNom() {
@@ -73,6 +70,6 @@ public class Agriculteur {
     }
 
     public String toString() {
-        return nom.get() + "  " + prenom.get();
+        return nom.get() + " " + prenom.get();
     }
 }

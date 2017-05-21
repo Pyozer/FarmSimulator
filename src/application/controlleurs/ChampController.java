@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
+import application.modeles.Vehicule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,6 +38,8 @@ public class ChampController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
     @FXML private TableColumn<Champ, String> column_bottelage;
     @FXML private TableColumn<Champ, String> column_transport;
+
+    @FXML private ListView<ElementPair> listInfos;
 
     private ObservableList<Champ> champList = FXCollections.observableArrayList();
     private int idCount = 0;
@@ -77,8 +80,16 @@ public class ChampController implements Initializable, APIGoogleMap {
         champList.add(new Champ(idCount++, 1305, new Point(47.919129, -1.526379), coordChamp, "Blé", client2, false, "ETA"));
 
         tableView.getItems().addAll(champList);
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
+        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
 
+    }
+
+    public void showInformationsChamp(Champ champ) {
+        listInfos.getItems().clear();
+        for(ElementPair information : champ.getInformations())
+            listInfos.getItems().add(information);
     }
 
     @FXML

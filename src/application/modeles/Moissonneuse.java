@@ -33,14 +33,14 @@ public class Moissonneuse extends Vehicule {
         this.conso_route = new SimpleIntegerProperty(conso_route);
         this.poids = new SimpleDoubleProperty(poids);
 
-        getInformations().add(new ElementPair("Capacité trémis", capacite_tremis));
-        getInformations().add(new ElementPair("Capacité réservoir", capacite_reservoir));
-        getInformations().add(new ElementPair("Largeur", largeur));
-        getInformations().add(new ElementPair("Hauteur", hauteur));
-        getInformations().add(new ElementPair("Taille de coupe", taille_coupe));
-        getInformations().add(new ElementPair("Consommation fonctionnement", conso_fonctionnement));
-        getInformations().add(new ElementPair("Consommation sur route", conso_route));
-        getInformations().add(new ElementPair("Poids", poids));
+        getInformations().add(new ElementPair("Capacité trémis", capacite_tremis + " Litres"));
+        getInformations().add(new ElementPair("Capacité réservoir", capacite_reservoir + " Litres"));
+        getInformations().add(new ElementPair("Largeur", largeur + " Mètres"));
+        getInformations().add(new ElementPair("Hauteur", hauteur + " Mètres"));
+        getInformations().add(new ElementPair("Taille de coupe", taille_coupe + " Mètres"));
+        getInformations().add(new ElementPair("Consommation fonctionnement", conso_fonctionnement + " Litres/100"));
+        getInformations().add(new ElementPair("Consommation sur route", conso_route + " Litres/100"));
+        getInformations().add(new ElementPair("Poids", poids + " Tonnes"));
     }
 
     public int getCapacite_tremis() {

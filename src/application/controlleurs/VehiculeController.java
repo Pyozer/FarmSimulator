@@ -3,6 +3,9 @@ package application.controlleurs;
 import application.Constant;
 import application.classes.*;
 import application.modeles.*;
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,6 +38,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Vehicule, String> column_etat;
 
     @FXML private ListView<ElementPair> listInfos;
+
+    @FXML private JFXButton btnAdd;
 
     private ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
     private int idCount = 0;

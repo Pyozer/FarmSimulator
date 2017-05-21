@@ -3,12 +3,14 @@ package application.controlleurs;
 import application.Constant;
 import application.classes.*;
 import application.modeles.Agriculteur;
+import application.modeles.Vehicule;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,6 +36,8 @@ public class ClientController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Agriculteur, String> column_num_tel;
     @FXML private TableColumn<Agriculteur, String> column_adresse;
     @FXML private TableColumn<Agriculteur, String> column_email;
+
+    @FXML private ListView<ElementPair> listInfos;
 
     private ObservableList<Agriculteur> clientList = FXCollections.observableArrayList();
     private int idCount = 0;
@@ -68,7 +72,16 @@ public class ClientController implements Initializable, APIGoogleMap {
         clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
 
         tableView.getItems().addAll(clientList);
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 
+        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+
+    }
+
+    public void showInformationsClient(Agriculteur agriculteur) {
+        listInfos.getItems().clear();
+        for(ElementPair information : agriculteur.getInformations())
+            listInfos.getItems().add(information);
     }
 
     @FXML

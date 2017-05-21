@@ -20,6 +20,7 @@
 .btn {
     -fx-font-size: 14px;
     -fx-text-fill: WHITE;
+    -jfx-button-type: RAISED;
 }
 
 .btn-default {
@@ -38,18 +39,6 @@
 .btn-danger {
     -fx-background-color: #F44336;
 }
-
-.jfx-text-field, .jfx-password-field, .jfx-text-area {
-    -fx-background-color: transparent;
-    -fx-font-weight: BOLD;
-    -fx-prompt-text-fill: #808080;
-    -fx-alignment: top-left;
-    -fx-max-width: 300.0;
-    -fx-pref-width: 300.0;
-    -jfx-focus-color: #4059A9;
-    -jfx-unfocus-color: #4d4d4d;
-}
-
 
 .form-control-light {
     -fx-text-fill: #151515;

@@ -16,7 +16,7 @@ public class Tracteur extends Vehicule{
         super(id, TYPE, marque, modele, etat);
         this.capacite_remorque = new SimpleIntegerProperty(capacite_remorque);
 
-        getInformations().add(new ElementPair("Capacité remorque", capacite_remorque));
+        getInformations().add(new ElementPair("Capacité remorque", capacite_remorque + " Litres"));
     }
 
     public int getCapacite_remorque() {
