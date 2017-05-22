@@ -36,7 +36,6 @@
                             <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
                             <ListView fx:id="listInfos" />
                         </VBox>
-
                     </center>
                     <bottom>
                         <HBox alignment="CENTER" spacing="10" minHeight="70" maxHeight="70">
