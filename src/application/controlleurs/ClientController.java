@@ -2,6 +2,8 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
+import application.database.DBConnection;
+import application.database.NamedParameterStatement;
 import application.modeles.Agriculteur;
 import application.modeles.Vehicule;
 import javafx.beans.Observable;
@@ -19,12 +21,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class ClientController implements Initializable, APIGoogleMap {
+public class ClientController implements Initializable, APIGoogleMap  {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -53,16 +59,41 @@ public class ClientController implements Initializable, APIGoogleMap {
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
-        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
-        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
+        Connection dbCon = new DBConnection().getConnection();
+        String request = "SELECT * FROM Agriculteur";
+        try {
+            NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+            // execute select SQL stetement
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+                clientList.add(new Agriculteur(
+                            Integer.parseInt(rs.getString("id_agri")),
+                            rs.getString("prenom_agri"),
+                            rs.getString("nom_agri"),
+                            rs.getString("tel_agri"),
+                            rs.getString("adr_agri"),
+                            rs.getString("email_agri")
+                ));
+            }
+            dbCon.close();
+            stmt.close();
+            rs.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex);
+        }
+/*
+        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
+        clientList.add(new Agriculteur(idCount++, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr"));
+*/
         tableView.getItems().addAll(clientList);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 

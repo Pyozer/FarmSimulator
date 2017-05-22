@@ -18,7 +18,6 @@ public class DBProperties {
     private final static String DBNAME = "farmsimulator";
     private final static String USER = "root";
     private final static String PASSWORD = "";
-
     /**
      * Création du fichier "database.properties"
      */

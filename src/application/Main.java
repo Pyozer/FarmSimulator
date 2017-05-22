@@ -10,8 +10,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Création de la base de données si absente
-        /*DBModel model = new DBModel();
+        /*   Création de la base de données si absente
+        DBModel model = new DBModel();
         model.createDataBase();
 
         Settings settings = new Settings();
@@ -20,7 +20,7 @@ public class Main extends Application {
         SwitchView switchView = new SwitchView("accueil_app", "styles.css", Constant.ACCUEIL_APP_TITLE);
 
         if(settings.getParams("already_boot") == null) {
-        	switchView = n  ew SwitchView("params_home", "styles.css", Constant.FIRST_PARAMS_HOME_TITLE);
+        	switchView = new SwitchView("params_home", "styles.css", Constant.FIRST_PARAMS_HOME_TITLE);
         }
         switchView.showScene();*/
 
