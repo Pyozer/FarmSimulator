@@ -51,7 +51,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        GoogleMaps gMaps = new GoogleMaps("maps_champ", this);
+        GoogleMaps gMaps = new GoogleMaps("maps_vehicule", this);
         gMaps.setParent(googleMaps);
 
         column_type.setCellValueFactory(new PropertyValueFactory<>("type"));

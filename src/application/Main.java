@@ -20,7 +20,7 @@ public class Main extends Application {
         SwitchView switchView = new SwitchView("accueil_app", "styles.css", Constant.ACCUEIL_APP_TITLE);
 
         if(settings.getParams("already_boot") == null) {
-        	switchView = new SwitchView("params_home", "styles.css", Constant.FIRST_PARAMS_HOME_TITLE);
+        	switchView = n  ew SwitchView("params_home", "styles.css", Constant.FIRST_PARAMS_HOME_TITLE);
         }
         switchView.showScene();*/
 
