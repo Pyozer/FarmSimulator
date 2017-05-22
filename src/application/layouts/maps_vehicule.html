@@ -11,7 +11,8 @@
     <body>
         <div id="map"></div>
 
-        <script src="champs_polygons.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="vehicule_polygons.js"></script>
         <script type="text/javascript">
             var map;
             var directionsDisplay;
@@ -23,6 +24,22 @@
             var label;
             var originSelect = false;
             var destSelect = false;
+
+            var iconBase = '../images/';
+            var icons = {
+                eta: {
+                    icon: iconBase + 'maker-eta.png'
+                },
+                Moisonneuse: {
+                    icon: iconBase + 'maker-mois.png'
+                },
+                Tracteur: {
+                    icon: iconBase + 'marker-tracteur.png'
+                },
+                Botteleuse: {
+                    icon: iconBase + 'marker-botteleuse.png'
+                }
+            };
 
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -47,13 +64,18 @@
 
                 map.data.setStyle(originalStyle);
 
-                // On charge les champs
-                map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
-
                 infowindow = new google.maps.InfoWindow();
+
+                // On charge les champs
+                map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
+
+                map.data.setStyle(function(feature) {
+                    return { icon: feature.getProperty('icon') };
+                });
 
                 markerOrigin = new google.maps.Marker({
                     position: latLng,
+                    icon: icons["eta"].icon,
                     map: map,
                     animation: google.maps.Animation.DROP,
                     title: 'Les rivière, Janzé'
@@ -88,16 +110,14 @@
                 });
 
                 map.data.addListener('click', function(event) {
-                    var contentString = '<strong>Information</strong><br />' +
-                    'Culture: ' + event.feature.getProperty('culture') + '<br />' +
-                    'Propriétaire: ' + event.feature.getProperty('proprio') + '<br />' +
-                    'Bottelage: ' + event.feature.getProperty('bottelage') + '<br />' +
-                    'Transport: ' + event.feature.getProperty('transport');
+                    console.log(event);
 
-                    jsInterface.setFirstChamp(getPolygonCenter(event));
+                    var contentString = '<strong>Information</strong><br />' +
+                    'Type: ' + event.feature.getProperty('type') + '<br />' +
+                    'Etat: ' + event.feature.getProperty('etat');
 
                     infowindow.setContent(contentString);
-                    infowindow.setPosition(getPolygonCenter(event));
+                    infowindow.setPosition(event.latLng);
                     infowindow.open(map);
                 });
 
@@ -215,6 +235,7 @@
                 infowindow.setPosition(getLineCenter(flightPlanCoordinates));
                 infowindow.open(map);
             }
+
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>
