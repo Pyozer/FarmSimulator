@@ -1,7 +1,5 @@
 package application.database;
 
-import application.Constant;
-import application.classes.SwitchView;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -31,7 +29,7 @@ public class DBModel {
             pst.execute();
 
             // Création des tables
-            pst = con.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `Eta` (\n"
+            /*pst = con.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS `Eta` (\n"
                     + "  `id` int(11) NOT NULL AUTO_INCREMENT,\n"
                     + "  `nom` VARCHAR(20) NOT NULL,\n"
                     + "  `adresse` VARCHAR(50) NOT NULL,\n"
@@ -47,7 +45,7 @@ public class DBModel {
                     + "  `email` VARCHAR(50) NOT NULL,\n"
                     + "  PRIMARY KEY (`id`),\n"
                     + "  UNIQUE INDEX `id` (`id` ASC));");
-            pst.execute();
+            pst.execute();*/
 
             pst.close();
 
