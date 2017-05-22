@@ -14,29 +14,23 @@
         <script src="vehicule_polygons.js"></script>
         <script type="text/javascript">
             var map;
-            var directionsDisplay;
             var infowindow;
             var markerOrigin;
-            var flightPath;
-            var flightPlanCoordinates = [];
-            var champsSelected = [0,0];
             var label;
-            var originSelect = false;
-            var destSelect = false;
 
             var iconBase = '../images/';
             var icons = {
-                eta: {
-                    icon: iconBase + 'maker-eta.png'
+                Eta: {
+                    icon: iconBase + 'marker_eta.png'
                 },
                 Moisonneuse: {
-                    icon: iconBase + 'maker-mois.png'
+                    icon: iconBase + 'marker_moissonneuse.png'
                 },
                 Tracteur: {
-                    icon: iconBase + 'marker-tracteur.png'
+                    icon: iconBase + 'marker_tracteur.png'
                 },
                 Botteleuse: {
-                    icon: iconBase + 'marker-botteleuse.png'
+                    icon: iconBase + 'marker_botteleuse.png'
                 }
             };
 
@@ -74,43 +68,18 @@
 
                 markerOrigin = new google.maps.Marker({
                     position: latLng,
-                    icon: icons["eta"].icon,
+                    icon: icons['Eta'].icon,
                     map: map,
                     animation: google.maps.Animation.DROP,
                     title: 'Les rivière, Janzé'
                 });
 
-                map.data.addListener('mouseover', function(event) {
-                    var idChamps = event.feature.getProperty('CHAMPS_ID');
-                    if(idChamps != champsSelected[0] && idChamps != champsSelected[1]) {
-                        map.data.overrideStyle(event.feature, {
-                            strokeWeight: 3
-                        });
-                    }
-                });
-
-                map.data.addListener('mouseout', function(event) {
-                    var idChamps = event.feature.getProperty('CHAMPS_ID');
-                    if(idChamps != champsSelected[0] && idChamps != champsSelected[1]) {
-                        map.data.overrideStyle(event.feature, originalStyle);
-                    }
-                });
-
                 map.addListener('click', function(event) {
-                    if (flightPath != null) {
-                        flightPath.setMap(null);
-                    }
-                    flightPlanCoordinates = [];
-                    champsSelected = [0,0];
-                    originSelect = false;
-                    destSelect = false;
                     infowindow.close();
                     map.data.revertStyle();
                 });
 
                 map.data.addListener('click', function(event) {
-                    console.log(event);
-
                     var contentString = '<strong>Information</strong><br />' +
                     'Type: ' + event.feature.getProperty('type') + '<br />' +
                     'Etat: ' + event.feature.getProperty('etat');
@@ -118,43 +87,6 @@
                     infowindow.setContent(contentString);
                     infowindow.setPosition(event.latLng);
                     infowindow.open(map);
-                });
-
-                map.data.addListener('click', function(event) {
-                    if (flightPath != null) {
-                        flightPath.setMap(null);
-                    }
-                    flightPlanCoordinates[0] = getPolygonCenter(event);
-                    map.data.overrideStyle(map.data.getFeatureById(champsSelected[0]), originalStyle);
-                    champsSelected[0] = event.feature.getProperty('CHAMPS_ID');
-                    originSelect = true;
-                    map.data.overrideStyle(event.feature, selectedStyle);
-                    if (originSelect && destSelect) { // Si origin et dest sélectionnés
-                        calcFlightPath(flightPlanCoordinates);
-                        showDist(flightPlanCoordinates);
-                    }
-                });
-
-                map.data.addListener('rightclick', function(event) {
-                    jsInterface.setSecondChamp(getPolygonCenter(event));
-
-                    if (flightPath != null) {
-                        flightPath.setMap(null);
-                    }
-                    flightPlanCoordinates[1] = getPolygonCenter(event);
-                    map.data.overrideStyle(map.data.getFeatureById(champsSelected[1]), originalStyle);
-                    champsSelected[1] = event.feature.getProperty('CHAMPS_ID');
-                    destSelect = true;
-                    map.data.overrideStyle(event.feature, selectedStyle);
-                    if (originSelect && destSelect) { // Si origin et dest sélectionnés
-                        calcFlightPath(flightPlanCoordinates);
-                        showDist(flightPlanCoordinates);
-                    }
-                });
-
-                // Itinéraire qui peut être afficher
-                directionsDisplay = new google.maps.DirectionsRenderer({
-                    map: map
                 });
 
                 // Rayon de 20km autour du point de départ
@@ -171,70 +103,6 @@
                 });
 
             }
-
-            function calculate(origin, destination) {
-                if (origin && destination) {
-                    var request = {
-                        origin: origin,
-                        destination: destination,
-                        travelMode: google.maps.TravelMode.DRIVING,
-						drivingOptions: {
-							departureTime: new Date(Date.now()),  // for the time N milliseconds from now.
-							trafficModel: "optimistic"
-						},
-                        region: 'FR',
-                        optimizeWaypoints: true,
-                        avoidHighways: true,
-                        avoidTolls: true,
-                        unitSystem: google.maps.UnitSystem.METRIC
-                    };
-                    var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
-                    directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
-                        if (status == google.maps.DirectionsStatus.OK) {
-                            markerOrigin.setMap(null); // On retire le marqueur initial
-                            console.log('ok');
-                            directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-                        }
-                    });
-                }
-            };
-
-            function getPolygonCenter(event) {
-                var bounds = new google.maps.LatLngBounds();
-                for (var i = 0; i < event.feature.getGeometry().getAt(0).getLength(); i++) {
-                    bounds.extend(event.feature.getGeometry().getAt(0).getAt(i));
-                }
-                return bounds.getCenter();
-            }
-
-            function getLineCenter(linePoints) {
-                var bounds = new google.maps.LatLngBounds();
-                for (var i = 0; i < linePoints.length; i++) {
-                    bounds.extend(linePoints[i]);
-                }
-                return bounds.getCenter();
-            }
-
-            function calcFlightPath(coordinates) {
-                flightPath = new google.maps.Polyline({
-                    path: coordinates,
-                    geodesic: true,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 2
-                });
-
-                flightPath.setMap(map);
-            }
-
-            function showDist(coordinates) {
-            	var dist = Math.round(google.maps.geometry.spherical.computeDistanceBetween(flightPlanCoordinates[0], flightPlanCoordinates[1])); // En mètres
-            	var distStr = dist + "";
-            	infowindow.setContent("<strong>" + (Math.round(dist / 1000)) + " km " + distStr.substring(distStr.length - 3) + " mètres</strong>");
-                infowindow.setPosition(getLineCenter(flightPlanCoordinates));
-                infowindow.open(map);
-            }
-
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>
