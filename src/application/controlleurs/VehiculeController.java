@@ -2,6 +2,8 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
+import application.database.DBConnection;
+import application.database.NamedParameterStatement;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -20,6 +22,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -37,9 +42,6 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Vehicule, String> column_etat;
 
     @FXML private ListView<ElementPair> listInfos;
-
-    private ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
-    private int idCount = 0;
 
     /**
      * Initializes the controller class.
@@ -59,17 +61,9 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
-        vehiculeList.add(new Botteleuse(idCount++, "Volvo", "V70", "Non utilisé", true));
-        vehiculeList.add(new Botteleuse(idCount++, "Volvo", "850", "En cours d'utilisation", false));
-        vehiculeList.add(new Tracteur(idCount++, "Renault", "Laguna", "En maintenance", 125));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
-        vehiculeList.add(new Moissonneuse(idCount++, "Porsche", "911 GT3 Cup", "En moisson", 25, 260, 25, 20, 1305, 20, 15, 10));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
-        vehiculeList.add(new Botteleuse(idCount++, "Renault", "Laguna", "En maintenance", true));
+        VehiculeSQL vehiculeSQL = new VehiculeSQL();
 
-        tableView.getItems().addAll(vehiculeList);
+        tableView.getItems().addAll(vehiculeSQL.getVehiculeList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));

@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
+import application.modeles.ChampSQL;
 import application.modeles.Vehicule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,9 +38,6 @@ public class ChampController implements Initializable, APIGoogleMap {
 
     @FXML private ListView<ElementPair> listInfos;
 
-    private ObservableList<Champ> champList = FXCollections.observableArrayList();
-    private int idCount = 0;
-
     /**
      * Initializes the controller class.
      */
@@ -56,22 +54,8 @@ public class ChampController implements Initializable, APIGoogleMap {
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
-        Agriculteur client1 = new Agriculteur(1, "Robert", "Downey Jr", "0652555405", "23 rue saint-martin, 53000 LAVAL", "jean-charles.mousse.etu@univ-lemans.fr");
-        Agriculteur client2 = new Agriculteur(2, "Chris", "Evans", "0652555405", "9 rue famille bizot, 72200 La Flèche", "jean-charles.mousse.etu@univ-lemans.fr");
-
-        List<Point> coordChamp = new ArrayList<>();
-        coordChamp.add(new Point(47.919129, -1.526379));
-        coordChamp.add(new Point(47.919129, -1.526379));
-        coordChamp.add(new Point(47.919129, -1.526379));
-
-        champList.add(new Champ(idCount++, 666, new Point(47.919129, -1.526379), coordChamp, "Orge", client1, true, "ETA"));
-        champList.add(new Champ(idCount++, 333, new Point(47.919129, -1.526379), coordChamp, "Blé", client2, true, "ETA"));
-        champList.add(new Champ(idCount++, 500, new Point(47.919129, -1.526379), coordChamp, "Colza", client2, false, "Agriculteur"));
-        champList.add(new Champ(idCount++, 1998, new Point(47.919129, -1.526379), coordChamp, "Orge", client1, false, "ETA"));
-        champList.add(new Champ(idCount++, 111, new Point(47.919129, -1.526379), coordChamp, "Colza", client1, true, "ETA"));
-        champList.add(new Champ(idCount++, 1305, new Point(47.919129, -1.526379), coordChamp, "Blé", client2, false, "ETA"));
-
-        tableView.getItems().addAll(champList);
+        ChampSQL champSQL = new ChampSQL();
+        tableView.getItems().addAll(champSQL.getChampsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));

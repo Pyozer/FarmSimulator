@@ -40,6 +40,12 @@ public class ParamsBddController implements Initializable {
 
         Properties properties = new DBProperties().loadPropertiesFile();
 
+        hote_bdd.setText(properties.getProperty("host"));
+        port_bdd.setText(properties.getProperty("port"));
+        dbname_bdd.setText(properties.getProperty("db"));
+        identifiant_bdd.setText(properties.getProperty("user"));
+        password_bdd.setText(properties.getProperty("password"));
+
 	}
 
 	@FXML private void btnCheckAction(ActionEvent event) {
