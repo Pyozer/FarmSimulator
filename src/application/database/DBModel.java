@@ -22,7 +22,7 @@ public class DBModel {
      * Création de la base de donnée, et des tables
      */
     public void createDataBase() {
-        DBConnection con = new DBConnection();
+       DBConnection con = new DBConnection();
         try {
             pst = con.makeDataBase().prepareStatement("CREATE DATABASE IF NOT EXISTS " + db + " DEFAULT CHARACTER SET utf8 \n"
                     + " DEFAULT COLLATE utf8_general_ci");

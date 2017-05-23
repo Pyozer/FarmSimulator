@@ -13,11 +13,11 @@ public class DBProperties {
 
     private Properties properties = new Properties();
     private final static String FILE_CONFIG = "database.properties";
-    private final static String HOTE = "88.168.230.33";
+    private final static String HOTE = "ocalhost";
     private final static String PORT = "3306";
     private final static String DBNAME = "pts2";
-    private final static String USER = "pts2";
-    private final static String PASSWORD = "pts2";
+    private final static String USER = "root";
+    private final static String PASSWORD = "";
 
     /**
      * Création du fichier "database.properties"
