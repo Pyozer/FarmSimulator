@@ -94,8 +94,6 @@
                     'Bottelage: ' + event.feature.getProperty('bottelage') + '<br />' +
                     'Transport: ' + event.feature.getProperty('transport');
 
-                    jsInterface.setFirstChamp(getPolygonCenter(event));
-
                     infowindow.setContent(contentString);
                     infowindow.setPosition(getPolygonCenter(event));
                     infowindow.open(map);
@@ -117,8 +115,6 @@
                 });
 
                 map.data.addListener('rightclick', function(event) {
-                    jsInterface.setSecondChamp(getPolygonCenter(event));
-
                     if (flightPath != null) {
                         flightPath.setMap(null);
                     }
@@ -173,7 +169,6 @@
                     directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
                         if (status == google.maps.DirectionsStatus.OK) {
                             markerOrigin.setMap(null); // On retire le marqueur initial
-                            console.log('ok');
                             directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                         }
                     });

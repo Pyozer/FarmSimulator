@@ -16,7 +16,6 @@
             var map;
             var infowindow;
             var markerOrigin;
-            var label;
 
             var iconBase = '../images/';
             var icons = {
@@ -59,13 +58,6 @@
 
                 infowindow = new google.maps.InfoWindow();
 
-                // On charge les champs
-                map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
-
-                map.data.setStyle(function(feature) {
-                    return { icon: feature.getProperty('icon') };
-                });
-
                 markerOrigin = new google.maps.Marker({
                     position: latLng,
                     icon: icons['Eta'].icon,
@@ -74,18 +66,28 @@
                     title: 'Les rivière, Janzé'
                 });
 
+
+                // On charge les champs
+                map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
+
+                map.data.setStyle(function(feature) {
+                    return { icon: feature.getProperty('icon') };
+                });
+
                 map.addListener('click', function(event) {
                     infowindow.close();
                     map.data.revertStyle();
                 });
 
                 map.data.addListener('click', function(event) {
-                    var contentString = '<strong>Information</strong><br />' +
+
+                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
                     'Type: ' + event.feature.getProperty('type') + '<br />' +
                     'Etat: ' + event.feature.getProperty('etat');
 
                     infowindow.setContent(contentString);
                     infowindow.setPosition(event.latLng);
+                    infowindow.setOptions({pixelOffset: new google.maps.Size(0,-37)});
                     infowindow.open(map);
                 });
 
