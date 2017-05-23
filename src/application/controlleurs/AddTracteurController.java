@@ -4,8 +4,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
@@ -13,14 +11,10 @@ import java.util.ResourceBundle;
 
 public class AddTracteurController implements Initializable {
 
-    /**
-     * Layout
-     **/
+    /** Layout **/
     @FXML
     private BorderPane bpane;
-    /**
-     * Elements
-     **/
+    /** Elements **/
     @FXML
     private JFXTextField modele;
     @FXML
@@ -30,9 +24,7 @@ public class AddTracteurController implements Initializable {
     @FXML
     private JFXComboBox<String> liste_etat;
 
-    /**
-     * Initializes the controller class.
-     */
+    /** Initializes the controller class. **/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
