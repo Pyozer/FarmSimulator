@@ -43,6 +43,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
 
     private ObservableList<Agriculteur> clientList = FXCollections.observableArrayList();
     private int idCount = 0;
+
     /**
      * Initializes the controller class.
      */
