@@ -54,4 +54,9 @@ public abstract class Vehicule extends Element {
     public void setEtat(String etat) {
         this.etat.set(etat);
     }
+
+    @Override
+    public String toString() {
+        return marque.get() + " " + modele.get();
+    }
 }

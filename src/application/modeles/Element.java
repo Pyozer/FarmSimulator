@@ -29,4 +29,9 @@ public abstract class Element {
     public List<ElementPair> getInformations() {
         return informations;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id.get());
+    }
 }

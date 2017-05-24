@@ -31,6 +31,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Vehicule, String> column_etat;
 
     @FXML private ListView<ElementPair> listInfos;
+    GoogleMaps gMaps;
 
     /**
      * Initializes the controller class.
@@ -42,7 +43,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        GoogleMaps gMaps = new GoogleMaps("maps_vehicule", this);
+        gMaps = new GoogleMaps("maps_vehicule", this);
         gMaps.setParent(googleMaps);
 
         column_type.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -50,9 +51,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
-        VehiculeSQL vehiculeSQL = new VehiculeSQL();
 
-        tableView.getItems().addAll(vehiculeSQL.getVehiculeList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
@@ -67,8 +66,15 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
     @FXML
     public void addVehicule() {
-        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
-        switchView.showScene();
+        //SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        //switchView.showScene();
+        VehiculeSQL vehiculeSQL = new VehiculeSQL();
+        double count = 0;
+        for(Vehicule vehicule : vehiculeSQL.getVehiculeList()) {
+            tableView.getItems().add(vehicule);
+            gMaps.addMarker(new Point(47.953 + count , -1.473798), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+            count = count + 0.01;
+        }
     }
 
     @FXML

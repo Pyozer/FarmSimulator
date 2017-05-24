@@ -16,13 +16,14 @@
             var map;
             var infowindow;
             var markerOrigin;
+            var features = [];
 
             var iconBase = '../images/';
             var icons = {
                 Eta: {
                     icon: iconBase + 'marker_eta.png'
                 },
-                Moisonneuse: {
+                Moissonneuse: {
                     icon: iconBase + 'marker_moissonneuse.png'
                 },
                 Tracteur: {
@@ -43,19 +44,6 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
-                var selectedStyle = {
-                        strokeWeight: 3,
-                        strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                    };
-                var originalStyle = {
-                        strokeWeight: 2,
-                        strokeColor: '#444444',
-                        fillColor: '#444444'
-                    };
-
-                map.data.setStyle(originalStyle);
-
                 infowindow = new google.maps.InfoWindow();
 
                 markerOrigin = new google.maps.Marker({
@@ -66,9 +54,8 @@
                     title: 'Les rivière, Janzé'
                 });
 
-
                 // On charge les champs
-                map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
+                //map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
 
                 map.data.setStyle(function(feature) {
                     return { icon: feature.getProperty('icon') };
@@ -77,18 +64,6 @@
                 map.addListener('click', function(event) {
                     infowindow.close();
                     map.data.revertStyle();
-                });
-
-                map.data.addListener('click', function(event) {
-
-                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
-                    'Type: ' + event.feature.getProperty('type') + '<br />' +
-                    'Etat: ' + event.feature.getProperty('etat');
-
-                    infowindow.setContent(contentString);
-                    infowindow.setPosition(event.latLng);
-                    infowindow.setOptions({pixelOffset: new google.maps.Size(0,-37)});
-                    infowindow.open(map);
                 });
 
                 // Rayon de 20km autour du point de départ
@@ -104,6 +79,35 @@
                     clickable: false
                 });
 
+            }
+
+            function addMarker(latitude, longitude, title, type, etat) {
+
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(latitude, longitude),
+                    icon: icons[type].icon,
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    title: title,
+                    type: type,
+                    etat: etat
+                });
+
+                marker.addListener('click', function(event) {
+                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                    'Type: ' + marker.type + '<br />' +
+                    'Etat: ' + marker.etat;
+
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                });
+
+                features.push(marker);
+            }
+
+            function eqfeed_callback(results) {
+                console.log(results);
+                map.data.addGeoJson(results);
             }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>

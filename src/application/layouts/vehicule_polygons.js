@@ -6,7 +6,6 @@ var data = {
             "properties":{
                 "VEHICULE_ID": 1,
                 "type":"Moissonneuse",
-                "icon": "../images/marker_moissonneuse.png",
                 "etat":"Utilisé",
             },
             "geometry":{
@@ -22,7 +21,6 @@ var data = {
             "properties":{
                 "VEHICULE_ID": 2,
                 "type":"Tracteur",
-                "icon": "../images/marker_tracteur.png",
                 "etat":"Utilise",
             },
             "geometry":{
@@ -38,7 +36,6 @@ var data = {
             "properties":{
                 "VEHICULE_ID":3,
                 "type":"Botteleuse",
-                "icon": "../images/marker_botteleuse.png",
                 "etat":"Utilise",
             },
             "geometry":{

@@ -43,16 +43,38 @@ public class JSONManager {
 		stringer.object();
 		stringer.key("polygon");
 		stringer.array();
-		
-		for (int j = 0; j < t.length; j++) {
+
+		for (Point point : t) {
 			stringer.array();
-			stringer.value(t[j].x());
-			stringer.value(t[j].y());
+			stringer.value(point.x());
+			stringer.value(point.y());
 			stringer.endArray();
 		}
 		stringer.endArray();
 		stringer.endObject();
-	
+
+		return stringer.toString();
+	}
+
+	/**
+	 * Encode une chaîne au format JSON
+	 * @param t le points
+	 * @return la chaîne de caractère au format JSON
+	 */
+	public static String write(Point t) {
+		JSONStringer stringer = new JSONStringer();
+		stringer.object();
+		stringer.key("point");
+		stringer.array();
+
+		stringer.array();
+		stringer.value(t.x());
+		stringer.value(t.y());
+		stringer.endArray();
+
+		stringer.endArray();
+		stringer.endObject();
+
 		return stringer.toString();
 	}
 }
