@@ -86,8 +86,7 @@
 
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(latitude, longitude),
-                    //icon: icons[type].icon,
-                    label: type,
+                    icon: icons[type].icon,
                     map: map,
                     id: id,
                     title: title,
@@ -115,6 +114,7 @@
                         markers[i].setMap(null);
                     } else {
                         markers[i].setMap(map);
+                        map.panTo(markers[i].position);
                     }
                 }
                 map.setZoom(map.getZoom() - 1);
