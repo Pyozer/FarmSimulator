@@ -5,7 +5,7 @@
         <style type="text/css">
             html, body { height: 100%; margin: 0; padding: 0; }
             #map { height: 100%; }
-            .label {font-size:9px; text-align:center; color:#222; text-shadow:0 0 5px #fff; font-family:Helvetica, Arial, sans-serif;}
+            .label {text-align:center; color:#222; text-shadow:0 0 5px #fff; font-family:Helvetica, Arial, sans-serif;}
         </style>
     </head>
     <body>
@@ -44,6 +44,9 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
+                var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
+                trafficLayer.setMap(map);
+
                 infowindow = new google.maps.InfoWindow();
 
                 markerOrigin = new google.maps.Marker({
@@ -51,22 +54,13 @@
                     icon: icons['Eta'].icon,
                     map: map,
                     animation: google.maps.Animation.DROP,
-                    title: 'Les rivière, Janzé'
+                    title: 'Les rivières, Janzé'
                 });
 
                 // On charge les champs
                 //map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
 
-                jsInterface.askToLoadMarkers();
-
-                map.data.setStyle(function(feature) {
-                    return { icon: feature.getProperty('icon') };
-                });
-
-                map.addListener('click', function(event) {
-                    infowindow.close();
-                    map.data.revertStyle();
-                });
+                jsInterface.askToLoadMarkers(); // On demande à Java de setup les véhicules
 
                 // Rayon de 20km autour du point de départ
                 var cityCircle = new google.maps.Circle({
@@ -81,23 +75,29 @@
                     clickable: false
                 });
 
+                map.addListener('click', function(event) {
+                    infowindow.close();
+                });
+
             }
 
+            /** Ajouter un marker à la Map **/
             function addMarker(id, latitude, longitude, title, type, etat) {
 
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(latitude, longitude),
-                    icon: icons[type].icon,
+                    //icon: icons[type].icon,
+                    label: type,
                     map: map,
-                    animation: google.maps.Animation.DROP,
                     id: id,
                     title: title,
                     type: type,
-                    etat: etat
+                    etat: etat,
+                    animation: google.maps.Animation.DROP
                 });
 
                 marker.addListener('click', function(event) {
-                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                    var contentString = '<span class="label"><strong>INFORMATIONS</strong></span><br /><br />' +
                     'Type: ' + marker.type + '<br />' +
                     'Etat: ' + marker.etat;
 
@@ -105,17 +105,29 @@
                     infowindow.open(map, marker);
                 });
 
-                //map.data.add(marker);
                 markers.push(marker);
             }
 
-            function removeMarkers() {
+            /** Supprime tous les markers **/
+            function hideMarkersExceptOne(id) {
                 for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(null);
+                    if(markers[i].id != id) {
+                        markers[i].setMap(null);
+                    } else {
+                        markers[i].setMap(map);
+                    }
                 }
-                markers = [];
+                map.setZoom(map.getZoom() - 1);
+                map.setZoom(map.getZoom() + 1);
+            }
+
+            /** Réaffiche tous les markers **/
+            function showAllMarker() {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                }
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>
 </html>
