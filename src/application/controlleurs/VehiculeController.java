@@ -69,7 +69,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         for(ElementPair information : vehicule.getInformations())
             listInfos.getItems().add(information);
         gMaps.removeMarkers();
-        gMaps.addMarker(vehicule.getId(), new Point(47.953 , -1.473798), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+        gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
 
     }
 
