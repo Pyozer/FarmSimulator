@@ -36,7 +36,7 @@ public class VehiculeSQL {
     }
 
     private void loadTracteur() {
-        String request = "SELECT V.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
             PreparedStatement stmt = dbCon.prepareStatement(request);
@@ -64,7 +64,7 @@ public class VehiculeSQL {
     }
 
     private void loadBotteleuse() {
-        String request = "SELECT V.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
             PreparedStatement stmt = dbCon.prepareStatement(request);
