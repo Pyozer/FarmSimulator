@@ -1,6 +1,7 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import application.classes.Point;
 import javafx.beans.property.SimpleBooleanProperty;
 
 /**
@@ -12,8 +13,8 @@ public class Botteleuse extends Vehicule {
 
     private final static String TYPE = "Botteleuse";
 
-    public Botteleuse(int id, String marque, String modele, String etat, boolean botte_ronde) {
-        super(id, TYPE, marque, modele, etat);
+    public Botteleuse(int id, String marque, String modele, String etat, Point position, boolean botte_ronde) {
+        super(id, TYPE, marque, modele, etat, position);
         this.botte_ronde = new SimpleBooleanProperty(botte_ronde);
 
         getInformations().add(new ElementPair("Botte ronde", (botte_ronde) ? "Rond" : "Carré"));

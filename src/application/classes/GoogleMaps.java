@@ -1,6 +1,9 @@
 package application.classes;
 
 import application.Constant;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
@@ -38,8 +41,13 @@ public class GoogleMaps extends Region {
     }
 
     /** Ajoute un Point sur la Map **/
-    public void addMarker(Point position, String title, String type, String etat) {
-        javascriptOBJ.call("addMarker", position.x(), position.y(), title, type, etat);
+    public void addMarker(int id, Point position, String title, String type, String etat) {
+        javascriptOBJ.call("addMarker", id, position.x(), position.y(), title, type, etat);
+    }
+
+    /** Affiche seulement un Marker sur la carte **/
+    public void removeMarkers() {
+        javascriptOBJ.call("removeMarkers");
     }
 
 }

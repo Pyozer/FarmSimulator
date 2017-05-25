@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -31,7 +32,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Vehicule, String> column_etat;
 
     @FXML private ListView<ElementPair> listInfos;
-    GoogleMaps gMaps;
+    private GoogleMaps gMaps;
+    private List<Vehicule> vehiculeList;
 
     /**
      * Initializes the controller class.
@@ -51,6 +53,10 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
+        VehiculeSQL vehiculeSQL = new VehiculeSQL();
+        vehiculeList = vehiculeSQL.getVehiculeList();
+
+        tableView.getItems().addAll(vehiculeList);
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
@@ -62,19 +68,16 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         listInfos.getItems().clear();
         for(ElementPair information : vehicule.getInformations())
             listInfos.getItems().add(information);
+        gMaps.removeMarkers();
+        gMaps.addMarker(vehicule.getId(), new Point(47.953 , -1.473798), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+
     }
 
     @FXML
     public void addVehicule() {
-        //SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
-        //switchView.showScene();
-        VehiculeSQL vehiculeSQL = new VehiculeSQL();
-        double count = 0;
-        for(Vehicule vehicule : vehiculeSQL.getVehiculeList()) {
-            tableView.getItems().add(vehicule);
-            gMaps.addMarker(new Point(47.953 + count , -1.473798), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
-            count = count + 0.01;
-        }
+        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        switchView.showScene();
+
     }
 
     @FXML
@@ -91,4 +94,13 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         switchView.showScene();
     }
 
+    public void askToLoadMarkers() {
+        for(Vehicule vehicule : vehiculeList) {
+            gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+        }
+    }
+
+    public void log(String msg) {
+        System.out.println(msg);
+    }
 }

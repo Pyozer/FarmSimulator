@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.Point;
 import application.database.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +36,7 @@ public class VehiculeSQL {
     }
 
     private void loadTracteur() {
-        String request = "SELECT V.id_vehi, marque_vehi, modele_vehi, etat_vehi, cap_rem_tract FROM Vehicule AS V INNER JOIN Tracteur AS T ON V.id_vehi=T.id_vehi";
+        String request = "SELECT V.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
             PreparedStatement stmt = dbCon.prepareStatement(request);
@@ -43,11 +44,15 @@ public class VehiculeSQL {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                String[] positionGet = rs.getString("position_vehi").split(",");
+                Point position = new Point(Double.parseDouble(positionGet[0]),Double.parseDouble(positionGet[1]));
+
                 vehiculeList.add(new Tracteur(
                         Integer.parseInt(rs.getString("id_vehi")),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
+                        position,
                         Integer.parseInt(rs.getString("cap_rem_tract"))
                 ));
             }
@@ -59,7 +64,7 @@ public class VehiculeSQL {
     }
 
     private void loadBotteleuse() {
-        String request = "SELECT V.id_vehi, marque_vehi, modele_vehi, etat_vehi, type_bott FROM Vehicule AS V INNER JOIN Botteleuse AS B ON V.id_vehi=B.id_vehi";
+        String request = "SELECT V.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
             PreparedStatement stmt = dbCon.prepareStatement(request);
@@ -68,11 +73,15 @@ public class VehiculeSQL {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                String[] positionGet = rs.getString("position_vehi").split(",");
+                Point position = new Point(Double.parseDouble(positionGet[0]),Double.parseDouble(positionGet[1]));
+
                 vehiculeList.add(new Botteleuse(
                         Integer.parseInt(rs.getString("id_vehi")),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
+                        position,
                         Boolean.parseBoolean(rs.getString("type_bott"))
                 ));
             }
@@ -84,20 +93,24 @@ public class VehiculeSQL {
     }
 
     private void loadMoissonneuse() {
-        String request = "SELECT * FROM Vehicule AS V INNER JOIN Moissonneuse AS M ON V.id_vehi=M.id_vehi";
+        String request = "SELECT * FROM Vehicule INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
 
         try {
             PreparedStatement stmt = dbCon.prepareStatement(request);
 
-            // execute select SQL stetement
+            // Execute select SQL stetement
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                String[] positionGet = rs.getString("position_vehi").split(",");
+                Point position = new Point(Double.parseDouble(positionGet[0]), Double.parseDouble(positionGet[1]));
+
                 vehiculeList.add(new Moissonneuse(
                         Integer.parseInt(rs.getString("id_vehi")),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
+                        position,
                         Integer.parseInt(rs.getString("taille_tremis_moi")),
                         Integer.parseInt(rs.getString("taille_reserve_moi")),
                         Integer.parseInt(rs.getString("largeur_route_moi")),
@@ -114,5 +127,4 @@ public class VehiculeSQL {
             System.err.println(ex.getMessage());
         }
     }
-
 }

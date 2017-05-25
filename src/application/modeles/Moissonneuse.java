@@ -1,6 +1,7 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import application.classes.Point;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -20,8 +21,8 @@ public class Moissonneuse extends Vehicule {
 
     private final static String TYPE = "Moissonneuse";
 
-    public Moissonneuse(int id, String marque, String modele, String etat, int capacite_tremis, int capacite_reservoir, double largeur, double hauteur, double taille_coupe, int conso_fonctionnement, int conso_route, double poids) {
-        super(id, TYPE, marque, modele, etat);
+    public Moissonneuse(int id, String marque, String modele, String etat, Point position, int capacite_tremis, int capacite_reservoir, double largeur, double hauteur, double taille_coupe, int conso_fonctionnement, int conso_route, double poids) {
+        super(id, TYPE, marque, modele, etat, position);
 
         this.capacite_tremis = new SimpleIntegerProperty(capacite_tremis);
         this.capacite_reservoir = new SimpleIntegerProperty(capacite_reservoir);

@@ -1,6 +1,7 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import application.classes.Point;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -12,8 +13,8 @@ public class Tracteur extends Vehicule{
 
     private final static String TYPE = "Tracteur";
 
-    public Tracteur(int id, String marque, String modele, String etat, int capacite_remorque) {
-        super(id, TYPE, marque, modele, etat);
+    public Tracteur(int id, String marque, String modele, String etat, Point position, int capacite_remorque) {
+        super(id, TYPE, marque, modele, etat, position);
         this.capacite_remorque = new SimpleIntegerProperty(capacite_remorque);
 
         getInformations().add(new ElementPair("Capacité remorque", capacite_remorque + " Litres"));

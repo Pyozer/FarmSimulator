@@ -1,6 +1,8 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import application.classes.Point;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public abstract class Vehicule extends Element {
@@ -9,18 +11,21 @@ public abstract class Vehicule extends Element {
     private SimpleStringProperty marque;
     private SimpleStringProperty modele;
     private SimpleStringProperty etat;
+    private SimpleObjectProperty<Point> position;
 
-    public Vehicule(int id, String type, String marque, String modele, String etat) {
+    public Vehicule(int id, String type, String marque, String modele, String etat, Point position) {
         super(id);
         this.type = new SimpleStringProperty(type);
         this.marque = new SimpleStringProperty(marque);
         this.modele = new SimpleStringProperty(modele);
         this.etat = new SimpleStringProperty(etat);
+        this.position = new SimpleObjectProperty<>(position);
 
         getInformations().add(new ElementPair("Type", type));
         getInformations().add(new ElementPair("Marque", marque));
         getInformations().add(new ElementPair("Modèle", modele));
         getInformations().add(new ElementPair("Etat", etat));
+        getInformations().add(new ElementPair("Position", position));
     }
 
     public String getType() {
@@ -53,6 +58,14 @@ public abstract class Vehicule extends Element {
 
     public void setEtat(String etat) {
         this.etat.set(etat);
+    }
+
+    public Point getPosition() {
+        return position.get();
+    }
+
+    public void setPosition(Point position) {
+        this.position.set(position);
     }
 
     @Override

@@ -56,4 +56,8 @@ public class GlobalController implements Initializable, APIGoogleMap {
             gMaps.changeRoute(FChamp.getText(), SChamp.getText());
         }
     }
+
+    public void log(String msg) {
+        System.err.println(msg);
+    }
 }

@@ -77,4 +77,8 @@ public class ChampController implements Initializable, APIGoogleMap {
         switchView.showScene();
     }
 
+    public void log(String msg) {
+        System.err.println(msg);
+    }
+
 }
