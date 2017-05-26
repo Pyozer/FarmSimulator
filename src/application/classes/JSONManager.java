@@ -16,43 +16,41 @@ public class JSONManager {
 	
 	/**
 	 * Décode une chaîne au format JSON
-	 * @param s la chaîne de caractère au format JSON
+	 * @param jsonStr la chaîne de caractère au format JSON
 	 * @return le tableau de points
 	 */
-	public static Point[] read(String s) {
-		JSONTokener tokener = new JSONTokener(s);
-		JSONArray array = new JSONArray(tokener);
-		Point[] t = new Point[array.length()];
-		
-		for (int i = 0; i < array.length(); i++) {
-			JSONObject elt = (JSONObject) array.get(i);
-			t[i] = new Point(elt.getDouble("0"), elt.getDouble("1"));
-		}
-		
-		return t;
+	public static Point[] read(String jsonStr) {
+
+        JSONArray jsonarray = new JSONArray(jsonStr);
+
+        System.out.println(jsonarray.toString());
+
+        Point[] coords = new Point[jsonarray.length()];
+
+        for (int i = 0; i < jsonarray.length(); i++) {
+            JSONObject jsonObj = jsonarray.getJSONObject(i);
+            coords[i] = new Point(jsonObj.getDouble("lat"), jsonObj.getDouble("lng"));
+        }
+
+		return coords;
 	}
 	
 	/**
 	 * Encode une chaîne au format JSON
-	 * @param t le tableau de points
+	 * @param coords le tableau de points
 	 * @return la chaîne de caractère au format JSON
 	 */
-	public static String write(Point[] t) {
-		JSONStringer stringer = new JSONStringer();
-		/*stringer.object();
-		stringer.key("polygon");
-		stringer.array();*/
+	public static String write(Point[] coords) {
+        JSONArray jsonArr = new JSONArray();
 
-		for (Point point : t) {
-			stringer.array();
-			stringer.value(point.x());
-			stringer.value(point.y());
-			stringer.endArray();
+		for (Point point : coords) {
+		    JSONObject jsObj = new JSONObject();
+		    jsObj.put("lat", point.x());
+		    jsObj.put("lng", point.y());
+            jsonArr.put(jsObj);
 		}
-		/*stringer.endArray();
-		stringer.endObject();*/
 
-		return stringer.toString();
+		return jsonArr.toString();
 	}
 
 	/**
@@ -62,17 +60,15 @@ public class JSONManager {
 	 */
 	public static String write(Point t) {
 		JSONStringer stringer = new JSONStringer();
-		stringer.object();
-		stringer.key("point");
-		stringer.array();
 
 		stringer.array();
+
+		stringer.object();
 		stringer.value(t.x());
 		stringer.value(t.y());
-		stringer.endArray();
+		stringer.endObject();
 
 		stringer.endArray();
-		stringer.endObject();
 
 		return stringer.toString();
 	}

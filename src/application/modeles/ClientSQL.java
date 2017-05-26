@@ -60,11 +60,11 @@ public class ClientSQL {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
-
             while (rs.next()) {
                 String[] coord_split = rs.getString("coord_centre_champ").split(",");
                 Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
 
+                System.out.println(rs.getString("coords_champ"));
                 Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
 
                 clientChampList.add(new Champ(
