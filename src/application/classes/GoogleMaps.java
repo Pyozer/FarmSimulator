@@ -2,6 +2,7 @@ package application.classes;
 
 import application.Constant;
 import application.modeles.Agriculteur;
+import application.modeles.Champ;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -14,6 +15,7 @@ import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * Class permettant de créer une carte Google Maps avec l'API V3
@@ -67,9 +69,18 @@ public class GoogleMaps extends Region {
         javascriptOBJ.call("hideAllExceptOne", id);
     }
 
+    public void showOne(int id) {
+        javascriptOBJ.call("showOne", id);
+    }
+
     /** Réaffiche tous les markers sur la carte **/
     public void showAll() {
         javascriptOBJ.call("showAll");
+    }
+
+    /** Réaffiche tous les markers sur la carte **/
+    public void removeAll() {
+        javascriptOBJ.call("removeAll");
     }
 
 }

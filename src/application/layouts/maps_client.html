@@ -45,8 +45,8 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
-                var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
-                trafficLayer.setMap(map);
+                //var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
+                //trafficLayer.setMap(map);
 
                 infowindow = new google.maps.InfoWindow();
 
@@ -57,8 +57,13 @@
                     title: 'Les rivières, Janzé'
                 });
 
-                // On charge les champs
-                //map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
+                map.data.setStyle(function(feature) {
+                  return ({
+                    strokeWeight: 2,
+                    strokeColor: '#444444',
+                    fillColor: '#444444'
+                  });
+                });
 
                 jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
 
@@ -76,8 +81,9 @@
                 });
 
                 map.addListener('click', function(event) {
-                    champsSelected = null;
+                    champsSelected = 0;
                     infowindow.close();
+                    map.data.revertStyle();
                 });
 
             }
@@ -111,19 +117,13 @@
                   proprio: proprio,
                   adresse: adresse,
                   surface: surface,
-                  strokeColor: '#FF0000',
-                  strokeOpacity: 0.8,
-                  strokeWeight: 3,
-                  fillColor: '#FF0000',
-                  fillOpacity: 0.35
                 });
 
                 polygon.setMap(map);
 
-                //polygon.setStyle(originalStyle);
-
                 polygon.addListener('click', function(event) {
-                    //polygon.setStyle(selectedStyle);
+                    champsSelected = polygon.id;
+                    map.data.overrideStyle(event.feature, selectedStyle);
 
                     var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
                     'Culture: ' + polygon.culture + '<br />' +
@@ -136,34 +136,38 @@
                     infowindow.open(map);
                 });
 
-                /*polygon.addListener('mouseover', function(event) {
+                map.data.add(polygon);
+
+                map.data.addListener('mouseover', function(event) {
                     var idChamps = event.feature.getProperty('id');
+                    jsInterface.log("ok");
                     if(idChamps != champsSelected) {
-                        //polygon.setStyle(selectedOverStyle);
+                        map.data.revertStyle();
+                        map.data.overrideStyle(event.feature, selectedOverStyle);
                     }
                 });
 
-                polygon.addListener('mouseout', function(event) {
-                    var idChamps = event.feature.getProperty('id');
+                google.maps.event.addListener(polygon, "mouseover", function(event){
+                    jsInterface.log("ok over");
+
+                    var idChamps = polygon.id;
+                    jsInterface.log("ok id");
                     if(idChamps != champsSelected) {
-                        //polygon.setStyle(originalStyle);
+                        jsInterface.log("ok if");
+                        polygon.setOptions(selectedOverStyle);
+                        jsInterface.log("ok style");
                     }
-                });*/
+                });
+
+                google.maps.event.addListener(polygon,"mouseout",function(){
+                    var idChamps = this.getProperty('id');
+                    if(idChamps != champsSelected) {
+                        this.setOptions(originalStyle);
+                    }
+                });
 
                 champs.push(polygon);
-            }
 
-            /** Supprime tous les champs sauf un **/
-            function hideAllExceptOne(id) {
-                for (var i = 0; i < champs.length; i++) {
-                    if(champs[i].id != id) {
-                        champs[i].setMap(null);
-                    } else {
-                        champs[i].setMap(map);
-                    }
-                }
-                map.setZoom(map.getZoom() - 1);
-                map.setZoom(map.getZoom() + 1);
             }
 
             /** Réaffiche tous les champs **/
@@ -171,6 +175,14 @@
                 for (var i = 0; i < champs.length; i++) {
                     champs[i].setMap(map);
                 }
+            }
+
+            /** Cache tous les champs **/
+            function removeAll() {
+                for (var i = 0; i < champs.length; i++) {
+                    champs[i].setMap(null);
+                }
+                champs = [];
             }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>

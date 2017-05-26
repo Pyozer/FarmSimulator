@@ -30,6 +30,8 @@ public class ClientSQL {
 
     public ObservableList<Agriculteur> getClientsList() {
         String request = "SELECT * FROM Agriculteur";
+
+        clientList.clear();
         try {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement
@@ -56,7 +58,15 @@ public class ClientSQL {
     }
 
     public ObservableList<Champ> getClientsChampsList() {
+        return getClientsChampsList(-1);
+    }
+
+    public ObservableList<Champ> getClientsChampsList(int id_agri) {
         String request = "SELECT * FROM Agriculteur INNER JOIN Champ ON Agriculteur.id_agri=Champ.id_agri";
+        if(id_agri > 0)
+            request += " WHERE Agriculteur.id_agri=" + id_agri;
+
+        clientChampList.clear();
         try {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement
@@ -67,8 +77,6 @@ public class ClientSQL {
                 Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
 
                 Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
-
-                System.out.println(coord_champ);
 
                 clientChampList.add(new Champ(
                         Integer.parseInt(rs.getString("id_champ")),
