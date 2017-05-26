@@ -27,7 +27,7 @@ public class ChampSQL {
     }
 
     public ObservableList<Champ> getChampsList() {
-        String request = "SELECT * FROM Champ AS C INNER JOIN Agriculteur AS A ON C.id_agri=A.id_agri";
+        String request = "SELECT * FROM Champ INNER JOIN Agriculteur ON Champ.id_agri=Agriculteur.id_agri";
         try {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement

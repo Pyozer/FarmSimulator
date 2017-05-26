@@ -1,5 +1,8 @@
 package application.modeles;
 
+import application.classes.JSONManager;
+import application.classes.Point;
+import application.classes.Polygon;
 import application.database.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +19,7 @@ import java.sql.SQLException;
 public class ClientSQL {
 
     private ObservableList<Agriculteur> clientList;
+    private ObservableList<Champ> clientChampList;
     private Connection dbCon;
 
     public ClientSQL() {
@@ -43,11 +47,51 @@ public class ClientSQL {
 
             rs.close();
             preparedStatement.close();
-            dbCon.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
         return clientList;
+    }
+
+    public ObservableList<Champ> getClientsChampsList() {
+        String request = "SELECT * FROM AGRICULTEUR INNER JOIN CHAMP ON AGRICULTEUR.id_agri=CHAMP.id_agri";
+        try {
+            PreparedStatement preparedStatement = dbCon.prepareStatement(request);
+            // Execute SQL statement
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                String[] coord_split = rs.getString("coord_centre_champ").split(",");
+                Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
+
+                Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
+
+                clientChampList.add(new Champ(
+                        Integer.parseInt(rs.getString("id_agri")),
+                        Integer.parseInt(rs.getString("surf_champ")),
+                        rs.getString("adr_champ"),
+                        coord_center,
+                        coord_champ,
+                        rs.getString("type_champ"),
+                        new Agriculteur(
+                                Integer.parseInt(rs.getString("id_agri")),
+                                rs.getString("prenom_agri"),
+                                rs.getString("nom_agri"),
+                                rs.getString("tel_agri"),
+                                rs.getString("adr_agri"),
+                                rs.getString("email_agri"))
+                ));
+            }
+
+            System.out.println(clientChampList.size() + "");
+
+            rs.close();
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return clientChampList;
     }
 }

@@ -21,13 +21,12 @@ public class JSONManager {
 	 */
 	public static Point[] read(String s) {
 		JSONTokener tokener = new JSONTokener(s);
-		JSONObject r = new JSONObject(tokener);
-		JSONArray ar = (JSONArray) r.get("polygon");
-		Point[] t = new Point[ar.length()];
+		JSONArray array = new JSONArray(tokener);
+		Point[] t = new Point[array.length()];
 		
-		for (int i = 0; i < ar.length(); i++) {
-			JSONArray elt = (JSONArray) ar.get(i);
-			t[i] = new Point(elt.getDouble(0), elt.getDouble(1));
+		for (int i = 0; i < array.length(); i++) {
+			JSONObject elt = (JSONObject) array.get(i);
+			t[i] = new Point(elt.getDouble("0"), elt.getDouble("1"));
 		}
 		
 		return t;
@@ -40,9 +39,9 @@ public class JSONManager {
 	 */
 	public static String write(Point[] t) {
 		JSONStringer stringer = new JSONStringer();
-		stringer.object();
+		/*stringer.object();
 		stringer.key("polygon");
-		stringer.array();
+		stringer.array();*/
 
 		for (Point point : t) {
 			stringer.array();
@@ -50,8 +49,8 @@ public class JSONManager {
 			stringer.value(point.y());
 			stringer.endArray();
 		}
-		stringer.endArray();
-		stringer.endObject();
+		/*stringer.endArray();
+		stringer.endObject();*/
 
 		return stringer.toString();
 	}

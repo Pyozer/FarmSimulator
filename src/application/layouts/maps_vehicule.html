@@ -107,8 +107,8 @@
                 markers.push(marker);
             }
 
-            /** Supprime tous les markers **/
-            function hideMarkersExceptOne(id) {
+            /** Supprime tous les markers sauf un **/
+            function hideAllExceptOne(id) {
                 for (var i = 0; i < markers.length; i++) {
                     if(markers[i].id != id) {
                         markers[i].setMap(null);
@@ -122,7 +122,7 @@
             }
 
             /** Réaffiche tous les markers **/
-            function showAllMarker() {
+            function showAll() {
                 for (var i = 0; i < markers.length; i++) {
                     markers[i].setMap(map);
                 }

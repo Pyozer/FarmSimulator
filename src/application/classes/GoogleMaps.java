@@ -1,6 +1,7 @@
 package application.classes;
 
 import application.Constant;
+import application.modeles.Agriculteur;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -48,18 +49,22 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Point sur la Map **/
     public void addMarker(int id, Point position, String title, String type, String etat) {
-        System.out.println(position);
         javascriptOBJ.call("addMarker", id, position.x(), position.y(), title, type, etat);
     }
 
+    /** Ajoute un Champ sur la Map **/
+    public void addChamp(int id, String culture, Agriculteur proprio, String adresse, double surface, Polygon coords) {
+        javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, JSONManager.write(coords.getPoints()));
+    }
+
     /** Cache tous les Marker sauf un sur la carte **/
-    public void hideMarkersExceptOne(int id) {
-        javascriptOBJ.call("hideMarkersExceptOne", id);
+    public void hideAllExceptOne(int id) {
+        javascriptOBJ.call("hideAllExceptOne", id);
     }
 
     /** Réaffiche tous les markers sur la carte **/
-    public void showAllMarker() {
-        javascriptOBJ.call("showAllMarker");
+    public void showAll() {
+        javascriptOBJ.call("showAll");
     }
 
 }

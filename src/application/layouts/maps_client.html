@@ -17,6 +17,7 @@
             var infowindow;
             var markerOrigin;
             var champsSelected;
+            var champs = [];
 
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -42,7 +43,9 @@
                 map.data.setStyle(originalStyle);
 
                 // On charge les champs
-                map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
+                //map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
+
+                jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
 
                 infowindow = new google.maps.InfoWindow();
 
@@ -53,39 +56,8 @@
                     title: 'Les rivière, Janzé'
                 });
 
-                map.data.addListener('mouseover', function(event) {
-                    var idChamps = event.feature.getProperty('CHAMPS_ID');
-                    if(idChamps != champsSelected) {
-                        map.data.overrideStyle(event.feature, {
-                            strokeWeight: 3
-                        });
-                    }
-                });
-
-                map.data.addListener('mouseout', function(event) {
-                    var idChamps = event.feature.getProperty('CHAMPS_ID');
-                    if(idChamps != champsSelected) {
-                        map.data.overrideStyle(event.feature, originalStyle);
-                    }
-                });
-
-                map.data.addListener('click', function(event) {
-                    map.data.overrideStyle(event.feature, selectedStyle);
-                    champsSelected = event.feature.getProperty('CHAMPS_ID');
-
-                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
-                    'Culture: ' + event.feature.getProperty('culture') + '<br />' +
-                    'Propriétaire: ' + event.feature.getProperty('proprio') + '<br />' +
-                    'Bottelage: ' + event.feature.getProperty('bottelage') + '<br />' +
-                    'Transport: ' + event.feature.getProperty('transport');
-
-                    infowindow.setContent(contentString);
-                    infowindow.setPosition(getPolygonCenter(event));
-                    infowindow.open(map);
-                });
-
                 map.addListener('click', function(event) {
-                    champsSelected;
+                    champsSelected = null;
                     infowindow.close();
                     map.data.revertStyle();
                 });
@@ -111,6 +83,73 @@
                     bounds.extend(event.feature.getGeometry().getAt(0).getAt(i));
                 }
                 return bounds.getCenter();
+            }
+
+            /** Ajouter un marker à la Map **/
+            function addChamp(id, culture, proprio, adresse, surface, coords) {
+
+                var polygon = new google.maps.Polygon({
+                  paths: coords,
+                  map: map,
+                  id: id,
+                  culture: culture,
+                  proprio: proprio,
+                  adresse: adresse,
+                  surface: surface
+                });
+
+                polygon.addListener('click', function(event) {
+                    map.data.overrideStyle(polygon, selectedStyle);
+
+                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                    'Culture: ' + polygon.culture + '<br />' +
+                    'Propriétaire: ' + polygon.proprio + '<br />' +
+                    'Adresse: ' + polygon.adresse + '<br />' +
+                    'Surface: ' + polygon.surface + ' m²';
+
+                    infowindow.setContent(contentString);
+                    infowindow.setPosition(getPolygonCenter(event));
+                    infowindow.open(map);
+                });
+
+                polygon.addListener('mouseover', function(event) {
+                    var idChamps = event.feature.getProperty('id');
+                    if(idChamps != champsSelected) {
+                        map.data.overrideStyle(event.feature, {
+                            strokeWeight: 3
+                        });
+                    }
+                });
+
+                polygon.addListener('mouseout', function(event) {
+                    var idChamps = event.feature.getProperty('id');
+                    if(idChamps != champsSelected) {
+                        map.data.overrideStyle(event.feature, originalStyle);
+                    }
+                });
+
+                champs.push(polygon);
+            }
+
+            /** Supprime tous les champs sauf un **/
+            function hideAllExceptOne(id) {
+                for (var i = 0; i < champs.length; i++) {
+                    if(champs[i].id != id) {
+                        champs[i].setMap(null);
+                    } else {
+                        champs[i].setMap(map);
+                        map.panTo(champs[i].position);
+                    }
+                }
+                map.setZoom(map.getZoom() - 1);
+                map.setZoom(map.getZoom() + 1);
+            }
+
+            /** Réaffiche tous les champs **/
+            function showAll() {
+                for (var i = 0; i < champs.length; i++) {
+                    champs[i].setMap(map);
+                }
             }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>

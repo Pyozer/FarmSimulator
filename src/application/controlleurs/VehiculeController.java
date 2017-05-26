@@ -68,7 +68,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         listInfos.getItems().clear();
         for(ElementPair information : vehicule.getInformations())
             listInfos.getItems().add(information);
-        gMaps.hideMarkersExceptOne(vehicule.getId());
+        gMaps.hideAllExceptOne(vehicule.getId());
 
     }
 

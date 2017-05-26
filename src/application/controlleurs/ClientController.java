@@ -3,7 +3,9 @@ package application.controlleurs;
 import application.Constant;
 import application.classes.*;
 import application.modeles.Agriculteur;
+import application.modeles.Champ;
 import application.modeles.ClientSQL;
+import application.modeles.Vehicule;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -15,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -30,6 +33,9 @@ public class ClientController implements Initializable, APIGoogleMap  {
     @FXML private TableColumn<Agriculteur, String> column_prenom;
 
     @FXML private ListView<ElementPair> listInfos;
+
+    private GoogleMaps gMaps;
+    private ClientSQL clientSQL;
 
     /**
      * Initializes the controller class.
@@ -47,7 +53,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
-        ClientSQL clientSQL = new ClientSQL();
+        clientSQL = new ClientSQL();
 
         tableView.getItems().addAll(clientSQL.getClientsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
@@ -78,6 +84,13 @@ public class ClientController implements Initializable, APIGoogleMap  {
     public void editClient() {
         SwitchView switchView = new SwitchView("add_client_app", Constant.ADD_CLIENT_APP_TITLE, bpane);
         switchView.showScene();
+    }
+
+    public void askToLoadChamps() {
+        System.out.println("ASK");
+        for(Champ champ : clientSQL.getClientsChampsList()) {
+            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+        }
     }
 
     public void log(String msg) {
