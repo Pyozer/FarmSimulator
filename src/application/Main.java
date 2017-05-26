@@ -26,6 +26,8 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+
+
         //Settings settings = new Settings();
         //settings.setParams("already_boot", null);
 

@@ -93,24 +93,37 @@
             /** Ajouter un marker à la Map **/
             function addChamp(id, culture, proprio, adresse, surface, coords) {
                 var path = [];
-                coords.forEach(function(point){
-                    path.push(new google.Maps.LatLng(point[0], point[1]));
+                var coordsParse = JSON.parse(coords);
+
+                coordsParse.forEach(function(point){
+                    var split = point.toString().split(",");
+                    var lat = split[0];
+                    var lng = split[1];
+                    var pointObj = new google.maps.LatLng(lat, lng);
+                    path.push(pointObj);
+
                 });
 
                 var polygon = new google.maps.Polygon({
                   paths: path,
-                  map: map,
                   id: id,
                   culture: culture,
                   proprio: proprio,
                   adresse: adresse,
-                  surface: surface
+                  surface: surface,
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 3,
+                  fillColor: '#FF0000',
+                  fillOpacity: 0.35
                 });
 
-                polygon.setStyle(originalStyle);
+                polygon.setMap(map);
+
+                //polygon.setStyle(originalStyle);
 
                 polygon.addListener('click', function(event) {
-                    polygon.setStyle(selectedStyle);
+                    //polygon.setStyle(selectedStyle);
 
                     var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
                     'Culture: ' + polygon.culture + '<br />' +
@@ -119,23 +132,23 @@
                     'Surface: ' + polygon.surface + ' m²';
 
                     infowindow.setContent(contentString);
-                    infowindow.setPosition(getPolygonCenter(event));
+                    infowindow.setPosition(event.latLng);
                     infowindow.open(map);
                 });
 
-                polygon.addListener('mouseover', function(event) {
+                /*polygon.addListener('mouseover', function(event) {
                     var idChamps = event.feature.getProperty('id');
                     if(idChamps != champsSelected) {
-                        polygon.setStyle(selectedOverStyle);
+                        //polygon.setStyle(selectedOverStyle);
                     }
                 });
 
                 polygon.addListener('mouseout', function(event) {
                     var idChamps = event.feature.getProperty('id');
                     if(idChamps != champsSelected) {
-                        polygon.setStyle(originalStyle);
+                        //polygon.setStyle(originalStyle);
                     }
-                });
+                });*/
 
                 champs.push(polygon);
             }

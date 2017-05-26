@@ -2,14 +2,10 @@ package application.classes;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONStringer;
-import org.json.JSONTokener;
 
 /**
  * Une classe pour encoder et décoder au format JSON<br>
  * un tableau de points (coordonnées GPS)<br>
- * {"polygon":[[48.752110999990684,-3.013601999994632],[48.750417999985736,-3.013448999997121]]}
- * @author BE
  * @version 1.0
  */
 public class JSONManager {

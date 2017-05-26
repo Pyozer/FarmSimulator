@@ -87,9 +87,12 @@ public class ClientController implements Initializable, APIGoogleMap  {
     }
 
     public void askToLoadChamps() {
-        System.out.println("ASK");
-        for(Champ champ : clientSQL.getClientsChampsList()) {
-            System.out.println(champ.getId() + "");
+
+        List<Champ> listClientChamp = clientSQL.getClientsChampsList();
+
+        for(Champ champ : listClientChamp) {
+            //System.out.println(champ.getId());
+            //System.out.println(champ.getCoordChamp());
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
     }

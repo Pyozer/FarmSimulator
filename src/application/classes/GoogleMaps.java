@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 import java.net.URL;
@@ -54,8 +55,11 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Champ sur la Map **/
     public void addChamp(int id, String culture, Agriculteur proprio, String adresse, double surface, Polygon coords) {
-        System.out.println(coords);
-        javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords);
+        try {
+            javascriptOBJ.call("addChamp", String.valueOf(id), culture, proprio.toString(), adresse, String.valueOf(surface), coords.toString());
+        } catch (JSException e) {
+            e.printStackTrace();
+        }
     }
 
     /** Cache tous les Marker sauf un sur la carte **/

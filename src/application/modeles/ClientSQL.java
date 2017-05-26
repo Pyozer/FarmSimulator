@@ -62,16 +62,16 @@ public class ClientSQL {
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
 
-            int i = 0;
-
             while (rs.next()) {
                 String[] coord_split = rs.getString("coord_centre_champ").split(",");
                 Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
 
                 Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
 
+                System.out.println(coord_champ);
+
                 clientChampList.add(new Champ(
-                        Integer.parseInt(rs.getString("id_agri")),
+                        Integer.parseInt(rs.getString("id_champ")),
                         Integer.parseInt(rs.getString("surf_champ")),
                         rs.getString("adr_champ"),
                         coord_center,
@@ -85,10 +85,7 @@ public class ClientSQL {
                                 rs.getString("adr_agri"),
                                 rs.getString("email_agri"))
                 ));
-                i++;
             }
-
-            System.out.println("WHILE : " + i);
 
             rs.close();
             preparedStatement.close();
