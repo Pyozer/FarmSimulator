@@ -26,8 +26,8 @@
                 };
             var selectedOverStyle = {
                     strokeWeight: 3,
-                    strokeColor: '#444444',
-                    fillColor: '#444444'
+                    strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
                 };
             var originalStyle = {
                     strokeWeight: 2,
@@ -123,7 +123,7 @@
 
                 polygon.addListener('click', function(event) {
                     champsSelected = polygon.id;
-                    map.data.overrideStyle(event.feature, selectedStyle);
+                    polygon.setOptions(selectedStyle);
 
                     var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
                     'Culture: ' + polygon.culture + '<br />' +
@@ -138,31 +138,17 @@
 
                 map.data.add(polygon);
 
-                map.data.addListener('mouseover', function(event) {
-                    var idChamps = event.feature.getProperty('id');
-                    jsInterface.log("ok");
-                    if(idChamps != champsSelected) {
-                        map.data.revertStyle();
-                        map.data.overrideStyle(event.feature, selectedOverStyle);
-                    }
-                });
-
-                google.maps.event.addListener(polygon, "mouseover", function(event){
-                    jsInterface.log("ok over");
-
+                google.maps.event.addListener(polygon, "mouseover", function(){
                     var idChamps = polygon.id;
-                    jsInterface.log("ok id");
                     if(idChamps != champsSelected) {
-                        jsInterface.log("ok if");
                         polygon.setOptions(selectedOverStyle);
-                        jsInterface.log("ok style");
                     }
                 });
 
-                google.maps.event.addListener(polygon,"mouseout",function(){
-                    var idChamps = this.getProperty('id');
+                google.maps.event.addListener(polygon, "mouseout", function(){
+                    var idChamps = polygon.id;
                     if(idChamps != champsSelected) {
-                        this.setOptions(originalStyle);
+                        polygon.setOptions(originalStyle);
                     }
                 });
 
