@@ -55,21 +55,19 @@ public class JSONManager {
 
 	/**
 	 * Encode une chaîne au format JSON
-	 * @param t le points
+	 * @param point le points
 	 * @return la chaîne de caractère au format JSON
 	 */
-	public static String write(Point t) {
-		JSONStringer stringer = new JSONStringer();
+	public static String write(Point point) {
 
-		stringer.array();
+        JSONArray jsonArr = new JSONArray();
 
-		stringer.object();
-		stringer.value(t.x());
-		stringer.value(t.y());
-		stringer.endObject();
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("lat", point.x());
+        jsObj.put("lng", point.y());
 
-		stringer.endArray();
+        jsonArr.put(jsObj);
 
-		return stringer.toString();
+        return jsonArr.toString();
 	}
 }
