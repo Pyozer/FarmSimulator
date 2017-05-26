@@ -7,20 +7,20 @@ package application.classes;
  */
 public class Polygon {
 
-	private Point[] t; // ensemble de points constituant le polygone
+	private Point[] points; // ensemble de points constituant le polygone
 	
 	/**
-	 * @param t un tableau de points
+	 * @param points un tableau de points
 	 */
-	public Polygon(Point[] t) {
-		this.t = t;
+	public Polygon(Point[] points) {
+		this.points = points;
 	}
 	
 	/**
 	 * @return un tableau des points du polygone
 	 */
 	public Point[] getPoints() {
-		return this.t;
+		return this.points;
 	}
 	
 	/**
@@ -34,15 +34,15 @@ public class Polygon {
 	 * @return vrai (le point appartient) ou faux (le point n'appartient pas)
 	 */
 	public boolean contains(Point p) {
-		Segment[] s = new Segment[this.t.length]; // segments du polygone
+		Segment[] s = new Segment[points.length]; // segments du polygone
 		int       intersections;             // compteur d'intersections
 		int       i, j;
 		boolean   inside;
 		
 		// pour chaque point du polygone
-		for (i = 0; i < this.t.length; i++)
+		for (i = 0; i < points.length; i++)
 			// on génère le segment avec le point adjacent
-			s[i] = new Segment(this.t[i], this.t[(i + 1) % this.t.length]);
+			s[i] = new Segment(points[i], points[(i + 1) % points.length]);
 		
 		inside = true; // on suppose que le polygone contient le point p
 		
@@ -90,11 +90,15 @@ public class Polygon {
 	 * @return l'ensemble des points de la droite
 	 */
 	public String toString() {
-		String resul = new String();
-		
-		for (int i = 0; i < t.length; i++)
-			resul += t[i].toString();
-		
-		return resul;
+		StringBuilder result = new StringBuilder("[");
+
+		result.append(points[0]);
+
+		for (int i = 1; i < points.length; i++) {
+            result.append(",");
+            result.append(points[i].toString());
+        }
+		result.append("]");
+		return result.toString();
 	}
 }

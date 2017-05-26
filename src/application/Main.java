@@ -1,10 +1,17 @@
 package application;
 
+import application.classes.JSONManager;
+import application.classes.Point;
+import application.classes.Polygon;
 import application.classes.SwitchView;
 import application.database.DBConnection;
+import application.modeles.Agriculteur;
+import application.modeles.Champ;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main extends Application {

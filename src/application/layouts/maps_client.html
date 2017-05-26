@@ -19,6 +19,22 @@
             var champsSelected;
             var champs = [];
 
+            var selectedStyle = {
+                        strokeWeight: 3,
+                        strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                };
+            var selectedOverStyle = {
+                    strokeWeight: 3,
+                    strokeColor: '#444444',
+                    fillColor: '#444444'
+                };
+            var originalStyle = {
+                    strokeWeight: 2,
+                    strokeColor: '#444444',
+                    fillColor: '#444444'
+                };
+
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
 
@@ -29,23 +45,8 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
-                var selectedStyle = {
-                        strokeWeight: 3,
-                        strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                    };
-                var originalStyle = {
-                        strokeWeight: 2,
-                        strokeColor: '#444444',
-                        fillColor: '#444444'
-                    };
-
-                map.data.setStyle(originalStyle);
-
-                // On charge les champs
-                //map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
-
-                jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
+                var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
+                trafficLayer.setMap(map);
 
                 infowindow = new google.maps.InfoWindow();
 
@@ -53,14 +54,13 @@
                     position: latLng,
                     map: map,
                     animation: google.maps.Animation.DROP,
-                    title: 'Les rivière, Janzé'
+                    title: 'Les rivières, Janzé'
                 });
 
-                map.addListener('click', function(event) {
-                    champsSelected = null;
-                    infowindow.close();
-                    map.data.revertStyle();
-                });
+                // On charge les champs
+                //map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
+
+                jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
 
                 // Rayon de 20km autour du point de départ
                 var cityCircle = new google.maps.Circle({
@@ -75,6 +75,11 @@
                     clickable: false
                 });
 
+                map.addListener('click', function(event) {
+                    champsSelected = null;
+                    infowindow.close();
+                });
+
             }
 
             function getPolygonCenter(event) {
@@ -87,9 +92,13 @@
 
             /** Ajouter un marker à la Map **/
             function addChamp(id, culture, proprio, adresse, surface, coords) {
+                var path = [];
+                coords.forEach(function(point){
+                    path.push(new google.Maps.LatLng(point[0], point[1]));
+                });
 
                 var polygon = new google.maps.Polygon({
-                  paths: coords,
+                  paths: path,
                   map: map,
                   id: id,
                   culture: culture,
@@ -98,8 +107,10 @@
                   surface: surface
                 });
 
+                polygon.setStyle(originalStyle);
+
                 polygon.addListener('click', function(event) {
-                    map.data.overrideStyle(polygon, selectedStyle);
+                    polygon.setStyle(selectedStyle);
 
                     var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
                     'Culture: ' + polygon.culture + '<br />' +
@@ -115,16 +126,14 @@
                 polygon.addListener('mouseover', function(event) {
                     var idChamps = event.feature.getProperty('id');
                     if(idChamps != champsSelected) {
-                        map.data.overrideStyle(event.feature, {
-                            strokeWeight: 3
-                        });
+                        polygon.setStyle(selectedOverStyle);
                     }
                 });
 
                 polygon.addListener('mouseout', function(event) {
                     var idChamps = event.feature.getProperty('id');
                     if(idChamps != champsSelected) {
-                        map.data.overrideStyle(event.feature, originalStyle);
+                        polygon.setStyle(originalStyle);
                     }
                 });
 
@@ -138,7 +147,6 @@
                         champs[i].setMap(null);
                     } else {
                         champs[i].setMap(map);
-                        map.panTo(champs[i].position);
                     }
                 }
                 map.setZoom(map.getZoom() - 1);

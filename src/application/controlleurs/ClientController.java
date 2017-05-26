@@ -47,7 +47,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        GoogleMaps gMaps = new GoogleMaps("maps_client", this);
+        gMaps = new GoogleMaps("maps_client", this);
         gMaps.setParent(googleMaps);
 
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -89,6 +89,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
     public void askToLoadChamps() {
         System.out.println("ASK");
         for(Champ champ : clientSQL.getClientsChampsList()) {
+            System.out.println(champ.getId() + "");
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
     }

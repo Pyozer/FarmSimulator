@@ -36,6 +36,6 @@ public class Point {
 	 * @return les coordonnées sous la forme (latitude, longitude)
 	 */
 	public String toString() {
-		return "(" + x + ", " + y + ")";
+		return "[" + x + "," + y + "]";
 	}
 }

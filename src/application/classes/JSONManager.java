@@ -22,14 +22,11 @@ public class JSONManager {
 	public static Point[] read(String jsonStr) {
 
         JSONArray jsonarray = new JSONArray(jsonStr);
-
-        System.out.println(jsonarray.toString());
-
         Point[] coords = new Point[jsonarray.length()];
 
         for (int i = 0; i < jsonarray.length(); i++) {
-            JSONObject jsonObj = jsonarray.getJSONObject(i);
-            coords[i] = new Point(jsonObj.getDouble("lat"), jsonObj.getDouble("lng"));
+            JSONArray jsonPoint = jsonarray.getJSONArray(i);
+            coords[i] = new Point(jsonPoint.getDouble(0), jsonPoint.getDouble(1));
         }
 
 		return coords;

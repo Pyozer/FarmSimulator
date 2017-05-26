@@ -24,6 +24,7 @@ public class ClientSQL {
 
     public ClientSQL() {
         clientList = FXCollections.observableArrayList();
+        clientChampList = FXCollections.observableArrayList();
         dbCon = new DBConnection().getConnection();
     }
 
@@ -55,16 +56,18 @@ public class ClientSQL {
     }
 
     public ObservableList<Champ> getClientsChampsList() {
-        String request = "SELECT * FROM AGRICULTEUR INNER JOIN CHAMP ON AGRICULTEUR.id_agri=CHAMP.id_agri";
+        String request = "SELECT * FROM Agriculteur INNER JOIN Champ ON Agriculteur.id_agri=Champ.id_agri";
         try {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
+
+            int i = 0;
+
             while (rs.next()) {
                 String[] coord_split = rs.getString("coord_centre_champ").split(",");
                 Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
 
-                System.out.println(rs.getString("coords_champ"));
                 Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
 
                 clientChampList.add(new Champ(
@@ -82,9 +85,10 @@ public class ClientSQL {
                                 rs.getString("adr_agri"),
                                 rs.getString("email_agri"))
                 ));
+                i++;
             }
 
-            System.out.println(clientChampList.size() + "");
+            System.out.println("WHILE : " + i);
 
             rs.close();
             preparedStatement.close();

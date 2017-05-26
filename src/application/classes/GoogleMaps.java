@@ -54,7 +54,8 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Champ sur la Map **/
     public void addChamp(int id, String culture, Agriculteur proprio, String adresse, double surface, Polygon coords) {
-        javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, JSONManager.write(coords.getPoints()));
+        System.out.println(coords);
+        javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords);
     }
 
     /** Cache tous les Marker sauf un sur la carte **/
