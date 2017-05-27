@@ -20,7 +20,7 @@
             var champs = [];
 
             var selectedStyle = {
-                        strokeWeight: 3,
+                        strokeWeight: 2,
                         strokeColor: '#FF0000',
                         fillColor: '#FF0000'
                 };
@@ -31,7 +31,7 @@
                 };
             var originalStyle = {
                     strokeWeight: 2,
-                    strokeColor: '#444444',
+                    strokeColor: '#252525',
                     fillColor: '#444444'
                 };
 
@@ -57,14 +57,6 @@
                     title: 'Les rivières, Janzé'
                 });
 
-                map.data.setStyle(function(feature) {
-                  return ({
-                    strokeWeight: 2,
-                    strokeColor: '#444444',
-                    fillColor: '#444444'
-                  });
-                });
-
                 jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
 
                 // Rayon de 20km autour du point de départ
@@ -80,18 +72,21 @@
                     clickable: false
                 });
 
-                map.addListener('click', function(event) {
-                    champsSelected = 0;
+                map.addListener("click", function(){
+                    for (var i = 0; i < champs.length; i++)
+                        champs[i].setOptions(originalStyle);
+
+                    champsSelected = null;
                     infowindow.close();
-                    map.data.revertStyle();
                 });
 
             }
 
-            function getPolygonCenter(event) {
+            function getPolygonCenter(polygon) {
                 var bounds = new google.maps.LatLngBounds();
-                for (var i = 0; i < event.feature.getGeometry().getAt(0).getLength(); i++) {
-                    bounds.extend(event.feature.getGeometry().getAt(0).getAt(i));
+                var vertices = polygon.getPath();
+                for (var i = 0; i < vertices.getLength(); i++) {
+                    bounds.extend(vertices.getAt(i));
                 }
                 return bounds.getCenter();
             }
@@ -116,12 +111,17 @@
                   culture: culture,
                   proprio: proprio,
                   adresse: adresse,
-                  surface: surface,
+                  surface: surface
                 });
 
+                polygon.setOptions(originalStyle);
                 polygon.setMap(map);
 
                 polygon.addListener('click', function(event) {
+                    if(champsSelected != null)
+                        for (var i = 0; i < champs.length; i++)
+                            champs[i].setOptions(originalStyle);
+
                     champsSelected = polygon.id;
                     polygon.setOptions(selectedStyle);
 
@@ -132,24 +132,22 @@
                     'Surface: ' + polygon.surface + ' m²';
 
                     infowindow.setContent(contentString);
-                    infowindow.setPosition(event.latLng);
+                    infowindow.setPosition(getPolygonCenter(polygon));
                     infowindow.open(map);
                 });
 
-                map.data.add(polygon);
-
-                google.maps.event.addListener(polygon, "mouseover", function(){
+                polygon.addListener("mouseover", function(){
                     var idChamps = polygon.id;
-                    if(idChamps != champsSelected) {
+                    if(idChamps != champsSelected)
                         polygon.setOptions(selectedOverStyle);
-                    }
                 });
 
-                google.maps.event.addListener(polygon, "mouseout", function(){
+                polygon.addListener("mouseout", function(){
                     var idChamps = polygon.id;
-                    if(idChamps != champsSelected) {
+                    if(idChamps != champsSelected)
                         polygon.setOptions(originalStyle);
-                    }
+                    else
+                        polygon.setOptions(selectedStyle);
                 });
 
                 champs.push(polygon);
@@ -158,16 +156,14 @@
 
             /** Réaffiche tous les champs **/
             function showAll() {
-                for (var i = 0; i < champs.length; i++) {
+                for (var i = 0; i < champs.length; i++)
                     champs[i].setMap(map);
-                }
             }
 
             /** Cache tous les champs **/
             function removeAll() {
-                for (var i = 0; i < champs.length; i++) {
+                for (var i = 0; i < champs.length; i++)
                     champs[i].setMap(null);
-                }
                 champs = [];
             }
         </script>
