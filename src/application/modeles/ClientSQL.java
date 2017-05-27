@@ -4,6 +4,7 @@ import application.classes.JSONManager;
 import application.classes.Point;
 import application.classes.Polygon;
 import application.database.DBConnection;
+import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -102,5 +103,27 @@ public class ClientSQL {
             System.err.println(ex.getMessage());
         }
         return clientChampList;
+    }
+
+    public void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail) {
+        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri) VALUES(:nom, :prenom, :tel, :adresse, :email)";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+
+            preparedStatement.setString("nom", inputNom);
+            preparedStatement.setString("prenom", inputPrenom);
+            preparedStatement.setString("tel", inputTel);
+            preparedStatement.setString("adresse", inputAdresse);
+            preparedStatement.setString("email", inputEmail);
+
+            // Execute SQL statement
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 }
