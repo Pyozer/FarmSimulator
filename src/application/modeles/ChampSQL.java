@@ -60,7 +60,6 @@ public class ChampSQL {
 
             rs.close();
             preparedStatement.close();
-            dbCon.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());

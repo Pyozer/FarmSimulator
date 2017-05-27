@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -29,6 +30,9 @@ public class ChampController implements Initializable, APIGoogleMap {
 
     @FXML private ListView<ElementPair> listInfos;
 
+    private List<Champ> champList;
+    private GoogleMaps gMaps;
+
     /**
      * Initializes the controller class.
      */
@@ -39,14 +43,16 @@ public class ChampController implements Initializable, APIGoogleMap {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        GoogleMaps gMaps = new GoogleMaps("maps_champ", this);
+        gMaps = new GoogleMaps("maps_champ", this);
         gMaps.setParent(googleMaps);
 
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
         ChampSQL champSQL = new ChampSQL();
-        tableView.getItems().addAll(champSQL.getChampsList());
+        champList = champSQL.getChampsList();
+
+        tableView.getItems().addAll(champList);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
@@ -57,6 +63,9 @@ public class ChampController implements Initializable, APIGoogleMap {
         listInfos.getItems().clear();
         for(ElementPair information : champ.getInformations())
             listInfos.getItems().add(information);
+
+        gMaps.removeAll();
+        gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
     }
 
     @FXML
@@ -75,6 +84,12 @@ public class ChampController implements Initializable, APIGoogleMap {
     public void editChamp() {
         SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
+    }
+
+    public void askToLoadChamps() {
+        for(Champ champ : champList) {
+            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+        }
     }
 
     public void log(String msg) {
