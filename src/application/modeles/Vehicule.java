@@ -70,6 +70,6 @@ public abstract class Vehicule extends Element {
 
     @Override
     public String toString() {
-        return marque.get() + " " + modele.get();
+        return type.get() + " " + marque.get() + " " + modele.get();
     }
 }

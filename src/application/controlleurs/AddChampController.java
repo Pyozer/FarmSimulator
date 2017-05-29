@@ -1,11 +1,16 @@
 package application.controlleurs;
 
+import application.modeles.Agriculteur;
+import application.modeles.ChampSQL;
+import application.modeles.ClientSQL;
+import application.modeles.Culture;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -26,11 +31,17 @@ public class AddChampController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        liste_type.getItems().addAll("Blé", "Colza", "Orge");
-        liste_type.setValue("Blé");
+        ChampSQL champSQL = new ChampSQL();
+        List<Culture> listCulture = champSQL.getTypeChampList();
+        for(Culture culture : listCulture)
+            liste_type.getItems().add(culture.toString());
+        liste_type.setValue(listCulture.get(0).toString());
 
-        liste_proprio.getItems().addAll("Robert Downey Jr", "Chris Evans", "Soprano", "Jean-Claude Van Damme");
-        liste_proprio.setValue("Chris Evans");
+        ClientSQL clientSQL = new ClientSQL();
+        List<Agriculteur> listClient = clientSQL.getClientsList();
+        for(Agriculteur agri : listClient)
+            liste_proprio.getItems().add(agri.toString());
+        liste_proprio.setValue(listClient.get(0).toString());
 
     }
 

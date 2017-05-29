@@ -11,10 +11,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Pyozer on 23/05/2017.
- *
  */
 public class ChampSQL {
 
@@ -59,11 +60,36 @@ public class ChampSQL {
 
             rs.close();
             preparedStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
         return champList;
+    }
+
+    public List<Culture> getTypeChampList() {
+        String request = "SELECT * FROM culture";
+
+        List<Culture> listCulture = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = dbCon.prepareStatement(request);
+            // Execute SQL statement
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+
+                listCulture.add(new Culture(
+                        Integer.parseInt(rs.getString("id_cul")),
+                        rs.getString("type_cul"))
+                );
+            }
+
+            rs.close();
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return listCulture;
     }
 
 }

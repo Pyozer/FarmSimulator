@@ -5,16 +5,14 @@ import application.classes.*;
 import application.modeles.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -33,7 +31,9 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
     @FXML private ListView<ElementPair> listInfos;
     private GoogleMaps gMaps;
+    private VehiculeSQL vehiculeSQL;
     private List<Vehicule> vehiculeList;
+    private Vehicule selectedVehicule = null;
 
     /**
      * Initializes the controller class.
@@ -53,7 +53,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
-        VehiculeSQL vehiculeSQL = new VehiculeSQL();
+        vehiculeSQL = new VehiculeSQL();
         vehiculeList = vehiculeSQL.getVehiculeList();
 
         tableView.getItems().addAll(vehiculeList);
@@ -65,6 +65,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     }
 
     public void showInformationsVehicule(Vehicule vehicule) {
+        selectedVehicule = vehicule;
+
         listInfos.getItems().clear();
         for(ElementPair information : vehicule.getInformations())
             listInfos.getItems().add(information);
@@ -81,8 +83,18 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
     @FXML
     public void deleteVehicule() {
-        AlertDialog alert = new AlertDialog("Suppression", null, "Voulez vous vraiment supprimer ce véhicule ?", Alert.AlertType.WARNING);
-        alert.show();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppresion véhicule");
+        alert.setHeaderText("Confirmation de suppression");
+        alert.setContentText("Voulez-vous vraiment supprimer ce véhicule ?\n" + selectedVehicule.toString());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            vehiculeSQL.deleteVehicule(selectedVehicule);
+            tableView.getItems().remove(selectedVehicule);
+        } else {
+            alert.close();
+        }
     }
 
     @FXML

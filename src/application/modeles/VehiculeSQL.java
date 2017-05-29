@@ -3,6 +3,7 @@ package application.modeles;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
+import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,9 +30,6 @@ public class VehiculeSQL {
         loadBotteleuse();
         loadMoissonneuse();
         loadTracteur();
-        try {
-            dbCon.close();
-        } catch (SQLException e) { e.printStackTrace(); }
 
         return vehiculeList;
     }
@@ -121,6 +119,21 @@ public class VehiculeSQL {
                 ));
             }
             rs.close();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public void deleteVehicule(Vehicule vehicule) {
+        String request = "DELETE FROM vehicule WHERE id_vehi=:id";
+
+        try {
+            NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+            stmt.setInt("id", vehicule.getId());
+
+            // Execute select SQL statement
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
