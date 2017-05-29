@@ -5,4 +5,6 @@ package application.classes;
  */
 public interface APIGoogleMap {
 
+    public void log(String msg);
+
 }

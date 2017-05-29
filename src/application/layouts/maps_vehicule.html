@@ -11,12 +11,12 @@
     <body>
         <div id="map"></div>
 
-        <!--<script src="vehicule_polygons.js"></script>-->
         <script type="text/javascript">
             var map;
             var infowindow;
             var markerOrigin;
             var markers = [];
+            var markerCluster;
 
             var iconBase = '../images/';
             var icons = {
@@ -57,10 +57,8 @@
                     title: 'Les rivières, Janzé'
                 });
 
-                // On charge les champs
-                //map.data.addGeoJson(data, { idPropertyName: 'VEHICULE_ID' });
-
-                jsInterface.askToLoadMarkers(); // On demande à Java de setup les véhicules
+                markerCluster = new MarkerClusterer(map, [],
+                    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});                
 
                 // Rayon de 20km autour du point de départ
                 var cityCircle = new google.maps.Circle({
@@ -79,7 +77,9 @@
                     infowindow.close();
                 });
 
-            }
+                jsInterface.askToLoadMarkers(); // On demande à Java de setup les véhicules
+                
+			}
 
             /** Ajouter un marker à la Map **/
             function addMarker(id, latitude, longitude, title, type, etat) {
@@ -105,20 +105,23 @@
                 });
 
                 markers.push(marker);
+                markerCluster.addMarker(marker);
             }
 
             /** Supprime tous les markers sauf un **/
             function hideAllExceptOne(id) {
+                markerCluster.clearMarkers();
                 for (var i = 0; i < markers.length; i++) {
                     if(markers[i].id != id) {
                         markers[i].setMap(null);
                     } else {
+                        markerCluster.addMarker(markers[i]);
                         markers[i].setMap(map);
                         map.panTo(markers[i].position);
                     }
                 }
-                map.setZoom(map.getZoom() - 1);
-                map.setZoom(map.getZoom() + 1);
+
+                refresh();
             }
 
             /** Réaffiche tous les markers **/
@@ -127,7 +130,17 @@
                     markers[i].setMap(map);
                 }
             }
+
+            /** Refresh **/
+            function refresh() {
+                map.setZoom(map.getZoom() - 1);
+                map.setZoom(map.getZoom() + 1);
+            }
         </script>
+
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
+
     </body>
 </html>

@@ -36,10 +36,9 @@ public class ChampSQL {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                String[] coord_split = rs.getString("coord_centre_champ").split(",");
-                Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
+                Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
 
-                Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
+                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
                 champList.add(new Champ(
                         Integer.parseInt(rs.getString("id_agri")),

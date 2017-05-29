@@ -152,6 +152,7 @@
 
             }
 
+            /** Calcule un itinéraire entre 2 points **/
             function calculate(origin, destination) {
                 if (origin && destination) {
                     var request = {
@@ -171,14 +172,15 @@
                     var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
                     directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
                         if (status == google.maps.DirectionsStatus.OK) {
-                            markerOrigin.setMap(null); // On retire le marqueur initial
-                            console.log('ok');
+                            //markerOrigin.setMap(null);
                             directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+                            refresh();
                         }
                     });
                 }
             };
 
+            /** Récupère le centre d'un polygon **/
             function getPolygonCenter(event) {
                 var bounds = new google.maps.LatLngBounds();
                 for (var i = 0; i < event.feature.getGeometry().getAt(0).getLength(); i++) {
@@ -187,6 +189,7 @@
                 return bounds.getCenter();
             }
 
+            /** Récupère le centre entre 2 point **/
             function getLineCenter(linePoints) {
                 var bounds = new google.maps.LatLngBounds();
                 for (var i = 0; i < linePoints.length; i++) {
@@ -195,6 +198,7 @@
                 return bounds.getCenter();
             }
 
+            /** Met une ligne entre 2 points **/
             function calcFlightPath(coordinates) {
                 flightPath = new google.maps.Polyline({
                     path: coordinates,
@@ -207,12 +211,19 @@
                 flightPath.setMap(map);
             }
 
+            /** Affiche l'infowindow sur la ligne **/
             function showDist(coordinates) {
             	var dist = Math.round(google.maps.geometry.spherical.computeDistanceBetween(flightPlanCoordinates[0], flightPlanCoordinates[1])); // En mètres
             	var distStr = dist + "";
             	infowindow.setContent("<strong>" + (Math.round(dist / 1000)) + " km " + distStr.substring(distStr.length - 3) + " mètres</strong>");
                 infowindow.setPosition(getLineCenter(flightPlanCoordinates));
                 infowindow.open(map);
+            }
+
+            /** Refresh **/
+            function refresh() {
+                map.setZoom(map.getZoom() - 1);
+                map.setZoom(map.getZoom() + 1);
             }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>

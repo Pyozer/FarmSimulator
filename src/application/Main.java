@@ -7,6 +7,7 @@ import application.classes.SwitchView;
 import application.database.DBConnection;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
+import application.modeles.Tracteur;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

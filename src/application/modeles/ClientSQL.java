@@ -74,10 +74,9 @@ public class ClientSQL {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                String[] coord_split = rs.getString("coord_centre_champ").split(",");
-                Point coord_center = new Point(Double.parseDouble(coord_split[0]), Double.parseDouble(coord_split[1]));
+                Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
 
-                Polygon coord_champ = new Polygon(JSONManager.read(rs.getString("coords_champ")));
+                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
                 clientChampList.add(new Champ(
                         Integer.parseInt(rs.getString("id_champ")),
@@ -106,7 +105,7 @@ public class ClientSQL {
     }
 
     public void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail) {
-        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri) VALUES(:nom, :prenom, :tel, :adresse, :email)";
+        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri) VALUES(:nom, :prenom, :adresse, :tel, :email)";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);

@@ -6,16 +6,15 @@ import org.json.JSONObject;
 /**
  * Une classe pour encoder et décoder au format JSON<br>
  * un tableau de points (coordonnées GPS)<br>
- * @version 1.0
  */
 public class JSONManager {
 	
 	/**
-	 * Décode une chaîne au format JSON
+	 * Décode une chaîne (d'un POLYGON) au format JSON
 	 * @param jsonStr la chaîne de caractère au format JSON
 	 * @return le tableau de points
 	 */
-	public static Point[] read(String jsonStr) {
+	public static Point[] readPolygon(String jsonStr) {
 
         JSONArray jsonarray = new JSONArray(jsonStr);
         Point[] coords = new Point[jsonarray.length()];
@@ -27,39 +26,56 @@ public class JSONManager {
 
 		return coords;
 	}
+
+	/**
+	 * Décode une chaîne (d'un POINT) au format JSON
+	 * @param jsonStr la chaîne de caractère au format JSON
+	 * @return le tableau de points
+	 */
+	public static Point readPoint(String jsonStr) {
+
+        JSONArray jsonarray = new JSONArray(jsonStr);
+        Point point = new Point(jsonarray.getDouble(0), jsonarray.getDouble(1));
+
+		return point;
+	}
 	
 	/**
-	 * Encode une chaîne au format JSON
+	 * Encode un POLYGON au format JSON
 	 * @param coords le tableau de points
 	 * @return la chaîne de caractère au format JSON
 	 */
-	public static String write(Point[] coords) {
+	public static String writePolygon(Point[] coords) {
         JSONArray jsonArr = new JSONArray();
 
-		for (Point point : coords) {
+		/*for (Point point : coords) {
 		    JSONObject jsObj = new JSONObject();
 		    jsObj.put("lat", point.x());
 		    jsObj.put("lng", point.y());
             jsonArr.put(jsObj);
+		}*/
+
+		for (Point point : coords) {
+		    JSONArray pointArray = new JSONArray();
+		    pointArray.put(point.x());
+		    pointArray.put(point.y());
+            jsonArr.put(pointArray);
 		}
 
 		return jsonArr.toString();
 	}
 
 	/**
-	 * Encode une chaîne au format JSON
+	 * Encode un POINT au format JSON
 	 * @param point le points
 	 * @return la chaîne de caractère au format JSON
 	 */
-	public static String write(Point point) {
+	public static String writePoint(Point point) {
 
         JSONArray jsonArr = new JSONArray();
 
-        JSONObject jsObj = new JSONObject();
-        jsObj.put("lat", point.x());
-        jsObj.put("lng", point.y());
-
-        jsonArr.put(jsObj);
+        jsonArr.put(point.x());
+        jsonArr.put(point.y());
 
         return jsonArr.toString();
 	}

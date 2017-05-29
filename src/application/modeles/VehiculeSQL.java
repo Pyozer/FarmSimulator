@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
 import javafx.collections.FXCollections;
@@ -45,8 +46,7 @@ public class VehiculeSQL {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String[] positionGet = rs.getString("position_vehi").split(",");
-                Point position = new Point(Double.parseDouble(positionGet[0]),Double.parseDouble(positionGet[1]));
+                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
 
                 vehiculeList.add(new Tracteur(
                         Integer.parseInt(rs.getString("id_vehi")),
@@ -74,8 +74,7 @@ public class VehiculeSQL {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String[] positionGet = rs.getString("position_vehi").split(",");
-                Point position = new Point(Double.parseDouble(positionGet[0]),Double.parseDouble(positionGet[1]));
+                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
 
                 vehiculeList.add(new Botteleuse(
                         Integer.parseInt(rs.getString("id_vehi")),
@@ -103,8 +102,7 @@ public class VehiculeSQL {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String[] positionGet = rs.getString("position_vehi").split(",");
-                Point position = new Point(Double.parseDouble(positionGet[0]), Double.parseDouble(positionGet[1]));
+                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
 
                 vehiculeList.add(new Moissonneuse(
                         Integer.parseInt(rs.getString("id_vehi")),
