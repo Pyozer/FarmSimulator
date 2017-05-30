@@ -76,7 +76,8 @@ public class ChampController implements Initializable, APIGoogleMap {
 
         if (champ != null) {
             selectedChamp = champ;
-
+            delete_btn.setVisible(true);
+            edit_btn.setVisible(true);
             listInfos.getItems().clear();
             for (ElementPair information : champ.getInformations())
                 listInfos.getItems().add(information);
