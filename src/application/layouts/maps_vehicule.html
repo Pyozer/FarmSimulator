@@ -115,7 +115,6 @@
                     if(markers[i].id != id) {
                         markers[i].setMap(null);
                     } else {
-                        markerCluster.addMarker(markers[i]);
                         markers[i].setMap(map);
                         map.panTo(markers[i].position);
                     }
@@ -126,10 +125,21 @@
 
             /** Réaffiche tous les markers **/
             function showAll() {
+                markerCluster.clearMarkers();
                 for (var i = 0; i < markers.length; i++) {
                     markers[i].setMap(map);
+                    markerCluster.addMarker(markers[i]);
                 }
             }
+
+            /** Supprime tous les Marker **/
+            function removeAll() {
+                for (var i = 0; i < markers.length; i++)
+                    markers[i].setMap(null);
+                markers = [];
+                markerCluster.clearMarkers();
+            }
+
 
             /** Refresh **/
             function refresh() {

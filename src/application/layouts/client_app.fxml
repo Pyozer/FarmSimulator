@@ -17,7 +17,7 @@
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ClientController">
     <center>
         <VBox BorderPane.alignment="CENTER">
-            <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">
+            <SplitPane fx:id="splitPane" dividerPositions="0.25" VBox.vgrow="SOMETIMES">
                 <BorderPane minWidth="575" maxWidth="575">
                     <top>
                         <TableView fx:id="tableView" minHeight="315.0" maxHeight="315">
