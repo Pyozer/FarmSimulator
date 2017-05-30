@@ -114,7 +114,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML
     public void editVehicule() {
         SwitchView switchView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
-        //switchView.setSelectedVehicule(selectedVehicule);
+        switchView.setSelectedVehicule(selectedVehicule);
+        System.out.println(switchView.toString());
         switchView.showScene();
     }
 
