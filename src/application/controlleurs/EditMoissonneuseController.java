@@ -1,5 +1,6 @@
 package application.controlleurs;
 
+import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,5 +40,5 @@ public class EditMoissonneuseController implements Initializable {
         System.out.println("BOUTON SUBMIT CLIQUÉ");
     }
 
-
+    public void setVehiculeData(Vehicule v){}
 }

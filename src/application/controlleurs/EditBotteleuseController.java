@@ -1,5 +1,6 @@
 package application.controlleurs;
 
+import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -45,4 +46,6 @@ public class EditBotteleuseController implements Initializable {
         System.out.println("         -Etat  : " + liste_etat.getValue());
         System.out.println("         -Type  : " + type.getValue());
     }
+
+    public void setVehiculeData(Vehicule v){}
 }

@@ -46,18 +46,25 @@ public class SwitchView {
     public SwitchView(String view, String title, BorderPane bpane) {
         borderPane = bpane;
         Parent root;
+        Object controller = null;
         try {
             FXMLLoader load = new FXMLLoader(getClass().getResource(Constant.LAYOUT_PATH + view + ".fxml"));
             if(selectedVehicule != null){
                 if(selectedVehicule instanceof Tracteur) {
-                    load.setController(new EditTracteurController());
-                    System.out.println("" + load.getController());
+                    controller = new EditTracteurController();
                 }
-                else if(selectedVehicule instanceof Moissonneuse) load.setController(new EditMoissonneuseController());
-                else if(selectedVehicule instanceof Botteleuse) load.setController(new EditBotteleuseController());
+                else if(selectedVehicule instanceof Moissonneuse){
+                    controller = new EditMoissonneuseController();
+                }
+                else if(selectedVehicule instanceof Botteleuse){
+                    controller = new EditBotteleuseController();
+                }
+                load.setController(controller);
+                controller.setVehiculeData(selectedVehicule);
             }
 
             root = load.load();
+
             Scene scene = new Scene(root);
             scene.getStylesheets().add(Constant.STYLE_PATH + STYLECSS);
             newStage = new Stage();
@@ -68,7 +75,7 @@ public class SwitchView {
             newStage.setMinWidth(Constant.MIN_WIDTH);
             newStage.setHeight(Constant.PREF_HEIGHT);
             newStage.setWidth(Constant.PREF_WIDTH);
-
+            newStage.setVehiculeData(selectedVehicule);
             newStage.setMaximized(true);
         } catch (IOException e) {
             e.printStackTrace();
