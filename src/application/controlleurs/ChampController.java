@@ -5,6 +5,7 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -14,6 +15,7 @@ import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -21,17 +23,25 @@ import java.util.ResourceBundle;
  */
 public class ChampController implements Initializable, APIGoogleMap {
 
-    /** Layout **/
+    /**
+     * Layout
+     **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
+    @FXML private SplitPane splitPane;
     @FXML private TableView<Champ> tableView;
     @FXML private TableColumn<Champ, String> column_type_culture;
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
+
+    @FXML private JFXButton delete_btn;
+    @FXML private JFXButton edit_btn;
 
     @FXML private ListView<ElementPair> listInfos;
 
     private List<Champ> champList;
     private GoogleMaps gMaps;
+    private ChampSQL champSQL;
+    private Champ selectedChamp = null;
 
     /**
      * Initializes the controller class.
@@ -49,7 +59,7 @@ public class ChampController implements Initializable, APIGoogleMap {
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
-        ChampSQL champSQL = new ChampSQL();
+        champSQL = new ChampSQL();
         champList = champSQL.getChampsList();
 
         tableView.getItems().addAll(champList);
@@ -57,15 +67,24 @@ public class ChampController implements Initializable, APIGoogleMap {
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
 
+        splitPane.setOnMouseClicked(event -> clearAllSelection());
+
     }
 
     public void showInformationsChamp(Champ champ) {
-        listInfos.getItems().clear();
-        for(ElementPair information : champ.getInformations())
-            listInfos.getItems().add(information);
+        selectedChamp = null;
 
-        gMaps.removeAll();
-        gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+        if (champ != null) {
+            selectedChamp = champ;
+
+            listInfos.getItems().clear();
+            for (ElementPair information : champ.getInformations())
+                listInfos.getItems().add(information);
+
+            gMaps.removeAll();
+            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+        }
+
     }
 
     @FXML
@@ -76,8 +95,23 @@ public class ChampController implements Initializable, APIGoogleMap {
 
     @FXML
     public void deleteChamp() {
-        AlertDialog alert = new AlertDialog("Suppression", null, "Voulez vous vraiment supprimer ce champ ?", Alert.AlertType.WARNING);
-        alert.show();
+        if (selectedChamp != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Suppresion champ");
+            alert.setHeaderText("Confirmation de suppression");
+            alert.setContentText("Voulez-vous vraiment supprimer ce champ ?\n" + selectedChamp.toString());
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(480, 220);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                champSQL.deleteChamp(selectedChamp);
+                tableView.getItems().remove(selectedChamp);
+                askToLoadChamps();
+            } else {
+                alert.close();
+            }
+        }
     }
 
     @FXML
@@ -86,8 +120,17 @@ public class ChampController implements Initializable, APIGoogleMap {
         switchView.showScene();
     }
 
+    private void clearAllSelection() {
+        delete_btn.setVisible(false);
+        edit_btn.setVisible(false);
+        tableView.getSelectionModel().clearSelection();
+        listInfos.getSelectionModel().clearSelection();
+        askToLoadChamps();
+    }
+
     public void askToLoadChamps() {
-        for(Champ champ : champList) {
+        gMaps.removeAll();
+        for (Champ champ : champList) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
     }

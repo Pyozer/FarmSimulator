@@ -125,4 +125,19 @@ public class ClientSQL {
             System.err.println(ex.getMessage());
         }
     }
+
+    public void deleteClient(Agriculteur agriculteur) {
+        String request = "DELETE FROM Agriculteur WHERE id_agri=:id";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+            preparedStatement.setInt("id", agriculteur.getId());
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
 }

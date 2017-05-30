@@ -5,19 +5,16 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
-import application.modeles.Vehicule;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -36,6 +33,8 @@ public class ClientController implements Initializable, APIGoogleMap  {
 
     private GoogleMaps gMaps;
     private ClientSQL clientSQL;
+    private List<Agriculteur> clientList;
+    private Agriculteur selectedAgri = null;
 
     /**
      * Initializes the controller class.
@@ -63,8 +62,9 @@ public class ClientController implements Initializable, APIGoogleMap  {
     }
 
     private void showInformationsClient(Agriculteur agriculteur) {
-        listInfos.getItems().clear();
+        selectedAgri = agriculteur;
 
+        listInfos.getItems().clear();
         for(ElementPair information : agriculteur.getInformations())
             listInfos.getItems().add(information);
 
@@ -81,8 +81,18 @@ public class ClientController implements Initializable, APIGoogleMap  {
 
     @FXML
     public void deleteClient() {
-        AlertDialog alert = new AlertDialog("Suppression", null, "Voulez vous vraiment supprimer ce client ?", Alert.AlertType.WARNING);
-        alert.show();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppresion client");
+        alert.setHeaderText("Confirmation de suppression");
+        alert.setContentText("Voulez-vous vraiment supprimer ce client ?\n" + selectedAgri.toString());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            clientSQL.deleteClient(selectedAgri);
+            tableView.getItems().remove(selectedAgri);
+        } else {
+            alert.close();
+        }
     }
 
     @FXML

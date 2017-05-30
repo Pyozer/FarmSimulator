@@ -67,7 +67,7 @@ public class Champ extends Element {
         return type_culture.get();
     }
 
-    public void setType_culture(String type_culture) {
+    public void setTypeCulture(String type_culture) {
         this.type_culture.set(type_culture);
     }
 
@@ -77,6 +77,10 @@ public class Champ extends Element {
 
     public void setProprietaire(Agriculteur proprietaire) {
         this.proprietaire.set(proprietaire);
+    }
+
+    public String toString() {
+        return getType_culture() + " : " + getAdresse() + " - " + getProprietaire();
     }
 
 }

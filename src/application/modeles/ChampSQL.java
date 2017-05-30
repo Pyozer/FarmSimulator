@@ -4,6 +4,7 @@ import application.classes.JSONManager;
 import application.classes.Point;
 import application.classes.Polygon;
 import application.database.DBConnection;
+import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -90,6 +91,21 @@ public class ChampSQL {
             System.err.println(ex.getMessage());
         }
         return listCulture;
+    }
+
+    public void deleteChamp(Champ champ) {
+        String request = "DELETE FROM Champ WHERE id_champ=:id";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+            preparedStatement.setInt("id", champ.getId());
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
 }

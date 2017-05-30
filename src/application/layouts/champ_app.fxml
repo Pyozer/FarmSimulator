@@ -16,7 +16,7 @@
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ChampController">
     <center>
         <VBox BorderPane.alignment="CENTER">
-            <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">
+            <SplitPane fx:id="splitPane" dividerPositions="0.25" VBox.vgrow="SOMETIMES">
                 <BorderPane minWidth="575" maxWidth="575">
                     <top>
                         <TableView fx:id="tableView" minHeight="315.0" maxHeight="315">
@@ -35,17 +35,17 @@
                     </center>
                     <bottom>
                         <HBox alignment="CENTER" spacing="10" minHeight="70" maxHeight="70">
-                            <JFXButton fx:id="btnAdd" text="Ajouter un champ" onAction="#addChamp" styleClass="btn, btn-success" prefHeight="40">
+                            <JFXButton fx:id="add_btn" text="Ajouter un champ" onAction="#addChamp" styleClass="btn, btn-success" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
                                 </graphic>
                             </JFXButton>
-                            <JFXButton fx:id="btnEdit" text="Modifier le champ" onAction="#editChamp" styleClass="btn, btn-primary" prefHeight="40">
+                            <JFXButton fx:id="edit_btn" visible="false" text="Modifier le champ" onAction="#editChamp" styleClass="btn, btn-primary" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
                                 </graphic>
                             </JFXButton>
-                            <JFXButton fx:id="btnDelete" text="Supprimer le champ" onAction="#deleteChamp" styleClass="btn, btn-danger" prefHeight="40">
+                            <JFXButton fx:id="delete_btn" visible="false" text="Supprimer le champ" onAction="#deleteChamp" styleClass="btn, btn-danger" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
                                 </graphic>

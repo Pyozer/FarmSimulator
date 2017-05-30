@@ -30,6 +30,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML private TableColumn<Vehicule, String> column_etat;
 
     @FXML private ListView<ElementPair> listInfos;
+
     private GoogleMaps gMaps;
     private VehiculeSQL vehiculeSQL;
     private List<Vehicule> vehiculeList;
@@ -83,7 +84,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
     @FXML
     public void deleteVehicule() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Suppresion véhicule");
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce véhicule ?\n" + selectedVehicule.toString());
