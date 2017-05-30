@@ -37,17 +37,17 @@
 
                     <bottom>
                         <HBox alignment="CENTER" spacing="10" minHeight="70" maxHeight="70">
-                            <JFXButton fx:id="btnAdd" text="Ajouter un client" onAction="#addClient" styleClass="btn, btn-success" prefHeight="40">
+                            <JFXButton text="Ajouter un client" onAction="#addClient" styleClass="btn, btn-success" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
                                 </graphic>
                             </JFXButton>
-                            <JFXButton fx:id="btnEdit" text="Modifier le client" onAction="#editClient" styleClass="btn, btn-primary" prefHeight="40">
+                            <JFXButton fx:id="edit_btn" text="Modifier le client" visible="false" onAction="#editClient" styleClass="btn, btn-primary" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
                                 </graphic>
                             </JFXButton>
-                            <JFXButton fx:id="btnDelete" text="Supprimer le client" onAction="#deleteClient" styleClass="btn, btn-danger" prefHeight="40">
+                            <JFXButton fx:id="delete_btn" text="Supprimer le client" visible="false" onAction="#deleteClient" styleClass="btn, btn-danger" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
                                 </graphic>

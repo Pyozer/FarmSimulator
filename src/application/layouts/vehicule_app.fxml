@@ -45,12 +45,12 @@
                                     <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
                                 </graphic>
                             </JFXButton>
-                            <JFXButton fx:id="btnEdit" text="Modifier le vehicule" onAction="#editVehicule" styleClass="btn, btn-primary" prefHeight="40">
+                            <JFXButton fx:id="edit_btn" text="Modifier le vehicule" visible="false" onAction="#editVehicule" styleClass="btn, btn-primary" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
                                 </graphic>
                             </JFXButton>
-                            <JFXButton fx:id="btnDelete" text="Supprimer le vehicule" onAction="#deleteVehicule" styleClass="btn, btn-danger" prefHeight="40">
+                            <JFXButton fx:id="delete_btn" text="Supprimer le vehicule" visible="false" onAction="#deleteVehicule" styleClass="btn, btn-danger" prefHeight="40">
                                 <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
                                 </graphic>

@@ -3,6 +3,7 @@ package application.controlleurs;
 import application.Constant;
 import application.classes.*;
 import application.modeles.*;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,11 +24,16 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     /** Layout **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
+	@FXML private SplitPane splitPane;
+	
     @FXML private TableView<Vehicule> tableView;
     @FXML private TableColumn<Vehicule, String> column_type;
     @FXML private TableColumn<Vehicule, String> column_marque;
     @FXML private TableColumn<Vehicule, String> column_modele;
     @FXML private TableColumn<Vehicule, String> column_etat;
+	
+	@FXML private JFXButton edit_btn;
+	@FXML private JFXButton delete_btn;
 
     @FXML private ListView<ElementPair> listInfos;
 
@@ -62,17 +68,25 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+		
+		splitPane.setOnMouseClicked(event -> clearAllSelection());
 
     }
 
     public void showInformationsVehicule(Vehicule vehicule) {
-        selectedVehicule = vehicule;
+		selectedVehicule = null;
+		
+		if(vehicule != null) {
+			selectedVehicule = vehicule;
+			
+			edit_btn.setVisible(true);
+			delete_btn.setVisible(true);
 
-        listInfos.getItems().clear();
-        for(ElementPair information : vehicule.getInformations())
-            listInfos.getItems().add(information);
-        gMaps.hideAllExceptOne(vehicule.getId());
-
+			listInfos.getItems().clear();
+			for(ElementPair information : vehicule.getInformations())
+				listInfos.getItems().add(information);
+			gMaps.hideAllExceptOne(vehicule.getId());
+		}
     }
 
     @FXML
@@ -100,16 +114,23 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
     @FXML
     public void editVehicule() {
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> System.out.println(newvalue));
-
         SwitchView switchView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
     }
 
     public void askToLoadMarkers() {
+		gMaps.removeAll();
         for(Vehicule vehicule : vehiculeList) {
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
         }
+    }
+	
+	private void clearAllSelection() {
+        delete_btn.setVisible(false);
+        edit_btn.setVisible(false);
+        tableView.getSelectionModel().clearSelection();
+        listInfos.getSelectionModel().clearSelection();
+        askToLoadMarkers();
     }
 
     public void log(String msg) {

@@ -5,6 +5,7 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -25,9 +26,14 @@ public class ClientController implements Initializable, APIGoogleMap  {
     /** Layout **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
+	@FXML private SplitPane splitPane;
+	
     @FXML private TableView<Agriculteur> tableView;
     @FXML private TableColumn<Agriculteur, String> column_nom;
     @FXML private TableColumn<Agriculteur, String> column_prenom;
+	
+	@FXML private JFXButton delete_btn;
+    @FXML private JFXButton edit_btn;
 
     @FXML private ListView<ElementPair> listInfos;
 
@@ -58,19 +64,28 @@ public class ClientController implements Initializable, APIGoogleMap  {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+		
+		splitPane.setOnMouseClicked(event -> clearAllSelection());
 
     }
 
     private void showInformationsClient(Agriculteur agriculteur) {
-        selectedAgri = agriculteur;
+        selectedAgri = null;
 
-        listInfos.getItems().clear();
-        for(ElementPair information : agriculteur.getInformations())
-            listInfos.getItems().add(information);
+        if (agriculteur != null) {
+            selectedAgri = agriculteur;
+			
+            delete_btn.setVisible(true);
+            edit_btn.setVisible(true);
 
-        gMaps.removeAll();
-        for(Champ champ : clientSQL.getClientsChampsList(agriculteur.getId()))
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+			listInfos.getItems().clear();
+			for(ElementPair information : agriculteur.getInformations())
+				listInfos.getItems().add(information);
+
+			gMaps.removeAll();
+			for(Champ champ : clientSQL.getClientsChampsList(agriculteur.getId()))
+				gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+		}
     }
 
     @FXML
@@ -107,6 +122,14 @@ public class ClientController implements Initializable, APIGoogleMap  {
         for(Champ champ : listClientChamp) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
+    }
+
+    private void clearAllSelection() {
+        delete_btn.setVisible(false);
+        edit_btn.setVisible(false);
+        tableView.getSelectionModel().clearSelection();
+        listInfos.getSelectionModel().clearSelection();
+        askToLoadChamps();
     }
 
     public void log(String msg) {
