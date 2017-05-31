@@ -78,7 +78,7 @@ public class CommandeSQL {
     }
 
 
-    public void deleteChamp(Commande commande) {
+    public void deleteCommande(Commande commande) {
         String request = "DELETE FROM Commande WHERE id_com=:id";
 
         try {

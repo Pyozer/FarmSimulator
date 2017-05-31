@@ -5,27 +5,25 @@ import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
+
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class CommandeController implements Initializable, APIGoogleMap {
+public class CommandeController {
 
     /**
      * Layout
      **/
     @FXML private BorderPane bpane;
-    @FXML private TableView<Champ> tableView;
+    @FXML private TableView<Commande> tableView;
     @FXML private TableColumn<Commande, String> column_type_culture;
     @FXML private TableColumn<Commande, Agriculteur> column_proprietaire;
 
@@ -41,8 +39,7 @@ public class CommandeController implements Initializable, APIGoogleMap {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         MenuApp menuApp = new MenuApp(bpane);
@@ -55,48 +52,48 @@ public class CommandeController implements Initializable, APIGoogleMap {
         commandeList = commandeSQL.getCommandeList();
 
         tableView.getItems().addAll(commandeList);
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
 
     }
 
-    public void showInformationsChamp(Champ champ) {
-        selectedChamp = null;
+    public void showInformationsCommande(Commande commande) {
+        selectedCommande = null;
 
-        if (champ != null) {
-            selectedChamp = champ;
+        if (commande != null) {
+            selectedCommande = commande;
 			
             delete_btn.setVisible(true);
             edit_btn.setVisible(true);
 			
             listInfos.getItems().clear();
-            for (ElementPair information : champ.getInformations())
+            for (ElementPair information : commande.getInformations())
                 listInfos.getItems().add(information);
         }
 
     }
 
     @FXML
-    public void addChamp() {
+    public void addCommande() {
         SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
     }
 
     @FXML
-    public void deleteChamp() {
-        if (selectedChamp != null) {
+    public void deleteCommande() {
+        if (selectedCommande != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Suppresion champ");
             alert.setHeaderText("Confirmation de suppression");
-            alert.setContentText("Voulez-vous vraiment supprimer ce champ ?\n" + selectedChamp.toString());
+            alert.setContentText("Voulez-vous vraiment supprimer ce champ ?\n" + selectedCommande.toString());
             alert.setResizable(true);
             alert.getDialogPane().setPrefSize(480, 220);
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                champSQL.deleteChamp(selectedChamp);
-                tableView.getItems().remove(selectedChamp);
+                commandeSQL.deleteCommande(selectedCommande);
+                tableView.getItems().remove(selectedCommande);
             } else {
                 alert.close();
             }
