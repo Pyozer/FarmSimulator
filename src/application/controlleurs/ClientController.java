@@ -2,9 +2,7 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.Agriculteur;
-import application.modeles.Champ;
-import application.modeles.ClientSQL;
+import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,7 +61,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
         tableView.getItems().addAll(clientSQL.getClientsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 
-        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+        resetListInfo();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
 
@@ -112,8 +110,10 @@ public class ClientController implements Initializable, APIGoogleMap  {
 
     @FXML
     public void editClient() {
-        SwitchView switchView = new SwitchView("add_client_app", Constant.ADD_CLIENT_APP_TITLE, bpane);
-        switchView.showScene();
+        Agriculteur agriculteur = tableView.getSelectionModel().getSelectedItem();
+
+        SwitchViewData switchViewData = new SwitchViewData("edit_client_app", Constant.ADD_VEHICULE_APP_TITLE, agriculteur);
+        switchViewData.showScene();
     }
 
     public void askToLoadChamps() {
@@ -128,8 +128,12 @@ public class ClientController implements Initializable, APIGoogleMap  {
         delete_btn.setVisible(false);
         edit_btn.setVisible(false);
         tableView.getSelectionModel().clearSelection();
-        listInfos.getSelectionModel().clearSelection();
+        resetListInfo();
         askToLoadChamps();
+    }
+
+    private void resetListInfo() {
+        listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
     }
 
     public void log(String msg) {

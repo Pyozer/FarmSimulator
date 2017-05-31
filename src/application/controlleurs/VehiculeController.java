@@ -67,7 +67,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
-        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+        resetListInfo();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
 
@@ -136,8 +136,12 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         delete_btn.setVisible(false);
         edit_btn.setVisible(false);
         tableView.getSelectionModel().clearSelection();
-        listInfos.getSelectionModel().clearSelection();
+        resetListInfo();
         askToLoadMarkers();
+    }
+
+    private void resetListInfo() {
+        listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
     }
 
     public void log(String msg) {

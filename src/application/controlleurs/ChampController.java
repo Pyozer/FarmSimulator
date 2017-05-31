@@ -66,7 +66,7 @@ public class ChampController implements Initializable, APIGoogleMap {
         tableView.getItems().addAll(champList);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
-        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+        resetListInfo();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
 
@@ -129,7 +129,7 @@ public class ChampController implements Initializable, APIGoogleMap {
         delete_btn.setVisible(false);
         edit_btn.setVisible(false);
         tableView.getSelectionModel().clearSelection();
-        listInfos.getSelectionModel().clearSelection();
+        resetListInfo();
         askToLoadChamps();
     }
 
@@ -138,6 +138,10 @@ public class ChampController implements Initializable, APIGoogleMap {
         for (Champ champ : champList) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
+    }
+
+    private void resetListInfo() {
+        listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
     }
 
     public void log(String msg) {
