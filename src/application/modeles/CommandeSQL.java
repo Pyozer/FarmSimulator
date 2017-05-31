@@ -15,10 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Pyozer on 23/05/2017.
- */
-
 public class CommandeSQL {
 
     private ObservableList<Commande> commandeList;
@@ -66,7 +62,7 @@ public class CommandeSQL {
                                             rs.getString("email_agri")
                                 )
                         )
-                ));
+               ));
             }
 
             rs.close();

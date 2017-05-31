@@ -2,6 +2,7 @@ package application.classes;
 
 import application.Constant;
 import application.controlleurs.EditBotteleuseController;
+import application.controlleurs.EditClientController;
 import application.controlleurs.EditMoissonneuseController;
 import application.controlleurs.EditTracteurController;
 import application.modeles.*;
@@ -43,9 +44,10 @@ public class SwitchViewData {
                     EditBotteleuseController editBotController = fxmlLoader.getController();
                     editBotController.initTextFields((Botteleuse) data);
                 }
-                /*else if(data instanceof Agriculteur) {
-                    EditAgriculteurController editAgriController = fxmlLoader.getController();
-                }*/
+                else if(data instanceof Agriculteur) {
+                    EditClientController editClientController = fxmlLoader.getController();
+                    editClientController.initTextFields((Agriculteur) data);
+                }
             }
 
             root = fxmlLoader.getRoot();
