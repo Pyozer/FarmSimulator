@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,6 +9,7 @@
 
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.EditMoissonneuseController">
     <center>
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
@@ -30,31 +29,40 @@
 
                 <padding><Insets bottom="10" left="25" right="25" top="30" /></padding>
 
-                <Label text="Taille trémis :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <JFXTextField fx:id="taille_tremis" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Taille du trémis en mètre" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="État :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <JFXComboBox fx:id="liste_etat" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Marque :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-                <Label text="Taille réservoir :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <JFXTextField fx:id="taille_reservoir" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Taille du réservoir en Litre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <JFXTextField fx:id="marque" promptText="Marque" labelFloat="true" minWidth="165.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-                <Label text="Largeur route :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <JFXTextField fx:id="largeur_route" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Largeur de la moissonneuse sur route en mètre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Modèle :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <JFXTextField fx:id="modele" promptText="Modèle" labelFloat="true" minWidth="165.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-                <Label text="Largeur coupe :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <JFXTextField fx:id="largeur_coupe" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Largeur de la coupe en mètre" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Taille trémis :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <JFXTextField fx:id="taille_tremis" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Taille du trémis en mètre" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                <Label text="Hauteur :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <JFXTextField fx:id="hauteur" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Hauteur de la moissonneuse sur route en mètre" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Taille réservoir :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <JFXTextField fx:id="taille_reservoir" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Taille du réservoir en Litre" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                <Label text="Consommation fonctionnement :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <JFXTextField fx:id="conso_fonctionnement" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Consommation en fonctionnement en litre au 100" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="Largeur route :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <JFXTextField fx:id="largeur_route" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Largeur de la moissonneuse sur route en mètre" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-                <Label text="Consommation sur route :" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                <JFXTextField fx:id="conso_route" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Consommation sur route en litre au 100" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Label text="Largeur coupe :" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <JFXTextField fx:id="largeur_coupe" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Largeur de la coupe en mètre" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                <Label text="Poids :" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-                <JFXTextField fx:id="poids" labelFloat="true"  minWidth="350" prefWidth="350.0" promptText="Poids de la moissonneuse en tonne" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Label text="Hauteur :" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <JFXTextField fx:id="hauteur" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Hauteur de la moissonneuse sur route en mètre" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                <JFXButton text="Valider" onAction="#onSubmit" buttonType="RAISED" styleClass="btn, btn-primary" minWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <Label text="Consommation fonctionnement :" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                <JFXTextField fx:id="conso_fonctionnement" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Consommation en fonctionnement en litre au 100" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+                <Label text="Consommation sur route :" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                <JFXTextField fx:id="conso_route" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Consommation sur route en litre au 100" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+                <Label text="Poids :" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                <JFXTextField fx:id="poids" labelFloat="true"  minWidth="350" prefWidth="350.0" promptText="Poids de la moissonneuse en tonne" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+
+                <JFXButton text="Valider" onAction="#onSubmit" buttonType="RAISED" styleClass="btn, btn-primary" minWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
             </GridPane>
         </VBox>
     </center>

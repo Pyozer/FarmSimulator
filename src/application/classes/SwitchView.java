@@ -3,7 +3,6 @@ package application.classes;
 import application.Constant;
 import application.modeles.Vehicule;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -25,11 +24,9 @@ public class SwitchView {
 
     public SwitchView(String view, String title, BorderPane bpane) {
         borderPane = bpane;
-        Parent root;
         try {
             FXMLLoader load = new FXMLLoader(getClass().getResource(Constant.LAYOUT_PATH + view + ".fxml"));
-            root = load.load();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(load.load());
             scene.getStylesheets().add(Constant.STYLE_PATH + STYLECSS);
             newStage = new Stage();
             newStage.setScene(scene);
