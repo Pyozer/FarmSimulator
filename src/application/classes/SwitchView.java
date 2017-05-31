@@ -1,18 +1,11 @@
 package application.classes;
 
 import application.Constant;
-import application.controlleurs.EditBotteleuseController;
-import application.controlleurs.EditMoissonneuseController;
-import application.controlleurs.EditTracteurController;
-import application.modeles.Botteleuse;
-import application.modeles.Moissonneuse;
-import application.modeles.Tracteur;
 import application.modeles.Vehicule;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,33 +23,11 @@ public class SwitchView {
 
     private final static String STYLECSS = "styles.css";
 
-    private static Pane parent;
-
-    @Override
-    public String toString() {
-        return "SwitchView{" +
-                "selectedVehicule=" + selectedVehicule +
-                ", borderPane=" + borderPane +
-                ", newStage=" + newStage +
-                ", showAndWait=" + showAndWait +
-                ", popup=" + popup +
-                '}';
-    }
-
     public SwitchView(String view, String title, BorderPane bpane) {
         borderPane = bpane;
         Parent root;
         try {
             FXMLLoader load = new FXMLLoader(getClass().getResource(Constant.LAYOUT_PATH + view + ".fxml"));
-            if(selectedVehicule != null){
-                if(selectedVehicule instanceof Tracteur) {
-                    load.setController(new EditTracteurController());
-                    System.out.println("" + load.getController());
-                }
-                else if(selectedVehicule instanceof Moissonneuse) load.setController(new EditMoissonneuseController());
-                else if(selectedVehicule instanceof Botteleuse) load.setController(new EditBotteleuseController());
-            }
-
             root = load.load();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(Constant.STYLE_PATH + STYLECSS);
@@ -88,9 +59,6 @@ public class SwitchView {
         this.popup = popup;
     }
 
-    public void setSelectedVehicule(Vehicule v) {
-        selectedVehicule = v;
-    }
     public void showScene() {
         if (!popup) {
             newStage.setMaximized(false);
@@ -108,5 +76,16 @@ public class SwitchView {
              * stage.close();
               */
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SwitchView {" +
+                "selectedVehicule=" + selectedVehicule +
+                ", borderPane=" + borderPane +
+                ", newStage=" + newStage +
+                ", showAndWait=" + showAndWait +
+                ", popup=" + popup +
+                '}';
     }
 }
