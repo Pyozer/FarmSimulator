@@ -21,42 +21,51 @@ import java.util.List;
 
 public class CommandeSQL {
 
-    private ObservableList<Champ> champList;
+    private ObservableList<Commande> commandeList;
     private Connection dbCon;
 
     public CommandeSQL() {
-        champList = FXCollections.observableArrayList();
+        commandeList = FXCollections.observableArrayList();
         dbCon = new DBConnection().getConnection();
     }
 
-    public ObservableList<Champ> getChampsList() {
-        String request = "SELECT * FROM Champ INNER JOIN Agriculteur ON Champ.id_agri=Agriculteur.id_agri";
+    public ObservableList<Commande> getCommandeList() {
+        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ";
 
-        champList.clear();
+        commandeList.clear();
         try {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
+            Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
+
+            Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
             while (rs.next()) {
-                Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
-
-                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
-
-                champList.add(new Champ(
-                        Integer.parseInt(rs.getString("id_agri")),
-                        Integer.parseInt(rs.getString("surf_champ")),
-                        rs.getString("adr_champ"),
-                        coord_center,
-                        coord_champ,
-                        rs.getString("type_champ"),
-                        new Agriculteur(
+               commandeList.add(new Commande(
+                        Integer.parseInt(rs.getString("id_com")),
+                        rs.getString("transp_com"),
+                        rs.getString("bott_com"),
+                        rs.getString("taille_max_tranps_com"),
+                        rs.getString("date_com"),
+                        Integer.parseInt(rs.getString("tonne_com")),
+                        Integer.parseInt(rs.getString("cout_com")),
+                        new Champ(
                                 Integer.parseInt(rs.getString("id_agri")),
-                                rs.getString("prenom_agri"),
-                                rs.getString("nom_agri"),
-                                rs.getString("tel_agri"),
-                                rs.getString("adr_agri"),
-                                rs.getString("email_agri"))
+                                Integer.parseInt(rs.getString("surf_champ")),
+                                rs.getString("adr_champ"),
+                                coord_center,
+                                coord_champ,
+                                rs.getString("type_champ"),
+                                new Agriculteur(
+                                            Integer.parseInt(rs.getString("id_agri")),
+                                            rs.getString("prenom_agri"),
+                                            rs.getString("nom_agri"),
+                                            rs.getString("tel_agri"),
+                                            rs.getString("adr_agri"),
+                                            rs.getString("email_agri")
+                                )
+                        )
                 ));
             }
 
@@ -65,41 +74,16 @@ public class CommandeSQL {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return champList;
+        return commandeList;
     }
 
-    public List<Culture> getTypeChampList() {
-        String request = "SELECT * FROM culture";
 
-        List<Culture> listCulture = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = dbCon.prepareStatement(request);
-            // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-
-                listCulture.add(new Culture(
-                        Integer.parseInt(rs.getString("id_cul")),
-                        rs.getString("type_cul"))
-                );
-            }
-
-            rs.close();
-            preparedStatement.close();
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return listCulture;
-    }
-
-    public void deleteChamp(Champ champ) {
-        String request = "DELETE FROM Champ WHERE id_champ=:id";
+    public void deleteChamp(Commande commande) {
+        String request = "DELETE FROM Commande WHERE id_com=:id";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
-            preparedStatement.setInt("id", champ.getId());
+            preparedStatement.setInt("id", commande.getId());
             preparedStatement.executeUpdate();
 
             preparedStatement.close();

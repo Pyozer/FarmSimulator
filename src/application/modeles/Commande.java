@@ -1,6 +1,7 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -8,68 +9,75 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Commande extends Element {
 
-    private SimpleStringProperty nom; // Nom de l'agriculteur
-    private SimpleStringProperty prenom; // Prénom de l'agriculteur
-    private SimpleStringProperty num_tel; // Numéro de téléphone de l'agriculteur
-    private SimpleStringProperty adresse; // Adresse de l'agriculteur
-    private SimpleStringProperty email; // Adresse email de l'agriculteur
+    private SimpleObjectProperty<Champ> champCommande;
+    private SimpleStringProperty transport; //transport de la commande
+    private SimpleStringProperty typebott;// type de boot commande
+    private SimpleStringProperty taillemx;// taille max commande
+    private SimpleStringProperty date;
+    private float tonne;
+    private float cout;
 
-    public Commande(int id, String nom, String prenom, String num_tel, String adresse, String email) {
+    public Commande(int id, String transport, String typebott, String taillemax, String date, float tonne, float cout, Champ champCommande) {
         super(id);
-        this.nom = new SimpleStringProperty(nom);
-        this.prenom = new SimpleStringProperty(prenom);
-        this.num_tel = new SimpleStringProperty(num_tel);
-        this.adresse = new SimpleStringProperty(adresse);
-        this.email = new SimpleStringProperty(email);
+        this.champCommande = new SimpleObjectProperty<>(champCommande);
+        this.transport = new SimpleStringProperty(transport);
+        this.typebott = new SimpleStringProperty(typebott);
+        this.transport = new SimpleStringProperty(taillemax);
+        this.date = new SimpleStringProperty(date);
+        this.tonne = tonne;
+        this.cout = cout;
 
-        getInformations().add(new ElementPair("Nom", nom));
-        getInformations().add(new ElementPair("Prénom", prenom));
-        getInformations().add(new ElementPair("Numéro téléphone", num_tel));
-        getInformations().add(new ElementPair("Adresse", adresse));
-        getInformations().add(new ElementPair("Email", email));
+
+        getInformations().add(new ElementPair("Nom", champCommande.getProprietaire().getNom()));
+        getInformations().add(new ElementPair("Prénom", champCommande.getProprietaire().getPrenom()));
+        getInformations().add(new ElementPair("Surface", champCommande.getSurface()));
+        getInformations().add(new ElementPair("Adresse", champCommande.getAdresse()));
+        getInformations().add(new ElementPair("Transport", transport));
+        getInformations().add(new ElementPair("Type de Botteulage", typebott));
+        getInformations().add(new ElementPair("Taille max du transport", taillemax));
+        getInformations().add(new ElementPair("Date", date));
+        getInformations().add(new ElementPair("Tonne", tonne));
+        getInformations().add(new ElementPair("Cout", cout));
     }
 
-    public String getNom() {
-        return nom.get();
+    public Champ getChampCommande() {
+        return champCommande.get();
     }
 
-    public void setNom(String nom) {
-        this.nom.set(nom);
+    public void setChampCommande(Champ champCommande) {
+        this.champCommande.set(champCommande);
     }
 
-    public String getPrenom() {
-        return prenom.get();
+    public String getDate() {
+        return date.get();
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom.set(prenom);
+    public void setDate(String date) {
+        this.date.set(date);
     }
 
-    public String getNum_tel() {
-        return num_tel.get();
+    public String getTransport() {
+        return transport.get();
     }
 
-    public void setNum_tel(String num_tel) {
-        this.num_tel.set(num_tel);
+    public void setTransport(String transport) {
+        this.transport.set(transport);
     }
 
-    public String getAdresse() {
-        return adresse.get();
+    public String getTypebott() {
+        return typebott.get();
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse.set(adresse);
+    public void setTypebott(String typebott) {
+        this.typebott.set(typebott);
     }
 
-    public String getEmail() {
-        return email.get();
+    public String getTaillemx() {
+        return taillemx.get();
     }
 
-    public void setEmail(String email) {
-        this.email.set(email);
+    public void setTaillemx(String taillemx) {
+        this.taillemx.set(taillemx);
     }
 
-    public String toString() {
-        return nom.get() + " " + prenom.get();
-    }
 }

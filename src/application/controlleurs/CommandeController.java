@@ -2,9 +2,7 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.Agriculteur;
-import application.modeles.Champ;
-import application.modeles.ChampSQL;
+import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,17 +26,17 @@ public class CommandeController implements Initializable, APIGoogleMap {
      **/
     @FXML private BorderPane bpane;
     @FXML private TableView<Champ> tableView;
-    @FXML private TableColumn<Champ, String> column_type_culture;
-    @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
+    @FXML private TableColumn<Commande, String> column_type_culture;
+    @FXML private TableColumn<Commande, Agriculteur> column_proprietaire;
 
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
     @FXML private ListView<ElementPair> listInfos;
 
-    private List<Champ> champList;
-    private ChampSQL champSQL;
-    private Champ selectedChamp = null;
+    private List<Commande> commandeList;
+    private CommandeSQL commandeSQL;
+    private Commande selectedCommande = null;
 
     /**
      * Initializes the controller class.
@@ -53,10 +51,10 @@ public class CommandeController implements Initializable, APIGoogleMap {
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
-        champSQL = new ChampSQL();
-        champList = champSQL.getChampsList();
+        commandeSQL = new CommandeSQL();
+        commandeList = commandeSQL.getCommandeList();
 
-        tableView.getItems().addAll(champList);
+        tableView.getItems().addAll(commandeList);
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
