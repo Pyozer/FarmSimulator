@@ -114,7 +114,11 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML
     public void editVehicule() {
         Vehicule vehiculeSelected = tableView.getSelectionModel().getSelectedItem();
-        SwitchViewData switchViewData = new SwitchViewData("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
+        SwitchViewData switchViewData = new SwitchViewData("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
+        if(vehiculeSelected instanceof Botteleuse)
+            switchViewData = new SwitchViewData("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
+        else if(vehiculeSelected instanceof Moissonneuse)
+            switchViewData = new SwitchViewData("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
         switchViewData.showScene();
     }
 

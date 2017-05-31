@@ -36,11 +36,6 @@ public class EditTracteurController implements Initializable {
     }
 
     public void initTextFields(Tracteur tracteur) {
-        System.out.println(tracteur.getModele());
-        System.out.println(tracteur.getMarque());
-        System.out.println(String.valueOf(tracteur.getCapacite_remorque()));
-        System.out.println(tracteur.getEtat());
-
         modele.setText(tracteur.getModele());
         marque.setText(tracteur.getMarque());
         cap_rem.setText(String.valueOf(tracteur.getCapacite_remorque()));

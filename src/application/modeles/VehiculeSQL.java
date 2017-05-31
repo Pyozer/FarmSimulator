@@ -37,7 +37,6 @@ public class VehiculeSQL {
     private void loadTracteur() {
         String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
-        vehiculeList.clear();
         try {
             PreparedStatement stmt = dbCon.prepareStatement(request);
             // Execute select SQL statement

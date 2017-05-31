@@ -37,6 +37,7 @@ public class SwitchViewData {
                 }
                 else if(data instanceof Moissonneuse) {
                     EditMoissonneuseController editMoiController = fxmlLoader.getController();
+                    editMoiController.initTextFields((Moissonneuse) data);
                 }
                 else if(data instanceof Botteleuse) {
                     EditBotteleuseController editBotController = fxmlLoader.getController();

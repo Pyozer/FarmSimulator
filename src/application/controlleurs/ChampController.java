@@ -5,6 +5,7 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
+import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -119,8 +120,9 @@ public class ChampController implements Initializable, APIGoogleMap {
 
     @FXML
     public void editChamp() {
-        SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
-        switchView.showScene();
+        Champ champSelected = tableView.getSelectionModel().getSelectedItem();
+        SwitchViewData switchViewData = new SwitchViewData("edit_champ_app", Constant.ADD_VEHICULE_APP_TITLE, champSelected);
+        switchViewData.showScene();
     }
 
     private void clearAllSelection() {
