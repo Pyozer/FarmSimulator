@@ -1,7 +1,6 @@
 package application.controlleurs;
 
 import application.modeles.Moissonneuse;
-import application.modeles.Tracteur;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -55,6 +54,7 @@ public class EditMoissonneuseController implements Initializable {
         conso_fonctionnement.setText(String.valueOf(moissonneuse.getConso_fonctionnement()));
         conso_route.setText(String.valueOf(moissonneuse.getConso_route()));
         poids.setText(String.valueOf(moissonneuse.getPoids()));
+        hauteur.setText(String.valueOf(moissonneuse.getHauteur()));
     }
 
     @FXML

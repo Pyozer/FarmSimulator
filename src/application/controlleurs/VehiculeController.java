@@ -97,7 +97,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
 
     @FXML
     public void deleteVehicule() {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppresion véhicule");
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce véhicule ?\n" + selectedVehicule.toString());
@@ -115,12 +115,14 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     @FXML
     public void editVehicule() {
         Vehicule vehiculeSelected = tableView.getSelectionModel().getSelectedItem();
-        SwitchViewData switchViewData = new SwitchViewData("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
+
         if(vehiculeSelected instanceof Botteleuse)
-            switchViewData = new SwitchViewData("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
+            new SwitchViewData("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected).showScene();
         else if(vehiculeSelected instanceof Moissonneuse)
-            switchViewData = new SwitchViewData("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected);
-        switchViewData.showScene();
+            new SwitchViewData("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected).showScene();
+        else if(vehiculeSelected instanceof Tracteur)
+            new SwitchViewData("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected).showScene();
+
     }
 
     public void askToLoadMarkers() {

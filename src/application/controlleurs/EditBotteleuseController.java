@@ -1,5 +1,6 @@
 package application.controlleurs;
 
+import application.modeles.Botteleuse;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -30,10 +31,18 @@ public class EditBotteleuseController implements Initializable {
 
         // Initalise la combobox avec une view
         liste_etat.getItems().addAll("En maitenance", "Utilisé", "Non utilisé");
-        liste_etat.setValue("Non utilisé");
+        liste_etat.setValue(liste_etat.getItems().get(0));
 
         type.getItems().addAll("Ronde", "Carré" );
         type.setValue("Ronde");
+    }
+
+    public void initTextFields(Botteleuse botteleuse) {
+
+        modele.setText(botteleuse.getModele());
+        marque.setText(botteleuse.getMarque());
+        liste_etat.setValue(botteleuse.getEtat());
+        type.setValue(botteleuse.isBotte_ronde() ? "Rond" : "Carré");
     }
 
     @FXML
