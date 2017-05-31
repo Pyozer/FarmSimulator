@@ -22,7 +22,7 @@ public class Commande extends Element {
         this.champCommande = new SimpleObjectProperty<>(champCommande);
         this.transport = new SimpleStringProperty(transport);
         this.typebott = new SimpleStringProperty(typebott);
-        this.transport = new SimpleStringProperty(taillemax);
+        this.taillemx = new SimpleStringProperty(taillemax);
         this.date = new SimpleStringProperty(date);
         this.tonne = tonne;
         this.cout = cout;

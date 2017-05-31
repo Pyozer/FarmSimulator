@@ -24,6 +24,7 @@ public class CommandeController {
      **/
     @FXML private BorderPane bpane;
     @FXML private TableView<Commande> tableView;
+
     @FXML private TableColumn<Commande, String> column_type_culture;
     @FXML private TableColumn<Commande, Agriculteur> column_proprietaire;
 
@@ -42,10 +43,10 @@ public class CommandeController {
 
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
-/*
+
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
-*/
+
         commandeSQL = new CommandeSQL();
         commandeList = commandeSQL.getCommandeList();
 
