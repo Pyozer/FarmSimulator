@@ -30,8 +30,6 @@ public class CommandeController {
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
-    @FXML private ListView<ElementPair> listInfos;
-
     private List<Commande> commandeList;
     private CommandeSQL commandeSQL;
     private Commande selectedCommande = null;
@@ -44,17 +42,15 @@ public class CommandeController {
 
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
-
+/*
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
-
+*/
         commandeSQL = new CommandeSQL();
         commandeList = commandeSQL.getCommandeList();
 
         tableView.getItems().addAll(commandeList);
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
-
-        listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));;
 
     }
 
@@ -66,10 +62,6 @@ public class CommandeController {
 			
             delete_btn.setVisible(true);
             edit_btn.setVisible(true);
-			
-            listInfos.getItems().clear();
-            for (ElementPair information : commande.getInformations())
-                listInfos.getItems().add(information);
         }
 
     }
@@ -101,7 +93,7 @@ public class CommandeController {
     }
 
     @FXML
-    public void editChamp() {
+    public void editCommande() {
         SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
     }
@@ -110,7 +102,6 @@ public class CommandeController {
         delete_btn.setVisible(false);
         edit_btn.setVisible(false);
         tableView.getSelectionModel().clearSelection();
-        listInfos.getSelectionModel().clearSelection();
     }
 
     public void log(String msg) {
