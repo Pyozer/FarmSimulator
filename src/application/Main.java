@@ -1,9 +1,16 @@
 package application;
 
+import application.classes.JSONManager;
+import application.classes.Point;
 import application.classes.SwitchView;
 import application.database.DBConnection;
+import application.database.NamedParameterStatement;
+import application.modeles.Tracteur;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main extends Application {

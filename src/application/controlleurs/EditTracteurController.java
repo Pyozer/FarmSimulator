@@ -1,7 +1,6 @@
 package application.controlleurs;
 
 import application.modeles.Tracteur;
-import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -33,7 +32,19 @@ public class EditTracteurController implements Initializable {
 
         // Initaliser la combobox avec une view
         liste_etat.getItems().addAll("En maitenance", "Utilisé", "Non utilisé");
-        System.out.println("poiuygtf");
+        liste_etat.setValue(liste_etat.getItems().get(0));
+    }
+
+    public void initTextFields(Tracteur tracteur) {
+        System.out.println(tracteur.getModele());
+        System.out.println(tracteur.getMarque());
+        System.out.println(String.valueOf(tracteur.getCapacite_remorque()));
+        System.out.println(tracteur.getEtat());
+
+        modele.setText(tracteur.getModele());
+        marque.setText(tracteur.getMarque());
+        cap_rem.setText(String.valueOf(tracteur.getCapacite_remorque()));
+        liste_etat.setValue(tracteur.getEtat());
     }
 
     @FXML
@@ -44,10 +55,5 @@ public class EditTracteurController implements Initializable {
         System.out.println("         -Modèle  : " + modele.getText());
         System.out.println("         -Etat  : " + liste_etat.getValue());
         System.out.println("         -Capacité de rendement  : " + cap_rem.getText());
-    }
-
-    public void setVehiculeData(Vehicule v){
-        Tracteur selectedTracteur = (Tracteur) v;
-        selectedTracteur.toString();
     }
 }
