@@ -102,6 +102,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce véhicule ?\n" + selectedVehicule.toString());
 
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             vehiculeSQL.deleteVehicule(selectedVehicule);
