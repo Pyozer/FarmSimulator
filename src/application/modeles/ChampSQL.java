@@ -29,7 +29,7 @@ public class ChampSQL {
     }
 
     public ObservableList<Champ> getChampsList() {
-        String request = "SELECT * FROM Champ INNER JOIN Agriculteur ON Champ.id_agri=Agriculteur.id_agri";
+        String request = "SELECT * FROM Champ INNER JOIN Agriculteur ON Champ.id_agri=Agriculteur.id_agri INNER JOIN Culture ON Champ.type_champ=Culture.id_cul";
 
         champList.clear();
         try {
@@ -48,7 +48,7 @@ public class ChampSQL {
                         rs.getString("adr_champ"),
                         coord_center,
                         coord_champ,
-                        rs.getString("type_champ"),
+                        rs.getString("type_cul"),
                         new Agriculteur(
                                 Integer.parseInt(rs.getString("id_agri")),
                                 rs.getString("prenom_agri"),

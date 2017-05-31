@@ -29,7 +29,7 @@ public class ChampController implements Initializable, APIGoogleMap {
      **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
-    @FXML private SplitPane splitPane;
+    @FXML private BorderPane infoContent;
     @FXML private TableView<Champ> tableView;
     @FXML private TableColumn<Champ, String> column_type_culture;
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
@@ -68,7 +68,7 @@ public class ChampController implements Initializable, APIGoogleMap {
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
 
-        splitPane.setOnMouseClicked(event -> clearAllSelection());
+        infoContent.setOnMouseClicked(event -> clearAllSelection());
 
     }
 

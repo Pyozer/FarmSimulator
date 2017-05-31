@@ -24,7 +24,7 @@ public class VehiculeController implements Initializable, APIGoogleMap {
     /** Layout **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
-	@FXML private SplitPane splitPane;
+	@FXML private BorderPane infoContent;
 	
     @FXML private TableView<Vehicule> tableView;
     @FXML private TableColumn<Vehicule, String> column_type;
@@ -68,8 +68,8 @@ public class VehiculeController implements Initializable, APIGoogleMap {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
-		
-		splitPane.setOnMouseClicked(event -> clearAllSelection());
+
+        infoContent.setOnMouseClicked(event -> clearAllSelection());
 
     }
 

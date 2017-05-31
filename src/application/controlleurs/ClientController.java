@@ -26,7 +26,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
     /** Layout **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
-	@FXML private SplitPane splitPane;
+	@FXML private BorderPane infoContent;
 	
     @FXML private TableView<Agriculteur> tableView;
     @FXML private TableColumn<Agriculteur, String> column_nom;
@@ -64,8 +64,8 @@ public class ClientController implements Initializable, APIGoogleMap  {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 
         listInfos.getItems().add(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
-		
-		splitPane.setOnMouseClicked(event -> clearAllSelection());
+
+        infoContent.setOnMouseClicked(event -> clearAllSelection());
 
     }
 
