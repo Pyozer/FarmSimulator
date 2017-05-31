@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Created by Pyozer on 23/05/2017.
  */
+
 public class CommandeSQL {
 
     private ObservableList<Champ> champList;
