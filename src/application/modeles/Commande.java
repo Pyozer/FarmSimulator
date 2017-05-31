@@ -1,6 +1,7 @@
 package application.modeles;
 
 import application.classes.ElementPair;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -14,30 +15,25 @@ public class Commande extends Element {
     private SimpleStringProperty typebott;// type de boot commande
     private SimpleStringProperty taillemx;// taille max commande
     private SimpleStringProperty date;
-    private float tonne;
-    private float cout;
+    private SimpleFloatProperty tonne;
+    private SimpleFloatProperty cout;
 
     public Commande(int id, String transport, String typebott, String taillemax, String date, float tonne, float cout, Champ champCommande) {
         super(id);
-        this.champCommande = new SimpleObjectProperty<>(champCommande);
         this.transport = new SimpleStringProperty(transport);
         this.typebott = new SimpleStringProperty(typebott);
         this.taillemx = new SimpleStringProperty(taillemax);
         this.date = new SimpleStringProperty(date);
-        this.tonne = tonne;
-        this.cout = cout;
+        this.tonne = new SimpleFloatProperty(tonne);
+        this.cout = new SimpleFloatProperty(cout);
+        this.champCommande = new SimpleObjectProperty<>(champCommande);
 
-
-        getInformations().add(new ElementPair("Nom", champCommande.getProprietaire().getNom()));
-        getInformations().add(new ElementPair("Prénom", champCommande.getProprietaire().getPrenom()));
-        getInformations().add(new ElementPair("Surface", champCommande.getSurface()));
-        getInformations().add(new ElementPair("Adresse", champCommande.getAdresse()));
         getInformations().add(new ElementPair("Transport", transport));
-        getInformations().add(new ElementPair("Type de Botteulage", typebott));
+        getInformations().add(new ElementPair("Type de Bottelage", typebott));
         getInformations().add(new ElementPair("Taille max du transport", taillemax));
         getInformations().add(new ElementPair("Date", date));
         getInformations().add(new ElementPair("Tonne", tonne));
-        getInformations().add(new ElementPair("Cout", cout));
+        getInformations().add(new ElementPair("Coût", cout));
     }
 
     public Champ getChampCommande() {
@@ -80,4 +76,19 @@ public class Commande extends Element {
         this.taillemx.set(taillemx);
     }
 
+    public float getTonne() {
+        return tonne.get();
+    }
+
+    public void setTonne(float tonne) {
+        this.tonne.set(tonne);
+    }
+
+    public float getCout() {
+        return cout.get();
+    }
+
+    public void setCout(float cout) {
+        this.cout.set(cout);
+    }
 }
