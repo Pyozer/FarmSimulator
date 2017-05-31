@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * Classe pour les Agriculteurs
+ * Classe pour les Commandes
  */
 public class Commande extends Element {
 
