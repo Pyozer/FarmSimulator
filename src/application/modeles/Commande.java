@@ -1,6 +1,5 @@
 package application.modeles;
 
-import application.classes.ElementPair;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,8 +16,6 @@ public class Commande extends Element {
     private SimpleStringProperty date;
     private SimpleFloatProperty tonne;
     private SimpleFloatProperty cout;
-    private SimpleObjectProperty<Agriculteur> client;
-
 
     public Commande(int id, String transport, String typebott, String taillemax, String date, float tonne, float cout, Champ champCommande) {
         super(id);
@@ -29,7 +26,6 @@ public class Commande extends Element {
         this.tonne = new SimpleFloatProperty(tonne);
         this.cout = new SimpleFloatProperty(cout);
         this.champCommande = new SimpleObjectProperty<>(champCommande);
-        this.client = new SimpleObjectProperty<>(champCommande.getProprietaire());
     }
 
     public Champ getChampCommande() {
