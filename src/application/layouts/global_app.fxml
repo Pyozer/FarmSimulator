@@ -10,14 +10,15 @@
 <?import javafx.geometry.Insets?>
 <?import com.jfoenix.controls.JFXTextField?>
 
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.GlobalController">
     <center>
         <VBox BorderPane.alignment="CENTER">
-            <SplitPane dividerPositions="0.25" VBox.vgrow="SOMETIMES">
-                <VBox minWidth="400" maxWidth="400" spacing="20">
+            <SplitPane dividerPositions="0.40" VBox.vgrow="SOMETIMES">
+                <VBox minWidth="600" maxWidth="600" spacing="25">
                     <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
-
-                    <VBox spacing="10">
+                    <VBox spacing="18">
 
                         <Label text="Calculer un itinéraire">
                             <font><Font name="Roboto Medium" size="30.0" /></font>
@@ -36,6 +37,15 @@
                         <Label text="Commandes prioritaire">
                             <font><Font name="Roboto Medium" size="30.0" /></font>
                         </Label>
+
+                        <TableView fx:id="tableView" minHeight="200.0" maxHeight="200.0">
+                            <columns>
+                                <TableColumn fx:id="column_date" minWidth="125.0" text="Date" />
+                                <TableColumn fx:id="column_adresse" minWidth="150.0" text="Adresse" />
+                                <TableColumn fx:id="column_transport" minWidth="150.0" text="Transport" />
+                                <TableColumn fx:id="column_type_bott" minWidth="148.0" text="Type de botte" />
+                            </columns>
+                        </TableView>
 
                         <JFXButton text="Afficher tout" onAction="#goToCommandes" styleClass="btn, btn-primary" buttonType="RAISED" />
                     </VBox>
