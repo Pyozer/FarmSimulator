@@ -4,6 +4,9 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -51,9 +54,9 @@ public class CommandeController {
         bpane.setTop(menuApp.getMenuBar());
 
         column_date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        //column_client.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
-        //column_adr.setCellValueFactory(new PropertyValueFactory<>("date"));
-        //column_surf.setCellValueFactory(new PropertyValueFactory<>("date"));
+        column_client.setCellValueFactory(cellData -> new SimpleObjectProperty<Agriculteur>(cellData.getValue().getChampCommande().getProprietaire()));
+        column_adr.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
+        column_surf.setCellValueFactory(cellData -> new SimpleObjectProperty<Double>(cellData.getValue().getChampCommande().getSurface()));
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
         column_tonn.setCellValueFactory(new PropertyValueFactory<>("tonne"));
