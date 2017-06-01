@@ -4,13 +4,9 @@ import application.modeles.Tracteur;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class EditTracteurController implements Initializable {
+public class EditTracteurController {
 
     /** Layout **/
     @FXML
@@ -26,8 +22,7 @@ public class EditTracteurController implements Initializable {
     private JFXComboBox<String> liste_etat;
 
     /** Initializes the controller class. **/
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         // Initaliser la combobox avec une view

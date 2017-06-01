@@ -1,5 +1,6 @@
 package application.controlleurs;
 
+import application.Constant;
 import application.classes.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,18 +8,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-import javafx.fxml.Initializable;
-
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * Created by justin on 19/05/2017.
  *
  */
 
-public class GlobalController implements Initializable, APIGoogleMap {
+public class GlobalController implements APIGoogleMap {
 
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
@@ -28,7 +23,7 @@ public class GlobalController implements Initializable, APIGoogleMap {
 
     private GoogleMaps gMaps;
 
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         MenuApp menuApp = new MenuApp(bpane);
@@ -55,6 +50,12 @@ public class GlobalController implements Initializable, APIGoogleMap {
         } else {
             gMaps.changeRoute(FChamp.getText(), SChamp.getText());
         }
+    }
+
+    @FXML
+    public void goToCommandes() {
+        SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE, bpane);
+        switchView.showScene();
     }
 
     public void log(String msg) {

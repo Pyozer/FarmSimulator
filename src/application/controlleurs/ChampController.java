@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class ChampController implements Initializable, APIGoogleMap {
+public class ChampController implements APIGoogleMap {
 
     /**
      * Layout
@@ -47,8 +47,7 @@ public class ChampController implements Initializable, APIGoogleMap {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         MenuApp menuApp = new MenuApp(bpane);

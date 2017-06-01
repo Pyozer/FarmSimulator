@@ -5,21 +5,17 @@ import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class ClientController implements Initializable, APIGoogleMap  {
+public class ClientController implements APIGoogleMap  {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -43,8 +39,7 @@ public class ClientController implements Initializable, APIGoogleMap  {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         MenuApp menuApp = new MenuApp(bpane);

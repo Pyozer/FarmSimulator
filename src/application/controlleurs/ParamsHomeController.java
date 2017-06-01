@@ -1,13 +1,9 @@
 package application.controlleurs;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import application.Constant;
 import application.classes.SwitchView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -16,7 +12,7 @@ import javafx.scene.text.Text;
  * Controlleur de la vue de d'accueil de la configuration
  * du logiciel
  */
-public class ParamsHomeController implements Initializable {
+public class ParamsHomeController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -27,8 +23,7 @@ public class ParamsHomeController implements Initializable {
     /**
      * Initializes the controller class.
      */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
 		text_home.setText("Ce logiciel vous permet de gérer votre ETA de manière simple et intuitive.\n"

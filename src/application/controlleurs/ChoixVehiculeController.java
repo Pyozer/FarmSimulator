@@ -3,19 +3,15 @@ package application.controlleurs;
 import application.Constant;
 import application.classes.SwitchView;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class ChoixVehiculeController implements Initializable {
+public class ChoixVehiculeController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -34,8 +30,7 @@ public class ChoixVehiculeController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         img_tracteur.setImage(new Image(Constant.IMAGE_PATH + "choix_tracteur.png"));

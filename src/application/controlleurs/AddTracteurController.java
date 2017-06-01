@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddTracteurController implements Initializable {
+public class AddTracteurController {
 
     /** Layout **/
     @FXML
@@ -25,8 +25,7 @@ public class AddTracteurController implements Initializable {
     private JFXComboBox<String> liste_etat;
 
     /** Initializes the controller class. **/
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         // Initaliser la combobox avec une view

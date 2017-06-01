@@ -2,21 +2,15 @@ package application.controlleurs;
 
 import application.classes.AlertDialog;
 import application.modeles.Agriculteur;
-import application.modeles.ClientSQL;
-import application.modeles.Moissonneuse;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class EditClientController implements Initializable {
+public class EditClientController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -30,8 +24,7 @@ public class EditClientController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
     }

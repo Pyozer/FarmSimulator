@@ -1,8 +1,6 @@
 package application.controlleurs;
 
-import java.net.URL;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import application.classes.AlertDialog;
 import application.database.DBConnection;
@@ -11,7 +9,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -19,7 +16,7 @@ import javafx.stage.Stage;
 /**
  * Controlleur de la vue de paramétrage de la BDD
  */
-public class ParamsBddController implements Initializable {
+public class ParamsBddController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -34,8 +31,7 @@ public class ParamsBddController implements Initializable {
     /**
      * Initializes the controller class.
      */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         Properties properties = new DBProperties().loadPropertiesFile();
