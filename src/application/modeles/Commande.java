@@ -17,6 +17,8 @@ public class Commande extends Element {
     private SimpleStringProperty date;
     private SimpleFloatProperty tonne;
     private SimpleFloatProperty cout;
+    private SimpleObjectProperty<Agriculteur> client;
+
 
     public Commande(int id, String transport, String typebott, String taillemax, String date, float tonne, float cout, Champ champCommande) {
         super(id);
@@ -27,13 +29,7 @@ public class Commande extends Element {
         this.tonne = new SimpleFloatProperty(tonne);
         this.cout = new SimpleFloatProperty(cout);
         this.champCommande = new SimpleObjectProperty<>(champCommande);
-
-        getInformations().add(new ElementPair("Transport", transport));
-        getInformations().add(new ElementPair("Type de Bottelage", typebott));
-        getInformations().add(new ElementPair("Taille max du transport", taillemax));
-        getInformations().add(new ElementPair("Date", date));
-        getInformations().add(new ElementPair("Tonne", tonne));
-        getInformations().add(new ElementPair("Coût", cout));
+        this.client = new SimpleObjectProperty<>(champCommande.getProprietaire());
     }
 
     public Champ getChampCommande() {
@@ -91,4 +87,6 @@ public class Commande extends Element {
     public void setCout(float cout) {
         this.cout.set(cout);
     }
+
+
 }
