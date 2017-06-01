@@ -31,7 +31,6 @@ public class CommandeController {
     @FXML private TableColumn<Commande, Double> column_surf;
     @FXML private TableColumn<Commande, String> column_transport;
     @FXML private TableColumn<Commande, String> column_type_bott;
-    @FXML private TableColumn<Commande, String> column_taillemax;
     @FXML private TableColumn<Commande, String> column_tonn;
     @FXML private TableColumn<Commande, String> column_cout;
 
@@ -57,7 +56,6 @@ public class CommandeController {
         //column_surf.setCellValueFactory(new PropertyValueFactory<>("date"));
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
-        column_taillemax.setCellValueFactory(new PropertyValueFactory<>("taillemax"));
         column_tonn.setCellValueFactory(new PropertyValueFactory<>("tonne"));
         column_cout.setCellValueFactory(new PropertyValueFactory<>("cout"));
 

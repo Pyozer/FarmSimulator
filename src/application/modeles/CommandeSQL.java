@@ -31,12 +31,12 @@ public class CommandeSQL {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
-            Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
-
-            Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
-
             while (rs.next()) {
-               commandeList.add(new Commande(
+                Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
+
+                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
+
+                commandeList.add(new Commande(
                         Integer.parseInt(rs.getString("id_com")),
                         rs.getString("transp_com"),
                         rs.getString("bott_com"),
