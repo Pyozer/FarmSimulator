@@ -1,10 +1,8 @@
 package application.controlleurs;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 import application.Constant;
 import application.classes.AlertDialog;
@@ -15,14 +13,13 @@ import application.database.NamedParameterStatement;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
 /**
  * Controlleur de la vue de paramétrage de des infos de l'ETA
  */
-public class ParamsInfosController implements Initializable {
+public class ParamsInfosController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -34,8 +31,7 @@ public class ParamsInfosController implements Initializable {
     /**
      * Initializes the controller class.
      */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
 	}

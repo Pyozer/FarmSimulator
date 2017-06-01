@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
  */
-public class AddMoissonneuseController implements Initializable {
+public class AddMoissonneuseController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -28,8 +28,7 @@ public class AddMoissonneuseController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
     }

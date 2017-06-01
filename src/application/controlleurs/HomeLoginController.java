@@ -1,10 +1,8 @@
 package application.controlleurs;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 import application.Constant;
 import application.classes.AlertDialog;
@@ -15,14 +13,13 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
 /**
  * Controlleur de la vue de connexion au logiciel
  */
-public class HomeLoginController  implements Initializable {
+public class HomeLoginController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -35,8 +32,7 @@ public class HomeLoginController  implements Initializable {
     /**
      * Initializes the controller class.
      */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 	}
 

@@ -9,20 +9,17 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de création d'un compte admin
  */
-public class ParamsAccountController implements Initializable {
+public class ParamsAccountController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -37,8 +34,7 @@ public class ParamsAccountController implements Initializable {
     /**
      * Initializes the controller class.
      */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 	}
 

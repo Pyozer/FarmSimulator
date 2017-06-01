@@ -1,18 +1,14 @@
 package application.controlleurs;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import application.Constant;
 import application.classes.SwitchView;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 /**
  * Controlleur de la vue de paramétrage de des infos de l'ETA
  */
-public class HomeController  implements Initializable {
+public class HomeController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -20,8 +16,7 @@ public class HomeController  implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
     }

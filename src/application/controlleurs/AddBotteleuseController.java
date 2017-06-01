@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddBotteleuseController implements Initializable {
+public class AddBotteleuseController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -23,8 +23,7 @@ public class AddBotteleuseController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
         // Titre de la vue
 
