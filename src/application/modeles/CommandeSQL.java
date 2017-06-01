@@ -23,9 +23,11 @@ public class CommandeSQL {
         dbCon = new DBConnection().getConnection();
     }
 
-    public ObservableList<Commande> getCommandeList() {
-        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ";
-
+    public ObservableList<Commande> getCommandeList(int max_entries) {
+        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri";
+        if(max_entries > 0) {
+            request += " ORDER BY date_com LIMIT " + max_entries;
+        }
         commandeList.clear();
         try {
             PreparedStatement preparedStatement = dbCon.prepareStatement(request);
@@ -40,7 +42,7 @@ public class CommandeSQL {
                         Integer.parseInt(rs.getString("id_com")),
                         rs.getString("transp_com"),
                         rs.getString("bott_com"),
-                        rs.getString("taille_max_tranps_com"),
+                        rs.getString("taille_max_transp_com"),
                         rs.getString("date_com"),
                         Integer.parseInt(rs.getString("tonne_com")),
                         Integer.parseInt(rs.getString("cout_com")),
@@ -71,6 +73,9 @@ public class CommandeSQL {
         return commandeList;
     }
 
+    public ObservableList<Commande> getCommandeList() {
+        return getCommandeList(0);
+    }
 
     public void deleteCommande(Commande commande) {
         String request = "DELETE FROM Commande WHERE id_com=:id";

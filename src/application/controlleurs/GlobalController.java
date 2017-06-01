@@ -59,7 +59,8 @@ public class GlobalController implements APIGoogleMap {
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
 
         commandeSQL = new CommandeSQL();
-        commandeList = commandeSQL.getCommandeList();
+        commandeList = commandeSQL.getCommandeList(5);
+        System.out.println(commandeList.size());
 
         tableView.getItems().addAll(commandeList);
     }
