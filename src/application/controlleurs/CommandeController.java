@@ -51,8 +51,15 @@ public class CommandeController {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
-        column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
+        column_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        //column_client.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
+        //column_adr.setCellValueFactory(new PropertyValueFactory<>("date"));
+        //column_surf.setCellValueFactory(new PropertyValueFactory<>("date"));
+        column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
+        column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
+        column_taillemax.setCellValueFactory(new PropertyValueFactory<>("taillemax"));
+        column_tonn.setCellValueFactory(new PropertyValueFactory<>("tonne"));
+        column_cout.setCellValueFactory(new PropertyValueFactory<>("cout"));
 
         commandeSQL = new CommandeSQL();
         commandeList = commandeSQL.getCommandeList();

@@ -13,7 +13,7 @@ public class Commande extends Element {
     private SimpleObjectProperty<Champ> champCommande;
     private SimpleStringProperty transport; //transport de la commande
     private SimpleStringProperty typebott;// type de boot commande
-    private SimpleStringProperty taillemx;// taille max commande
+    private SimpleStringProperty taillemax;// taille max commande
     private SimpleStringProperty date;
     private SimpleFloatProperty tonne;
     private SimpleFloatProperty cout;
@@ -24,7 +24,7 @@ public class Commande extends Element {
         super(id);
         this.transport = new SimpleStringProperty(transport);
         this.typebott = new SimpleStringProperty(typebott);
-        this.taillemx = new SimpleStringProperty(taillemax);
+        this.taillemax = new SimpleStringProperty(taillemax);
         this.date = new SimpleStringProperty(date);
         this.tonne = new SimpleFloatProperty(tonne);
         this.cout = new SimpleFloatProperty(cout);
@@ -65,11 +65,11 @@ public class Commande extends Element {
     }
 
     public String getTaillemx() {
-        return taillemx.get();
+        return taillemax.get();
     }
 
     public void setTaillemx(String taillemx) {
-        this.taillemx.set(taillemx);
+        this.taillemax.set(taillemx);
     }
 
     public float getTonne() {
