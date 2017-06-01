@@ -72,7 +72,6 @@ public class CommandeController {
 
         if (commande != null) {
             selectedCommande = commande;
-			
             delete_btn.setVisible(true);
             edit_btn.setVisible(true);
         }
