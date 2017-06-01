@@ -20,6 +20,8 @@
                     <TableColumn fx:id="column_transport" minWidth="220.0" prefWidth="258.0" text="Transport de la commande" />
                     <TableColumn fx:id="column_type_bott" minWidth="211.0" prefWidth="211.0" text="Type de botteulage" />
                     <TableColumn fx:id="column_taillemax" minWidth="250.0" prefWidth="427.0" text="Taille maximum transport de la commande" />
+                    <TableColumn fx:id="column_tonn" minWidth="211.0" prefWidth="211.0" text="Tonnes récupérées" />
+                    <TableColumn fx:id="column_cout" minWidth="250.0" prefWidth="427.0" text="Cout de la commande" />
                 </columns>
             </TableView>
 

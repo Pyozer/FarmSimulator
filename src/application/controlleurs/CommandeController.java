@@ -26,12 +26,14 @@ public class CommandeController {
     @FXML private TableView<Commande> tableView;
 
     @FXML private TableColumn<Commande, String> column_date;
+    @FXML private TableColumn<Commande, Agriculteur> column_client;
     @FXML private TableColumn<Commande, String> column_adr;
     @FXML private TableColumn<Commande, Double> column_surf;
     @FXML private TableColumn<Commande, String> column_transport;
-
-    @FXML private TableColumn<Commande, String> column_type_culture;
-    @FXML private TableColumn<Commande, Agriculteur> column_client;
+    @FXML private TableColumn<Commande, String> column_type_bott;
+    @FXML private TableColumn<Commande, String> column_taillemax;
+    @FXML private TableColumn<Commande, String> column_tonn;
+    @FXML private TableColumn<Commande, String> column_cout;
 
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
