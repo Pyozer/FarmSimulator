@@ -28,7 +28,7 @@ public class Main extends Application {
         //Settings settings = new Settings();
         //settings.setParams("already_boot", null);
 
-        SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE);
+        SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE);
 
         //if(settings.getParams("already_boot") == null) {
         	//switchView = n  ew SwitchView("params_home", "styles.css", Constant.FIRST_PARAMS_HOME_TITLE);

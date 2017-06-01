@@ -10,7 +10,7 @@ import javafx.beans.property.*;
  */
 public class Champ extends Element {
 
-    private SimpleIntegerProperty surface; // Surface en m2
+    private SimpleDoubleProperty surface; // Surface en m2
     private SimpleStringProperty adresse; // Surface en m2
     private SimpleObjectProperty<Point> coord_center;
     private SimpleObjectProperty<Polygon> coord_champ; // Longitude du champs
@@ -19,7 +19,7 @@ public class Champ extends Element {
 
     public Champ(int id, int surface, String adresse, Point coord_center, Polygon coord_champ, String type_culture, Agriculteur proprietaire) {
         super(id);
-        this.surface = new SimpleIntegerProperty(surface);
+        this.surface = new SimpleDoubleProperty(surface);
         this.adresse = new SimpleStringProperty(adresse);
         this.coord_center = new SimpleObjectProperty<>(coord_center);
         this.coord_champ = new SimpleObjectProperty<>(coord_champ);
@@ -33,7 +33,7 @@ public class Champ extends Element {
         getInformations().add(new ElementPair("Proprietaire", proprietaire));
     }
 
-    public int getSurface() {
+    public double getSurface() {
         return surface.get();
     }
 

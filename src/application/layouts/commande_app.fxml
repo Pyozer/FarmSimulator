@@ -13,14 +13,13 @@
         <VBox BorderPane.alignment="CENTER">
             <TableView fx:id="tableView" maxHeight="315" minHeight="315.0">
                 <columns>
-                    <TableColumn fx:id="column_date" minWidth="250.0" text="Date" />
-                    <TableColumn fx:id="column_adr" minWidth="250.0" text="Adresse du champ" />
-                    <TableColumn fx:id="column_nom" minWidth="250.0" text="Nom du client" />
-                    <TableColumn fx:id="column_prenom" minWidth="250.0" text="Prénom du client" />
-                    <TableColumn fx:id="column_surf" minWidth="250.0" text="Surface du champ" />
-                    <TableColumn fx:id="column_transport" minWidth="250.0" text="Transport de la commande" />
-                    <TableColumn fx:id="column_type_botte" minWidth="250.0" text="Type de botteulage" />
-                    <TableColumn fx:id="column_taillemax" minWidth="250.0" text="Taille maximum transport de la commande" />
+                    <TableColumn fx:id="column_date" minWidth="136.0" prefWidth="136.0" text="Date" />
+                    <TableColumn fx:id="column_adr" minWidth="250.0" prefWidth="260.0" text="Adresse du champ" />
+                    <TableColumn fx:id="column_client" minWidth="250.0" prefWidth="273.0" text="Client" />
+                    <TableColumn fx:id="column_surf" minWidth="119.0" prefWidth="175.0" text="Surface du champ" />
+                    <TableColumn fx:id="column_transport" minWidth="220.0" prefWidth="258.0" text="Transport de la commande" />
+                    <TableColumn fx:id="column_type_bott" minWidth="211.0" prefWidth="211.0" text="Type de botteulage" />
+                    <TableColumn fx:id="column_taillemax" minWidth="250.0" prefWidth="427.0" text="Taille maximum transport de la commande" />
                 </columns>
             </TableView>
 
