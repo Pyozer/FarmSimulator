@@ -81,17 +81,19 @@ public class CommandeController {
 
     @FXML
     public void addCommande() {
-        SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
-        switchView.showScene();
+        Commande commande = tableView.getSelectionModel().getSelectedItem();
+
+        SwitchViewData switchViewData = new SwitchViewData("edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE, commande);
+        switchViewData.showScene();
     }
 
     @FXML
     public void deleteCommande() {
         if (selectedCommande != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Suppresion champ");
+            alert.setTitle("Suppresion commande");
             alert.setHeaderText("Confirmation de suppression");
-            alert.setContentText("Voulez-vous vraiment supprimer ce champ ?\n" + selectedCommande.toString());
+            alert.setContentText("Voulez-vous vraiment supprimer cette commande ?\n" + selectedCommande.toString());
             alert.setResizable(true);
             alert.getDialogPane().setPrefSize(480, 220);
 
@@ -107,7 +109,7 @@ public class CommandeController {
 
     @FXML
     public void editCommande() {
-        SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("add_commande_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
     }
 
