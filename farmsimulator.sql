@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 31 mai 2017 à 17:25
+-- Généré le :  jeu. 01 juin 2017 à 08:57
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -114,7 +114,7 @@ INSERT INTO `champ` (`id_champ`, `surf_champ`, `adr_champ`, `coord_centre_champ`
 CREATE TABLE `commande` (
   `id_com` int(11) NOT NULL,
   `date_com` date NOT NULL,
-  `bott_com` tinyint(1) NOT NULL,
+  `bott_com` varchar(50) NOT NULL,
   `transp_com` varchar(50) NOT NULL,
   `taille_max_transp_com` float DEFAULT NULL,
   `tonne_com` float DEFAULT '0',
@@ -127,20 +127,20 @@ CREATE TABLE `commande` (
 --
 
 INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_max_transp_com`, `tonne_com`, `cout_com`, `id_champ`) VALUES
-(29, '2018-01-01', 2, 'Lui', 0, 0, 0, 6),
-(30, '2018-01-01', 0, 'ETA', 0, 0, 0, 7),
-(31, '2018-01-02', 1, 'Lui', 5.36, 0, 0, 8),
-(32, '2018-01-03', 0, 'Négociant', 0, 0, 0, 9),
-(33, '2018-01-04', 2, 'ETA', 6, 0, 0, 10),
-(34, '2018-01-01', 2, 'Négociant', 0, 0, 0, 11),
-(35, '2018-01-02', 0, 'ETA', 14, 0, 0, 12),
-(36, '2018-01-04', 1, 'ETA', 0, 0, 0, 13),
-(37, '2018-03-01', 0, 'Lui', 0, 0, 0, 15),
-(38, '2018-01-04', 0, 'Négociant', 9.1, 0, 0, 16),
-(39, '2018-01-01', 1, 'ETA', 0, 0, 0, 17),
-(40, '2018-01-03', 1, 'Négociant', 3.7, 0, 0, 18),
-(41, '2018-01-02', 0, 'Lui', 0, 0, 0, 19),
-(42, '2018-01-03', 2, 'ETA', 9, 0, 0, 20);
+(29, '2018-01-01', 'Carré', 'Lui', 0, 0, 0, 6),
+(30, '2018-01-01', 'Pas Demandé', 'ETA', 0, 0, 0, 7),
+(31, '2018-01-02', 'Ronde', 'Lui', 5.36, 0, 0, 8),
+(32, '2018-01-03', 'Pas Demandé', 'Négociant', 0, 0, 0, 9),
+(33, '2018-01-04', 'Carré', 'ETA', 6, 0, 0, 10),
+(34, '2018-01-01', 'Carré', 'Négociant', 0, 0, 0, 11),
+(35, '2018-01-02', 'Pas Demandé', 'ETA', 14, 0, 0, 12),
+(36, '2018-01-04', 'Ronde', 'ETA', 0, 0, 0, 13),
+(37, '2018-03-01', 'Pas Demandé', 'Lui', 0, 0, 0, 15),
+(38, '2018-01-04', 'Pas Demandé', 'Négociant', 9.1, 0, 0, 16),
+(39, '2018-01-01', 'Ronde', 'ETA', 0, 0, 0, 17),
+(40, '2018-01-03', 'Ronde', 'Négociant', 3.7, 0, 0, 18),
+(41, '2018-01-02', 'Pas Demandé', 'Lui', 0, 0, 0, 19),
+(42, '2018-01-03', 'Carré', 'ETA', 9, 0, 0, 20);
 
 -- --------------------------------------------------------
 
