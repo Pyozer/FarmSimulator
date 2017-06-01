@@ -6,6 +6,8 @@ import application.modeles.Commande;
 import application.modeles.CommandeSQL;
 import application.modeles.Vehicule;
 import application.modeles.VehiculeSQL;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 import java.util.List;
@@ -28,10 +31,13 @@ import java.util.List;
 public class GlobalController implements APIGoogleMap {
 
     @FXML private BorderPane bpane;
+    @FXML private VBox infoContent;
     @FXML private StackPane googleMaps;
 
-    @FXML private TextField FChamp;
-    @FXML private TextField SChamp;
+    @FXML private JFXTextField FChamp;
+    @FXML private JFXTextField SChamp;
+
+    @FXML private JFXButton markToDone;
 
     @FXML private TableView<Commande> tableView;
     @FXML private TableColumn<Commande, String> column_date;
@@ -60,9 +66,12 @@ public class GlobalController implements APIGoogleMap {
 
         commandeSQL = new CommandeSQL();
         commandeList = commandeSQL.getCommandeList(5);
-        System.out.println(commandeList.size());
 
         tableView.getItems().addAll(commandeList);
+
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
+
+        infoContent.setOnMouseClicked(event -> clearAllSelection());
     }
 
     public void setFirstChamp(String firstChamp) {
@@ -87,6 +96,19 @@ public class GlobalController implements APIGoogleMap {
     public void goToCommandes() {
         SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE, bpane);
         switchView.showScene();
+    }
+
+    @FXML
+    public void markToDone() {
+
+    }
+
+    public void showButtons(Commande commande) {
+        markToDone.setVisible(true);
+    }
+    public void clearAllSelection() {
+        markToDone.setVisible(true);
+        tableView.getSelectionModel().clearSelection();
     }
 
     public void log(String msg) {
