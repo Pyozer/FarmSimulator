@@ -31,7 +31,7 @@ public class CommandeController {
     @FXML private TableColumn<Commande, String> column_date;
     @FXML private TableColumn<Commande, Agriculteur> column_client;
     @FXML private TableColumn<Commande, String> column_adr;
-    @FXML private TableColumn<Commande, Double> column_surf;
+    @FXML private TableColumn<Commande, String> column_surf;
     @FXML private TableColumn<Commande, String> column_transport;
     @FXML private TableColumn<Commande, String> column_type_bott;
     @FXML private TableColumn<Commande, String> column_tonn;
@@ -56,7 +56,7 @@ public class CommandeController {
         column_date.setCellValueFactory(new PropertyValueFactory<>("date"));
         column_client.setCellValueFactory(cellData -> new SimpleObjectProperty<Agriculteur>(cellData.getValue().getChampCommande().getProprietaire()));
         column_adr.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
-        column_surf.setCellValueFactory(cellData -> new SimpleObjectProperty<Double>(cellData.getValue().getChampCommande().getSurface()));
+        column_surf.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getSurface()+ " m²"));
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
         column_tonn.setCellValueFactory(new PropertyValueFactory<>("tonne"));

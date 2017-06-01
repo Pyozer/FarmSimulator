@@ -16,9 +16,9 @@
                     <TableColumn fx:id="column_date" minWidth="136.0" prefWidth="120.0" text="Date" />
                     <TableColumn fx:id="column_adr" minWidth="250.0" prefWidth="260.0" text="Adresse champ" />
                     <TableColumn fx:id="column_client" minWidth="171.0" prefWidth="171.0" text="Client" />
-                    <TableColumn fx:id="column_surf" minWidth="119.0" prefWidth="254.0" text="Surface champ" />
+                    <TableColumn fx:id="column_surf" minWidth="120.0" prefWidth="120.0" text="Surface champ" />
                     <TableColumn fx:id="column_transport" minWidth="220.0" prefWidth="200.0" text="Transport commande" />
-                    <TableColumn fx:id="column_type_bott" minWidth="211.0" prefWidth="200.0" text="Type botteulage" />
+                    <TableColumn fx:id="column_type_bott" minWidth="211.0" prefWidth="200.0" text="Type de botteulage" />
                     <TableColumn fx:id="column_tonn" minWidth="177.0" prefWidth="177.0" text="Tonnes" />
                     <TableColumn fx:id="column_cout" minWidth="199.0" prefWidth="199.0" text="Cout" />
                 </columns>
