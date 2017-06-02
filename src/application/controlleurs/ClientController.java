@@ -114,6 +114,7 @@ public class ClientController implements APIGoogleMap  {
     public void askToLoadChamps() {
         List<Champ> listClientChamp = clientSQL.getClientsChampsList();
 
+        gMaps.removeAll();
         for(Champ champ : listClientChamp) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }

@@ -37,8 +37,6 @@ public class ChampSQL {
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
 
-            System.out.println(rs.getFetchSize());
-
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
 
@@ -59,7 +57,6 @@ public class ChampSQL {
                                 rs.getString("adr_agri"),
                                 rs.getString("email_agri"))
                 ));
-                System.out.println(rs.getString("id_champ"));
             }
 
             rs.close();

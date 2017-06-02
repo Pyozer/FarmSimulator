@@ -8,12 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
  * Classe pour les Tracteurs
  */
 public class Tracteur extends Vehicule{
-    @Override
-    public String toString() {
-        return "Tracteur{" +
-                "capacite_remorque=" + capacite_remorque +
-                "} " + super.toString();
-    }
 
     private SimpleIntegerProperty capacite_remorque; // Capacité de la remorque en KG
 

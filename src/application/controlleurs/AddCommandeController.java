@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,10 +24,9 @@ public class AddCommandeController {
     /** Elements **/
     @FXML private JFXDatePicker date_commande;
     @FXML private JFXComboBox<Champ> liste_champs;
-    @FXML private JFXComboBox liste_transport;
-    @FXML private JFXComboBox liste_type_bott;
+    @FXML private JFXComboBox<String> liste_transport;
+    @FXML private JFXComboBox<String> liste_type_bott;
     @FXML private JFXTextField tMaxTransp;
-
 
     /**
      * Initializes the controller class.
@@ -35,43 +35,45 @@ public class AddCommandeController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         ChampSQL champSQL = new ChampSQL();
-        List<Champ> listChamp = champSQL.getChampsList();
-        for(Champ champ : listChamp)
-            liste_champs.getItems().add(champ);
+        liste_champs.getItems().setAll(champSQL.getChampsList());
+        liste_champs.setValue(liste_champs.getItems().get(0));
 
-        liste_transport.getItems().addAll("Le client", "ETA", "Le négociant");
+        liste_transport.getItems().setAll("Le client", "ETA", "Négociant");
+        liste_transport.setValue(liste_transport.getItems().get(0));
 
-        liste_type_bott.getItems().addAll("Non demandé", "Ronde", "Carré");
+        liste_type_bott.getItems().setAll("Ronde", "Carré", "Non Demandé");
+        liste_type_bott.setValue(liste_type_bott.getItems().get(0));
+
+        date_commande.setValue(LocalDate.now());
     }
 
     @FXML
     public void handleSubmitCommande() {
-        LocalDate inputDateBadFormat = date_commande.getValue();
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String inputDate = inputDateBadFormat.format(formatDate);
+        LocalDate inputDate = date_commande.getValue();
 
         Champ inputChamp = liste_champs.getValue();
 
-        String inputTransport = "" + liste_transport.getValue();
-        String inputTypeBott = "" + liste_type_bott.getValue();
+        String inputTransport = liste_transport.getValue();
+        String inputTypeBott = liste_type_bott.getValue();
         String inputTMaxTranspString = tMaxTransp.getText();
 
-        float inputTmaxTransp = 0;
-
-        System.out.println(inputDate);
-        if(inputDate.isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTranspString.isEmpty()) {
+        if(inputDate.toString().isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTranspString.isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
-        }else {
+        } else {
             try{
-                inputTmaxTransp = Float.parseFloat(inputTMaxTranspString);
+                float inputTmaxTransp = Float.parseFloat(inputTMaxTranspString);
                 CommandeSQL commandeSQL = new CommandeSQL();
-                commandeSQL.addCommande(inputDate, inputTypeBott, inputTransport, inputTmaxTransp, inputChamp); //0 = T max
+                commandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTmaxTransp, inputChamp); //0 = T max
 
                 AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.CONFIRMATION);
                 alert.show();
-            }catch (NumberFormatException  e){
-                AlertDialog alert = new AlertDialog("Erreur", null, "Le format du champ taille maximal transport est incorrect", Alert.AlertType.ERROR);
+
+                Stage stage = (Stage) bpane.getScene().getWindow();
+                stage.close();
+
+            } catch (NumberFormatException  e){
+                AlertDialog alert = new AlertDialog("Erreur", null, "Le format de la taille maximale doit être un nombre !\nUtilisez un . pour les nombres décimaux.", Alert.AlertType.ERROR);
                 alert.show();
             }
         }

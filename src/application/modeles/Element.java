@@ -32,6 +32,6 @@ public abstract class Element {
 
     @Override
     public String toString() {
-        return String.valueOf(id.get());
+        return "#" + id.get();
     }
 }

@@ -114,8 +114,7 @@
                     originSelected = false;
                 });
 
-                jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
-                jsInterface.askToLoadMarkers(); // On demande à Java de setup les véhicules
+                jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
             }
 
             function getPolygonCenter(polygon) {
@@ -204,6 +203,7 @@
                 polygon.setMap(map);
 
                 polygon.addListener('click', function(event) {
+                    jsInterface.setFirstChamp(getPolygonCenter(polygon));
 
                     for (var i = 0; i < champs.length; i++)
                         if(champs[i].id != champsSelected[0] && champs[i].id != champsSelected[1])
@@ -245,6 +245,7 @@
                 });
 
                 polygon.addListener('rightclick', function(event) {
+                    jsInterface.setSecondChamp(getPolygonCenter(polygon));
 
                     champsSelected[1] = polygon.id;
                     destSelect = true;
@@ -284,6 +285,7 @@
 
             /** Cache tous les champs **/
             function removeAll() {
+                infowindow.close();
                 for (var i = 0; i < champs.length; i++)
                     champs[i].setMap(null);
                 champs = [];
