@@ -43,7 +43,7 @@ public class ChampSQL {
                 Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
                 champList.add(new Champ(
-                        Integer.parseInt(rs.getString("id_agri")),
+                        Integer.parseInt(rs.getString("id_champ")),
                         Integer.parseInt(rs.getString("surf_champ")),
                         rs.getString("adr_champ"),
                         coord_center,
@@ -57,6 +57,7 @@ public class ChampSQL {
                                 rs.getString("adr_agri"),
                                 rs.getString("email_agri"))
                 ));
+                System.out.println(rs.getString("id_champ"));
             }
 
             rs.close();

@@ -23,6 +23,28 @@ public class CommandeSQL {
         dbCon = new DBConnection().getConnection();
     }
 
+    public void addCommande(String inputDate, String inputTypeBott, String inputTransport, float inputTailleMax, Champ inputChamp) {
+        String request = "INSERT INTO Commande(date_com, bott_com, transp_com, taille_max_transp_com, id_champ) VALUES(:date, :bott, :transp, :tMaxTransp, :champ)";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+
+            preparedStatement.setString("date", inputDate);
+            preparedStatement.setString("bott", inputTypeBott);
+            preparedStatement.setString("transp", inputTransport);
+            preparedStatement.setString("tMaxTransp", ""+inputTailleMax);
+            preparedStatement.setString("champ", ""+inputChamp.getId());
+
+            // Execute SQL statement
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
     public ObservableList<Commande> getCommandeList(int max_entries) {
         String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri";
         if(max_entries > 0) {

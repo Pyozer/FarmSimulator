@@ -1,10 +1,7 @@
 package application.controlleurs;
 
 import application.classes.AlertDialog;
-import application.modeles.Champ;
-import application.modeles.ChampSQL;
-import application.modeles.ClientSQL;
-import application.modeles.Culture;
+import application.modeles.*;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -28,6 +25,7 @@ public class AddCommandeController {
     @FXML private JFXComboBox<Champ> liste_champs;
     @FXML private JFXComboBox liste_transport;
     @FXML private JFXComboBox liste_type_bott;
+    @FXML private JFXTextField tMaxTransp;
 
 
     /**
@@ -56,17 +54,20 @@ public class AddCommandeController {
 
         String inputTransport = "" + liste_transport.getValue();
         String inputTypeBott = "" + liste_type_bott.getValue();
+        String inputTMaxTranspString = tMaxTransp.getText();
 
-        if(inputDate.isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty()) { //champs
+
+        System.out.println(inputDate);
+        if(inputDate.isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTransp.isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
-        } /*else {
-            ClientSQL clientSQL = new ClientSQL();
-            clientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
+        }else {
+            CommandeSQL commandeSQL = new CommandeSQL();
+            commandeSQL.addCommande(inputDate, inputTypeBott, inputTransport, inputTMaxTransp, inputChamp); //0 = T max
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
+            AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.CONFIRMATION);
             alert.show();
-        }*/
+        }
     }
 
 

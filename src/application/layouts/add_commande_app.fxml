@@ -39,7 +39,10 @@
                <Label text="Transport :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                <JFXComboBox fx:id="liste_type_bott" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Type de Botteleuse" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-               <JFXButton text="Ajouter" onAction="#handleSubmitCommande" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+               <Label text="Transport :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+               <JFXTextField fx:id="tMaxTransp" labelFloat="true" minWidth="350" prefWidth="350.0" promptText="Taille de transport" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+               <JFXButton text="Ajouter" onAction="#handleSubmitCommande" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
            </GridPane>
        </VBox>
    </center>
