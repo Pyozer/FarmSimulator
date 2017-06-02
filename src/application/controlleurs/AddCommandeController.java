@@ -56,17 +56,24 @@ public class AddCommandeController {
         String inputTypeBott = "" + liste_type_bott.getValue();
         String inputTMaxTranspString = tMaxTransp.getText();
 
+        float inputTmaxTransp = 0;
 
         System.out.println(inputDate);
-        if(inputDate.isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTransp.isEmpty()) {
+        if(inputDate.isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTranspString.isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         }else {
-            CommandeSQL commandeSQL = new CommandeSQL();
-            commandeSQL.addCommande(inputDate, inputTypeBott, inputTransport, inputTMaxTransp, inputChamp); //0 = T max
+            try{
+                inputTmaxTransp = Float.parseFloat(inputTMaxTranspString);
+                CommandeSQL commandeSQL = new CommandeSQL();
+                commandeSQL.addCommande(inputDate, inputTypeBott, inputTransport, inputTmaxTransp, inputChamp); //0 = T max
 
-            AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.CONFIRMATION);
-            alert.show();
+                AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.CONFIRMATION);
+                alert.show();
+            }catch (NumberFormatException  e){
+                AlertDialog alert = new AlertDialog("Erreur", null, "Le format du champ taille maximal transport est incorrect", Alert.AlertType.ERROR);
+                alert.show();
+            }
         }
     }
 
