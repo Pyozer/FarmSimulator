@@ -2,11 +2,6 @@ package application.classes;
 
 import application.Constant;
 import application.modeles.Agriculteur;
-import application.modeles.Champ;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
@@ -15,7 +10,6 @@ import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 
 import java.net.URL;
-import java.util.List;
 
 /**
  * Class permettant de créer une carte Google Maps avec l'API V3
@@ -52,15 +46,15 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Point sur la Map **/
     public void addMarker(int id, Point position, String title, String type, String etat) {
-        System.out.println("addMarker(" + id + ", '" + position.x() + "', '" + position.y() + "', '" + title + "', '" + type + "', '" + etat + "')");
+        //System.out.println("addMarker(" + id + ", '" + position.x() + "', '" + position.y() + "', '" + title + "', '" + type + "', '" + etat + "')");
         javascriptOBJ.call("addMarker", id, position.x(), position.y(), title, type, etat);
     }
 
     /** Ajoute un Champ sur la Map **/
-    public void addChamp(int id, String culture, Agriculteur proprio, String adresse, double surface, Polygon coords) {
+    public void addChamp(int id, String culture, Agriculteur proprio, String adresse, float surface, Polygon coords) {
         try {
-            System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "')");
-            javascriptOBJ.call("addChamp", String.valueOf(id), culture, proprio.toString(), adresse, String.valueOf(surface), coords.toString());
+            //System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "')");
+            javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords.toString());
         } catch (JSException e) {
             e.printStackTrace();
         }
@@ -69,15 +63,6 @@ public class GoogleMaps extends Region {
     /** Cache tous les Marker sauf un sur la carte **/
     public void hideAllExceptOne(int id) {
         javascriptOBJ.call("hideAllExceptOne", id);
-    }
-
-    public void showOne(int id) {
-        javascriptOBJ.call("showOne", id);
-    }
-
-    /** Réaffiche tous les markers sur la carte **/
-    public void showAll() {
-        javascriptOBJ.call("showAll");
     }
 
     /** Réaffiche tous les markers sur la carte **/

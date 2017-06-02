@@ -154,14 +154,9 @@
 
             }
 
-            /** Réaffiche tous les champs **/
-            function showAll() {
-                for (var i = 0; i < champs.length; i++)
-                    champs[i].setMap(map);
-            }
-
             /** Cache tous les champs **/
             function removeAll() {
+                infowindow.close();
                 for (var i = 0; i < champs.length; i++)
                     champs[i].setMap(null);
                 champs = [];

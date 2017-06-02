@@ -119,9 +119,9 @@ public class ChampController implements APIGoogleMap {
 
     @FXML
     public void editChamp() {
-        Champ champSelected = tableView.getSelectionModel().getSelectedItem();
-        SwitchViewData switchViewData = new SwitchViewData("edit_champ_app", Constant.ADD_VEHICULE_APP_TITLE, champSelected);
-        switchViewData.showScene();
+        //Champ champSelected = tableView.getSelectionModel().getSelectedItem();
+        //SwitchViewData switchViewData = new SwitchViewData("edit_champ_app", Constant.ADD_VEHICULE_APP_TITLE, champSelected);
+        //switchViewData.showScene();
     }
 
     private void clearAllSelection() {

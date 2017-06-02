@@ -93,22 +93,15 @@ public class GlobalController implements APIGoogleMap {
         }
     }
 
-    public void askToLoadMarkers() {
-
-        VehiculeSQL vehiculeSQL = new VehiculeSQL();
-        for(Vehicule vehicule : vehiculeSQL.getVehiculeList()) {
-            gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
-        }
-    }
-
-    public void askToLoadChamps() {
+    public void askToLoadData() {
         gMaps.removeAll();
         ChampSQL champSQL = new ChampSQL();
-        System.out.println(champSQL.getChampsList());
-        for (Champ champ : champSQL.getChampsList()) {
-
+        for (Champ champ : champSQL.getChampsList())
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
-        }
+
+        VehiculeSQL vehiculeSQL = new VehiculeSQL();
+        for(Vehicule vehicule : vehiculeSQL.getVehiculeList())
+            gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
     }
 
     @FXML
@@ -130,8 +123,10 @@ public class GlobalController implements APIGoogleMap {
 
     }
     public void clearAllSelection() {
+        gMaps.removeAll();
         markToDone.setVisible(true);
         tableView.getSelectionModel().clearSelection();
+        askToLoadData();
     }
 
     public void log(String msg) {

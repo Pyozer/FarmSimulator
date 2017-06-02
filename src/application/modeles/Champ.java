@@ -10,16 +10,16 @@ import javafx.beans.property.*;
  */
 public class Champ extends Element {
 
-    private SimpleDoubleProperty surface; // Surface en m2
+    private SimpleFloatProperty surface; // Surface en m2
     private SimpleStringProperty adresse; // Surface en m2
     private SimpleObjectProperty<Point> coord_center;
     private SimpleObjectProperty<Polygon> coord_champ; // Longitude du champs
     private SimpleStringProperty type_culture; // Type de culture (Blé, Orge,..)
     private SimpleObjectProperty<Agriculteur> proprietaire; // Nom du propriétaire
 
-    public Champ(int id, int surface, String adresse, Point coord_center, Polygon coord_champ, String type_culture, Agriculteur proprietaire) {
+    public Champ(int id, float surface, String adresse, Point coord_center, Polygon coord_champ, String type_culture, Agriculteur proprietaire) {
         super(id);
-        this.surface = new SimpleDoubleProperty(surface);
+        this.surface = new SimpleFloatProperty(surface);
         this.adresse = new SimpleStringProperty(adresse);
         this.coord_center = new SimpleObjectProperty<>(coord_center);
         this.coord_champ = new SimpleObjectProperty<>(coord_champ);
@@ -33,11 +33,11 @@ public class Champ extends Element {
         getInformations().add(new ElementPair("Proprietaire", proprietaire));
     }
 
-    public double getSurface() {
+    public float getSurface() {
         return surface.get();
     }
 
-    public void setSurface(int surface) {
+    public void setSurface(float surface) {
         this.surface.set(surface);
     }
 

@@ -1,10 +1,7 @@
 package application.classes;
 
 import application.Constant;
-import application.controlleurs.EditBotteleuseController;
-import application.controlleurs.EditClientController;
-import application.controlleurs.EditMoissonneuseController;
-import application.controlleurs.EditTracteurController;
+import application.controlleurs.*;
 import application.modeles.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,6 +44,10 @@ public class SwitchViewData {
                 else if(data instanceof Agriculteur) {
                     EditClientController editClientController = fxmlLoader.getController();
                     editClientController.initTextFields((Agriculteur) data);
+                }
+                else if(data instanceof Commande) {
+                    EditCommandeController editCommandeController = fxmlLoader.getController();
+                    editCommandeController.initTextFields((Commande) data);
                 }
             }
 
