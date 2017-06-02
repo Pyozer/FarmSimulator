@@ -37,13 +37,15 @@ public class ChampSQL {
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
 
+            System.out.println(rs.getFetchSize());
+
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
 
                 Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
                 champList.add(new Champ(
-                        Integer.parseInt(rs.getString("id_agri")),
+                        Integer.parseInt(rs.getString("id_champ")),
                         Integer.parseInt(rs.getString("surf_champ")),
                         rs.getString("adr_champ"),
                         coord_center,

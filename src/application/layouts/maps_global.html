@@ -11,7 +11,6 @@
     <body>
         <div id="map"></div>
 
-        <script src="champs_polygons.js"></script>
         <script type="text/javascript">
             var map;
             var directionsDisplay;
@@ -22,6 +21,41 @@
             var champsSelected = [0,0];
             var originSelect = false;
             var destSelect = false;
+            var champs = [];
+            var markers = [];
+            var markerCluster;
+
+            var selectedStyle = {
+                        strokeWeight: 2,
+                        strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                };
+            var selectedOverStyle = {
+                    strokeWeight: 3,
+                    strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                };
+            var originalStyle = {
+                    strokeWeight: 2,
+                    strokeColor: '#252525',
+                    fillColor: '#444444'
+                };
+
+            var iconBase = '../images/';
+            var icons = {
+                Eta: {
+                    icon: iconBase + 'marker_eta.png'
+                },
+                Moissonneuse: {
+                    icon: iconBase + 'marker_moissonneuse.png'
+                },
+                Tracteur: {
+                    icon: iconBase + 'marker_tracteur.png'
+                },
+                Botteleuse: {
+                    icon: iconBase + 'marker_botteleuse.png'
+                }
+            };
 
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -33,21 +67,8 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
-                var selectedStyle = {
-                        strokeWeight: 3,
-                        strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                    };
-                var originalStyle = {
-                        strokeWeight: 2,
-                        strokeColor: '#444444',
-                        fillColor: '#444444'
-                    };
-
-                map.data.setStyle(originalStyle);
-
-                // On charge les champs
-                map.data.addGeoJson(data, { idPropertyName: 'CHAMPS_ID' });
+                //var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
+                //trafficLayer.setMap(map);
 
                 infowindow = new google.maps.InfoWindow();
 
@@ -58,84 +79,13 @@
                     title: 'Les rivière, Janzé'
                 });
 
-                map.data.addListener('mouseover', function(event) {
-                    var idChamps = event.feature.getProperty('CHAMPS_ID');
-                    if(idChamps != champsSelected[0] && idChamps != champsSelected[1]) {
-                        map.data.overrideStyle(event.feature, {
-                            strokeWeight: 3
-                        });
-                    }
-                });
-
-                map.data.addListener('mouseout', function(event) {
-                    var idChamps = event.feature.getProperty('CHAMPS_ID');
-                    if(idChamps != champsSelected[0] && idChamps != champsSelected[1]) {
-                        map.data.overrideStyle(event.feature, originalStyle);
-                    }
-                });
-
-                map.addListener('click', function(event) {
-                    if (flightPath != null) {
-                        flightPath.setMap(null);
-                    }
-                    flightPlanCoordinates = [];
-                    champsSelected = [0,0];
-                    originSelect = false;
-                    destSelect = false;
-                    infowindow.close();
-                    map.data.revertStyle();
-                });
-
-                map.data.addListener('click', function(event) {
-                    var contentString = '<strong>Information</strong><br />' +
-                    'Culture: ' + event.feature.getProperty('culture') + '<br />' +
-                    'Propriétaire: ' + event.feature.getProperty('proprio') + '<br />' +
-                    'Bottelage: ' + event.feature.getProperty('bottelage') + '<br />' +
-                    'Transport: ' + event.feature.getProperty('transport');
-
-                    jsInterface.setFirstChamp(getPolygonCenter(event));
-
-                    infowindow.setContent(contentString);
-                    infowindow.setPosition(getPolygonCenter(event));
-                    infowindow.open(map);
-                });
-
-                map.data.addListener('click', function(event) {
-                    if (flightPath != null) {
-                        flightPath.setMap(null);
-                    }
-                    flightPlanCoordinates[0] = getPolygonCenter(event);
-                    map.data.overrideStyle(map.data.getFeatureById(champsSelected[0]), originalStyle);
-                    champsSelected[0] = event.feature.getProperty('CHAMPS_ID');
-                    originSelect = true;
-                    map.data.overrideStyle(event.feature, selectedStyle);
-                    if (originSelect && destSelect) { // Si origin et dest sélectionnés
-                        calcFlightPath(flightPlanCoordinates);
-                        showDist(flightPlanCoordinates);
-                    }
-                });
-
-                map.data.addListener('rightclick', function(event) {
-                    jsInterface.setSecondChamp(getPolygonCenter(event));
-
-                    if (flightPath != null) {
-                        flightPath.setMap(null);
-                    }
-                    flightPlanCoordinates[1] = getPolygonCenter(event);
-                    map.data.overrideStyle(map.data.getFeatureById(champsSelected[1]), originalStyle);
-                    champsSelected[1] = event.feature.getProperty('CHAMPS_ID');
-                    destSelect = true;
-                    map.data.overrideStyle(event.feature, selectedStyle);
-                    if (originSelect && destSelect) { // Si origin et dest sélectionnés
-                        calcFlightPath(flightPlanCoordinates);
-                        showDist(flightPlanCoordinates);
-                    }
-                });
-
                 // Itinéraire qui peut être afficher
                 directionsDisplay = new google.maps.DirectionsRenderer({
                     map: map
                 });
+
+                markerCluster = new MarkerClusterer(map, [],
+                    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
                 // Rayon de 20km autour du point de départ
                 var cityCircle = new google.maps.Circle({
@@ -150,6 +100,198 @@
                     clickable: false
                 });
 
+                map.addListener("click", function() {
+                    if (flightPath != null) {
+                        flightPath.setMap(null);
+                    }
+                    flightPlanCoordinates = [];
+                    for (var i = 0; i < champs.length; i++)
+                        champs[i].setOptions(originalStyle);
+
+                    champsSelected = [0, 0];
+                    infowindow.close();
+                    destSelect = false;
+                    originSelected = false;
+                });
+
+                jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
+                jsInterface.askToLoadMarkers(); // On demande à Java de setup les véhicules
+            }
+
+            function getPolygonCenter(polygon) {
+                var bounds = new google.maps.LatLngBounds();
+                var vertices = polygon.getPath();
+                for (var i = 0; i < vertices.getLength(); i++) {
+                    bounds.extend(vertices.getAt(i));
+                }
+                return bounds.getCenter();
+            }
+
+            /** Ajouter un marker à la Map **/
+            function addMarker(id, latitude, longitude, title, type, etat) {
+
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(latitude, longitude),
+                    icon: icons[type].icon,
+                    map: map,
+                    id: id,
+                    title: title,
+                    type: type,
+                    etat: etat,
+                    animation: google.maps.Animation.DROP
+                });
+
+                marker.addListener('click', function(event) {
+                    var contentString = '<span class="label"><strong>INFORMATIONS</strong></span><br /><br />' +
+                    'Type: ' + marker.type + '<br />' +
+                    'Etat: ' + marker.etat;
+
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                });
+
+                markers.push(marker);
+                markerCluster.addMarker(marker);
+            }
+
+            /** Supprime tous les markers sauf un **/
+            function hideAllExceptOne(id) {
+                markerCluster.clearMarkers();
+                for (var i = 0; i < markers.length; i++) {
+                    if(markers[i].id != id) {
+                        markers[i].setMap(null);
+                    } else {
+                        markers[i].setMap(map);
+                        map.panTo(markers[i].position);
+                    }
+                }
+                refresh();
+            }
+
+            /** Réaffiche tous les markers **/
+            function showAll() {
+                markerCluster.clearMarkers();
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                    markerCluster.addMarker(markers[i]);
+                }
+            }
+
+            /** Ajouter un champ à la Map **/
+            function addChamp(id, culture, proprio, adresse, surface, coords) {
+                var path = [];
+                var coordsParse = JSON.parse(coords);
+
+                coordsParse.forEach(function(point){
+                    var split = point.toString().split(",");
+                    var lat = split[0];
+                    var lng = split[1];
+                    var pointObj = new google.maps.LatLng(lat, lng);
+                    path.push(pointObj);
+
+                });
+
+                var polygon = new google.maps.Polygon({
+                  paths: path,
+                  id: id,
+                  culture: culture,
+                  proprio: proprio,
+                  adresse: adresse,
+                  surface: surface
+                });
+
+                polygon.setOptions(originalStyle);
+                polygon.setMap(map);
+
+                polygon.addListener('click', function(event) {
+
+                    for (var i = 0; i < champs.length; i++)
+                        if(champs[i].id != champsSelected[0] && champs[i].id != champsSelected[1])
+                            champs[i].setOptions(originalStyle);
+
+                    polygon.setOptions(selectedStyle);
+
+                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                    'Culture: ' + polygon.culture + '<br />' +
+                    'Propriétaire: ' + polygon.proprio + '<br />' +
+                    'Adresse: ' + polygon.adresse + '<br />' +
+                    'Surface: ' + polygon.surface + ' m²';
+
+                    infowindow.setContent(contentString);
+                    infowindow.setPosition(getPolygonCenter(polygon));
+                    infowindow.open(map);
+                });
+
+                polygon.addListener('click', function(event) {
+
+                    champsSelected[0] = polygon.id;
+                    originSelect = true;
+
+                    for (var i = 0; i < champs.length; i++)
+                        if(champs[i].id != champsSelected[1])
+                            champs[i].setOptions(originalStyle);
+
+                    if (flightPath != null) {
+                        flightPath.setMap(null);
+                    }
+                    flightPlanCoordinates[0] = getPolygonCenter(polygon);
+
+                    polygon.setOptions(selectedStyle);
+
+                    if (originSelect && destSelect) { // Si origin et dest sélectionnés
+                        calcFlightPath(flightPlanCoordinates);
+                        showDist(flightPlanCoordinates);
+                    }
+                });
+
+                polygon.addListener('rightclick', function(event) {
+
+                    champsSelected[1] = polygon.id;
+                    destSelect = true;
+
+                    for (var i = 0; i < champs.length; i++)
+                        if(champs[i].id != champsSelected[0])
+                            champs[i].setOptions(originalStyle);
+
+                    if (flightPath != null) {
+                        flightPath.setMap(null);
+                    }
+                    flightPlanCoordinates[1] = getPolygonCenter(polygon);
+
+                    polygon.setOptions(selectedStyle);
+
+                    if (originSelect && destSelect) { // Si origin et dest sélectionnés
+                        calcFlightPath(flightPlanCoordinates);
+                        showDist(flightPlanCoordinates);
+                    }
+                });
+
+                polygon.addListener("mouseover", function(){
+                    polygon.setOptions(selectedOverStyle);
+                });
+
+                polygon.addListener("mouseout", function(){
+                    var idChamps = polygon.id;
+                    if(idChamps == champsSelected[0] || idChamps == champsSelected[1])
+                        polygon.setOptions(selectedStyle);
+                    else
+                        polygon.setOptions(originalStyle);
+                });
+
+                champs.push(polygon);
+
+            }
+
+            /** Cache tous les champs **/
+            function removeAll() {
+                for (var i = 0; i < champs.length; i++)
+                    champs[i].setMap(null);
+                champs = [];
+
+                for (var i = 0; i < markers.length; i++)
+                    markers[i].setMap(null);
+                markers = [];
+                markerCluster.clearMarkers();
             }
 
             /** Calcule un itinéraire entre 2 points **/
@@ -179,15 +321,6 @@
                     });
                 }
             };
-
-            /** Récupère le centre d'un polygon **/
-            function getPolygonCenter(event) {
-                var bounds = new google.maps.LatLngBounds();
-                for (var i = 0; i < event.feature.getGeometry().getAt(0).getLength(); i++) {
-                    bounds.extend(event.feature.getGeometry().getAt(0).getAt(i));
-                }
-                return bounds.getCenter();
-            }
 
             /** Récupère le centre entre 2 point **/
             function getLineCenter(linePoints) {
@@ -226,6 +359,7 @@
                 map.setZoom(map.getZoom() + 1);
             }
         </script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>
 </html>

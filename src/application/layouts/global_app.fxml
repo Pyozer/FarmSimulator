@@ -52,6 +52,16 @@
                             <JFXButton text="Afficher tout" onAction="#goToCommandes" styleClass="btn, btn-primary" buttonType="RAISED" />
                             <JFXButton fx:id="markToDone" text="Marqué comme faite" onAction="#markToDone" styleClass="btn, btn-primary" buttonType="RAISED" />
                         </HBox>
+                    </VBox>
+                    <VBox fx:id="section_affection" spacing="10">
+                        <Label text="Affectation">
+                            <font><Font name="Roboto Medium" size="30.0" /></font>
+                        </Label>
+
+                        <HBox spacing="15">
+                            <JFXButton fx:id="newAffect" text="Nouvelle affectation" onAction="#newAffect" styleClass="btn, btn-primary" buttonType="RAISED" />
+                            <JFXButton fx:id="editAffect" text="Modifier l'affectation" onAction="#editAffect" styleClass="btn, btn-primary" buttonType="RAISED" />
+                        </HBox>
 
                     </VBox>
                 </VBox>
