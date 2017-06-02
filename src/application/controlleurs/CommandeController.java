@@ -85,7 +85,7 @@ public class CommandeController {
     public void addCommande() {
         Commande commande = tableView.getSelectionModel().getSelectedItem();
 
-        SwitchViewData switchViewData = new SwitchViewData("edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE, commande);
+        SwitchViewData switchViewData = new SwitchViewData("add_commande_app", Constant.ADD_VEHICULE_APP_TITLE, commande);
         switchViewData.showScene();
     }
 
@@ -111,7 +111,7 @@ public class CommandeController {
 
     @FXML
     public void editCommande() {
-        SwitchView switchView = new SwitchView("add_commande_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
     }
 
