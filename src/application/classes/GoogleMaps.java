@@ -52,12 +52,14 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Point sur la Map **/
     public void addMarker(int id, Point position, String title, String type, String etat) {
+        System.out.println("addMarker(" + id + ", '" + position.x() + "', '" + position.y() + "', '" + title + "', '" + type + "', '" + etat + "')");
         javascriptOBJ.call("addMarker", id, position.x(), position.y(), title, type, etat);
     }
 
     /** Ajoute un Champ sur la Map **/
     public void addChamp(int id, String culture, Agriculteur proprio, String adresse, double surface, Polygon coords) {
         try {
+            System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "')");
             javascriptOBJ.call("addChamp", String.valueOf(id), culture, proprio.toString(), adresse, String.valueOf(surface), coords.toString());
         } catch (JSException e) {
             e.printStackTrace();

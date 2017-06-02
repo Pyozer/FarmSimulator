@@ -2,14 +2,12 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.Commande;
-import application.modeles.CommandeSQL;
-import application.modeles.Vehicule;
-import application.modeles.VehiculeSQL;
+import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -33,11 +31,14 @@ public class GlobalController implements APIGoogleMap {
     @FXML private BorderPane bpane;
     @FXML private VBox infoContent;
     @FXML private StackPane googleMaps;
+    @FXML private VBox section_affection;
 
     @FXML private JFXTextField FChamp;
     @FXML private JFXTextField SChamp;
 
     @FXML private JFXButton markToDone;
+    @FXML private JFXButton newAffect;
+    @FXML private JFXButton editAffect;
 
     @FXML private TableView<Commande> tableView;
     @FXML private TableColumn<Commande, String> column_date;
@@ -92,6 +93,24 @@ public class GlobalController implements APIGoogleMap {
         }
     }
 
+    public void askToLoadMarkers() {
+
+        VehiculeSQL vehiculeSQL = new VehiculeSQL();
+        for(Vehicule vehicule : vehiculeSQL.getVehiculeList()) {
+            gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+        }
+    }
+
+    public void askToLoadChamps() {
+        gMaps.removeAll();
+        ChampSQL champSQL = new ChampSQL();
+        System.out.println(champSQL.getChampsList());
+        for (Champ champ : champSQL.getChampsList()) {
+
+            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+        }
+    }
+
     @FXML
     public void goToCommandes() {
         SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE, bpane);
@@ -106,6 +125,10 @@ public class GlobalController implements APIGoogleMap {
     public void showButtons(Commande commande) {
         markToDone.setVisible(true);
     }
+
+    public void showAffectation() {
+
+    }
     public void clearAllSelection() {
         markToDone.setVisible(true);
         tableView.getSelectionModel().clearSelection();
@@ -113,5 +136,12 @@ public class GlobalController implements APIGoogleMap {
 
     public void log(String msg) {
         System.err.println(msg);
+    }
+
+    public void newAffect() {
+
+    }
+
+    public void editAffect() {
     }
 }
