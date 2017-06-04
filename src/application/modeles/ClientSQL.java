@@ -117,6 +117,29 @@ public class ClientSQL {
         }
     }
 
+    public static void editClient(Agriculteur agri) {
+        String request = "UPDATE Agriculteur SET nom_agri=:nom_agri, prenom_agri=:prenom_agri, adr_agri=:adr_agri, tel_agri=:tel_agri, email_agri=:email_agri WHERE id_agri=:id_agri";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+
+            preparedStatement.setString("nom_agri", agri.getNom());
+            preparedStatement.setString("prenom_agri", agri.getPrenom());
+            preparedStatement.setString("adr_agri", agri.getAdresse());
+            preparedStatement.setString("tel_agri", agri.getNum_tel());
+            preparedStatement.setString("email_agri", agri.getEmail());
+            preparedStatement.setInt("id_agri", agri.getId());
+
+            // Execute SQL statement
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
     public static void deleteClient(Agriculteur agriculteur) {
         String request = "DELETE FROM Agriculteur WHERE id_agri=:id";
 

@@ -36,6 +36,29 @@ public class CommandeSQL {
         }
     }
 
+    public static void editCommande(Commande commande) {
+            String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, id_champ=:id_champ WHERE id_com=:id_com";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+
+            preparedStatement.setString("date_com", commande.getDate().toString());
+            preparedStatement.setString("bott_com", commande.getTypebott());
+            preparedStatement.setString("transp_com", commande.getTransport());
+            preparedStatement.setFloat("taille_max_transp_com", commande.getTaillemax());
+            preparedStatement.setInt("id_champ", commande.getChampCommande().getId());
+            preparedStatement.setInt("id_com", commande.getId());
+
+            // Execute SQL statement
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
     public static ObservableList<Commande> getCommandeList(int max_entries) {
 
         String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri";

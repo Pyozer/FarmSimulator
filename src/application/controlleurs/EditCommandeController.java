@@ -4,6 +4,7 @@ import application.classes.AlertDialog;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
 import application.modeles.Commande;
+import application.modeles.CommandeSQL;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -80,8 +81,7 @@ public class EditCommandeController {
                 commandeToEdit.setTypebott(inputTypeBott);
                 commandeToEdit.setTailleMax(Float.parseFloat(inputTMaxTranspString));
 
-                //CommandeSQL commandeSQL = new CommandeSQL();
-                //commandeSQL.editCommande(commandeToEdit);
+                CommandeSQL.editCommande(commandeToEdit);
 
                 AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été modifié !", Alert.AlertType.CONFIRMATION);
                 alert.show();

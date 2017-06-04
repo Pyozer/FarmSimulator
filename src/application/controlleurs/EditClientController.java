@@ -2,6 +2,7 @@ package application.controlleurs;
 
 import application.classes.AlertDialog;
 import application.modeles.Agriculteur;
+import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -21,6 +22,8 @@ public class EditClientController {
     @FXML private JFXTextField adresse_client;
     @FXML private JFXTextField email_client;
 
+    private Agriculteur agriculteurToEdit;
+
     /**
      * Initializes the controller class.
      */
@@ -30,6 +33,8 @@ public class EditClientController {
     }
 
     public void initTextFields(Agriculteur agriculteur) {
+
+        agriculteurToEdit = agriculteur;
 
         nom_client.setText(agriculteur.getNom());
         prenom_client.setText(agriculteur.getPrenom());
@@ -50,11 +55,16 @@ public class EditClientController {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            /*ClientSQL clientSQL = new ClientSQL();
-            clientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
+            agriculteurToEdit.setNom(inputNom);
+            agriculteurToEdit.setPrenom(inputPrenom);
+            agriculteurToEdit.setNum_tel(inputTel);
+            agriculteurToEdit.setAdresse(inputAdresse);
+            agriculteurToEdit.setEmail(inputEmail);
+
+            ClientSQL.editClient(agriculteurToEdit);
 
             AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
-            alert.show();*/
+            alert.show();
         }
     }
 
