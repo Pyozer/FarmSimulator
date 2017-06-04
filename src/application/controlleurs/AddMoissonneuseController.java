@@ -2,11 +2,7 @@ package application.controlleurs;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA

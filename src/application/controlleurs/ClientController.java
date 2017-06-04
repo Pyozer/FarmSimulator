@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,8 +31,6 @@ public class ClientController implements APIGoogleMap  {
     @FXML private ListView<ElementPair> listInfos;
 
     private GoogleMaps gMaps;
-    private ClientSQL clientSQL;
-    private List<Agriculteur> clientList;
     private Agriculteur selectedAgri = null;
 
     /**
@@ -51,9 +48,7 @@ public class ClientController implements APIGoogleMap  {
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
-        clientSQL = new ClientSQL();
-
-        tableView.getItems().addAll(clientSQL.getClientsList());
+        tableView.getItems().addAll(ClientSQL.getClientsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 
         resetListInfo();
@@ -76,7 +71,7 @@ public class ClientController implements APIGoogleMap  {
 				listInfos.getItems().add(information);
 
 			gMaps.removeAll();
-			for(Champ champ : clientSQL.getClientsChampsList(agriculteur.getId()))
+			for(Champ champ : ClientSQL.getClientsChampsList(agriculteur.getId()))
 				gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
 		}
     }
@@ -96,7 +91,7 @@ public class ClientController implements APIGoogleMap  {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            clientSQL.deleteClient(selectedAgri);
+            ClientSQL.deleteClient(selectedAgri);
             tableView.getItems().remove(selectedAgri);
         } else {
             alert.close();
@@ -112,10 +107,8 @@ public class ClientController implements APIGoogleMap  {
     }
 
     public void askToLoadChamps() {
-        List<Champ> listClientChamp = clientSQL.getClientsChampsList();
-
         gMaps.removeAll();
-        for(Champ champ : listClientChamp) {
+        for(Champ champ : ClientSQL.getClientsChampsList()) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
     }

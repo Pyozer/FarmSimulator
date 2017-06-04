@@ -11,8 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -59,22 +57,21 @@ public class ParamsAccountController {
 
 	/**
 	 * Vérifie si l'adresse mail n'a pas déjà été utilisé
-	 * @param email
-	 * @return
+	 * @param email String
+	 * @return boolean
 	 */
 	private boolean alreadyAccountExists(String email) {
-        Connection dbCon = new DBConnection().getConnection();
 		String request = "SELECT COUNT(*) as rowCount FROM User WHERE email=:email";
 		try {
-			NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+			NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
 			stmt.setString("email", email);
 			ResultSet res = stmt.executeQuery();
 
 			res.next();
 			int count = res.getInt("rowCount");
+
 			res.close();
 			stmt.close();
-			dbCon.close();
 
 			return count >= 1;
 		} catch (SQLException e) {
@@ -85,23 +82,21 @@ public class ParamsAccountController {
 
 	/**
 	 * Sauvegarde le compte dans la base de donnée
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param password
+	 * @param nom String
+	 * @param prenom String
+	 * @param email String
+	 * @param password String
 	 */
 	private void saveAccountToBDD(String nom, String prenom, String email, String password) {
-        Connection dbCon = new DBConnection().getConnection();
 		String request = "INSERT INTO User(nom, prenom, email, password) VALUES(:nom, :prenom, :email, :password)";
 		try {
-            NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("nom", nom);
             stmt.setString("prenom", prenom);
             stmt.setString("email", email);
             stmt.setString("password", password);
             stmt.executeUpdate();
 
-			dbCon.close();
 			stmt.close();
 
             AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous vous connecterez avec ces identifiants.");

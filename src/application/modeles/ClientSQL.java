@@ -19,22 +19,12 @@ import java.sql.SQLException;
  */
 public class ClientSQL {
 
-    private ObservableList<Agriculteur> clientList;
-    private ObservableList<Champ> clientChampList;
-    private Connection dbCon;
-
-    public ClientSQL() {
-        clientList = FXCollections.observableArrayList();
-        clientChampList = FXCollections.observableArrayList();
-        dbCon = new DBConnection().getConnection();
-    }
-
-    public ObservableList<Agriculteur> getClientsList() {
+    public static ObservableList<Agriculteur> getClientsList() {
         String request = "SELECT * FROM Agriculteur";
 
-        clientList.clear();
+        ObservableList<Agriculteur> clientList = FXCollections.observableArrayList();
         try {
-            PreparedStatement preparedStatement = dbCon.prepareStatement(request);
+            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -58,18 +48,19 @@ public class ClientSQL {
         return clientList;
     }
 
-    public ObservableList<Champ> getClientsChampsList() {
+    public static ObservableList<Champ> getClientsChampsList() {
         return getClientsChampsList(-1);
     }
 
-    public ObservableList<Champ> getClientsChampsList(int id_agri) {
+    public static ObservableList<Champ> getClientsChampsList(int id_agri) {
+
         String request = "SELECT * FROM Agriculteur INNER JOIN Champ ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Champ.type_champ=Culture.id_cul";
         if(id_agri > 0)
             request += " WHERE Agriculteur.id_agri=" + id_agri;
 
-        clientChampList.clear();
+        ObservableList<Champ> clientChampList = FXCollections.observableArrayList();
         try {
-            PreparedStatement preparedStatement = dbCon.prepareStatement(request);
+            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -104,11 +95,11 @@ public class ClientSQL {
         return clientChampList;
     }
 
-    public void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail) {
+    public static void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail) {
         String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri) VALUES(:nom, :prenom, :adresse, :tel, :email)";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             preparedStatement.setString("nom", inputNom);
             preparedStatement.setString("prenom", inputPrenom);
@@ -126,11 +117,11 @@ public class ClientSQL {
         }
     }
 
-    public void deleteClient(Agriculteur agriculteur) {
+    public static void deleteClient(Agriculteur agriculteur) {
         String request = "DELETE FROM Agriculteur WHERE id_agri=:id";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             preparedStatement.setInt("id", agriculteur.getId());
             preparedStatement.executeUpdate();
 

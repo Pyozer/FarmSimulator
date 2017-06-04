@@ -38,8 +38,6 @@ public class ChoixVehiculeController {
         img_moissonneuse.setImage(new Image(Constant.IMAGE_PATH + "choix_moissonneuse.png"));
 
         botteleuse.getStyleClass().add("box_selected");
-
-
     }
 
     @FXML

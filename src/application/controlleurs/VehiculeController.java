@@ -4,13 +4,13 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -33,10 +33,9 @@ public class VehiculeController implements APIGoogleMap {
 	@FXML private JFXButton delete_btn;
 
     @FXML private ListView<ElementPair> listInfos;
+    private ObservableList<Vehicule> vehiculeList;
 
     private GoogleMaps gMaps;
-    private VehiculeSQL vehiculeSQL;
-    private List<Vehicule> vehiculeList;
     private Vehicule selectedVehicule = null;
 
     /**
@@ -56,8 +55,7 @@ public class VehiculeController implements APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
-        vehiculeSQL = new VehiculeSQL();
-        vehiculeList = vehiculeSQL.getVehiculeList();
+        vehiculeList = VehiculeSQL.getVehiculeList();
 
         tableView.getItems().addAll(vehiculeList);
 
@@ -69,7 +67,7 @@ public class VehiculeController implements APIGoogleMap {
 
     }
 
-    public void showInformationsVehicule(Vehicule vehicule) {
+    private void showInformationsVehicule(Vehicule vehicule) {
 		selectedVehicule = null;
 		
 		if(vehicule != null) {
@@ -101,7 +99,7 @@ public class VehiculeController implements APIGoogleMap {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            vehiculeSQL.deleteVehicule(selectedVehicule);
+            VehiculeSQL.deleteVehicule(selectedVehicule);
             tableView.getItems().remove(selectedVehicule);
         } else {
             alert.close();

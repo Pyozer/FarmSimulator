@@ -18,15 +18,11 @@ import java.sql.SQLException;
  */
 public class VehiculeSQL {
 
-    private ObservableList<Vehicule> vehiculeList;
-    private Connection dbCon;
+    private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
 
-    public VehiculeSQL() {
-        vehiculeList = FXCollections.observableArrayList();
-        dbCon = new DBConnection().getConnection();
-    }
+    public static ObservableList<Vehicule> getVehiculeList() {
+        vehiculeList.clear();
 
-    public ObservableList<Vehicule> getVehiculeList() {
         loadBotteleuse();
         loadMoissonneuse();
         loadTracteur();
@@ -34,11 +30,11 @@ public class VehiculeSQL {
         return vehiculeList;
     }
 
-    private void loadTracteur() {
+    private static void loadTracteur() {
         String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
-            PreparedStatement stmt = dbCon.prepareStatement(request);
+            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
             // Execute select SQL statement
             ResultSet rs = stmt.executeQuery();
 
@@ -61,11 +57,11 @@ public class VehiculeSQL {
         }
     }
 
-    private void loadBotteleuse() {
+    private static void loadBotteleuse() {
         String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
-            PreparedStatement stmt = dbCon.prepareStatement(request);
+            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
 
             // execute select SQL stetement
             ResultSet rs = stmt.executeQuery();
@@ -89,11 +85,11 @@ public class VehiculeSQL {
         }
     }
 
-    private void loadMoissonneuse() {
+    private static void loadMoissonneuse() {
         String request = "SELECT * FROM Vehicule INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
 
         try {
-            PreparedStatement stmt = dbCon.prepareStatement(request);
+            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
 
             // Execute select SQL stetement
             ResultSet rs = stmt.executeQuery();
@@ -124,11 +120,11 @@ public class VehiculeSQL {
         }
     }
 
-    public void deleteVehicule(Vehicule vehicule) {
+    public static void deleteVehicule(Vehicule vehicule) {
         String request = "DELETE FROM vehicule WHERE id_vehi=:id";
 
         try {
-            NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setInt("id", vehicule.getId());
 
             // Execute select SQL statement

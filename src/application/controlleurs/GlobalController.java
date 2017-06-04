@@ -6,20 +6,14 @@ import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-
-import java.util.List;
 
 /**
  * Created by justin on 19/05/2017.
@@ -47,9 +41,6 @@ public class GlobalController implements APIGoogleMap {
     @FXML private TableColumn<Commande, String> column_type_bott;
 
     private GoogleMaps gMaps;
-    private CommandeSQL commandeSQL;
-
-    private List<Commande> commandeList;
 
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
@@ -65,10 +56,7 @@ public class GlobalController implements APIGoogleMap {
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
 
-        commandeSQL = new CommandeSQL();
-        commandeList = commandeSQL.getCommandeList(5);
-
-        tableView.getItems().addAll(commandeList);
+        tableView.getItems().addAll(CommandeSQL.getCommandeList(5));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
 
@@ -95,12 +83,10 @@ public class GlobalController implements APIGoogleMap {
 
     public void askToLoadData() {
         gMaps.removeAll();
-        ChampSQL champSQL = new ChampSQL();
-        for (Champ champ : champSQL.getChampsList())
+        for (Champ champ : ChampSQL.getChampsList())
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
 
-        VehiculeSQL vehiculeSQL = new VehiculeSQL();
-        for(Vehicule vehicule : vehiculeSQL.getVehiculeList())
+        for(Vehicule vehicule : VehiculeSQL.getVehiculeList())
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
     }
 
@@ -115,14 +101,14 @@ public class GlobalController implements APIGoogleMap {
 
     }
 
-    public void showButtons(Commande commande) {
+    private void showButtons(Commande commande) {
         markToDone.setVisible(true);
     }
 
     public void showAffectation() {
 
     }
-    public void clearAllSelection() {
+    private void clearAllSelection() {
         gMaps.removeAll();
         markToDone.setVisible(true);
         tableView.getSelectionModel().clearSelection();

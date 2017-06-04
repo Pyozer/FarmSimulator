@@ -53,24 +53,23 @@ public class ParamsInfosController {
 
     /**
      * Vérifie si il n'y a pas déjà un ETA ayant le même nom ou adresse
-     * @param name_eta
-     * @param adresse_eta
-     * @return
+     * @param name_eta String
+     * @param adresse_eta String
+     * @return boolean
      */
     private boolean alreadyEtaExists(String name_eta, String adresse_eta) {
-        Connection dbCon = new DBConnection().getConnection();
         String request = "SELECT COUNT(*) as rowCount FROM Eta WHERE nom=:nom OR adresse=:adresse";
         try {
-            NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("nom", name_eta);
             stmt.setString("adresse", adresse_eta);
             ResultSet res = stmt.executeQuery();
 
             res.next();
             int count = res.getInt("rowCount");
+
             res.close();
             stmt.close();
-            dbCon.close();
 
             return count >= 1;
         } catch (SQLException e) {
@@ -81,19 +80,17 @@ public class ParamsInfosController {
 
     /**
      * Sauvegarde les informations de l'ETA dans la BDD
-     * @param nom_eta
-     * @param adresse_eta
+     * @param nom_eta String
+     * @param adresse_eta String
      */
     private void saveEtaInBDD(String nom_eta, String adresse_eta) {
-        Connection dbCon = new DBConnection().getConnection();
         String request = "INSERT INTO Eta(nom, adresse) VALUES(:nom, :adresse)";
         try {
-            NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("nom", nom_eta);
             stmt.setString("adresse", adresse_eta);
             stmt.executeUpdate();
 
-            dbCon.close();
             stmt.close();
 
             Settings settings = new Settings();

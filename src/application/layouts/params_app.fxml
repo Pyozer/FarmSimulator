@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ParamsController">
    <center>
-      <TabPane prefHeight="200.0" fx:id="tpane" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-        <tabs>
-          <Tab text="Base de données" fx:id="bdd_tab">
-            <content>
-              <BorderPane/>
-            </content>
-          </Tab>
-          <Tab text="ETA" fx:id="info_tab">
-            <content>
-                <BorderPane/>
-            </content>
-          </Tab>
-        </tabs>
+      <TabPane fx:id="tpane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+          <Tab fx:id="bdd_tab" text="Base de données" onSelectionChanged="#bddTabClicked"/>
+          <Tab fx:id="info_tab" text="ETA" onSelectionChanged="#etaTabClicked" />
       </TabPane>
    </center>
 </BorderPane>

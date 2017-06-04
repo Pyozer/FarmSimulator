@@ -42,11 +42,11 @@ public class NamedParameterStatement {
      * @param paramMap map to hold parameter-index mappings
      * @return the parsed query
      */
-    static final String parse(String query, Map paramMap) {
+    private static String parse(String query, Map paramMap) {
         // I was originally using regular expressions, but they didn't work well for ignoring
         // parameter-like strings inside quotes.
         int length=query.length();
-        StringBuffer parsedQuery=new StringBuffer(length);
+        StringBuffer parsedQuery =new StringBuffer(length);
         boolean inSingleQuote=false;
         boolean inDoubleQuote=false;
         int index=1;
@@ -163,8 +163,23 @@ public class NamedParameterStatement {
      */
     public void setInt(String name, int value) throws SQLException {
         int[] indexes=getIndexes(name);
-        for(int i=0; i < indexes.length; i++) {
+        for(int i = 0; i < indexes.length; i++) {
             statement.setInt(indexes[i], value);
+        }
+    }
+
+    /**
+     * Sets a parameter.
+     * @param name  parameter name
+     * @param value parameter value
+     * @throws SQLException if an error occurred
+     * @throws IllegalArgumentException if the parameter does not exist
+     * @see PreparedStatement#setFloat(int, float)
+     */
+    public void setFloat(String name, float value) throws SQLException {
+        int[] indexes=getIndexes(name);
+        for(int i = 0; i < indexes.length; i++) {
+            statement.setFloat(indexes[i], value);
         }
     }
 

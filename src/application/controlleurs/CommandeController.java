@@ -4,7 +4,6 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -40,7 +39,6 @@ public class CommandeController {
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
-    private CommandeSQL commandeSQL;
     private Commande selectedCommande = null;
 
     /**
@@ -62,15 +60,13 @@ public class CommandeController {
         column_tonn.setCellValueFactory(new PropertyValueFactory<>("tonne"));
         column_cout.setCellValueFactory(new PropertyValueFactory<>("cout"));
 
-        commandeSQL = new CommandeSQL();
-
-        tableView.getItems().setAll(commandeSQL.getCommandeList());
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));;
+        tableView.getItems().setAll(CommandeSQL.getCommandeList());
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
     }
 
-    public void showInformationsCommande(Commande commande) {
+    private void showInformationsCommande(Commande commande) {
         selectedCommande = null;
 
         if (commande != null) {
@@ -98,7 +94,7 @@ public class CommandeController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                commandeSQL.deleteCommande(selectedCommande);
+                CommandeSQL.deleteCommande(selectedCommande);
                 tableView.getItems().remove(selectedCommande);
             } else {
                 alert.close();

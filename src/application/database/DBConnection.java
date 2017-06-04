@@ -15,21 +15,19 @@ import java.util.logging.Logger;
  */
 public class DBConnection {
 
-    private Connection con;
-    private String url;
-    private String urlForCreate;
-    private String unicode = "?useUnicode=yes&characterEncoding=UTF-8";
-    private String user;
-    private String pass;
+    private static Connection con;
+    private static String url;
+    private static String user;
+    private static String pass;
+    private static String unicode = "?useUnicode=yes&characterEncoding=UTF-8";
 
 
     /**
      * Défini les variables de connexion
      */
-    public void defineProperties() {
+    private static void defineProperties() {
         Properties properties = new DBProperties().loadPropertiesFile();
         url = "jdbc:mysql://" + properties.getProperty("host") + ":" + properties.getProperty("port") + "/" + properties.getProperty("db");
-        urlForCreate = "jdbc:mysql://" + properties.getProperty("host") + ":" + properties.getProperty("port") + "/";
         user = properties.getProperty("user");
         pass = properties.getProperty("password");
     }
@@ -37,17 +35,17 @@ public class DBConnection {
     /**
      * Permet la liaison lors de commandes de création en SQL
      * CREATE DATABASE, CREATE TABLE
-     * @return
+     * @return Connection
      */
-    public Connection makeDataBase() throws SQLException {
+    public static Connection makeDataBase() throws SQLException {
         defineProperties();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver O.K.");
-            System.out.println(urlForCreate);
+            System.out.println(url);
             System.out.println(user);
             System.out.println(pass);
-            con = DriverManager.getConnection(urlForCreate, user, pass);
+            con = DriverManager.getConnection(url, user, pass);
             System.out.println("Connexion effective !");
 
         } catch (ClassNotFoundException ex) {
@@ -63,13 +61,16 @@ public class DBConnection {
     /**
      * Permet la liaison lors de commandes d'opération en SQL
      * SELECT, INSERT INTO, UPDATE, DELETE FROM
-     * @return
+     * @return Connection
      */
-    public Connection getConnection() {
+    public static Connection getConnection() {
         defineProperties();
+
         try {
+            if(!con.isClosed()) {
+                return con;
+            }
             Class.forName("com.mysql.jdbc.Driver");
-            String unicode = "?useUnicode=yes&characterEncoding=UTF-8";
             con = DriverManager.getConnection(url + unicode, user, pass);
 
         } catch (ClassNotFoundException ex) {
@@ -85,9 +86,9 @@ public class DBConnection {
     /**
      * Permet la liaison lors de commandes d'opération en SQL
      * SELECT, INSERT INTO, UPDATE, DELETE FROM
-     * @return
+     * @return boolean
      */
-    public boolean checkConnection() {
+    public static boolean checkConnection() {
         defineProperties();
         try {
             Class.forName("com.mysql.jdbc.Driver");

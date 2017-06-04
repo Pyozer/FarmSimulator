@@ -8,32 +8,23 @@ import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CommandeSQL {
 
-    private ObservableList<Commande> commandeList;
-    private Connection dbCon;
-
-    public CommandeSQL() {
-        commandeList = FXCollections.observableArrayList();
-        dbCon = new DBConnection().getConnection();
-    }
-
-    public void addCommande(String inputDate, String inputTypeBott, String inputTransport, float inputTailleMax, Champ inputChamp) {
+    public static void addCommande(String inputDate, String inputTypeBott, String inputTransport, float inputTailleMax, Champ inputChamp) {
         String request = "INSERT INTO Commande(date_com, bott_com, transp_com, taille_max_transp_com, id_champ) VALUES(:date, :bott, :transp, :tMaxTransp, :champ)";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             preparedStatement.setString("date", inputDate);
             preparedStatement.setString("bott", inputTypeBott);
             preparedStatement.setString("transp", inputTransport);
-            preparedStatement.setString("tMaxTransp", ""+inputTailleMax);
-            preparedStatement.setString("champ", ""+inputChamp.getId());
+            preparedStatement.setFloat("tMaxTransp", inputTailleMax);
+            preparedStatement.setInt("champ", inputChamp.getId());
 
             // Execute SQL statement
             preparedStatement.executeUpdate();
@@ -45,19 +36,22 @@ public class CommandeSQL {
         }
     }
 
-    public ObservableList<Commande> getCommandeList(int max_entries) {
+    public static ObservableList<Commande> getCommandeList(int max_entries) {
+
         String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri";
         if(max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;
         }
-        commandeList.clear();
+
+        ObservableList<Commande> commandeList = FXCollections.observableArrayList();
+
         try {
-            PreparedStatement preparedStatement = dbCon.prepareStatement(request);
+            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
             ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
-
                 Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
                 commandeList.add(new Commande(
@@ -95,15 +89,15 @@ public class CommandeSQL {
         return commandeList;
     }
 
-    public ObservableList<Commande> getCommandeList() {
+    public static ObservableList<Commande> getCommandeList() {
         return getCommandeList(0);
     }
 
-    public void deleteCommande(Commande commande) {
+    public static void deleteCommande(Commande commande) {
         String request = "DELETE FROM Commande WHERE id_com=:id";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(dbCon, request);
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             preparedStatement.setInt("id", commande.getId());
             preparedStatement.executeUpdate();
 

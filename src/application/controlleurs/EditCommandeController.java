@@ -4,7 +4,6 @@ import application.classes.AlertDialog;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
 import application.modeles.Commande;
-import application.modeles.CommandeSQL;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -38,8 +37,7 @@ public class EditCommandeController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         // Initaliser la combobox avec une view
-        ChampSQL champSQL = new ChampSQL();
-        liste_champs.getItems().setAll(champSQL.getChampsList());
+        liste_champs.getItems().setAll(ChampSQL.getChampsList());
         liste_champs.setValue(liste_champs.getItems().get(0));
 
         liste_transport.getItems().setAll("Lui", "ETA", "Négociant");

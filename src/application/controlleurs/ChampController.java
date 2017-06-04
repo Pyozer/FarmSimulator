@@ -5,19 +5,14 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
-import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-import java.net.URL;
-import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
@@ -39,9 +34,7 @@ public class ChampController implements APIGoogleMap {
 
     @FXML private ListView<ElementPair> listInfos;
 
-    private List<Champ> champList;
     private GoogleMaps gMaps;
-    private ChampSQL champSQL;
     private Champ selectedChamp = null;
 
     /**
@@ -59,10 +52,7 @@ public class ChampController implements APIGoogleMap {
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
-        champSQL = new ChampSQL();
-        champList = champSQL.getChampsList();
-
-        tableView.getItems().addAll(champList);
+        tableView.getItems().addAll(ChampSQL.getChampsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
         resetListInfo();
@@ -71,7 +61,7 @@ public class ChampController implements APIGoogleMap {
 
     }
 
-    public void showInformationsChamp(Champ champ) {
+    private void showInformationsChamp(Champ champ) {
         selectedChamp = null;
 
         if (champ != null) {
@@ -108,7 +98,7 @@ public class ChampController implements APIGoogleMap {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                champSQL.deleteChamp(selectedChamp);
+                ChampSQL.deleteChamp(selectedChamp);
                 tableView.getItems().remove(selectedChamp);
                 askToLoadChamps();
             } else {
@@ -134,7 +124,7 @@ public class ChampController implements APIGoogleMap {
 
     public void askToLoadChamps() {
         gMaps.removeAll();
-        for (Champ champ : champList) {
+        for (Champ champ : ChampSQL.getChampsList()) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
     }

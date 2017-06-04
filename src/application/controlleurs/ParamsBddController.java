@@ -46,12 +46,11 @@ public class ParamsBddController {
 
 	@FXML private void btnCheckAction(ActionEvent event) {
 		// TODO: Vérifier connexion à la BDD
-        DBConnection dbcon = new DBConnection();
         DBProperties properties = new DBProperties();
 
         properties.makeDbProperties(hote_bdd.getText().trim(), port_bdd.getText().trim(), dbname_bdd.getText().trim(), identifiant_bdd.getText().trim(), password_bdd.getText().trim());
 
-        if (dbcon.checkConnection()) {
+        if (DBConnection.checkConnection()) {
             AlertDialog alert = new AlertDialog("Information", null, "Connexion à la base de donnée réussi !");
             alert.show();
             disableFields();

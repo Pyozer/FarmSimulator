@@ -11,8 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
@@ -34,8 +32,7 @@ public class AddCommandeController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        ChampSQL champSQL = new ChampSQL();
-        liste_champs.getItems().setAll(champSQL.getChampsList());
+        liste_champs.getItems().setAll(ChampSQL.getChampsList());
         liste_champs.setValue(liste_champs.getItems().get(0));
 
         liste_transport.getItems().setAll("Le client", "ETA", "Négociant");
@@ -63,8 +60,7 @@ public class AddCommandeController {
         } else {
             try{
                 float inputTmaxTransp = Float.parseFloat(inputTMaxTranspString);
-                CommandeSQL commandeSQL = new CommandeSQL();
-                commandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTmaxTransp, inputChamp); //0 = T max
+                CommandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTmaxTransp, inputChamp); //0 = T max
 
                 AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.CONFIRMATION);
                 alert.show();

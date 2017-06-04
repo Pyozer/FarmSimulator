@@ -4,13 +4,8 @@ import application.classes.AlertDialog;
 import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
-
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
@@ -46,8 +41,7 @@ public class AddClientController {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            ClientSQL clientSQL = new ClientSQL();
-            clientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
+            ClientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
 
             AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
             alert.show();

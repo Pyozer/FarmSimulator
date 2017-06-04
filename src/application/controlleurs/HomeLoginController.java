@@ -13,7 +13,8 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -52,10 +53,9 @@ public class HomeLoginController {
 
         boolean login_ok = false;
 
-		Connection dbCon = new DBConnection().getConnection();
 		String request = "SELECT email, password FROM User WHERE email=:email AND password=:password LIMIT 1";
 		try {
-			NamedParameterStatement stmt = new NamedParameterStatement(dbCon, request);
+			NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
 			stmt.setString("email", email);
 			stmt.setString("password", password);
 			// execute select SQL stetement
@@ -69,7 +69,6 @@ public class HomeLoginController {
                 }
 			}
 
-			dbCon.close();
 			stmt.close();
 			rs.close();
 

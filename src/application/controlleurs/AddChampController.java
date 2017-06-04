@@ -6,12 +6,9 @@ import application.modeles.ClientSQL;
 import application.modeles.Culture;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
@@ -30,14 +27,12 @@ public class AddChampController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        ChampSQL champSQL = new ChampSQL();
-        List<Culture> listCulture = champSQL.getTypeChampList();
+        List<Culture> listCulture = ChampSQL.getTypeChampList();
         for(Culture culture : listCulture)
             liste_type.getItems().add(culture.toString());
         liste_type.setValue(listCulture.get(0).toString());
 
-        ClientSQL clientSQL = new ClientSQL();
-        List<Agriculteur> listClient = clientSQL.getClientsList();
+        List<Agriculteur> listClient = ClientSQL.getClientsList();
         for(Agriculteur agri : listClient)
             liste_proprio.getItems().add(agri.toString());
         liste_proprio.setValue(listClient.get(0).toString());
