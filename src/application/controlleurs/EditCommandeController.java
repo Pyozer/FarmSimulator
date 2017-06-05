@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
@@ -30,6 +31,7 @@ public class EditCommandeController {
     @FXML private JFXTextField tMaxTransp;
 
     private Commande commandeToEdit;
+    private List<Champ> listChamps;
 
     /**
      * Initializes the controller class.
@@ -38,10 +40,11 @@ public class EditCommandeController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         // Initaliser la combobox avec une view
-        liste_champs.getItems().setAll(ChampSQL.getChampsList());
+        listChamps = ChampSQL.getChampsList();
+        liste_champs.getItems().setAll(listChamps);
         liste_champs.setValue(liste_champs.getItems().get(0));
 
-        liste_transport.getItems().setAll("Lui", "ETA", "Négociant");
+        liste_transport.getItems().setAll("Le client", "ETA", "Négociant");
         liste_transport.setValue(liste_transport.getItems().get(0));
 
         liste_type_bott.getItems().setAll("Ronde", "Carré", "Pas Demandé");
@@ -54,7 +57,15 @@ public class EditCommandeController {
         commandeToEdit = commande;
 
         date_commande.setValue(commande.getDate());
-        //liste_champs.setValue(commande.getChampCommande());
+
+        Champ champCommand = commande.getChampCommande();
+        for(Champ champ : listChamps)
+            if (champ.equals(champCommand))
+                liste_champs.getItems().remove(champ);
+
+        liste_champs.getItems().add(commande.getChampCommande());
+        liste_champs.setValue(commande.getChampCommande());
+
         liste_transport.setValue(commande.getTransport());
         liste_type_bott.setValue(commande.getTypebott());
         tMaxTransp.setText(String.valueOf(commande.getTaillemax()));
