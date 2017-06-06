@@ -9,7 +9,7 @@
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.AddClientController">
    <center>
        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-           <Label text="Ajouter un client" styleClass="pane_title" prefHeight="100.0">
+           <Label text="Rapport de moisson" styleClass="pane_title" prefHeight="100.0">
                <padding>
                    <Insets bottom="30"/>
                </padding>
