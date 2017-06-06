@@ -75,7 +75,9 @@
                 </Text>
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="289.0" layoutY="127.0" minHeight="-Infinity" prefHeight="1.0" prefWidth="72.0" style="-fx-background-color: #ffffff;" textAlignment="CENTER" />
             </Pane>
-
         </GridPane>
     </center>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

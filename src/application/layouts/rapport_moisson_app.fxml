@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.RapportMoissonController">
+    <center>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <Label text="Rapport de moisson" styleClass="pane_title" prefHeight="100.0">
+                <padding>
+                    <Insets bottom="30"/>
+                </padding>
+            </Label>
+            <GridPane alignment="TOP_CENTER" hgap="25" vgap="25">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="200" maxWidth="200" halignment="RIGHT"/>
+                    <ColumnConstraints halignment="LEFT"/>
+                    <ColumnConstraints minWidth="200" maxWidth="200"/>
+                </columnConstraints>
+
+                <padding><Insets top="30" right="25" bottom="10" left="25"/></padding>
+
+                <Label text="Date début :" textAlignment="RIGHT" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <JFXDatePicker fx:id="date_debut" focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Temps début :" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <JFXTimePicker fx:id="time_debut" focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Date fin" textAlignment="RIGHT" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <JFXDatePicker fx:id="date_fin" focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Temps fin :" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <JFXTimePicker fx:id="time_fin" promptText="Adresse postale du client" focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Poids récolté  :" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <JFXTextField fx:id="poid_recolte"  focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <JFXButton text="Valider" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            </GridPane>
+        </VBox>
+    </center>
+</BorderPane>
