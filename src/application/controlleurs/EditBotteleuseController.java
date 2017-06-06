@@ -25,11 +25,11 @@ public class EditBotteleuseController {
         // Titre de la vue
 
         // Initalise la combobox avec une view
-        liste_etat.getItems().addAll("En maitenance", "Utilisé", "Non utilisé");
+        liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
         liste_etat.setValue(liste_etat.getItems().get(0));
 
-        type.getItems().addAll("Ronde", "Carré" );
-        type.setValue("Ronde");
+        type.getItems().addAll("Ronde", "Carré");
+        type.setValue(type.getItems().get(0));
     }
 
     public void initTextFields(Botteleuse botteleuse) {

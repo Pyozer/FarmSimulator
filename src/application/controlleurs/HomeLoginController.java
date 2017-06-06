@@ -37,7 +37,7 @@ public class HomeLoginController {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 	}
 
-	@FXML private void btnLoginAction(ActionEvent event) {
+	@FXML private void btnLoginAction() {
 		if (!user_login.getText().isEmpty() && !password_login.getText().isEmpty()) {
 			login(user_login.getText(), password_login.getText());
 		} else {
@@ -84,8 +84,6 @@ public class HomeLoginController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-        //new SendEmail("jeancharles.msse@gmail.com", "Connexion effectué", "Un connexion a été réalisé sur votre logiciel.").send();
 
     }
 

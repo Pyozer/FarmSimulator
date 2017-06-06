@@ -25,8 +25,8 @@ public class AddTracteurController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         // Initaliser la combobox avec une view
-        liste_etat.getItems().addAll("En maitenance", "Utilisé", "Non utilisé");
-        liste_etat.setValue("Non utilisé");
+        liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
+        liste_etat.setValue(liste_etat.getItems().get(0));
     }
 
     @FXML

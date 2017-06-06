@@ -6,9 +6,9 @@
 
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.ParamsController">
    <center>
-      <TabPane fx:id="tpane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-          <Tab fx:id="bdd_tab" text="Base de données" onSelectionChanged="#bddTabClicked"/>
-          <Tab fx:id="info_tab" text="ETA" onSelectionChanged="#etaTabClicked" />
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+          <Tab fx:id="bdd_tab" text="Base de données"/>
+          <Tab fx:id="info_tab" text="ETA" />
       </TabPane>
    </center>
 </BorderPane>

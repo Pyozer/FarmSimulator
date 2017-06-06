@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChampSQL {
+
     public static ObservableList<Champ> getChampsList() {
         String request = "SELECT * FROM Champ INNER JOIN Agriculteur ON Champ.id_agri=Agriculteur.id_agri INNER JOIN Culture ON Champ.type_champ=Culture.id_cul";
 

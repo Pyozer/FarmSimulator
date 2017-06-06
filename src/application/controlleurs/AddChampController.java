@@ -18,8 +18,8 @@ public class AddChampController {
     /** Layout **/
     @FXML private BorderPane bpane;
 
-    @FXML private JFXComboBox<String> liste_type;
-    @FXML private JFXComboBox<String> liste_proprio;
+    @FXML private JFXComboBox<Culture> liste_type;
+    @FXML private JFXComboBox<Agriculteur> liste_proprio;
 
     /**
      * Initializes the controller class.
@@ -27,15 +27,11 @@ public class AddChampController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        List<Culture> listCulture = ChampSQL.getTypeChampList();
-        for(Culture culture : listCulture)
-            liste_type.getItems().add(culture.toString());
-        liste_type.setValue(listCulture.get(0).toString());
+        liste_type.getItems().setAll(ChampSQL.getTypeChampList());
+        liste_type.setValue(liste_type.getItems().get(0));
 
-        List<Agriculteur> listClient = ClientSQL.getClientsList();
-        for(Agriculteur agri : listClient)
-            liste_proprio.getItems().add(agri.toString());
-        liste_proprio.setValue(listClient.get(0).toString());
+        liste_proprio.getItems().setAll(ClientSQL.getClientsList());
+        liste_proprio.setValue(liste_proprio.getItems().get(0));
 
     }
 
