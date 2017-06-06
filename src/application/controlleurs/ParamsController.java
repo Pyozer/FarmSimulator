@@ -14,9 +14,9 @@ import java.io.IOException;
 public class ParamsController {
 
     /** Layout **/
-    private @FXML BorderPane bpane;
-    private @FXML Tab bdd_tab;
-    private @FXML Tab info_tab;
+    @FXML private BorderPane bpane;
+    @FXML private Tab bdd_tab;
+    @FXML private Tab info_tab;
 
     /**
      * Initializes the controller class.

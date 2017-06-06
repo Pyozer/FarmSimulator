@@ -14,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur de la vue de la gestion des véhicules de l'ETA
  */
 public class VehiculeController implements APIGoogleMap {
 
@@ -64,7 +64,6 @@ public class VehiculeController implements APIGoogleMap {
         resetListInfo();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
-
     }
 
     private void showInformationsVehicule(Vehicule vehicule) {
@@ -95,7 +94,6 @@ public class VehiculeController implements APIGoogleMap {
         alert.setTitle("Suppresion véhicule");
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce véhicule ?\n" + selectedVehicule.toString());
-
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){

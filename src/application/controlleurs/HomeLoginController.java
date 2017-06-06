@@ -1,6 +1,5 @@
 package application.controlleurs;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,7 +10,6 @@ import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -53,6 +51,7 @@ public class HomeLoginController {
 
         boolean login_ok = false;
 
+        // TODO: Faire un UserSQL
 		String request = "SELECT email, password FROM User WHERE email=:email AND password=:password LIMIT 1";
 		try {
 			NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -88,7 +87,6 @@ public class HomeLoginController {
     }
 
 	private void loadHome() {
-	    // TODO: TEMPORAIRE !
         SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE, bpane);
         switchView.showScene();
 	}

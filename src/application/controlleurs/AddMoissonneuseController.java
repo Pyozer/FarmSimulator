@@ -1,17 +1,21 @@
 package application.controlleurs;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur de l'ajout d'une moissonneuse
  */
 public class AddMoissonneuseController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
 
+    @FXML private JFXComboBox<String> liste_etat;
+    @FXML private JFXTextField modele;
+    @FXML private JFXTextField marque;
     @FXML private JFXTextField taille_tremis;
     @FXML private JFXTextField taille_reservoir;
     @FXML private JFXTextField largeur_route;
@@ -26,13 +30,10 @@ public class AddMoissonneuseController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
     }
 
     @FXML
     public void onSubmit() {
-        System.out.println("BOUTON SUBMIT CLIQUÉ");
+        // TODO: FAIRE AJOUT DE LA MOISSONEUSE
     }
-
-
 }

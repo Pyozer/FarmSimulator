@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur de l'ajout d'une commande
  */
 public class AddCommandeController {
 
@@ -32,6 +32,7 @@ public class AddCommandeController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
+        // Initialisation des ComboxBox
         liste_champs.getItems().setAll(ChampSQL.getChampsList());
         liste_champs.setValue(liste_champs.getItems().get(0));
 
@@ -47,9 +48,7 @@ public class AddCommandeController {
     @FXML
     public void handleSubmitCommande() {
         LocalDate inputDate = date_commande.getValue();
-
         Champ inputChamp = liste_champs.getValue();
-
         String inputTransport = liste_transport.getValue();
         String inputTypeBott = liste_type_bott.getValue();
         String inputTMaxTranspString = tMaxTransp.getText();
@@ -74,6 +73,4 @@ public class AddCommandeController {
             }
         }
     }
-
-
 }

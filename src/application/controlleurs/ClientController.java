@@ -54,7 +54,6 @@ public class ClientController implements APIGoogleMap  {
         resetListInfo();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
-
     }
 
     private void showInformationsClient(Agriculteur agriculteur) {

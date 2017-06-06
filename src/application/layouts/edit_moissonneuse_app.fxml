@@ -31,8 +31,8 @@
 
                 <Label text="État :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <JFXComboBox fx:id="liste_etat" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <Label text="Marque :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
+                <Label text="Marque :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <JFXTextField fx:id="marque" promptText="Marque" labelFloat="true" minWidth="165.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
                 <Label text="Modèle :" GridPane.columnIndex="0" GridPane.rowIndex="2" />

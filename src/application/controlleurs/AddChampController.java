@@ -8,10 +8,8 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
-import java.util.List;
-
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur pour l'ajout d'un champ
  */
 public class AddChampController {
 
@@ -27,6 +25,7 @@ public class AddChampController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
+        // Initialisation des ComboxBox
         liste_type.getItems().setAll(ChampSQL.getTypeChampList());
         liste_type.setValue(liste_type.getItems().get(0));
 
@@ -37,12 +36,11 @@ public class AddChampController {
 
     @FXML
     public void onAddPoint() {
-        System.out.println("BOUTON AJOUTER POINT CLIQUÉ");
+        //TODO: Faire l'ajout de nouveau champs de textes
     }
 
     public void onSubmit() {
-        System.out.println("BOUTON SUBMIT CLIQUÉ");
+        // TODO: Faire l'ajout du champs à la BDD
     }
-
 
 }

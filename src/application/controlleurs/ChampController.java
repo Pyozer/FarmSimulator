@@ -15,13 +15,11 @@ import javafx.scene.layout.StackPane;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur de la vue de la gestion des champs de l'ETA
  */
 public class ChampController implements APIGoogleMap {
 
-    /**
-     * Layout
-     **/
+    /** Layout **/
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
     @FXML private BorderPane infoContent;
@@ -58,7 +56,6 @@ public class ChampController implements APIGoogleMap {
         resetListInfo();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
-
     }
 
     private void showInformationsChamp(Champ champ) {
@@ -77,7 +74,6 @@ public class ChampController implements APIGoogleMap {
             gMaps.removeAll();
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
-
     }
 
     @FXML
@@ -109,9 +105,7 @@ public class ChampController implements APIGoogleMap {
 
     @FXML
     public void editChamp() {
-        //Champ champSelected = tableView.getSelectionModel().getSelectedItem();
-        //SwitchViewData switchViewData = new SwitchViewData("edit_champ_app", Constant.ADD_VEHICULE_APP_TITLE, champSelected);
-        //switchViewData.showScene();
+        // TODO: Faire la modification d'un champ
     }
 
     private void clearAllSelection() {
@@ -136,5 +130,4 @@ public class ChampController implements APIGoogleMap {
     public void log(String msg) {
         System.err.println(msg);
     }
-
 }

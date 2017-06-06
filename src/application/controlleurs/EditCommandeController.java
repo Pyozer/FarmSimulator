@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur pour la modification d'une commande
  */
 public class EditCommandeController {
 
@@ -39,7 +39,7 @@ public class EditCommandeController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        // Initaliser la combobox avec une view
+        // Initalisation des ComboBox
         listChamps = ChampSQL.getChampsList();
         liste_champs.getItems().setAll(listChamps);
         liste_champs.setValue(liste_champs.getItems().get(0));
@@ -74,9 +74,7 @@ public class EditCommandeController {
     @FXML
     public void onSubmit() {
         LocalDate inputDate = date_commande.getValue();
-
         Champ inputChamp = liste_champs.getValue();
-
         String inputTransport = liste_transport.getValue();
         String inputTypeBott = liste_type_bott.getValue();
         String inputTMaxTranspString = tMaxTransp.getText();
@@ -106,6 +104,4 @@ public class EditCommandeController {
             }
         }
     }
-
-
 }

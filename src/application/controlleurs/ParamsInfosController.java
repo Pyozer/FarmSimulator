@@ -1,6 +1,5 @@
 package application.controlleurs;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,7 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Controlleur de la vue de paramétrage de des infos de l'ETA
+ * Controlleur de la vue de paramétrage des infos de l'ETA
  */
 public class ParamsInfosController {
 
@@ -58,6 +57,7 @@ public class ParamsInfosController {
      * @return boolean
      */
     private boolean alreadyEtaExists(String name_eta, String adresse_eta) {
+        // TODO: Faire un modele SQL
         String request = "SELECT COUNT(*) as rowCount FROM Eta WHERE nom=:nom OR adresse=:adresse";
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -84,6 +84,7 @@ public class ParamsInfosController {
      * @param adresse_eta String
      */
     private void saveEtaInBDD(String nom_eta, String adresse_eta) {
+        // TODO: Faire un modele SQL
         String request = "INSERT INTO Eta(nom, adresse) VALUES(:nom, :adresse)";
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);

@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur pour l'ajout d'un client
  */
 public class AddClientController {
 
@@ -26,7 +26,6 @@ public class AddClientController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
     }
 
     @FXML

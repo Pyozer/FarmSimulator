@@ -1,6 +1,9 @@
 package application.classes;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 
 /**
  * Classe pour gérer les AlertsBox
@@ -29,9 +32,11 @@ public class AlertDialog {
      */
     public void show() {
         Alert alert = new Alert(type);
+
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
+
         alert.showAndWait();
     }
 }

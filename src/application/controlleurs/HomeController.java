@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Controlleur de la vue de paramétrage de des infos de l'ETA
+ * Controlleur de la vue de l'accueil
  */
 public class HomeController {
 
@@ -18,7 +18,6 @@ public class HomeController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
     }
 
     @FXML
@@ -46,11 +45,11 @@ public class HomeController {
 
     @FXML
     public void handleParams() {
-        System.out.println("handleParams");
+        // TODO : Afficher fenetre Parametres
     }
 
     @FXML
     public void handleExit() {
-        System.out.println("handleExit");
+        // TODO : Faire une fenetre pour quitter l'app
     }
 }

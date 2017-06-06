@@ -28,7 +28,7 @@ public interface Constant {
 
 	int MIN_WIDTH = 910;
 	int MIN_HEIGHT = 800;
-	int PREF_WIDTH = 1500;
+	int PREF_WIDTH = 1100;
 	int PREF_HEIGHT = 850;
 	
 	Color SUCCESS_COLOR = Color.LIMEGREEN;

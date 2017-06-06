@@ -15,24 +15,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-/**
- * Created by justin on 19/05/2017.
- *
- */
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Controlleur de la vue Global
+ */
 public class GlobalController implements APIGoogleMap {
 
     @FXML private BorderPane bpane;
     @FXML private VBox infoContent;
     @FXML private StackPane googleMaps;
-    @FXML private VBox section_affection;
 
     @FXML private JFXTextField FChamp;
     @FXML private JFXTextField SChamp;
 
-    @FXML private JFXButton markToDone;
-    @FXML private JFXButton newAffect;
-    @FXML private JFXButton editAffect;
+    @FXML private JFXButton btn_markDone;
+    @FXML private JFXButton btn_affects;
 
     @FXML private TableView<Commande> tableView;
     @FXML private TableColumn<Commande, String> column_date;
@@ -41,6 +40,8 @@ public class GlobalController implements APIGoogleMap {
     @FXML private TableColumn<Commande, String> column_type_bott;
 
     private GoogleMaps gMaps;
+
+    private Commande commandeSelected;
 
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
@@ -71,7 +72,6 @@ public class GlobalController implements APIGoogleMap {
         SChamp.setText(secondChamp.replace("(", "").replace(")", ""));
         SChamp.requestFocus();
     }
-
     public void calculIntineraire() {
         if (FChamp.getText().isEmpty() || SChamp.getText().isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Veuillez saisir tous les champs de texte !", Alert.AlertType.ERROR);
@@ -98,31 +98,34 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void markToDone() {
+        //TODO : Marquer une commande comme Effectué
+    }
 
+    @FXML
+    public void showAffects() {
+        //TODO : Afficher la fenetre des affectations
     }
 
     private void showButtons(Commande commande) {
-        markToDone.setVisible(true);
+        commandeSelected = commande;
+
+        btn_markDone.setVisible(true);
+        btn_affects.setVisible(true);
     }
 
-    public void showAffectation() {
-
-    }
     private void clearAllSelection() {
-        gMaps.removeAll();
-        markToDone.setVisible(true);
+        commandeSelected = null;
+
+        btn_markDone.setVisible(false);
+        btn_affects.setVisible(false);
+
         tableView.getSelectionModel().clearSelection();
+
+        gMaps.removeAll();
         askToLoadData();
     }
 
     public void log(String msg) {
         System.err.println(msg);
-    }
-
-    public void newAffect() {
-
-    }
-
-    public void editAffect() {
     }
 }

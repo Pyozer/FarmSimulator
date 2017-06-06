@@ -45,7 +45,6 @@ public class ParamsBddController {
 	}
 
 	@FXML private void btnCheckAction(ActionEvent event) {
-		// TODO: Vérifier connexion à la BDD
         DBProperties properties = new DBProperties();
 
         properties.makeDbProperties(hote_bdd.getText().trim(), port_bdd.getText().trim(), dbname_bdd.getText().trim(), identifiant_bdd.getText().trim(), password_bdd.getText().trim());
@@ -82,5 +81,4 @@ public class ParamsBddController {
         Stage stage = (Stage) bpane.getScene().getWindow();
         stage.close();
 	}
-
 }
