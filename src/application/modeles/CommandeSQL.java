@@ -61,7 +61,7 @@ public class CommandeSQL {
 
     public static ObservableList<Commande> getCommandeList(int max_entries) {
 
-        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri";
+        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
         if(max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;
         }
@@ -91,7 +91,7 @@ public class CommandeSQL {
                                 rs.getString("adr_champ"),
                                 coord_center,
                                 coord_champ,
-                                rs.getString("type_champ"),
+                                rs.getString("type_cul"),
                                 new Agriculteur(
                                             Integer.parseInt(rs.getString("id_agri")),
                                             rs.getString("prenom_agri"),

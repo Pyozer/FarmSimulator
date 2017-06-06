@@ -79,8 +79,23 @@ public class Champ extends Element {
         this.proprietaire.set(proprietaire);
     }
 
+    @Override
     public String toString() {
         return getType_culture() + " : " + getAdresse() + " - " + getProprietaire();
     }
 
+    @Override
+    public boolean equals(Object champToCheck) {
+        if (this == champToCheck) return true;
+        if (champToCheck == null || getClass() != champToCheck.getClass()) return false;
+
+        Champ champ = (Champ) champToCheck;
+
+        if (!surface.equals(champ.surface)) return false;
+        if (!adresse.equals(champ.adresse)) return false;
+        if (!coord_center.equals(champ.coord_center)) return false;
+        if (!coord_champ.equals(champ.coord_champ)) return false;
+        if (!type_culture.equals(champ.type_culture)) return false;
+        return proprietaire.equals(champ.proprietaire);
+    }
 }
