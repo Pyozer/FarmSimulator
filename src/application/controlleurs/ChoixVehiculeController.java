@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur pour le choix de véhicue à ajouter
  */
 public class ChoixVehiculeController {
 
@@ -79,5 +79,4 @@ public class ChoixVehiculeController {
         }
         swtichView.showScene();
     }
-
 }

@@ -9,8 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
- * Controlleur de la vue de d'accueil de la configuration
- * du logiciel
+ * Controlleur de la vue de d'accueil de la configuration du logiciel
  */
 public class ParamsHomeController {
 

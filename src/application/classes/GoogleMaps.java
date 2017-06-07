@@ -70,4 +70,14 @@ public class GoogleMaps extends Region {
         javascriptOBJ.call("removeAll");
     }
 
+    /** Active le mode selection **/
+    public void enableAffectSelection() {
+        javascriptOBJ.call("enableAffectSelection");
+    }
+
+    /** Désactive le mode selection **/
+    public void disableAffectSelection() {
+        javascriptOBJ.call("disableAffectSelection");
+    }
+
 }

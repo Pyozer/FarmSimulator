@@ -5,7 +5,6 @@
         <style type="text/css">
             html, body { height: 100%; margin: 0; padding: 0; }
             #map { height: 100%; }
-            .label {font-size:9px; text-align:center; color:#222; text-shadow:0 0 5px #fff; font-family:Helvetica, Arial, sans-serif;}
         </style>
     </head>
     <body>
@@ -16,14 +15,18 @@
             var directionsDisplay;
             var infowindow;
             var markerOrigin;
+
             var flightPath;
             var flightPlanCoordinates = [];
             var champsSelected = [0,0];
             var originSelect = false;
             var destSelect = false;
+
             var champs = [];
             var markers = [];
             var markerCluster;
+
+            var affectSelection = false;
 
             var selectedStyle = {
                         strokeWeight: 2,
@@ -141,12 +144,19 @@
                 });
 
                 marker.addListener('click', function(event) {
-                    var contentString = '<span class="label"><strong>INFORMATIONS</strong></span><br /><br />' +
-                    'Type: ' + marker.type + '<br />' +
-                    'Etat: ' + marker.etat;
+                    if(affectSelection) {
+                        jsInterface.defineVehiculeAffect(marker.id);
 
+                        var contentString = '<strong>AFFECTATION</strong><br /><br />' +
+                            'Véhicule choisi pour l\'affectation.';
+                    } else {
+                        var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                        'Type: ' + marker.type + '<br />' +
+                        'Etat: ' + marker.etat + '<br />';
+                    }
                     infowindow.setContent(contentString);
                     infowindow.open(map, marker);
+
                 });
 
                 markers.push(marker);
@@ -203,19 +213,27 @@
                 polygon.setMap(map);
 
                 polygon.addListener('click', function(event) {
-                    jsInterface.setFirstChamp(getPolygonCenter(polygon));
+
+                    if(!affectSelection) {
+                        jsInterface.setFirstChamp(getPolygonCenter(polygon));
+
+                        var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                            'Culture: ' + polygon.culture + '<br />' +
+                            'Propriétaire: ' + polygon.proprio + '<br />' +
+                            'Adresse: ' + polygon.adresse + '<br />' +
+                            'Surface: ' + polygon.surface + ' m²';
+                    } else {
+                        jsInterface.defineChampAffect(polygon.id);
+
+                        var contentString = '<strong>AFFECTATION</strong><br /><br />' +
+                            'Le champ a été choisi pour l\'affectation.';
+                    }
 
                     for (var i = 0; i < champs.length; i++)
                         if(champs[i].id != champsSelected[0] && champs[i].id != champsSelected[1])
                             champs[i].setOptions(originalStyle);
 
                     polygon.setOptions(selectedStyle);
-
-                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
-                    'Culture: ' + polygon.culture + '<br />' +
-                    'Propriétaire: ' + polygon.proprio + '<br />' +
-                    'Adresse: ' + polygon.adresse + '<br />' +
-                    'Surface: ' + polygon.surface + ' m²';
 
                     infowindow.setContent(contentString);
                     infowindow.setPosition(getPolygonCenter(polygon));
@@ -359,6 +377,13 @@
             function refresh() {
                 map.setZoom(map.getZoom() - 1);
                 map.setZoom(map.getZoom() + 1);
+            }
+
+            function enableAffectSelection() {
+                affectSelection = true;
+            }
+            function disableAffectSelection() {
+                affectSelection = false;
             }
         </script>
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>

@@ -6,6 +6,9 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Controlleur pour ma modification d'une botteleuse
+ */
 public class EditBotteleuseController {
 
     /** Layout **/
@@ -22,9 +25,8 @@ public class EditBotteleuseController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-        // Titre de la vue
 
-        // Initalise la combobox avec une view
+        // Initalisation des ComboBox
         liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
         liste_etat.setValue(liste_etat.getItems().get(0));
 
@@ -33,7 +35,6 @@ public class EditBotteleuseController {
     }
 
     public void initTextFields(Botteleuse botteleuse) {
-
         modele.setText(botteleuse.getModele());
         marque.setText(botteleuse.getMarque());
         liste_etat.setValue(botteleuse.getEtat());
@@ -42,11 +43,6 @@ public class EditBotteleuseController {
 
     @FXML
     public void handleSaveBotteleuse() {
-        System.out.println("BOUTON Sauvegarde CLIQUÉ");
-        System.out.println("Créer une Botteleuse : " );
-        System.out.println("         -Marque  : " + marque.getText());
-        System.out.println("         -Modèle  : " + modele.getText());
-        System.out.println("         -Etat  : " + liste_etat.getValue());
-        System.out.println("         -Type  : " + type.getValue());
+        // TODO : Modification d'une botteleuse
     }
 }

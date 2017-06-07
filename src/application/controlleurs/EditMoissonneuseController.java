@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur pour la modification d'une moissonneuse
  */
 public class EditMoissonneuseController {
 
@@ -32,13 +32,12 @@ public class EditMoissonneuseController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        // Initaliser la combobox avec une view
+        // Initalisation des Comboox
         liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
         liste_etat.setValue(liste_etat.getItems().get(0));
     }
 
     public void initTextFields(Moissonneuse moissonneuse) {
-
         modele.setText(moissonneuse.getModele());
         marque.setText(moissonneuse.getMarque());
         liste_etat.setValue(moissonneuse.getEtat());
@@ -54,8 +53,7 @@ public class EditMoissonneuseController {
 
     @FXML
     public void onSubmit() {
-        System.out.println("BOUTON SUBMIT CLIQUÉ");
+        // TODO: Modification d'une moissonneuse
     }
-
 
 }

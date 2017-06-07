@@ -36,7 +36,8 @@ public class ParamsAccountController {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 	}
 
-	@FXML private void btnNextAction(ActionEvent event) {
+	@FXML
+	private void btnNextAction() {
 		if (!nom.getText().isEmpty() && !prenom.getText().isEmpty()&& !email.getText().isEmpty() && !password.getText().isEmpty() && !passwordconfirm.getText().isEmpty()) {
 		    if(password.getText().equals(passwordconfirm.getText())) {
 		    	if(!alreadyAccountExists(email.getText())) {
@@ -61,6 +62,8 @@ public class ParamsAccountController {
 	 * @return boolean
 	 */
 	private boolean alreadyAccountExists(String email) {
+		// TODO: Faire un UserSQL
+
 		String request = "SELECT COUNT(*) as rowCount FROM User WHERE email=:email";
 		try {
 			NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -88,6 +91,7 @@ public class ParamsAccountController {
 	 * @param password String
 	 */
 	private void saveAccountToBDD(String nom, String prenom, String email, String password) {
+		// TODO: Faire un UserSQL
 		String request = "INSERT INTO User(nom, prenom, email, password) VALUES(:nom, :prenom, :email, :password)";
 		try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);

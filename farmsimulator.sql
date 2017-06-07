@@ -18,6 +18,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+DROP TABLE IF EXISTS moisson;
+DROP TABLE IF EXISTS botteleuse;
+DROP TABLE IF EXISTS moissonneuse;
+DROP TABLE IF EXISTS tracteur;
+DROP TABLE IF EXISTS ordre;
+DROP TABLE IF EXISTS commande;
+DROP TABLE IF EXISTS champ;
+DROP TABLE IF EXISTS culture;
+DROP TABLE IF EXISTS agriculteur;
+DROP TABLE IF EXISTS vehicule;
+
+
+
+
 --
 -- Base de données :  `pts2`
 --
@@ -127,19 +141,19 @@ CREATE TABLE `commande` (
 --
 
 INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_max_transp_com`, `tonne_com`, `cout_com`, `id_champ`) VALUES
-(29, '2018-01-01', 'Carré', 'Lui', 0, 0, 0, 6),
+(29, '2018-01-01', 'Carré', 'Le client', 0, 0, 0, 6),
 (30, '2018-01-01', 'Pas Demandé', 'ETA', 0, 0, 0, 7),
-(31, '2018-01-02', 'Ronde', 'Lui', 5.36, 0, 0, 8),
+(31, '2018-01-02', 'Ronde', 'Le client', 5.36, 0, 0, 8),
 (32, '2018-01-03', 'Pas Demandé', 'Négociant', 0, 0, 0, 9),
 (33, '2018-01-04', 'Carré', 'ETA', 6, 0, 0, 10),
 (34, '2018-01-01', 'Carré', 'Négociant', 0, 0, 0, 11),
 (35, '2018-01-02', 'Pas Demandé', 'ETA', 14, 0, 0, 12),
 (36, '2018-01-04', 'Ronde', 'ETA', 0, 0, 0, 13),
-(37, '2018-03-01', 'Pas Demandé', 'Lui', 0, 0, 0, 15),
+(37, '2018-03-01', 'Pas Demandé', 'Le client', 0, 0, 0, 15),
 (38, '2018-01-04', 'Pas Demandé', 'Négociant', 9.1, 0, 0, 16),
 (39, '2018-01-01', 'Ronde', 'ETA', 0, 0, 0, 17),
 (40, '2018-01-03', 'Ronde', 'Négociant', 3.7, 0, 0, 18),
-(41, '2018-01-02', 'Pas Demandé', 'Lui', 0, 0, 0, 19),
+(41, '2018-01-02', 'Pas Demandé', 'Le client', 0, 0, 0, 19),
 (42, '2018-01-03', 'Carré', 'ETA', 9, 0, 0, 20);
 
 -- --------------------------------------------------------
@@ -364,11 +378,11 @@ CREATE TABLE `vehicule` (
 --
 
 INSERT INTO `vehicule` (`id_vehi`, `marque_vehi`, `modele_vehi`, `etat_vehi`, `position_vehi`) VALUES
-(1, 'New-holland', 'CX 720', 'Utilisé', '[47.970575,-1.448591]'),
-(2, 'New-holland', 'CR 9080', 'Utilisé', '[47.970575,-1.448591]'),
-(3, 'New-holland', 'CSX 7060', 'Utilisé', '[47.970575,-1.448591]'),
-(5, 'New-holland', 'CX 8050', 'Utilisé', '[47.970575,-1.448591]'),
-(6, 'New-holland', 'CX 8070', 'Non utilisé', '[47.970575,-1.448591]'),
+(1, 'New-holland', 'CX 720', 'Utilisé', '[47.910575,-1.448591]'),
+(2, 'New-holland', 'CR 9080', 'Utilisé', '[47.920575,-1.448591]'),
+(3, 'New-holland', 'CSX 7060', 'Utilisé', '[47.930575,-1.448591]'),
+(5, 'New-holland', 'CX 8050', 'Utilisé', '[47.940575,-1.448591]'),
+(6, 'New-holland', 'CX 8070', 'Non utilisé', '[47.950575,-1.448591]'),
 (7, 'New-holland', 'CX 5090', 'Utilisé', '[47.970575,-1.448591]'),
 (8, 'New-holland', 'TC 5050', 'Utilisé', '[47.970575,-1.448591]'),
 (9, 'New-holland', 'TX 68 SL', 'Non utilisé', '[47.970575,-1.448591]'),
