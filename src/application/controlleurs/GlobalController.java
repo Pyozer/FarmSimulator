@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,10 +111,13 @@ public class GlobalController implements APIGoogleMap {
     }
 
     private void showButtons(Commande commande) {
-        commandeSelected = commande;
+        commandeSelected = null;
 
-        btn_markDone.setVisible(true);
-        btn_affects.setVisible(true);
+        if(commande != null) {
+            commandeSelected = commande;
+            btn_markDone.setVisible(true);
+            btn_affects.setVisible(true);
+        }
     }
 
     private void clearAllSelection() {

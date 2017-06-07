@@ -16,9 +16,12 @@
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.GlobalController">
     <center>
         <VBox BorderPane.alignment="CENTER">
+            <StackPane style="-fx-background-color: #ea4335;-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" minHeight="130">
+                <Label text="GLOBAL" styleClass="pane_title" textFill="white" />
+            </StackPane>
             <SplitPane dividerPositions="0.40" VBox.vgrow="SOMETIMES">
-                <VBox fx:id="infoContent" minWidth="450" maxWidth="600" prefWidth="400" spacing="25">
-                    <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
+                <VBox fx:id="infoContent" spacing="25" minWidth="550" maxWidth="550">
+                    <padding><Insets bottom="15" left="20" right="20" top="15" /></padding>
                     <VBox spacing="18">
                         <Label text="Calculer un itinéraire">
                             <font><Font name="Roboto Medium" size="30.0" /></font>
@@ -50,18 +53,11 @@
                         <HBox spacing="15">
                             <JFXButton text="Afficher tout" onAction="#goToCommandes" styleClass="btn, btn-primary" buttonType="RAISED" />
                             <JFXButton fx:id="btn_markDone" text="Marqué comme faite" visible="false" onAction="#markToDone" styleClass="btn, btn-primary" buttonType="RAISED" />
-                        </HBox>
-                    </VBox>
-                    <VBox spacing="10">
-                        <Label text="Affectation">
-                            <font><Font name="Roboto Medium" size="30.0" /></font>
-                        </Label>
-
-                        <HBox spacing="15">
                             <JFXButton fx:id="btn_affects" visible="false" text="Affectation(s)" onAction="#showAffects" styleClass="btn, btn-primary" buttonType="RAISED" />
                         </HBox>
                     </VBox>
                 </VBox>
+
                 <StackPane fx:id="googleMaps" />
             </SplitPane>
         </VBox>

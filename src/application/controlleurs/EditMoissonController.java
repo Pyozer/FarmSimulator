@@ -39,17 +39,18 @@ public class EditMoissonController {
     @FXML
     public void handleSubmitCommande() {
 
-        Float inputPoidRecolte= Float.parseFloat(poid_recolte.getText());
-        Float inputNbKilo = Float.parseFloat(nb_Kilo.getText());
         String inputDateDebut = date_debut.getValue().toString();
         String inputDateFin = date_fin.getValue().toString();
         String inputTimeDebut = time_debut.getValue().toString();
         String inputTimeFin = time_fin.getValue().toString();
 
-        if (inputNbKilo.isEmpty() || inputPoidRecolte.isEmpty() || inputDateDebut.isEmpty() || inputDateFin.isEmpty() || inputTimeDebut.isEmpty() || inputTimeFin.isEmpty()) {
+        if (nb_Kilo.getText().isEmpty() || poid_recolte.getText().isEmpty() || inputDateDebut.isEmpty() || inputDateFin.isEmpty() || inputTimeDebut.isEmpty() || inputTimeFin.isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
+            Float inputPoidRecolte= Float.parseFloat(poid_recolte.getText());
+            Float inputNbKilo = Float.parseFloat(nb_Kilo.getText());
+
             MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDateDebut, inputTimeDebut, inputDateFin, inputTimeFin, inputNbKilo, inputPoidRecolte);
 
             AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);

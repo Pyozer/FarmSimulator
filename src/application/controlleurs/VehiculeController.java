@@ -108,25 +108,25 @@ public class VehiculeController implements APIGoogleMap {
     public void editVehicule() {
         Vehicule vehiculeSelected = tableView.getSelectionModel().getSelectedItem();
 
-        SwitchView switchViewData;
+        SwitchView switchView;
 
         if (vehiculeSelected instanceof Botteleuse){
-            switchViewData = new SwitchView("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
-            EditBotteleuseController editBotController = switchViewData.getFxmlLoader().getController();
+            switchView = new SwitchView("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditBotteleuseController editBotController = switchView.getFxmlLoader().getController();
             editBotController.initTextFields((Botteleuse) vehiculeSelected);
-            switchViewData.showScene();
+            switchView.showScene();
 
         } else if (vehiculeSelected instanceof Moissonneuse){
-            switchViewData = new SwitchView("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
-            EditMoissonneuseController editMoiController = switchViewData.getFxmlLoader().getController();
+            switchView = new SwitchView("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditMoissonneuseController editMoiController = switchView.getFxmlLoader().getController();
             editMoiController.initTextFields((Moissonneuse) vehiculeSelected);
-            switchViewData.showScene();
+            switchView.showScene();
 
         } else if (vehiculeSelected instanceof Tracteur) {
-            switchViewData =new SwitchView("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
-            EditTracteurController editTraController = switchViewData.getFxmlLoader().getController();
+            switchView =new SwitchView("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditTracteurController editTraController = switchView.getFxmlLoader().getController();
             editTraController.initTextFields((Tracteur) vehiculeSelected);
-            switchViewData.showScene();
+            switchView.showScene();
         }
 
 

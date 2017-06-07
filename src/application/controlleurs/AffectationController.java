@@ -3,10 +3,7 @@ package application.controlleurs;
 import application.Constant;
 import application.classes.MenuApp;
 import application.classes.SwitchView;
-import application.modeles.AffectationSQL;
-import application.modeles.Commande;
-import application.modeles.Vehicule;
-import application.modeles.VehiculeSQL;
+import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -30,6 +27,7 @@ public class AffectationController {
     @FXML private TableColumn<Vehicule, String> column_vehicule;
 
 	@FXML private JFXButton delete_btn;
+	@FXML private JFXButton rapport_btn;
 
     private Vehicule selectedVehicule = null;
     private Commande selectedCommande = null;
@@ -58,6 +56,9 @@ public class AffectationController {
 			selectedVehicule = vehicule;
 
 			delete_btn.setVisible(true);
+			delete_btn.setManaged(true);
+            rapport_btn.setVisible(true);
+            rapport_btn.setManaged(true);
 		}
     }
 
@@ -66,7 +67,6 @@ public class AffectationController {
         SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
         switchView.showScene();
     }
-
 
     @FXML
     public void deleteAffect() {
@@ -84,6 +84,14 @@ public class AffectationController {
         }
     }
 
+    @FXML
+    public void newRapport() {
+        SwitchView switchView = new SwitchView("edit_moisson_app", Constant.ADD_VEHICULE_APP_TITLE);
+        EditMoissonController editMoissonController = switchView.getFxmlLoader().getController();
+        editMoissonController.defineVariableMoisson(selectedCommande, selectedVehicule);
+        switchView.showScene();
+    }
+
     public void defineCommandeSelected(Commande commande) {
         selectedCommande = commande;
         titleCommandeSelected.setText(selectedCommande.toString());
@@ -92,7 +100,9 @@ public class AffectationController {
 	
 	private void clearAllSelection() {
         delete_btn.setVisible(false);
+        delete_btn.setManaged(false);
+        rapport_btn.setVisible(false);
+        rapport_btn.setManaged(false);
         tableView.getSelectionModel().clearSelection();
     }
-
 }

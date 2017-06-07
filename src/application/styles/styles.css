@@ -41,7 +41,7 @@
 }
 
 .form-control-light {
-    -fx-text-fill: #151515;
+    -fx-text-fill: #000000;
     -fx-prompt-text-fill: #dbdbdb;
     -jfx-focus-color: #dbdbdb;
     -jfx-unfocus-color: #c1c1c1;
@@ -54,7 +54,7 @@
 
 .home_box {
     -fx-effect: dropshadow(gaussian, rgb(0, 0, 0, 0.25), 6.0, 0.7, 0.0, 1.5);
-    -fx-background-radius: 8;
+    -fx-background-radius: 3;
 }
 
 .home_box:hover {
