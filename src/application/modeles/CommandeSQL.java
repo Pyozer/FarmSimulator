@@ -61,7 +61,7 @@ public class CommandeSQL {
 
     public static ObservableList<Commande> getCommandeList(int max_entries) {
 
-        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
+        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Culture.id_cul=Champ.type_champ INNER JOIN Ordre ON Commande.id_com = ordre.id_com GROUP BY Commande.id_com ";
         if(max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;
         }
@@ -83,7 +83,7 @@ public class CommandeSQL {
                         rs.getString("bott_com"),
                         Float.parseFloat(rs.getString("taille_max_transp_com")),
                         rs.getString("date_com"),
-                        Float.parseFloat(rs.getString("tonne_com")),
+                        Float.parseFloat(rs.getString("SUM(Ordre.tonnes_ordre)")),
                         Float.parseFloat(rs.getString("cout_com")),
                         new Champ(
                                 Integer.parseInt(rs.getString("id_agri")),
