@@ -117,7 +117,7 @@ public class MoissonSQL {
                     );
                 }
 
-                    moissonList.add(new Moisson(
+                    moissonList.add(new Moisson(Integer.parseInt(rs.getString("id_ordre")),
                                         new Commande(
                                                 Integer.parseInt(rs.getString("id_com")),
                                                 rs.getString("transp_com"),
@@ -166,12 +166,12 @@ public class MoissonSQL {
         return getMoissonList();
     }*/
 
-    public static void deleteCommande(Commande commande) {
-        String request = "DELETE FROM Commande WHERE id_com=:id";
+    public static void deleteMoisson(Moisson moisson) {
+        String request = "DELETE FROM Ordre WHERE id_ordre=:id";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setInt("id", commande.getId());
+            preparedStatement.setInt("id", moisson.getId());
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
