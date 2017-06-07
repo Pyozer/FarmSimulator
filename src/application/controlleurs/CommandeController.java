@@ -38,6 +38,7 @@ public class CommandeController {
 
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
+    @FXML private JFXButton affect_btn;
 
     private Commande selectedCommande = null;
 
@@ -71,8 +72,7 @@ public class CommandeController {
 
         if (commande != null) {
             selectedCommande = commande;
-            delete_btn.setVisible(true);
-            edit_btn.setVisible(true);
+            defineStateElements(true);
         }
     }
 
@@ -112,10 +112,27 @@ public class CommandeController {
         switchViewData.showScene();
     }
 
+    @FXML
+    public void showAffects() {
+        SwitchView switchViewData = new SwitchView("affectations_app", Constant.ADD_VEHICULE_APP_TITLE);
+        AffectationController affectationController = switchViewData.getFxmlLoader().getController();
+        affectationController.defineCommandeSelected(selectedCommande);
+        switchViewData.showScene();
+    }
+
     private void clearAllSelection() {
         selectedCommande = null;
-        delete_btn.setVisible(false);
-        edit_btn.setVisible(false);
+
         tableView.getSelectionModel().clearSelection();
+        defineStateElements(false);
+    }
+
+    private void defineStateElements(boolean state) {
+        delete_btn.setVisible(state);
+        delete_btn.setManaged(state);
+        edit_btn.setVisible(state);
+        edit_btn.setManaged(state);
+        affect_btn.setVisible(state);
+        affect_btn.setManaged(state);
     }
 }

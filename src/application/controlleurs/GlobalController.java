@@ -15,10 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Controlleur de la vue Global
  */
@@ -115,21 +111,26 @@ public class GlobalController implements APIGoogleMap {
 
         if(commande != null) {
             commandeSelected = commande;
-            btn_markDone.setVisible(true);
-            btn_affects.setVisible(true);
+            defineStateElements(true);
         }
     }
 
     private void clearAllSelection() {
         commandeSelected = null;
 
-        btn_markDone.setVisible(false);
-        btn_affects.setVisible(false);
-
         tableView.getSelectionModel().clearSelection();
+
+        defineStateElements(false);
 
         gMaps.removeAll();
         askToLoadData();
+    }
+
+    private void defineStateElements(boolean state) {
+        btn_markDone.setVisible(state);
+        btn_markDone.setManaged(state);
+        btn_affects.setVisible(state);
+        btn_affects.setManaged(state);
     }
 
     public void log(String msg) {

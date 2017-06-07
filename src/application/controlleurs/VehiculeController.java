@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
@@ -22,7 +23,8 @@ public class VehiculeController implements APIGoogleMap {
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
 	@FXML private BorderPane infoContent;
-	
+	@FXML private VBox listInfo;
+
     @FXML private TableView<Vehicule> tableView;
     @FXML private TableColumn<Vehicule, String> column_type;
     @FXML private TableColumn<Vehicule, String> column_marque;
@@ -72,8 +74,7 @@ public class VehiculeController implements APIGoogleMap {
 		if(vehicule != null) {
 			selectedVehicule = vehicule;
 			
-			edit_btn.setVisible(true);
-			delete_btn.setVisible(true);
+			defineStateElements(true);
 
 			listInfos.getItems().clear();
 			for(ElementPair information : vehicule.getInformations())
@@ -140,15 +141,23 @@ public class VehiculeController implements APIGoogleMap {
     }
 	
 	private void clearAllSelection() {
-        delete_btn.setVisible(false);
-        edit_btn.setVisible(false);
         tableView.getSelectionModel().clearSelection();
         resetListInfo();
+        defineStateElements(false);
         askToLoadMarkers();
     }
 
     private void resetListInfo() {
         listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+    }
+
+    private void defineStateElements(boolean state) {
+        edit_btn.setVisible(state);
+        edit_btn.setManaged(state);
+        delete_btn.setVisible(state);
+        delete_btn.setManaged(state);
+        listInfo.setVisible(state);
+        listInfo.setManaged(state);
     }
 
     public void log(String msg) {
