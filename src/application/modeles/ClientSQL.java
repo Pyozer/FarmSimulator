@@ -78,8 +78,8 @@ public class ClientSQL {
                         rs.getString("type_cul"),
                         new Agriculteur(
                                 Integer.parseInt(rs.getString("id_agri")),
-                                rs.getString("prenom_agri"),
                                 rs.getString("nom_agri"),
+                                rs.getString("prenom_agri"),
                                 rs.getString("tel_agri"),
                                 rs.getString("adr_agri"),
                                 rs.getString("email_agri"))
