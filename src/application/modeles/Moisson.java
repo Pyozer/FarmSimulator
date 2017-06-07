@@ -9,18 +9,29 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class Moisson {
 
+    private int id;
     private Commande commande;
     private Vehicule vehicule;
     private String duree, h_fin;
     private Float nbKilo, nbTonne;
 
-    public Moisson(Commande commande, Vehicule vehicule, String h_fin, String duree, Float nbKilo, Float nbTonne) {
+    public Moisson(int id, Commande commande, Vehicule vehicule, String h_fin, String duree, Float nbKilo, Float nbTonne) {
+        this.id = id;
         this.commande = commande;
         this.vehicule = vehicule;
         this.duree = duree;
         this.h_fin = h_fin;
         this.nbKilo = nbKilo;
         this.nbTonne = nbTonne;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Commande getCommande() {
