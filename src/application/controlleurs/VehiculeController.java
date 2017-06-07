@@ -84,7 +84,7 @@ public class VehiculeController implements APIGoogleMap {
 
     @FXML
     public void addVehicule() {
-        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
         switchView.showScene();
     }
 
@@ -108,12 +108,27 @@ public class VehiculeController implements APIGoogleMap {
     public void editVehicule() {
         Vehicule vehiculeSelected = tableView.getSelectionModel().getSelectedItem();
 
-        if(vehiculeSelected instanceof Botteleuse)
-            new SwitchViewData("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected).showScene();
-        else if(vehiculeSelected instanceof Moissonneuse)
-            new SwitchViewData("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected).showScene();
-        else if(vehiculeSelected instanceof Tracteur)
-            new SwitchViewData("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE, vehiculeSelected).showScene();
+        SwitchView switchViewData;
+
+        if (vehiculeSelected instanceof Botteleuse){
+            switchViewData = new SwitchView("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditBotteleuseController editBotController = switchViewData.getFxmlLoader().getController();
+            editBotController.initTextFields((Botteleuse) vehiculeSelected);
+            switchViewData.showScene();
+
+        } else if (vehiculeSelected instanceof Moissonneuse){
+            switchViewData = new SwitchView("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditMoissonneuseController editMoiController = switchViewData.getFxmlLoader().getController();
+            editMoiController.initTextFields((Moissonneuse) vehiculeSelected);
+            switchViewData.showScene();
+
+        } else if (vehiculeSelected instanceof Tracteur) {
+            switchViewData =new SwitchView("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditTracteurController editTraController = switchViewData.getFxmlLoader().getController();
+            editTraController.initTextFields((Tracteur) vehiculeSelected);
+            switchViewData.showScene();
+        }
+
 
     }
 

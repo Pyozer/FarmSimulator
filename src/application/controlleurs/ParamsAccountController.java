@@ -114,7 +114,7 @@ public class ParamsAccountController {
 	}
 
 	private void loadParamsInfos() {
-        SwitchView switchView = new SwitchView("params_infos", Constant.FIRST_PARAMS_INFOS_TITLE, bpane);
+        SwitchView switchView = new SwitchView("params_infos", Constant.FIRST_PARAMS_INFOS_TITLE);
         switchView.showScene();
 	}
 

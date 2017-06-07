@@ -46,7 +46,6 @@ public class AffectationController {
         column_type.setCellValueFactory(new PropertyValueFactory<>("type"));
         column_vehicule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque() + " " + cellData.getValue().getModele()));
 
-
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> vehiculeSelected(newvalue));
 
         bpane.setOnMouseClicked(event -> clearAllSelection());
@@ -64,7 +63,7 @@ public class AffectationController {
 
     @FXML
     public void addAffect() {
-        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
         switchView.showScene();
     }
 

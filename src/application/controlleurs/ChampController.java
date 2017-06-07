@@ -78,7 +78,7 @@ public class ChampController implements APIGoogleMap {
 
     @FXML
     public void addChamp() {
-        SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE);
         switchView.showScene();
     }
 

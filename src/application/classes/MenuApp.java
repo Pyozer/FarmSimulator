@@ -34,26 +34,25 @@ public class MenuApp {
         accueil.showingProperty().addListener(
                 (observableValue, oldValue, newValue) -> {
                     System.out.println("lol");
-                    SwitchView switchView = new SwitchView("accueil_app", Constant.CLIENT_APP_TITLE, parent);
+                    SwitchView switchView = new SwitchView("accueil_app", Constant.CLIENT_APP_TITLE);
                     switchView.showScene();
                 }
         );
 
         accueil.setOnAction(actionEvent -> {
-            System.out.println("lol");
-            SwitchView switchView = new SwitchView("accueil_app", Constant.CLIENT_APP_TITLE, parent);
+            SwitchView switchView = new SwitchView("accueil_app", Constant.CLIENT_APP_TITLE);
             switchView.showScene();
         });
         clients.setOnAction(event -> {
-            SwitchView switchView = new SwitchView("client_app", Constant.CLIENT_APP_TITLE, parent);
+            SwitchView switchView = new SwitchView("client_app", Constant.CLIENT_APP_TITLE);
             switchView.showScene();
         });
         vehicules.setOnAction(event -> {
-            SwitchView switchView = new SwitchView("vehicule_app", Constant.CLIENT_APP_TITLE, parent);
+            SwitchView switchView = new SwitchView("vehicule_app", Constant.CLIENT_APP_TITLE);
             switchView.showScene();
         });
         champs.setOnAction(event -> {
-            SwitchView switchView = new SwitchView("champ_app", Constant.CLIENT_APP_TITLE, parent);
+            SwitchView switchView = new SwitchView("champ_app", Constant.CLIENT_APP_TITLE);
             switchView.showScene();
         });
         global.setOnAction(event -> {

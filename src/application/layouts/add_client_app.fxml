@@ -6,6 +6,7 @@
 
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXButton?>
+
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.AddClientController">
    <center>
        <VBox alignment="CENTER" BorderPane.alignment="CENTER">

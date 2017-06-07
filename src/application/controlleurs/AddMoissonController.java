@@ -29,11 +29,10 @@ public class AddMoissonController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
     }
 
-
     @FXML
     public void handleSubmitCommande() {
 
-        String inputPoidRecolte= poid_recolte.getText();
+        /*String inputPoidRecolte= poid_recolte.getText();
         String inputNbKilo = nb_Kilo.getText();
         String inputDateDebut = date_debut.getValue().toString();
         String inputDateFin = date_fin.getValue().toString();
@@ -48,7 +47,7 @@ public class AddMoissonController {
 
             AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
             alert.show();
-        }
+        }*/
     }
 
 }

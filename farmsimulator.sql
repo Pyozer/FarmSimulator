@@ -21,7 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `pts2`
 --
-
+DROP DATABASE IF EXISTS `pts2`;
+CREATE DATABASE `pts2`;
+USE `pts2`;
 -- --------------------------------------------------------
 
 --
@@ -52,7 +54,6 @@ INSERT INTO `agriculteur` (`id_agri`, `nom_agri`, `prenom_agri`, `adr_agri`, `te
 --
 -- Structure de la table `botteleuse`
 --
-
 CREATE TABLE `botteleuse` (
   `id_bott` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
@@ -74,6 +75,8 @@ INSERT INTO `botteleuse` (`id_bott`, `id_vehi`, `type_bott`) VALUES
 --
 -- Structure de la table `champ`
 --
+
+
 
 CREATE TABLE `champ` (
   `id_champ` int(11) NOT NULL,
@@ -110,6 +113,8 @@ INSERT INTO `champ` (`id_champ`, `surf_champ`, `adr_champ`, `coord_centre_champ`
 --
 -- Structure de la table `commande`
 --
+
+
 
 CREATE TABLE `commande` (
   `id_com` int(11) NOT NULL,
@@ -150,6 +155,7 @@ INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_
 -- Structure de la table `culture`
 --
 
+
 CREATE TABLE `culture` (
   `id_cul` int(11) NOT NULL,
   `type_cul` varchar(50) NOT NULL
@@ -171,6 +177,8 @@ INSERT INTO `culture` (`id_cul`, `type_cul`) VALUES
 -- Structure de la table `eta`
 --
 
+
+
 CREATE TABLE `eta` (
   `id` int(11) NOT NULL,
   `non` varchar(50) NOT NULL,
@@ -182,6 +190,7 @@ CREATE TABLE `eta` (
 --
 -- Structure de la table `moisson`
 --
+
 
 CREATE TABLE `moisson` (
   `id_moi` int(11) NOT NULL,
@@ -231,6 +240,7 @@ INSERT INTO `moisson` (`id_moi`, `id_cul`, `vitesse_moi`) VALUES
 -- Structure de la table `moissonneuse`
 --
 
+
 CREATE TABLE `moissonneuse` (
   `id_moi` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
@@ -265,6 +275,8 @@ INSERT INTO `moissonneuse` (`id_moi`, `id_vehi`, `taille_tremis_moi`, `taille_re
 -- Structure de la table `ordre`
 --
 
+
+
 CREATE TABLE `ordre` (
   `id_ordre` int(11) NOT NULL,
   `heure_arrive_ordre` varchar(25) DEFAULT '0',
@@ -280,48 +292,50 @@ CREATE TABLE `ordre` (
 --
 
 INSERT INTO `ordre` (`id_ordre`, `heure_arrive_ordre`, `duree_ordre`, `nb_km_ordre`, `tonnes_ordre`, `id_vehi`, `id_com`) VALUES
-(1, NULL, NULL, NULL, '0.40', 2, 29),
-(2, NULL, NULL, NULL, '0.00', 12, 29),
-(3, NULL, NULL, NULL, '0.00', 11, 29),
-(4, NULL, NULL, NULL, '1.89', 32, 29),
-(5, NULL, NULL, NULL, '0.00', 8, 30),
-(6, NULL, NULL, NULL, '0.00', 8, 30),
-(7, NULL, NULL, NULL, '0.00', 3, 31),
-(8, NULL, NULL, NULL, '0.00', 13, 31),
-(9, NULL, NULL, NULL, '0.00', 16, 31),
-(10, NULL, NULL, NULL, '0.00', 30, 31),
-(11, NULL, NULL, NULL, '0.00', 5, 32),
-(18, NULL, NULL, NULL, '0.00', 10, 34),
-(19, NULL, NULL, NULL, '0.00', 21, 34),
-(20, NULL, NULL, NULL, '0.00', 22, 34),
-(21, NULL, NULL, NULL, '0.00', 33, 34),
-(22, NULL, NULL, NULL, '0.00', 2, 35),
-(23, NULL, NULL, NULL, '0.00', 9, 36),
-(24, NULL, NULL, NULL, '0.00', 23, 36),
-(25, NULL, NULL, NULL, '0.00', 24, 36),
-(26, NULL, NULL, NULL, '0.00', 30, 36),
-(27, NULL, NULL, NULL, '0.00', 7, 37),
-(28, NULL, NULL, NULL, '0.00', 6, 38),
-(29, NULL, NULL, NULL, '0.00', 1, 39),
-(30, NULL, NULL, NULL, '0.00', 25, 39),
-(31, NULL, NULL, NULL, '0.00', 15, 39),
-(32, NULL, NULL, NULL, '0.00', 31, 39),
-(33, NULL, NULL, NULL, '0.00', 8, 40),
-(34, NULL, NULL, NULL, '0.00', 26, 40),
-(35, NULL, NULL, NULL, '0.00', 20, 40),
-(36, NULL, NULL, NULL, '0.00', 31, 40),
-(37, NULL, NULL, NULL, '0.00', 3, 41),
-(38, NULL, NULL, NULL, '0.00', 6, 41),
-(39, NULL, NULL, NULL, '0.00', 5, 42),
-(40, NULL, NULL, NULL, '0.00', 28, 42),
-(41, NULL, NULL, NULL, '0.00', 29, 42),
-(42, NULL, NULL, NULL, '0.00', 33, 42);
+(1, 0, 0, 0, '0.40', 2, 29),
+(2, 0, 0, 0, '0.00', 12, 29),
+(3, 0, 0, 0, '0.00', 11, 29),
+(4, 0, 0, 0, '1.89', 32, 29),
+(5, 0, 0, 0, '0.00', 8, 30),
+(6, 0, 0, 0, '0.00', 8, 30),
+(7, 0, 0, 0, '0.00', 3, 31),
+(8, 0, 0, 0, '0.00', 13, 31),
+(9, 0, 0, 0, '0.00', 16, 31),
+(10, 0, 0, 0, '0.00', 30, 31),
+(11, 0, 0, 0, '0.00', 5, 32),
+(18, 0, 0, 0, '0.00', 10, 34),
+(19, 0, 0, 0, '0.00', 21, 34),
+(20, 0, 0, 0, '0.00', 22, 34),
+(21, 0, 0, 0, '0.00', 33, 34),
+(22, 0, 0, 0, '0.00', 2, 35),
+(23, 0, 0, 0, '0.00', 9, 36),
+(24, 0, 0, 0, '0.00', 23, 36),
+(25, 0, 0, 0, '0.00', 24, 36),
+(26, 0, 0, 0, '0.00', 30, 36),
+(27, 0, 0, 0, '0.00', 7, 37),
+(28, 0, 0, 0, '0.00', 6, 38),
+(29, 0, 0, 0, '0.00', 1, 39),
+(30, 0, 0, 0, '0.00', 25, 39),
+(31, 0, 0, 0, '0.00', 15, 39),
+(32, 0, 0, 0, '0.00', 31, 39),
+(33, 0, 0, 0, '0.00', 8, 40),
+(34, 0, 0, 0, '0.00', 26, 40),
+(35, 0, 0, 0, '0.00', 20, 40),
+(36, 0, 0, 0, '0.00', 31, 40),
+(37, 0, 0, 0, '0.00', 3, 41),
+(38, 0, 0, 0, '0.00', 6, 41),
+(39, 0, 0, 0, '0.00', 5, 42),
+(40, 0, 0, 0, '0.00', 28, 42),
+(41, 0, 0, 0, '0.00', 29, 42),
+(42, 0, 0, 0, '0.00', 33, 42);
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `tracteur`
 --
+
+
 
 CREATE TABLE `tracteur` (
   `id_tract` int(11) NOT NULL,
@@ -360,6 +374,7 @@ INSERT INTO `tracteur` (`id_tract`, `id_vehi`, `cap_rem_tract`) VALUES
 -- Structure de la table `user`
 --
 
+
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL,
@@ -373,6 +388,7 @@ CREATE TABLE `user` (
 --
 -- Structure de la table `vehicule`
 --
+
 
 CREATE TABLE `vehicule` (
   `id_vehi` int(11) NOT NULL,

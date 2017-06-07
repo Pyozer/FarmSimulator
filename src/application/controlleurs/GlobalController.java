@@ -92,7 +92,7 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void goToCommandes() {
-        SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE);
         switchView.showScene();
     }
 
@@ -103,7 +103,7 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void showAffects() {
-        SwitchViewData switchViewData = new SwitchViewData("affectations_app", Constant.ADD_VEHICULE_APP_TITLE, null);
+        SwitchView switchViewData = new SwitchView("affectations_app", Constant.ADD_VEHICULE_APP_TITLE);
         AffectationController affectationController = switchViewData.getFxmlLoader().getController();
         affectationController.defineCommandeSelected(commandeSelected);
         switchViewData.showScene();

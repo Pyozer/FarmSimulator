@@ -22,24 +22,24 @@ public class HomeController {
 
     @FXML
     public void handleClient() {
-        SwitchView switchView = new SwitchView("client_app", Constant.CLIENT_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("client_app", Constant.CLIENT_APP_TITLE);
         switchView.showScene();
     }
 
     @FXML
     public void handleVehicule() {
-        SwitchView switchView = new SwitchView("vehicule_app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("vehicule_app", Constant.CHAMP_APP_TITLE);
         switchView.showScene();
     }
 
     @FXML
     public void handleChamps() {
-        SwitchView switchView = new SwitchView("champ_app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("champ_app", Constant.CHAMP_APP_TITLE);
         switchView.showScene();
     }
 
     public void handleGlobal() {
-        SwitchView switchView = new SwitchView("global_app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("global_app", Constant.CHAMP_APP_TITLE);
         switchView.showScene();
     }
 

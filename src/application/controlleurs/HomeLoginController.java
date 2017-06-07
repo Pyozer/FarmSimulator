@@ -87,7 +87,7 @@ public class HomeLoginController {
     }
 
 	private void loadHome() {
-        SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE);
         switchView.showScene();
 	}
 

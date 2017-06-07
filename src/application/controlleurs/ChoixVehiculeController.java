@@ -71,11 +71,11 @@ public class ChoixVehiculeController {
     }
 
     public void nextStep() {
-        SwitchView swtichView = new SwitchView("add_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView swtichView = new SwitchView("add_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
         if (tracteur_selected) {
-            swtichView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+            swtichView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
         } else if(moissonneuse_selected) {
-            swtichView = new SwitchView("add_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+            swtichView = new SwitchView("add_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
         }
         swtichView.showScene();
     }

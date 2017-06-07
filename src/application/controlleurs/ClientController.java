@@ -77,7 +77,7 @@ public class ClientController implements APIGoogleMap  {
 
     @FXML
     public void addClient() {
-        SwitchView switchView = new SwitchView("add_client_app", Constant.ADD_CLIENT_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("add_client_app", Constant.ADD_CLIENT_APP_TITLE);
         switchView.showScene();
     }
 
@@ -101,7 +101,9 @@ public class ClientController implements APIGoogleMap  {
     public void editClient() {
         Agriculteur agriculteur = tableView.getSelectionModel().getSelectedItem();
 
-        SwitchViewData switchViewData = new SwitchViewData("edit_client_app", Constant.ADD_VEHICULE_APP_TITLE, agriculteur);
+        SwitchView switchViewData = new SwitchView("edit_client_app", Constant.ADD_VEHICULE_APP_TITLE);
+        EditClientController editClientController = switchViewData.getFxmlLoader().getController();
+        editClientController.initTextFields(agriculteur);
         switchViewData.showScene();
     }
 

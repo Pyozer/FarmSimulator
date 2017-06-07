@@ -18,7 +18,7 @@
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.VehiculeController">
     <center>
         <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES" BorderPane.alignment="CENTER">
-            <BorderPane fx:id="infoContent" minWidth="700" maxWidth="700">
+            <BorderPane fx:id="infoContent" minWidth="500" prefWidth="500" maxWidth="700">
                 <top>
                     <VBox spacing="10">
                         <padding><Insets top="5" left="15" right="15" bottom="5"/></padding>
@@ -28,7 +28,7 @@
                                 <TableColumn fx:id="column_type" minWidth="125.0" text="Type" />
                                 <TableColumn fx:id="column_marque" minWidth="150.0" text="Marque" />
                                 <TableColumn fx:id="column_modele" minWidth="150.0" text="Modèle" />
-                                <TableColumn fx:id="column_etat" minWidth="148.0" text="Etat" />
+                                <TableColumn fx:id="column_etat" minWidth="75.0" text="Etat" />
                             </columns>
                         </TableView>
                     </VBox>

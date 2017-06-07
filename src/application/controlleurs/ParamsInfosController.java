@@ -105,7 +105,7 @@ public class ParamsInfosController {
     }
 
 	private void loadLogin() {
-        SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN, bpane);
+        SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN);
         switchView.showScene();
 	}
 
