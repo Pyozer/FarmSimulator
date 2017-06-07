@@ -55,17 +55,13 @@ public class AffectationController {
 		if(vehicule != null) {
 			selectedVehicule = vehicule;
 
-			delete_btn.setVisible(true);
-			delete_btn.setManaged(true);
-            rapport_btn.setVisible(true);
-            rapport_btn.setManaged(true);
+            defineStateElements(true);
 		}
     }
 
     @FXML
     public void addAffect() {
-        SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
-        switchView.showScene();
+        // TODO : Faire interface ajout affectation ou bien directement dans celle ci ?
     }
 
     @FXML
@@ -99,10 +95,14 @@ public class AffectationController {
     }
 	
 	private void clearAllSelection() {
-        delete_btn.setVisible(false);
-        delete_btn.setManaged(false);
-        rapport_btn.setVisible(false);
-        rapport_btn.setManaged(false);
+        defineStateElements(false);
         tableView.getSelectionModel().clearSelection();
+    }
+
+    private void defineStateElements(boolean state) {
+        delete_btn.setVisible(state);
+        delete_btn.setManaged(state);
+        rapport_btn.setVisible(state);
+        rapport_btn.setManaged(state);
     }
 }

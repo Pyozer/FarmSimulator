@@ -25,7 +25,7 @@
                         <VBox spacing="10">
                             <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
                             <Label text="Tous les champs" styleClass="pane_title" prefHeight="75.0" />
-                            <TableView fx:id="tableView" minHeight="315.0" maxHeight="315">
+                            <TableView fx:id="tableView" minHeight="200.0" maxHeight="200">
                                 <columns>
                                     <TableColumn fx:id="column_type_culture" minWidth="225.0" text="Type de culture" />
                                     <TableColumn fx:id="column_proprietaire" minWidth="300.0" text="Proprietaire" />
@@ -34,32 +34,32 @@
                         </VBox>
                     </top>
                     <center>
-                        <VBox spacing="10">
-                            <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
-                            <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
-                            <ListView fx:id="listInfos" />
+                        <VBox>
+                            <VBox fx:id="listInfo" managed="false" visible="false" spacing="10">
+                                <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
+                                <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
+                                <ListView fx:id="listInfos" minHeight="100" maxHeight="250"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10" minHeight="70" maxHeight="70">
+                                <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
+                                <JFXButton text="Ajouter un champ" onAction="#addChamp" styleClass="btn, btn-success" prefHeight="40">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton fx:id="edit_btn" managed="false" visible="false" text="Modifier le champ" onAction="#editChamp" styleClass="btn, btn-primary" prefHeight="40">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton fx:id="delete_btn" managed="false" visible="false" text="Supprimer le champ" onAction="#deleteChamp" styleClass="btn, btn-danger" prefHeight="40">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
+                                    </graphic>
+                                </JFXButton>
+                            </HBox>
                         </VBox>
                     </center>
-                    <bottom>
-                        <HBox alignment="CENTER_LEFT" spacing="10" minHeight="70" maxHeight="70">
-                            <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
-                            <JFXButton text="Ajouter un champ" onAction="#addChamp" styleClass="btn, btn-success" prefHeight="40">
-                                <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton fx:id="edit_btn" visible="false" text="Modifier le champ" onAction="#editChamp" styleClass="btn, btn-primary" prefHeight="40">
-                                <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
-                                </graphic>
-                            </JFXButton>
-                            <JFXButton fx:id="delete_btn" visible="false" text="Supprimer le champ" onAction="#deleteChamp" styleClass="btn, btn-danger" prefHeight="40">
-                                <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
-                                </graphic>
-                            </JFXButton>
-                        </HBox>
-                    </bottom>
                 </BorderPane>
 
                 <StackPane fx:id="googleMaps"/>

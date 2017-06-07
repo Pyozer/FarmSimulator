@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
@@ -23,6 +24,8 @@ public class ChampController implements APIGoogleMap {
     @FXML private BorderPane bpane;
     @FXML private StackPane googleMaps;
     @FXML private BorderPane infoContent;
+    @FXML private VBox listInfo;
+
     @FXML private TableView<Champ> tableView;
     @FXML private TableColumn<Champ, String> column_type_culture;
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
@@ -63,9 +66,8 @@ public class ChampController implements APIGoogleMap {
 
         if (champ != null) {
             selectedChamp = champ;
-			
-            delete_btn.setVisible(true);
-            edit_btn.setVisible(true);
+
+            defineStateElements(true);
 			
             listInfos.getItems().clear();
             for (ElementPair information : champ.getInformations())
@@ -109,10 +111,9 @@ public class ChampController implements APIGoogleMap {
     }
 
     private void clearAllSelection() {
-        delete_btn.setVisible(false);
-        edit_btn.setVisible(false);
         tableView.getSelectionModel().clearSelection();
         resetListInfo();
+        defineStateElements(false);
         askToLoadChamps();
     }
 
@@ -125,6 +126,15 @@ public class ChampController implements APIGoogleMap {
 
     private void resetListInfo() {
         listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+    }
+
+    private void defineStateElements(boolean state) {
+        edit_btn.setVisible(state);
+        edit_btn.setManaged(state);
+        delete_btn.setVisible(state);
+        delete_btn.setManaged(state);
+        listInfo.setVisible(state);
+        listInfo.setManaged(state);
     }
 
     public void log(String msg) {
