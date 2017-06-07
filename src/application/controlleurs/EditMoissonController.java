@@ -13,6 +13,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.temporal.TemporalUnit;
+import java.time.temporal.ChronoUnit;import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+
 public class EditMoissonController {
 
     /** Layout **/
@@ -37,24 +48,59 @@ public class EditMoissonController {
 
 
     @FXML
-    public void handleSubmitCommande() {
+    public void handleSaveMoisson() {
 
         Float inputPoidRecolte= Float.parseFloat(poid_recolte.getText());
         Float inputNbKilo = Float.parseFloat(nb_Kilo.getText());
-        String inputDateDebut = date_debut.getValue().toString();
-        String inputDateFin = date_fin.getValue().toString();
-        String inputTimeDebut = time_debut.getValue().toString();
-        String inputTimeFin = time_fin.getValue().toString();
 
-        if (inputNbKilo.isEmpty() || inputPoidRecolte.isEmpty() || inputDateDebut.isEmpty() || inputDateFin.isEmpty() || inputTimeDebut.isEmpty() || inputTimeFin.isEmpty()) {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
+        LocalDate inputDateDebut = date_debut.getValue();
+        LocalTime inputTimeDebut = time_debut.getValue();
+
+        LocalDate inputDateFin = date_fin.getValue();
+        LocalTime inputTimeFin = time_fin.getValue();
+
+        LocalDateTime inputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
+
+        LocalDateTime inputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
+
+        LocalDateTime tempDateTime = LocalDateTime.from( inputDateTimeDebut );
+
+        long years = tempDateTime.until( inputDateTimeFin, ChronoUnit.YEARS);
+        tempDateTime = tempDateTime.plusYears( years );
+
+        long months = tempDateTime.until( inputDateTimeFin, ChronoUnit.MONTHS);
+        tempDateTime = tempDateTime.plusMonths( months );
+
+        long days = tempDateTime.until( inputDateTimeFin, ChronoUnit.DAYS);
+        tempDateTime = tempDateTime.plusDays( days );
+
+
+        long hours = tempDateTime.until( inputDateTimeFin, ChronoUnit.HOURS);
+        tempDateTime = tempDateTime.plusHours( hours );
+
+        long minutes = tempDateTime.until( inputDateTimeFin, ChronoUnit.MINUTES);
+        tempDateTime = tempDateTime.plusMinutes( minutes );
+
+        long seconds = tempDateTime.until( inputDateTimeFin, ChronoUnit.SECONDS);
+
+        System.out.println( years + " years " +
+                months + " months " +
+                days + " days " +
+                hours + " hours " +
+                minutes + " minutes " +
+
+                seconds + " seconds.");
+
+
+     /*   if (inputDateDebut.toString().isEmpty() || inputDateFin.isEmpty() || inputTimeDebut.isEmpty() || inputTimeFin.isEmpty()) {
+            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDateDebut, inputTimeDebut, inputDateFin, inputTimeFin, inputNbKilo, inputPoidRecolte);
+            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDuree, inputDateFin, inputTimeFin, inputNbKilo, inputPoidRecolte);
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
+            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.CONFIRMATION);
             alert.show();
-        }
+        }*/
     }
 
     public void defineVariableMoisson(Commande commande, Vehicule vehicule) {
