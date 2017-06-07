@@ -68,6 +68,7 @@ public class AffectationController {
         switchView.showScene();
     }
 
+
     @FXML
     public void deleteAffect() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
