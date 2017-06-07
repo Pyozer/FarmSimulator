@@ -30,7 +30,14 @@ public interface Constant {
 	int MIN_HEIGHT = 800;
 	int PREF_WIDTH = 1100;
 	int PREF_HEIGHT = 850;
-	
+
+	Double HEURE_PAR_AN = 8765.82;
+	Double HEURE_PAR_MOIS = 730.5;
+	Double HEURE_PAR_JOUR = 24.00;
+	Double HEURE_PAR_MINUTE = 0.16666; // (1/60)
+	Double HEURE_PAR_SECONDE = 8765.82;
+
+
 	Color SUCCESS_COLOR = Color.LIMEGREEN;
 	Color ERROR_COLOR = Color.rgb(235, 47, 47);
 }

@@ -83,13 +83,7 @@ public class EditMoissonController {
 
         long seconds = tempDateTime.until( inputDateTimeFin, ChronoUnit.SECONDS);
 
-        System.out.println( years + " years " +
-                months + " months " +
-                days + " days " +
-                hours + " hours " +
-                minutes + " minutes " +
-
-                seconds + " seconds.");
+        Float inputDuree = years*
 
 
      /*   if (inputDateDebut.toString().isEmpty() || inputDateFin.isEmpty() || inputTimeDebut.isEmpty() || inputTimeFin.isEmpty()) {
