@@ -86,7 +86,7 @@ public class AffectationController {
 
     public void defineCommandeSelected(Commande commande) {
         selectedCommande = commande;
-        titleCommandeSelected.setText(selectedCommandve.toString());
+        titleCommandeSelected.setText(selectedCommande.toString());
         tableView.getItems().addAll(AffectationSQL.getVehiculeAffect(selectedCommande));
     }
 	
