@@ -11,15 +11,13 @@ public class Moisson {
 
     private Commande commande;
     private Vehicule vehicule;
-    private String j_debut, h_debut, j_fin, h_fin;
+    private String duree, h_fin;
     private Float nbKilo, nbTonne;
 
-    public Moisson(Commande commande, Vehicule vehicule, String j_debut, String h_debut, String j_fin, String h_fin, Float nbKilo, Float nbTonne) {
+    public Moisson(Commande commande, Vehicule vehicule, String h_fin, String duree, Float nbKilo, Float nbTonne) {
         this.commande = commande;
         this.vehicule = vehicule;
-        this.j_debut = j_debut;
-        this.h_debut = h_debut;
-        this.j_fin = j_fin;
+        this.duree = duree;
         this.h_fin = h_fin;
         this.nbKilo = nbKilo;
         this.nbTonne = nbTonne;
@@ -41,28 +39,12 @@ public class Moisson {
         this.vehicule = vehicule;
     }
 
-    public String getJ_debut() {
-        return j_debut;
+    public String getDuree() {
+        return duree;
     }
 
-    public void setJ_debut(String j_debut) {
-        this.j_debut = j_debut;
-    }
-
-    public String getH_debut() {
-        return h_debut;
-    }
-
-    public void setH_debut(String h_debut) {
-        this.h_debut = h_debut;
-    }
-
-    public String getJ_fin() {
-        return j_fin;
-    }
-
-    public void setJ_fin(String j_fin) {
-        this.j_fin = j_fin;
+    public void setDuree(String duree) {
+        this.duree = duree;
     }
 
     public String getH_fin() {

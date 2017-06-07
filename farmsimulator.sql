@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 01 juin 2017 à 08:57
+-- Généré le :  mer. 07 juin 2017 à 08:45
 -- Version du serveur :  5.7.17
 -- Version de PHP :  5.6.30
 
@@ -17,20 +17,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
-DROP TABLE IF EXISTS moisson;
-DROP TABLE IF EXISTS botteleuse;
-DROP TABLE IF EXISTS moissonneuse;
-DROP TABLE IF EXISTS tracteur;
-DROP TABLE IF EXISTS ordre;
-DROP TABLE IF EXISTS commande;
-DROP TABLE IF EXISTS champ;
-DROP TABLE IF EXISTS culture;
-DROP TABLE IF EXISTS agriculteur;
-DROP TABLE IF EXISTS vehicule;
-
-
-
 
 --
 -- Base de données :  `pts2`
@@ -141,20 +127,22 @@ CREATE TABLE `commande` (
 --
 
 INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_max_transp_com`, `tonne_com`, `cout_com`, `id_champ`) VALUES
-(29, '2018-01-01', 'Carré', 'Le client', 0, 0, 0, 6),
+(29, '2018-01-01', 'Carré', 'Lui', 0, 0, 0, 6),
 (30, '2018-01-01', 'Pas Demandé', 'ETA', 0, 0, 0, 7),
-(31, '2018-01-02', 'Ronde', 'Le client', 5.36, 0, 0, 8),
+(31, '2018-01-02', 'Ronde', 'Lui', 5.36, 0, 0, 8),
 (32, '2018-01-03', 'Pas Demandé', 'Négociant', 0, 0, 0, 9),
-(33, '2018-01-04', 'Carré', 'ETA', 6, 0, 0, 10),
 (34, '2018-01-01', 'Carré', 'Négociant', 0, 0, 0, 11),
 (35, '2018-01-02', 'Pas Demandé', 'ETA', 14, 0, 0, 12),
 (36, '2018-01-04', 'Ronde', 'ETA', 0, 0, 0, 13),
-(37, '2018-03-01', 'Pas Demandé', 'Le client', 0, 0, 0, 15),
+(37, '2018-03-01', 'Pas Demandé', 'Lui', 0, 0, 0, 15),
 (38, '2018-01-04', 'Pas Demandé', 'Négociant', 9.1, 0, 0, 16),
 (39, '2018-01-01', 'Ronde', 'ETA', 0, 0, 0, 17),
 (40, '2018-01-03', 'Ronde', 'Négociant', 3.7, 0, 0, 18),
-(41, '2018-01-02', 'Pas Demandé', 'Le client', 0, 0, 0, 19),
-(42, '2018-01-03', 'Carré', 'ETA', 9, 0, 0, 20);
+(41, '2018-01-02', 'Pas Demandé', 'Lui', 0, 0, 0, 19),
+(42, '2018-01-03', 'Carré', 'ETA', 9, 0, 0, 20),
+(43, '2017-06-22', 'Non demandé', 'ETA', 0, 0, 0, 20),
+(44, '2017-06-14', 'Carré', 'ETA', 0, 0, 0, 18),
+(45, '2017-06-14', 'Ronde', 'Le négociant', 0.151, 0, 0, 20);
 
 -- --------------------------------------------------------
 
@@ -176,6 +164,18 @@ INSERT INTO `culture` (`id_cul`, `type_cul`) VALUES
 (2, 'Colza'),
 (3, 'Orge'),
 (4, 'Triticale');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `eta`
+--
+
+CREATE TABLE `eta` (
+  `id` int(11) NOT NULL,
+  `non` varchar(50) NOT NULL,
+  `adresse` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -267,9 +267,10 @@ INSERT INTO `moissonneuse` (`id_moi`, `id_vehi`, `taille_tremis_moi`, `taille_re
 
 CREATE TABLE `ordre` (
   `id_ordre` int(11) NOT NULL,
-  `heure_arrive_ordre` varchar(25) DEFAULT NULL,
-  `duree_ordre` varchar(25) DEFAULT NULL,
-  `nb_km_ordre` float DEFAULT NULL,
+  `heure_arrive_ordre` varchar(25) DEFAULT '0',
+  `duree_ordre` varchar(25) DEFAULT '0',
+  `nb_km_ordre` float DEFAULT '0',
+  `tonnes_ordre` decimal(10,2) DEFAULT '0.00',
   `id_vehi` int(11) NOT NULL,
   `id_com` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -278,49 +279,43 @@ CREATE TABLE `ordre` (
 -- Déchargement des données de la table `ordre`
 --
 
-INSERT INTO `ordre` (`id_ordre`, `heure_arrive_ordre`, `duree_ordre`, `nb_km_ordre`, `id_vehi`, `id_com`) VALUES
-(1, NULL, NULL, NULL, 2, 29),
-(2, NULL, NULL, NULL, 12, 29),
-(3, NULL, NULL, NULL, 11, 29),
-(4, NULL, NULL, NULL, 32, 29),
-(5, NULL, NULL, NULL, 8, 30),
-(6, NULL, NULL, NULL, 8, 30),
-(7, NULL, NULL, NULL, 3, 31),
-(8, NULL, NULL, NULL, 13, 31),
-(9, NULL, NULL, NULL, 16, 31),
-(10, NULL, NULL, NULL, 30, 31),
-(11, NULL, NULL, NULL, 5, 32),
-(12, NULL, NULL, NULL, 7, 33),
-(13, NULL, NULL, NULL, 3, 33),
-(14, NULL, NULL, NULL, 17, 33),
-(15, NULL, NULL, NULL, 18, 33),
-(16, NULL, NULL, NULL, 19, 33),
-(17, NULL, NULL, NULL, 32, 33),
-(18, NULL, NULL, NULL, 10, 34),
-(19, NULL, NULL, NULL, 21, 34),
-(20, NULL, NULL, NULL, 22, 34),
-(21, NULL, NULL, NULL, 33, 34),
-(22, NULL, NULL, NULL, 2, 35),
-(23, NULL, NULL, NULL, 9, 36),
-(24, NULL, NULL, NULL, 23, 36),
-(25, NULL, NULL, NULL, 24, 36),
-(26, NULL, NULL, NULL, 30, 36),
-(27, NULL, NULL, NULL, 7, 37),
-(28, NULL, NULL, NULL, 6, 38),
-(29, NULL, NULL, NULL, 1, 39),
-(30, NULL, NULL, NULL, 25, 39),
-(31, NULL, NULL, NULL, 15, 39),
-(32, NULL, NULL, NULL, 31, 39),
-(33, NULL, NULL, NULL, 8, 40),
-(34, NULL, NULL, NULL, 26, 40),
-(35, NULL, NULL, NULL, 20, 40),
-(36, NULL, NULL, NULL, 31, 40),
-(37, NULL, NULL, NULL, 3, 41),
-(38, NULL, NULL, NULL, 6, 41),
-(39, NULL, NULL, NULL, 5, 42),
-(40, NULL, NULL, NULL, 28, 42),
-(41, NULL, NULL, NULL, 29, 42),
-(42, NULL, NULL, NULL, 33, 42);
+INSERT INTO `ordre` (`id_ordre`, `heure_arrive_ordre`, `duree_ordre`, `nb_km_ordre`, `tonnes_ordre`, `id_vehi`, `id_com`) VALUES
+(1, NULL, NULL, NULL, '0.40', 2, 29),
+(2, NULL, NULL, NULL, '0.00', 12, 29),
+(3, NULL, NULL, NULL, '0.00', 11, 29),
+(4, NULL, NULL, NULL, '1.89', 32, 29),
+(5, NULL, NULL, NULL, '0.00', 8, 30),
+(6, NULL, NULL, NULL, '0.00', 8, 30),
+(7, NULL, NULL, NULL, '0.00', 3, 31),
+(8, NULL, NULL, NULL, '0.00', 13, 31),
+(9, NULL, NULL, NULL, '0.00', 16, 31),
+(10, NULL, NULL, NULL, '0.00', 30, 31),
+(11, NULL, NULL, NULL, '0.00', 5, 32),
+(18, NULL, NULL, NULL, '0.00', 10, 34),
+(19, NULL, NULL, NULL, '0.00', 21, 34),
+(20, NULL, NULL, NULL, '0.00', 22, 34),
+(21, NULL, NULL, NULL, '0.00', 33, 34),
+(22, NULL, NULL, NULL, '0.00', 2, 35),
+(23, NULL, NULL, NULL, '0.00', 9, 36),
+(24, NULL, NULL, NULL, '0.00', 23, 36),
+(25, NULL, NULL, NULL, '0.00', 24, 36),
+(26, NULL, NULL, NULL, '0.00', 30, 36),
+(27, NULL, NULL, NULL, '0.00', 7, 37),
+(28, NULL, NULL, NULL, '0.00', 6, 38),
+(29, NULL, NULL, NULL, '0.00', 1, 39),
+(30, NULL, NULL, NULL, '0.00', 25, 39),
+(31, NULL, NULL, NULL, '0.00', 15, 39),
+(32, NULL, NULL, NULL, '0.00', 31, 39),
+(33, NULL, NULL, NULL, '0.00', 8, 40),
+(34, NULL, NULL, NULL, '0.00', 26, 40),
+(35, NULL, NULL, NULL, '0.00', 20, 40),
+(36, NULL, NULL, NULL, '0.00', 31, 40),
+(37, NULL, NULL, NULL, '0.00', 3, 41),
+(38, NULL, NULL, NULL, '0.00', 6, 41),
+(39, NULL, NULL, NULL, '0.00', 5, 42),
+(40, NULL, NULL, NULL, '0.00', 28, 42),
+(41, NULL, NULL, NULL, '0.00', 29, 42),
+(42, NULL, NULL, NULL, '0.00', 33, 42);
 
 -- --------------------------------------------------------
 
@@ -362,6 +357,20 @@ INSERT INTO `tracteur` (`id_tract`, `id_vehi`, `cap_rem_tract`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `prenom` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `email` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `vehicule`
 --
 
@@ -378,11 +387,11 @@ CREATE TABLE `vehicule` (
 --
 
 INSERT INTO `vehicule` (`id_vehi`, `marque_vehi`, `modele_vehi`, `etat_vehi`, `position_vehi`) VALUES
-(1, 'New-holland', 'CX 720', 'Utilisé', '[47.910575,-1.448591]'),
-(2, 'New-holland', 'CR 9080', 'Utilisé', '[47.920575,-1.448591]'),
-(3, 'New-holland', 'CSX 7060', 'Utilisé', '[47.930575,-1.448591]'),
-(5, 'New-holland', 'CX 8050', 'Utilisé', '[47.940575,-1.448591]'),
-(6, 'New-holland', 'CX 8070', 'Non utilisé', '[47.950575,-1.448591]'),
+(1, 'New-holland', 'CX 720', 'Utilisé', '[47.970575,-1.448591]'),
+(2, 'New-holland', 'CR 9080', 'Utilisé', '[47.970575,-1.448591]'),
+(3, 'New-holland', 'CSX 7060', 'Utilisé', '[47.970575,-1.448591]'),
+(5, 'New-holland', 'CX 8050', 'Utilisé', '[47.970575,-1.448591]'),
+(6, 'New-holland', 'CX 8070', 'Non utilisé', '[47.970575,-1.448591]'),
 (7, 'New-holland', 'CX 5090', 'Utilisé', '[47.970575,-1.448591]'),
 (8, 'New-holland', 'TC 5050', 'Utilisé', '[47.970575,-1.448591]'),
 (9, 'New-holland', 'TX 68 SL', 'Non utilisé', '[47.970575,-1.448591]'),
@@ -450,6 +459,12 @@ ALTER TABLE `culture`
   ADD PRIMARY KEY (`id_cul`);
 
 --
+-- Index pour la table `eta`
+--
+ALTER TABLE `eta`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `moisson`
 --
 ALTER TABLE `moisson`
@@ -477,6 +492,12 @@ ALTER TABLE `ordre`
 ALTER TABLE `tracteur`
   ADD PRIMARY KEY (`id_tract`),
   ADD KEY `id_vehi` (`id_vehi`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `vehicule`
@@ -507,12 +528,17 @@ ALTER TABLE `champ`
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id_com` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_com` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT pour la table `culture`
 --
 ALTER TABLE `culture`
   MODIFY `id_cul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `eta`
+--
+ALTER TABLE `eta`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `moissonneuse`
 --

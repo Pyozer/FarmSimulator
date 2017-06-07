@@ -24,7 +24,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE);
+        SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE);
         switchView.showScene();
     }
 
