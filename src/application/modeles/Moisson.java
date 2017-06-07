@@ -12,10 +12,10 @@ public class Moisson {
     private int id;
     private Commande commande;
     private Vehicule vehicule;
-    private String duree, h_fin;
-    private Float nbKilo, nbTonne;
+    private String h_fin;
+    private Float nbKilo, nbTonne, duree;
 
-    public Moisson(int id, Commande commande, Vehicule vehicule, String h_fin, String duree, Float nbKilo, Float nbTonne) {
+    public Moisson(int id, Commande commande, Vehicule vehicule, String h_fin, Float duree, Float nbKilo, Float nbTonne) {
         this.id = id;
         this.commande = commande;
         this.vehicule = vehicule;
@@ -50,13 +50,11 @@ public class Moisson {
         this.vehicule = vehicule;
     }
 
-    public String getDuree() {
+    public Float getDuree() {
         return duree;
     }
 
-    public void setDuree(String duree) {
-        this.duree = duree;
-    }
+    public void setDuree(Float duree) { this.duree = duree; }
 
     public String getH_fin() {
         return h_fin;

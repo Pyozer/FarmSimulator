@@ -1,5 +1,6 @@
 package application.controlleurs;
 
+import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.ClientSQL;
 import application.modeles.Commande;
@@ -13,10 +14,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalUnit;
 import java.time.temporal.ChronoUnit;import java.time.Duration;
 import java.time.Instant;
@@ -24,7 +27,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 
-public class EditMoissonController {
+public class EditMoissonController implements Constant {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -59,6 +62,29 @@ public class EditMoissonController {
         LocalDate inputDateFin = date_fin.getValue();
         LocalTime inputTimeFin = time_fin.getValue();
 
+        System.out.println(selectedCommande);
+
+        if (inputDateDebut.toString().isEmpty() || inputDateFin.toString().isEmpty() || inputTimeDebut.toString().isEmpty() || inputTimeFin.toString().isEmpty()) {
+
+            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+            alert.show();
+        } else {
+            Float inputDuree = getDuree(inputDateDebut, inputTimeDebut, inputDateFin, inputTimeFin);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
+
+            String inputDateTimeFin = tempInputDateTimeFin.format(formatter);
+            System.out.println(selectedCommande + "\n" + selectedVehicule+ "\n" +  inputDuree+ "\n" +  inputDateTimeFin+ "\n" +  inputNbKilo+ "\n" +  inputPoidRecolte);
+
+            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDuree, inputDateTimeFin, inputNbKilo, inputPoidRecolte);
+
+            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.CONFIRMATION);
+            alert.show();
+        }
+    }
+
+    private Float getDuree(LocalDate inputDateDebut, LocalTime inputTimeDebut, LocalDate inputDateFin, LocalTime inputTimeFin) {
         LocalDateTime inputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
 
         LocalDateTime inputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
@@ -74,7 +100,6 @@ public class EditMoissonController {
         long days = tempDateTime.until( inputDateTimeFin, ChronoUnit.DAYS);
         tempDateTime = tempDateTime.plusDays( days );
 
-
         long hours = tempDateTime.until( inputDateTimeFin, ChronoUnit.HOURS);
         tempDateTime = tempDateTime.plusHours( hours );
 
@@ -83,23 +108,16 @@ public class EditMoissonController {
 
         long seconds = tempDateTime.until( inputDateTimeFin, ChronoUnit.SECONDS);
 
-        Float inputDuree = years*
+        Double inputDuree = (years*Constant.HEURE_PAR_AN + months*Constant.HEURE_PAR_MOIS + days*Constant.HEURE_PAR_JOUR + minutes*Constant.HEURE_PAR_MINUTE + seconds*Constant.HEURE_PAR_SECONDE);
 
-
-     /*   if (inputDateDebut.toString().isEmpty() || inputDateFin.isEmpty() || inputTimeDebut.isEmpty() || inputTimeFin.isEmpty()) {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
-            alert.show();
-        } else {
-            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDuree, inputDateFin, inputTimeFin, inputNbKilo, inputPoidRecolte);
-
-            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.CONFIRMATION);
-            alert.show();
-        }*/
+        return inputDuree.floatValue();
     }
 
     public void defineVariableMoisson(Commande commande, Vehicule vehicule) {
         this.selectedCommande = commande;
         this.selectedVehicule = vehicule;
     }
+
+
 
 }

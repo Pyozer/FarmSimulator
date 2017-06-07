@@ -14,16 +14,18 @@ import java.sql.SQLException;
 
 public class MoissonSQL {
 
-    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, String intputJ_debut, String inputH_debut, String inputJ_fin, String inputH_fin, Float inputNbKilo, Float inputNbTonne) {
-        String request = "UPDATE Ordre SET tonnes=:tonnes, nb_km_ordre=:nbKilo, duree_ordre:duree, heure_arrive_ordre:heureArrive WHERE id_vehi=:vehi AND id_com=:com";
+    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, Float inputDuree, String inputH_fin, Float inputNbKilo, Float inputNbTonne) {
+        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, duree_ordre=:duree, heure_arrive_ordre=:heureArrive WHERE id_vehi=:vehi AND id_com=:com";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("tonnes", "" + inputNbTonne);
-            preparedStatement.setString("nbKilo", "" + inputNbKilo );
-            preparedStatement.setString("heureArrive", inputJ_fin + " * " +inputH_fin );
-            preparedStatement.setFloat("id_vehi", inputVehicule.getId());
+            System.out.println("id : " + inputVehicule.getId());
+            preparedStatement.setFloat("tonnes", inputNbTonne);
+            preparedStatement.setFloat("nbKilo", inputNbKilo );
+            preparedStatement.setString("heureArrive", inputH_fin);
+            preparedStatement.setFloat("duree",  inputDuree);
+            preparedStatement.setInt("vehi", inputVehicule.getId());
             preparedStatement.setInt("com", inputCommande.getId());
 
             // Execute SQL statement
@@ -145,7 +147,7 @@ public class MoissonSQL {
                                         ),
                                         vehi_com,
                                         rs.getString("heure_arrive_ordre"),
-                                        rs.getString("duree_ordre"),
+                                        Float.parseFloat(rs.getString("duree_ordre")),
                                         Float.parseFloat(rs.getString("nb_km_ordre")),
                                         Float.parseFloat(rs.getString("tonnes_ordre"))
                                     ));
