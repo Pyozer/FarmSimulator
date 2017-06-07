@@ -52,13 +52,13 @@
                             <JFXButton fx:id="btn_markDone" text="Marqué comme faite" visible="false" onAction="#markToDone" styleClass="btn, btn-primary" buttonType="RAISED" />
                         </HBox>
                     </VBox>
-                    <VBox visible="false" spacing="10">
+                    <VBox spacing="10">
                         <Label text="Affectation">
                             <font><Font name="Roboto Medium" size="30.0" /></font>
                         </Label>
 
                         <HBox spacing="15">
-                            <JFXButton fx:id="btn_affects" text="Affectation(s)" onAction="#showAffects" styleClass="btn, btn-primary" buttonType="RAISED" />
+                            <JFXButton fx:id="btn_affects" visible="false" text="Affectation(s)" onAction="#showAffects" styleClass="btn, btn-primary" buttonType="RAISED" />
                         </HBox>
                     </VBox>
                 </VBox>

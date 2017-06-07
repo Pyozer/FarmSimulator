@@ -3,6 +3,7 @@ package application.classes;
 import application.Constant;
 import application.controlleurs.*;
 import application.modeles.*;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,13 +17,14 @@ import java.io.IOException;
 public class SwitchViewData {
 
     private Stage newStage;
+    private FXMLLoader fxmlLoader;
 
     private final static String STYLECSS = "styles.css";
 
     public SwitchViewData(String view, String title, Element data) {
         Parent root;
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader = new FXMLLoader();
 
         try {
             fxmlLoader.setLocation(getClass().getResource(Constant.LAYOUT_PATH + view + ".fxml"));
@@ -68,6 +70,8 @@ public class SwitchViewData {
             e.printStackTrace();
         }
     }
+
+    public FXMLLoader getFxmlLoader() { return fxmlLoader; }
 
     public void showScene() {
         newStage.show();

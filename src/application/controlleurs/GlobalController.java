@@ -103,7 +103,10 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void showAffects() {
-        //TODO : Afficher la fenetre des affectations
+        SwitchViewData switchViewData = new SwitchViewData("affectations_app", Constant.ADD_VEHICULE_APP_TITLE, null);
+        AffectationController affectationController = switchViewData.getFxmlLoader().getController();
+        affectationController.defineCommandeSelected(commandeSelected);
+        switchViewData.showScene();
     }
 
     private void showButtons(Commande commande) {

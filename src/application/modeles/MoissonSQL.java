@@ -1,17 +1,12 @@
 package application.modeles;
 
-import application.classes.JSONManager;
-import application.classes.Point;
-import application.classes.Polygon;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe pour la gestion des rapports de moissons
+ */
 public class MoissonSQL {
 
     public static void addMoisson(Commande inputCommande, Vehicule inputVehicule, String intputJ_debut, String inputH_debut, String inputJ_fin, String inputH_fin, Float inputNbKilo, Float inputNbTonne) {
@@ -59,77 +54,4 @@ public class MoissonSQL {
             System.err.println(ex.getMessage());
         }
     }
-
-    public static ObservableList<Commande> getCommandeList(int max_entries) {
-
-        String request = "SELECT * FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
-        if(max_entries > 0) {
-            request += " ORDER BY date_com LIMIT " + max_entries;
-        }
-
-        ObservableList<Commande> commandeList = FXCollections.observableArrayList();
-
-        try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
-            // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
-                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
-
-                commandeList.add(new Commande(
-                        Integer.parseInt(rs.getString("id_com")),
-                        rs.getString("transp_com"),
-                        rs.getString("bott_com"),
-                        Float.parseFloat(rs.getString("taille_max_transp_com")),
-                        rs.getString("date_com"),
-                        Float.parseFloat(rs.getString("tonne_com")),
-                        Float.parseFloat(rs.getString("cout_com")),
-                        new Champ(
-                                Integer.parseInt(rs.getString("id_agri")),
-                                Float.parseFloat(rs.getString("surf_champ")),
-                                rs.getString("adr_champ"),
-                                coord_center,
-                                coord_champ,
-                                rs.getString("type_cul"),
-                                new Agriculteur(
-                                            Integer.parseInt(rs.getString("id_agri")),
-                                            rs.getString("prenom_agri"),
-                                            rs.getString("nom_agri"),
-                                            rs.getString("tel_agri"),
-                                            rs.getString("adr_agri"),
-                                            rs.getString("email_agri")
-                                )
-                        )
-               ));
-            }
-
-            rs.close();
-            preparedStatement.close();
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return commandeList;
-    }
-
-    public static ObservableList<Commande> getCommandeList() {
-        return getCommandeList(0);
-    }
-
-    public static void deleteCommande(Commande commande) {
-        String request = "DELETE FROM Commande WHERE id_com=:id";
-
-        try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setInt("id", commande.getId());
-            preparedStatement.executeUpdate();
-
-            preparedStatement.close();
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-    }
-
 }
