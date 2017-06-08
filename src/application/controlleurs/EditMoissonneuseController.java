@@ -26,6 +26,8 @@ public class EditMoissonneuseController {
     @FXML private JFXTextField conso_route;
     @FXML private JFXTextField poids;
 
+    private VehiculeController vehiculeController;
+
     /**
      * Initializes the controller class.
      */
@@ -56,4 +58,7 @@ public class EditMoissonneuseController {
         // TODO: Modification d'une moissonneuse
     }
 
+    public void defineVehiculeController(VehiculeController vehiculeController) {
+        this.vehiculeController = vehiculeController;
+    }
 }

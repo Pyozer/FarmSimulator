@@ -19,6 +19,7 @@ public class AddBotteleuseController {
     @FXML private JFXComboBox<String> type;
     @FXML private JFXComboBox<String> liste_etat;
 
+    private VehiculeController vehiculeController;
     /**
      * Initializes the controller class.
      */
@@ -35,6 +36,10 @@ public class AddBotteleuseController {
 
     @FXML
     public void handleSaveBotteleuse() {
+        // TODO : Faire la sauvegarde de la botteleuse
+    }
 
+    public void defineVehiculeController(VehiculeController vehiculeController) {
+        this.vehiculeController = vehiculeController;
     }
 }

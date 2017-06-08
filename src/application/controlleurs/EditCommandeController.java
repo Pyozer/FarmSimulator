@@ -33,6 +33,8 @@ public class EditCommandeController {
     private Commande commandeToEdit;
     private List<Champ> listChamps;
 
+    private CommandeController commandeController;
+
     /**
      * Initializes the controller class.
      */
@@ -92,8 +94,10 @@ public class EditCommandeController {
 
                 CommandeSQL.editCommande(commandeToEdit);
 
-                AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été modifié !", Alert.AlertType.CONFIRMATION);
+                AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été modifié !", Alert.AlertType.INFORMATION);
                 alert.show();
+
+                commandeController.initData();
 
                 Stage stage = (Stage) bpane.getScene().getWindow();
                 stage.close();
@@ -103,5 +107,9 @@ public class EditCommandeController {
                 alert.show();
             }
         }
+    }
+
+    public void defineCommandeController(CommandeController commandeController) {
+        this.commandeController = commandeController;
     }
 }

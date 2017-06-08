@@ -27,6 +27,8 @@ public class ChoixVehiculeController {
     private boolean tracteur_selected = false;
     private boolean moissonneuse_selected = false;
     private boolean botteleuse_selected = true;
+
+    private VehiculeController vehiculeController;
     /**
      * Initializes the controller class.
      */
@@ -71,12 +73,26 @@ public class ChoixVehiculeController {
     }
 
     public void nextStep() {
-        SwitchView swtichView = new SwitchView("add_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+        SwitchView switchView;
         if (tracteur_selected) {
-            swtichView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            AddTracteurController addTracteurController = switchView.getFxmlLoader().getController();
+            addTracteurController.defineVehiculeController(vehiculeController);
+            switchView.showScene();
         } else if(moissonneuse_selected) {
-            swtichView = new SwitchView("add_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("add_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            AddMoissonneuseController addMoissonneuseController = switchView.getFxmlLoader().getController();
+            addMoissonneuseController.defineVehiculeController(vehiculeController);
+            switchView.showScene();
+        } else if(botteleuse_selected) {
+            switchView = new SwitchView("add_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            AddBotteleuseController addBotteleuseController = switchView.getFxmlLoader().getController();
+            addBotteleuseController.defineVehiculeController(vehiculeController);
+            switchView.showScene();
         }
-        swtichView.showScene();
+    }
+
+    public void defineVehiculeController(VehiculeController vehiculeController) {
+        this.vehiculeController = vehiculeController;
     }
 }

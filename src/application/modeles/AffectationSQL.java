@@ -7,7 +7,6 @@ import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,7 +18,7 @@ public class AffectationSQL {
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
 
     public static void addAffect(Commande inputCommande, Vehicule inputVehicule) {
-        String request = "INSERT INTO Ordre (id_com, id_vehi) VALUES(:id_com, :id_vehi)";
+        String request = "INSERT INTO Ordre(id_com, id_vehi) VALUES(:id_com, :id_vehi)";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -41,8 +40,6 @@ public class AffectationSQL {
     public static void deleteAffect(Commande inputCommande, Vehicule inputVehicule) {
         String request = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=:id_vehi";
 
-        System.out.println(inputCommande.getId() + " - " + inputVehicule.getId());
-
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
@@ -50,7 +47,7 @@ public class AffectationSQL {
             preparedStatement.setInt("id_vehi", inputVehicule.getId());
 
             // Execute SQL statement
-            System.out.println(preparedStatement.executeUpdate());
+            preparedStatement.executeUpdate();
 
             preparedStatement.close();
         }
@@ -70,7 +67,10 @@ public class AffectationSQL {
     }
 
     private static void loadTracteur(Commande commande) {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi WHERE id_com=:id_com";
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule" +
+                "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi" +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi" +
+                "WHERE id_com=:id_com";
 
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -98,7 +98,10 @@ public class AffectationSQL {
     }
 
     private static void loadBotteleuse(Commande commande) {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi WHERE id_com=:id_com";
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule" +
+                "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi" +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi" +
+                "WHERE id_com=:id_com";
 
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -126,7 +129,10 @@ public class AffectationSQL {
     }
 
     private static void loadMoissonneuse(Commande commande) {
-        String request = "SELECT * FROM Vehicule INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi WHERE id_com=:id_com";
+        String request = "SELECT * FROM Vehicule" +
+                "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi" +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi" +
+                "WHERE id_com=:id_com";
 
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);

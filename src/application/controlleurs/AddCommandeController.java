@@ -26,6 +26,8 @@ public class AddCommandeController {
     @FXML private JFXComboBox<String> liste_type_bott;
     @FXML private JFXTextField tMaxTransp;
 
+    private CommandeController commandeController;
+
     /**
      * Initializes the controller class.
      */
@@ -61,8 +63,10 @@ public class AddCommandeController {
                 float inputTmaxTransp = Float.parseFloat(inputTMaxTranspString);
                 CommandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTmaxTransp, inputChamp); //0 = T max
 
-                AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.CONFIRMATION);
+                AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été ajoutée !", Alert.AlertType.INFORMATION);
                 alert.show();
+
+                commandeController.initData();
 
                 Stage stage = (Stage) bpane.getScene().getWindow();
                 stage.close();
@@ -72,5 +76,9 @@ public class AddCommandeController {
                 alert.show();
             }
         }
+    }
+
+    public void defineCommandeController(CommandeController commandeController) {
+        this.commandeController = commandeController;
     }
 }

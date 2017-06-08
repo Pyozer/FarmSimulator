@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * Controlleur pour l'ajout d'un client
@@ -20,6 +21,8 @@ public class AddClientController {
     @FXML private JFXTextField tel_client;
     @FXML private JFXTextField adresse_client;
     @FXML private JFXTextField email_client;
+
+    private ClientController clientController;
 
     /**
      * Initializes the controller class.
@@ -42,10 +45,17 @@ public class AddClientController {
         } else {
             ClientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
+            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.INFORMATION);
             alert.show();
+
+            clientController.initData();
+
+            Stage stage = (Stage) bpane.getScene().getWindow();
+            stage.close();
         }
     }
 
-
+    public void defineClientController(ClientController clientController) {
+        this.clientController = clientController;
+    }
 }

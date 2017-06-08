@@ -19,6 +19,8 @@ public class EditTracteurController {
     @FXML private JFXTextField cap_rem;
     @FXML private JFXComboBox<String> liste_etat;
 
+    private VehiculeController vehiculeController;
+
     /** Initializes the controller class. **/
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
@@ -38,5 +40,9 @@ public class EditTracteurController {
     @FXML
     public void handleSaveTracteur() {
         // TODO: Modification d'un tracteur
+    }
+
+    public void defineVehiculeController(VehiculeController vehiculeController) {
+        this.vehiculeController = vehiculeController;
     }
 }

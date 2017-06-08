@@ -53,8 +53,10 @@ public class ClientSQL {
     }
 
     public static ObservableList<Champ> getClientsChampsList(int id_agri) {
+        String request = "SELECT * FROM Agriculteur" +
+                "INNER JOIN Champ ON Agriculteur.id_agri=Champ.id_agri" +
+                "INNER JOIN Culture ON Champ.type_champ=Culture.id_cul";
 
-        String request = "SELECT * FROM Agriculteur INNER JOIN Champ ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Champ.type_champ=Culture.id_cul";
         if(id_agri > 0)
             request += " WHERE Agriculteur.id_agri=" + id_agri;
 
@@ -96,7 +98,8 @@ public class ClientSQL {
     }
 
     public static void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail) {
-        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri) VALUES(:nom, :prenom, :adresse, :tel, :email)";
+        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri)" +
+                "VALUES(:nom, :prenom, :adresse, :tel, :email)";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -118,7 +121,8 @@ public class ClientSQL {
     }
 
     public static void editClient(Agriculteur agri) {
-        String request = "UPDATE Agriculteur SET nom_agri=:nom_agri, prenom_agri=:prenom_agri, adr_agri=:adr_agri, tel_agri=:tel_agri, email_agri=:email_agri WHERE id_agri=:id_agri";
+        String request = "UPDATE Agriculteur SET nom_agri=:nom_agri, prenom_agri=:prenom_agri, adr_agri=:adr_agri, tel_agri=:tel_agri, email_agri=:email_agri" +
+                "WHERE id_agri=:id_agri";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);

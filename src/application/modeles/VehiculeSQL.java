@@ -32,7 +32,8 @@ public class VehiculeSQL {
     }
 
     private static void loadTracteur() {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule" +
+                "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
             PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
@@ -59,7 +60,8 @@ public class VehiculeSQL {
     }
 
     private static void loadBotteleuse() {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule" +
+                "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
             PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
@@ -87,7 +89,8 @@ public class VehiculeSQL {
     }
 
     private static void loadMoissonneuse() {
-        String request = "SELECT * FROM Vehicule INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
+        String request = "SELECT * FROM Vehicule" +
+                "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
 
         try {
             PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
@@ -137,26 +140,38 @@ public class VehiculeSQL {
     }
 
     public static void addBotteleuse(String modele, String marque, String type, String etat) {
-        String request = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
-        String r2 = "SELECT LAST_INSERT_ID()";
-        //String request2 = "INSER INTO Botteleuse('marque_vehi', 'modele_vehi', 'etat_vehi', 'position_vehi') VALUES (':marque',':modele',':etat',':position')";
+        String insertVehi = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
+        String getIdVehi = "SELECT LAST_INSERT_ID()";
+        String insertBott = "INSERT INTO Botteleuse(id_vehi, type_bott) VALUES (:id_vehi, :type_bott)";
 
         try {
-            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
-            stmt.setString("marque", marque);
-            stmt.setString("modele", modele);
-            stmt.setString("etat", etat);
-            stmt.setString("position", "[47.970575,-1.448591]");
+            // On insert le vehicule
+            NamedParameterStatement insertVehiStmt = new NamedParameterStatement(DBConnection.getConnection(), insertVehi);
+            insertVehiStmt.setString("marque", marque);
+            insertVehiStmt.setString("modele", modele);
+            insertVehiStmt.setString("etat", etat);
+            insertVehiStmt.setString("position", "[47.970575,-1.448591]");
 
-            NamedParameterStatement stmt2 = new NamedParameterStatement(DBConnection.getConnection(), r2);
+            insertVehiStmt.executeUpdate();
+            insertVehiStmt.close();
+
+            // On récupère l'ID du vehicule ajouté
+            PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(getIdVehi);
             // Execute select SQL statement
-            stmt.executeUpdate();
-            ResultSet s = stmt2.executeQuery();
+            ResultSet result = getLastIdStmt.executeQuery();
+            result.next();
+            int idVehi = result.getInt(0);
 
-            while(s.next()) {
-                System.err.println(s.getString(1));
-            }
-            stmt.close();
+            result.close();
+
+            // On insert la botteleuse
+            NamedParameterStatement insertBottStmt = new NamedParameterStatement(DBConnection.getConnection(), insertVehi);
+            insertBottStmt.setInt("id_vehi", idVehi);
+            insertBottStmt.setString("type_bott", type);
+
+            insertBottStmt.executeUpdate();
+            insertBottStmt.close();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }

@@ -1,5 +1,6 @@
 package application.modeles;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,8 +22,9 @@ public class Commande extends Element {
     private SimpleObjectProperty<LocalDate> date;
     private SimpleFloatProperty tonne;
     private SimpleFloatProperty cout;
+    private SimpleBooleanProperty effectuer;
 
-    public Commande(int id, String transport, String typebott, float taillemax, String date, float tonne, float cout, Champ champCommande) {
+    public Commande(int id, String transport, String typebott, float taillemax, String date, float tonne, float cout, Champ champCommande, boolean effectuer) {
         super(id);
         this.transport = new SimpleStringProperty(transport);
         this.typebott = new SimpleStringProperty(typebott);
@@ -31,6 +33,7 @@ public class Commande extends Element {
         this.tonne = new SimpleFloatProperty(tonne);
         this.cout = new SimpleFloatProperty(cout);
         this.champCommande = new SimpleObjectProperty<>(champCommande);
+        this.effectuer = new SimpleBooleanProperty(effectuer);
     }
 
     public Champ getChampCommande() {
@@ -93,6 +96,14 @@ public class Commande extends Element {
 
     public void setCout(float cout) {
         this.cout.set(cout);
+    }
+
+    public boolean isEffectuer() {
+        return effectuer.get();
+    }
+
+    public void setEffectuer(boolean effectuer) {
+        this.effectuer.set(effectuer);
     }
 
     @Override

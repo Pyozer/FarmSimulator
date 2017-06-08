@@ -57,13 +57,10 @@ public class VehiculeController implements APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
-        vehiculeList = VehiculeSQL.getVehiculeList();
-
-        tableView.getItems().addAll(vehiculeList);
-
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         resetListInfo();
+        initData();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
     }
@@ -86,6 +83,8 @@ public class VehiculeController implements APIGoogleMap {
     @FXML
     public void addVehicule() {
         SwitchView switchView = new SwitchView("choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
+        ChoixVehiculeController choixVehiculeController = switchView.getFxmlLoader().getController();
+        choixVehiculeController.defineVehiculeController(this);
         switchView.showScene();
     }
 
@@ -115,22 +114,23 @@ public class VehiculeController implements APIGoogleMap {
             switchView = new SwitchView("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
             EditBotteleuseController editBotController = switchView.getFxmlLoader().getController();
             editBotController.initTextFields((Botteleuse) vehiculeSelected);
+            editBotController.defineVehiculeController(this);
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Moissonneuse){
             switchView = new SwitchView("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
             EditMoissonneuseController editMoiController = switchView.getFxmlLoader().getController();
             editMoiController.initTextFields((Moissonneuse) vehiculeSelected);
+            editMoiController.defineVehiculeController(this);
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Tracteur) {
             switchView =new SwitchView("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
             EditTracteurController editTraController = switchView.getFxmlLoader().getController();
             editTraController.initTextFields((Tracteur) vehiculeSelected);
+            editTraController.defineVehiculeController(this);
             switchView.showScene();
         }
-
-
     }
 
     public void askToLoadMarkers() {
@@ -149,6 +149,12 @@ public class VehiculeController implements APIGoogleMap {
 
     private void resetListInfo() {
         listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+    }
+
+    public void initData() {
+        vehiculeList = VehiculeSQL.getVehiculeList();
+
+        tableView.getItems().setAll(vehiculeList);
     }
 
     private void defineStateElements(boolean state) {

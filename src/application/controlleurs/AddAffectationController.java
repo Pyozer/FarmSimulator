@@ -1,21 +1,19 @@
 package application.controlleurs;
 
-import application.Constant;
 import application.classes.AlertDialog;
-import application.classes.MenuApp;
-import application.classes.SwitchView;
-import application.modeles.*;
-import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.SimpleStringProperty;
+import application.modeles.AffectationSQL;
+import application.modeles.Commande;
+import application.modeles.Vehicule;
+import application.modeles.VehiculeSQL;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-
-import java.util.Optional;
+import javafx.stage.Stage;
 
 /**
- * Controlleur de la vue de la gestion des affectations de l'ETA
+ * Controlleur de la vue de l'ajout d'une affectation à une commande
  */
 public class AddAffectationController {
 
@@ -25,10 +23,9 @@ public class AddAffectationController {
     /** Element **/
     @FXML private Label titleCommandeSelected;
     @FXML private ComboBox<Vehicule> liste_vehicule;
-    @FXML private TextField commande;
 
-    private Vehicule selectedVehicule = null;
     private Commande selectedCommande = null;
+    private AffectationController affectationController;
 
     /**
      * Initializes the controller class.
@@ -38,28 +35,33 @@ public class AddAffectationController {
 
         liste_vehicule.getItems().setAll(VehiculeSQL.getVehiculeList());
         liste_vehicule.setValue(liste_vehicule.getItems().get(0));
-
     }
 
     @FXML
     public void handleSubmitAffect() {
-        selectedVehicule = liste_vehicule.getValue();
-        if(selectedVehicule == null){
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+        Vehicule vehiculeSelected = liste_vehicule.getValue();
+        if(vehiculeSelected == null){
+            AlertDialog alert = new AlertDialog("Erreur", null, "Aucun véhicule n'a été selectionné !", Alert.AlertType.ERROR);
             alert.show();
-        }
-        else {
-            AffectationSQL.addAffect(selectedCommande,selectedVehicule);
-            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.CONFIRMATION);
+        } else {
+            AffectationSQL.addAffect(selectedCommande, vehiculeSelected);
+
+            AlertDialog alert = new AlertDialog("Succès", null, "Le véhicule\n" + vehiculeSelected + " a bien été affecté à la commande\n" + selectedCommande, Alert.AlertType.INFORMATION);
             alert.show();
+
+            affectationController.defineCommandeSelected(selectedCommande);
+
+            Stage stage = (Stage) bpane.getScene().getWindow();
+            stage.close();
         }
     }
-
 
     public void defineCommandeSelected(Commande commande) {
         selectedCommande = commande;
         titleCommandeSelected.setText(selectedCommande.toString());
-
     }
 
+    public void defineAffectController(AffectationController affectationController) {
+        this.affectationController = affectationController;
+    }
 }

@@ -26,10 +26,10 @@ public interface Constant {
 	String CHAMP_APP_TITLE = "Gestion des champs de l'ETA";
 	String ADD_CHAMP_APP_TITLE = "Ajouter un champs à l'ETA";
 
-	int MIN_WIDTH = 910;
-	int MIN_HEIGHT = 800;
-	int PREF_WIDTH = 1100;
-	int PREF_HEIGHT = 850;
+	int MIN_WIDTH = 1300;
+	int MIN_HEIGHT = 900;
+	int PREF_WIDTH = 1400;
+	int PREF_HEIGHT = 1000;
 
 	Double HEURE_PAR_AN = 8765.82;
 	Double HEURE_PAR_MOIS = 730.5;

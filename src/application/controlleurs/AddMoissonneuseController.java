@@ -25,6 +25,7 @@ public class AddMoissonneuseController {
     @FXML private JFXTextField conso_route;
     @FXML private JFXTextField poids;
 
+    private VehiculeController vehiculeController;
     /**
      * Initializes the controller class.
      */
@@ -35,5 +36,9 @@ public class AddMoissonneuseController {
     @FXML
     public void onSubmit() {
         // TODO: FAIRE AJOUT DE LA MOISSONEUSE
+    }
+
+    public void defineVehiculeController(VehiculeController vehiculeController) {
+        this.vehiculeController = vehiculeController;
     }
 }

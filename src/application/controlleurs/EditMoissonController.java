@@ -47,6 +47,14 @@ public class EditMoissonController implements Constant {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
+        time_debut.setIs24HourView(true);
+        time_fin.setIs24HourView(true);
+
+        date_debut.setValue(LocalDate.now());
+        date_fin.setValue(LocalDate.now());
+        time_debut.setValue(LocalTime.now());
+        time_fin.setValue(LocalTime.now());
     }
 
 
@@ -62,10 +70,7 @@ public class EditMoissonController implements Constant {
         LocalDate inputDateFin = date_fin.getValue();
         LocalTime inputTimeFin = time_fin.getValue();
 
-        System.out.println(selectedCommande);
-
         if (inputDateDebut.toString().isEmpty() || inputDateFin.toString().isEmpty() || inputTimeDebut.toString().isEmpty() || inputTimeFin.toString().isEmpty()) {
-
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
             alert.show();
         } else {
@@ -79,7 +84,7 @@ public class EditMoissonController implements Constant {
 
             MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDuree, inputDateTimeFin, inputNbKilo, inputPoidRecolte);
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.CONFIRMATION);
+            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.INFORMATION);
             alert.show();
         }
     }
@@ -117,7 +122,5 @@ public class EditMoissonController implements Constant {
         this.selectedCommande = commande;
         this.selectedVehicule = vehicule;
     }
-
-
 
 }

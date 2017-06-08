@@ -61,8 +61,9 @@ public class CommandeController {
         column_tonn.setCellValueFactory(new PropertyValueFactory<>("tonne"));
         column_cout.setCellValueFactory(new PropertyValueFactory<>("cout"));
 
-        tableView.getItems().setAll(CommandeSQL.getCommandeList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
+
+        initData();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
     }
@@ -79,6 +80,8 @@ public class CommandeController {
     @FXML
     public void addCommande() {
         SwitchView switchView = new SwitchView("add_commande_app", Constant.ADD_VEHICULE_APP_TITLE);
+        AddCommandeController addCommandeController = switchView.getFxmlLoader().getController();
+        addCommandeController.defineCommandeController(this);
         switchView.showScene();
     }
 
@@ -109,6 +112,7 @@ public class CommandeController {
         SwitchView switchViewData = new SwitchView("edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE);
         EditCommandeController editCommandeController = switchViewData.getFxmlLoader().getController();
         editCommandeController.initTextFields(commandeSelected);
+        editCommandeController.defineCommandeController(this);
         switchViewData.showScene();
     }
 
@@ -118,6 +122,10 @@ public class CommandeController {
         AffectationController affectationController = switchViewData.getFxmlLoader().getController();
         affectationController.defineCommandeSelected(selectedCommande);
         switchViewData.showScene();
+    }
+
+    public void initData() {
+        tableView.getItems().setAll(CommandeSQL.getCommandeList());
     }
 
     private void clearAllSelection() {

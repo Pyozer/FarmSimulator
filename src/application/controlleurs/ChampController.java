@@ -53,10 +53,10 @@ public class ChampController implements APIGoogleMap {
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
 
-        tableView.getItems().addAll(ChampSQL.getChampsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
         resetListInfo();
+        initData();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
     }
@@ -81,6 +81,8 @@ public class ChampController implements APIGoogleMap {
     @FXML
     public void addChamp() {
         SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE);
+        AddChampController addChampController = switchView.getFxmlLoader().getController();
+        addChampController.defineChampController(this);
         switchView.showScene();
     }
 
@@ -122,6 +124,10 @@ public class ChampController implements APIGoogleMap {
         for (Champ champ : ChampSQL.getChampsList()) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
         }
+    }
+
+    public void initData() {
+        tableView.getItems().setAll(ChampSQL.getChampsList());
     }
 
     private void resetListInfo() {

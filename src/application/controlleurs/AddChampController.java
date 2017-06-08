@@ -19,6 +19,8 @@ public class AddChampController {
     @FXML private JFXComboBox<Culture> liste_type;
     @FXML private JFXComboBox<Agriculteur> liste_proprio;
 
+    private ChampController champController;
+
     /**
      * Initializes the controller class.
      */
@@ -31,7 +33,6 @@ public class AddChampController {
 
         liste_proprio.getItems().setAll(ClientSQL.getClientsList());
         liste_proprio.setValue(liste_proprio.getItems().get(0));
-
     }
 
     @FXML
@@ -43,4 +44,7 @@ public class AddChampController {
         // TODO: Faire l'ajout du champs à la BDD
     }
 
+    public void defineChampController(ChampController champController) {
+        this.champController = champController;
+    }
 }

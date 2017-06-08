@@ -51,10 +51,10 @@ public class ClientController implements APIGoogleMap  {
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
-        tableView.getItems().addAll(ClientSQL.getClientsList());
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
 
         resetListInfo();
+        initData();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
     }
@@ -80,6 +80,8 @@ public class ClientController implements APIGoogleMap  {
     @FXML
     public void addClient() {
         SwitchView switchView = new SwitchView("add_client_app", Constant.ADD_CLIENT_APP_TITLE);
+        AddClientController addClientController = switchView.getFxmlLoader().getController();
+        addClientController.defineClientController(this);
         switchView.showScene();
     }
 
@@ -103,10 +105,11 @@ public class ClientController implements APIGoogleMap  {
     public void editClient() {
         Agriculteur agriculteur = tableView.getSelectionModel().getSelectedItem();
 
-        SwitchView switchViewData = new SwitchView("edit_client_app", Constant.ADD_VEHICULE_APP_TITLE);
-        EditClientController editClientController = switchViewData.getFxmlLoader().getController();
+        SwitchView switchView = new SwitchView("edit_client_app", Constant.ADD_VEHICULE_APP_TITLE);
+        EditClientController editClientController = switchView.getFxmlLoader().getController();
         editClientController.initTextFields(agriculteur);
-        switchViewData.showScene();
+        editClientController.defineClientController(this);
+        switchView.showScene();
     }
 
     public void askToLoadChamps() {
@@ -127,6 +130,10 @@ public class ClientController implements APIGoogleMap  {
         listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
     }
 
+    public void initData() {
+        tableView.getItems().setAll(ClientSQL.getClientsList());
+    }
+
     private void defineStateElements(boolean state) {
         delete_btn.setVisible(state);
         delete_btn.setManaged(state);
@@ -139,5 +146,4 @@ public class ClientController implements APIGoogleMap  {
     public void log(String msg) {
         System.err.println(msg);
     }
-
 }

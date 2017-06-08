@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'ETA
@@ -24,16 +25,16 @@ public class EditClientController {
 
     private Agriculteur agriculteurToEdit;
 
+    private ClientController clientController;
+
     /**
      * Initializes the controller class.
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
     }
 
     public void initTextFields(Agriculteur agriculteur) {
-
         agriculteurToEdit = agriculteur;
 
         nom_client.setText(agriculteur.getNom());
@@ -63,10 +64,17 @@ public class EditClientController {
 
             ClientSQL.editClient(agriculteurToEdit);
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.CONFIRMATION);
+            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.INFORMATION);
             alert.show();
+
+            clientController.initData();
+
+            Stage stage = (Stage) bpane.getScene().getWindow();
+            stage.close();
         }
     }
 
-
+    public void defineClientController(ClientController clientController) {
+        this.clientController = clientController;
+    }
 }

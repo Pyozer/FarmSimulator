@@ -64,6 +64,7 @@ public class AffectationController {
         SwitchView switchView = new SwitchView("add_affectation_app", Constant.ADD_VEHICULE_APP_TITLE);
         AddAffectationController addAffectationController = switchView.getFxmlLoader().getController();
         addAffectationController.defineCommandeSelected(selectedCommande);
+        addAffectationController.defineAffectController(this);
         switchView.showScene();
     }
 
@@ -94,7 +95,7 @@ public class AffectationController {
     public void defineCommandeSelected(Commande commande) {
         selectedCommande = commande;
         titleCommandeSelected.setText(selectedCommande.toString());
-        tableView.getItems().addAll(AffectationSQL.getVehiculeAffect(selectedCommande));
+        tableView.getItems().setAll(AffectationSQL.getVehiculeAffect(selectedCommande));
     }
 	
 	private void clearAllSelection() {

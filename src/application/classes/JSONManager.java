@@ -35,9 +35,8 @@ public class JSONManager {
 	public static Point readPoint(String jsonStr) {
 
         JSONArray jsonarray = new JSONArray(jsonStr);
-        Point point = new Point(jsonarray.getDouble(0), jsonarray.getDouble(1));
 
-		return point;
+		return new Point(jsonarray.getDouble(0), jsonarray.getDouble(1));
 	}
 	
 	/**
@@ -47,13 +46,6 @@ public class JSONManager {
 	 */
 	public static String writePolygon(Point[] coords) {
         JSONArray jsonArr = new JSONArray();
-
-		/*for (Point point : coords) {
-		    JSONObject jsObj = new JSONObject();
-		    jsObj.put("lat", point.x());
-		    jsObj.put("lng", point.y());
-            jsonArr.put(jsObj);
-		}*/
 
 		for (Point point : coords) {
 		    JSONArray pointArray = new JSONArray();

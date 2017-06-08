@@ -48,6 +48,7 @@ public class CommandeSQL {
             preparedStatement.setFloat("taille_max_transp_com", commande.getTaillemax());
             preparedStatement.setInt("id_champ", commande.getChampCommande().getId());
             preparedStatement.setInt("id_com", commande.getId());
+            preparedStatement.setInt("effectuer_com", commande.isEffectuer() ? 1 : 0);
 
             // Execute SQL statement
             preparedStatement.executeUpdate();
@@ -60,8 +61,12 @@ public class CommandeSQL {
     }
 
     public static ObservableList<Commande> getCommandeList(int max_entries) {
-
-        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande INNER JOIN Champ ON Champ.id_champ=Commande.id_champ INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri INNER JOIN Culture ON Culture.id_cul=Champ.type_champ INNER JOIN Ordre ON Commande.id_com = ordre.id_com GROUP BY Commande.id_com ";
+        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande" +
+                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ" +
+                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri" +
+                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ" +
+                "INNER JOIN Ordre ON Commande.id_com = ordre.id_com" +
+                "GROUP BY Commande.id_com";
         if(max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;
         }
@@ -100,7 +105,8 @@ public class CommandeSQL {
                                             rs.getString("adr_agri"),
                                             rs.getString("email_agri")
                                 )
-                        )
+                        ),
+                        rs.getBoolean("effectuer_com")
                ));
             }
 
