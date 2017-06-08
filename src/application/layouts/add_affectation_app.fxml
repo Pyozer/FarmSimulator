@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
+
+<BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.AddAffectationController">
+   <center>
+       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+           <Label text="Ajouter une affectation" styleClass="pane_title" prefHeight="100.0">
+               <padding>
+                   <Insets bottom="30"/>
+               </padding>
+           </Label>
+
+           <Label fx:id="titleCommandeSelected" styleClass="pane_title" />
+
+           <GridPane alignment="TOP_CENTER" hgap="25" vgap="25">
+               <columnConstraints>
+                   <ColumnConstraints minWidth="200" maxWidth="200" halignment="RIGHT"/>
+                   <ColumnConstraints halignment="LEFT"/>
+                   <ColumnConstraints minWidth="200" maxWidth="200"/>
+               </columnConstraints>
+
+               <Label text="Vehicule :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+               <JFXComboBox fx:id="liste_vehicule" promptText="Véhicule à affecter" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+               <JFXButton text="Ajouter" onAction="#handleSubmitAffect" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+           </GridPane>
+       </VBox>
+   </center>
+</BorderPane>

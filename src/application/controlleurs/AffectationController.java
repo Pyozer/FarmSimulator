@@ -61,7 +61,10 @@ public class AffectationController {
 
     @FXML
     public void addAffect() {
-        // TODO : Faire interface ajout affectation ou bien directement dans celle ci ?
+        SwitchView switchView = new SwitchView("add_affectation_app", Constant.ADD_VEHICULE_APP_TITLE);
+        AddAffectationController addAffectationController = switchView.getFxmlLoader().getController();
+        addAffectationController.defineCommandeSelected(selectedCommande);
+        switchView.showScene();
     }
 
     @FXML
