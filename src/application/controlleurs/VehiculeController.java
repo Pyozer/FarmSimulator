@@ -99,6 +99,7 @@ public class VehiculeController implements APIGoogleMap {
         if (result.get() == ButtonType.OK){
             VehiculeSQL.deleteVehicule(selectedVehicule);
             tableView.getItems().remove(selectedVehicule);
+            clearAllSelection();
         } else {
             alert.close();
         }

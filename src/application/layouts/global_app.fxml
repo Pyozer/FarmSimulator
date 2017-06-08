@@ -20,7 +20,7 @@
                 <Label text="GLOBAL" styleClass="pane_title" textFill="white" />
             </StackPane>
             <SplitPane dividerPositions="0.40" VBox.vgrow="SOMETIMES">
-                <VBox fx:id="infoContent" spacing="25" minWidth="550" maxWidth="550">
+                <VBox fx:id="infoContent" spacing="25" minWidth="600" maxWidth="600">
                     <padding><Insets bottom="15" left="20" right="20" top="15" /></padding>
                     <VBox spacing="18">
                         <Label text="Calculer un itinéraire">
@@ -34,7 +34,7 @@
                             <font><Font name="Roboto Medium" size="15.0" /></font>
                         </Label>
                         <JFXTextField fx:id="SChamp" promptText="Position du 2ème champ" labelFloat="true" />
-                        <JFXButton text="Calculer" onAction="#calculIntineraire" styleClass="btn, btn-primary" buttonType="RAISED" />
+                        <JFXButton text="Calculer itinéraire" onAction="#calculIntineraire" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
                     </VBox>
                     <VBox spacing="10">
                         <Label text="Commandes prioritaire">
@@ -51,9 +51,9 @@
                         </TableView>
 
                         <HBox spacing="15">
-                            <JFXButton text="Afficher tout" onAction="#goToCommandes" styleClass="btn, btn-primary" buttonType="RAISED" />
-                            <JFXButton fx:id="btn_markDone" text="Marqué comme faite" visible="false" onAction="#markToDone" styleClass="btn, btn-primary" buttonType="RAISED" />
-                            <JFXButton fx:id="btn_affects" visible="false" text="Affectation(s)" onAction="#showAffects" styleClass="btn, btn-primary" buttonType="RAISED" />
+                            <JFXButton text="Afficher tout" onAction="#goToCommandes" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
+                            <JFXButton fx:id="btn_markDone" text="Valider commande" managed="false" visible="false" onAction="#markToDone" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
+                            <JFXButton fx:id="btn_affects" text="Affectation(s)" managed="false" visible="false" onAction="#showAffects" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
                         </HBox>
                     </VBox>
                 </VBox>

@@ -79,6 +79,7 @@ public class AffectationController {
         if (result.get() == ButtonType.OK){
             AffectationSQL.deleteAffect(selectedCommande, selectedVehicule);
             tableView.getItems().remove(selectedVehicule);
+            clearAllSelection();
         } else {
             alert.close();
         }

@@ -37,7 +37,7 @@ public class CommandeSQL {
     }
 
     public static void editCommande(Commande commande) {
-            String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, id_champ=:id_champ WHERE id_com=:id_com";
+            String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, effectuer_com=:effectuer_com WHERE id_com=:id_com";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -46,7 +46,6 @@ public class CommandeSQL {
             preparedStatement.setString("bott_com", commande.getTypebott());
             preparedStatement.setString("transp_com", commande.getTransport());
             preparedStatement.setFloat("taille_max_transp_com", commande.getTaillemax());
-            preparedStatement.setInt("id_champ", commande.getChampCommande().getId());
             preparedStatement.setInt("id_com", commande.getId());
             preparedStatement.setInt("effectuer_com", commande.isEffectuer() ? 1 : 0);
 
@@ -60,6 +59,19 @@ public class CommandeSQL {
         }
     }
 
+    public static ObservableList<Commande> getCommandeMakedList(boolean commandMaked) {
+        int statut = (commandMaked) ? 1 : 0;
+
+        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande " +
+                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
+                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
+                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ " +
+                "INNER JOIN Ordre ON Commande.id_com = ordre.id_com " +
+                "WHERE Commande.effectuer_com=" + statut + " " +
+                "GROUP BY Commande.id_com";
+        return getCommandeFromRequest(request);
+    }
+
     public static ObservableList<Commande> getCommandeList(int max_entries) {
         String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande " +
                 "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
@@ -67,9 +79,18 @@ public class CommandeSQL {
                 "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ " +
                 "INNER JOIN Ordre ON Commande.id_com = ordre.id_com " +
                 "GROUP BY Commande.id_com";
-        if(max_entries > 0) {
+        if (max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;
         }
+
+        return getCommandeFromRequest(request);
+    }
+
+    public static ObservableList<Commande> getCommandeList() {
+        return getCommandeList(0);
+    }
+
+    private static ObservableList<Commande> getCommandeFromRequest(String request) {
 
         ObservableList<Commande> commandeList = FXCollections.observableArrayList();
 
@@ -116,10 +137,6 @@ public class CommandeSQL {
             System.err.println(ex.getMessage());
         }
         return commandeList;
-    }
-
-    public static ObservableList<Commande> getCommandeList() {
-        return getCommandeList(0);
     }
 
     public static void deleteCommande(Commande commande) {

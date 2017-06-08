@@ -100,6 +100,7 @@ public class ChampController implements APIGoogleMap {
             if (result.get() == ButtonType.OK) {
                 ChampSQL.deleteChamp(selectedChamp);
                 tableView.getItems().remove(selectedChamp);
+                clearAllSelection();
                 askToLoadChamps();
             } else {
                 alert.close();

@@ -8,12 +8,15 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Optional;
 
 /**
  * Controlleur de la vue Global
@@ -54,7 +57,7 @@ public class GlobalController implements APIGoogleMap {
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
 
-        tableView.getItems().addAll(CommandeSQL.getCommandeList(5));
+        tableView.getItems().addAll(CommandeSQL.getCommandeMakedList(false));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
 
@@ -95,7 +98,21 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void markToDone() {
-        //TODO : Marquer une commande comme Effectué
+        if(commandeSelected != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validation commande");
+            alert.setHeaderText("Confirmation de validation");
+            alert.setContentText("Voulez-vous vraiment marquer comme effectué la commande\n" + commandeSelected + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                commandeSelected.setEffectuer(true);
+                CommandeSQL.editCommande(commandeSelected);
+                tableView.getItems().remove(commandeSelected);
+            } else {
+                alert.close();
+            }
+        }
     }
 
     @FXML

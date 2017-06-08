@@ -96,6 +96,7 @@ public class ClientController implements APIGoogleMap  {
         if (result.get() == ButtonType.OK){
             ClientSQL.deleteClient(selectedAgri);
             tableView.getItems().remove(selectedAgri);
+            clearAllSelection();
         } else {
             alert.close();
         }
