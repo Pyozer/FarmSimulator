@@ -1,17 +1,15 @@
 package application.controlleurs;
 
-import application.modeles.Agriculteur;
-import application.modeles.ChampSQL;
-import application.modeles.ClientSQL;
-import application.modeles.Culture;
+import application.modeles.*;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
  * Controlleur pour l'ajout d'un champ
  */
-public class AddChampController {
+public class EditChampController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -19,7 +17,12 @@ public class AddChampController {
     @FXML private JFXComboBox<Culture> liste_type;
     @FXML private JFXComboBox<Agriculteur> liste_proprio;
 
+    @FXML private Label title;
+
     private ChampController champController;
+    private Champ selectedChamp;
+
+    private boolean isEdit = false;
 
     /**
      * Initializes the controller class.
@@ -33,6 +36,18 @@ public class AddChampController {
 
         liste_proprio.getItems().setAll(ClientSQL.getClientsList());
         liste_proprio.setValue(liste_proprio.getItems().get(0));
+    }
+
+    public void setEditionMode(boolean state) {
+        isEdit = state;
+    }
+
+    public void initView(Champ champ) {
+        if(isEdit) {
+            title.setText("Modifier le champ");
+
+            selectedChamp = champ;
+        }
     }
 
     @FXML

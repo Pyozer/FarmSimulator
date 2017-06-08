@@ -80,9 +80,9 @@ public class ChampController implements APIGoogleMap {
 
     @FXML
     public void addChamp() {
-        SwitchView switchView = new SwitchView("add_champ_app", Constant.ADD_VEHICULE_APP_TITLE);
-        AddChampController addChampController = switchView.getFxmlLoader().getController();
-        addChampController.defineChampController(this);
+        SwitchView switchView = new SwitchView("edit_champ_app", Constant.ADD_VEHICULE_APP_TITLE);
+        EditChampController editChampController = switchView.getFxmlLoader().getController();
+        editChampController.defineChampController(this);
         switchView.showScene();
     }
 
