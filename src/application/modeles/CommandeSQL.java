@@ -61,11 +61,11 @@ public class CommandeSQL {
     }
 
     public static ObservableList<Commande> getCommandeList(int max_entries) {
-        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande" +
-                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ" +
-                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri" +
-                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ" +
-                "INNER JOIN Ordre ON Commande.id_com = ordre.id_com" +
+        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande " +
+                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
+                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
+                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ " +
+                "INNER JOIN Ordre ON Commande.id_com = ordre.id_com " +
                 "GROUP BY Commande.id_com";
         if(max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;

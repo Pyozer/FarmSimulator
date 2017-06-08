@@ -67,9 +67,9 @@ public class AffectationSQL {
     }
 
     private static void loadTracteur(Commande commande) {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule" +
-                "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi" +
-                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi" +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
+                "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi " +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
                 "WHERE id_com=:id_com";
 
         try {
@@ -98,9 +98,9 @@ public class AffectationSQL {
     }
 
     private static void loadBotteleuse(Commande commande) {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule" +
-                "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi" +
-                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi" +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule " +
+                "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi " +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
                 "WHERE id_com=:id_com";
 
         try {
@@ -129,9 +129,9 @@ public class AffectationSQL {
     }
 
     private static void loadMoissonneuse(Commande commande) {
-        String request = "SELECT * FROM Vehicule" +
-                "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi" +
-                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi" +
+        String request = "SELECT * FROM Vehicule " +
+                "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi " +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
                 "WHERE id_com=:id_com";
 
         try {

@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Controlleur pour la modification d'une commande
+ * Controlleur pour la gestion d'une commande (Ajout/Modification) d'une commande
  */
 public class EditCommandeController {
 
@@ -30,10 +31,14 @@ public class EditCommandeController {
     @FXML private JFXComboBox<String> liste_type_bott;
     @FXML private JFXTextField tMaxTransp;
 
+    @FXML private Label title;
+
     private Commande commandeToEdit;
     private List<Champ> listChamps;
 
     private CommandeController commandeController;
+
+    private boolean isEdit = false;
 
     /**
      * Initializes the controller class.
@@ -55,22 +60,30 @@ public class EditCommandeController {
         date_commande.setValue(LocalDate.now());
     }
 
-    public void initTextFields(Commande commande) {
-        commandeToEdit = commande;
+    public void setEditionMode(boolean state) {
+        isEdit = state;
+    }
 
-        date_commande.setValue(commande.getDate());
+    public void initView(Commande commande) {
+        if(isEdit) {
+            title.setText("Modifier une commande");
 
-        Champ champCommand = commande.getChampCommande();
-        for(Champ champ : listChamps)
-            if (champ.equals(champCommand))
-                liste_champs.getItems().remove(champ);
+            commandeToEdit = commande;
 
-        liste_champs.getItems().add(commande.getChampCommande());
-        liste_champs.setValue(commande.getChampCommande());
+            date_commande.setValue(commande.getDate());
 
-        liste_transport.setValue(commande.getTransport());
-        liste_type_bott.setValue(commande.getTypebott());
-        tMaxTransp.setText(String.valueOf(commande.getTaillemax()));
+            Champ champCommand = commande.getChampCommande();
+            for (Champ champ : listChamps)
+                if (champ.equals(champCommand))
+                    liste_champs.getItems().remove(champ);
+
+            liste_champs.getItems().add(commande.getChampCommande());
+            liste_champs.setValue(commande.getChampCommande());
+
+            liste_transport.setValue(commande.getTransport());
+            liste_type_bott.setValue(commande.getTypebott());
+            tMaxTransp.setText(String.valueOf(commande.getTaillemax()));
+        }
     }
 
     @FXML
@@ -85,16 +98,26 @@ public class EditCommandeController {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            try{
-                commandeToEdit.setDate(inputDate);
-                commandeToEdit.setChampCommande(inputChamp);
-                commandeToEdit.setTransport(inputTransport);
-                commandeToEdit.setTypebott(inputTypeBott);
-                commandeToEdit.setTailleMax(Float.parseFloat(inputTMaxTranspString));
+            try {
+                float inputTMaxTransp = Float.parseFloat(inputTMaxTranspString);
+                String message = "La commande a bien été";
+                if(isEdit) {
+                    commandeToEdit.setDate(inputDate);
+                    commandeToEdit.setChampCommande(inputChamp);
+                    commandeToEdit.setTransport(inputTransport);
+                    commandeToEdit.setTypebott(inputTypeBott);
+                    commandeToEdit.setTailleMax(inputTMaxTransp);
 
-                CommandeSQL.editCommande(commandeToEdit);
+                    CommandeSQL.editCommande(commandeToEdit);
 
-                AlertDialog alert = new AlertDialog("Succès", null, "La commande à bien été modifié !", Alert.AlertType.INFORMATION);
+                    message += " modifié !";
+                } else {
+                    CommandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTMaxTransp, inputChamp); //0 = T max
+
+                    message += " ajouté !";
+                }
+
+                AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
                 alert.show();
 
                 commandeController.initData();

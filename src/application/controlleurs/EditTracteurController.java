@@ -4,6 +4,7 @@ import application.modeles.Tracteur;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -19,7 +20,12 @@ public class EditTracteurController {
     @FXML private JFXTextField cap_rem;
     @FXML private JFXComboBox<String> liste_etat;
 
+    @FXML private Label title;
+
     private VehiculeController vehiculeController;
+    private Tracteur selectedTracteur;
+
+    private boolean isEdit = false;
 
     /** Initializes the controller class. **/
     public void initialize() {
@@ -30,11 +36,21 @@ public class EditTracteurController {
         liste_etat.setValue(liste_etat.getItems().get(0));
     }
 
-    public void initTextFields(Tracteur tracteur) {
-        modele.setText(tracteur.getModele());
-        marque.setText(tracteur.getMarque());
-        cap_rem.setText(String.valueOf(tracteur.getCapacite_remorque()));
-        liste_etat.setValue(tracteur.getEtat());
+    public void setEditionMode(boolean state) {
+        isEdit = state;
+    }
+
+    public void initView(Tracteur tracteur) {
+        if(isEdit) {
+            title.setText("Modifier le tracteur");
+
+            selectedTracteur = tracteur;
+
+            modele.setText(tracteur.getModele());
+            marque.setText(tracteur.getMarque());
+            cap_rem.setText(String.valueOf(tracteur.getCapacite_remorque()));
+            liste_etat.setValue(tracteur.getEtat());
+        }
     }
 
     @FXML

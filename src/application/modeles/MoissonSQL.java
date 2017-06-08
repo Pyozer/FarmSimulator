@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class MoissonSQL {
 
     public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, Float inputDuree, String inputH_fin, Float inputNbKilo, Float inputNbTonne) {
-        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, duree_ordre=:duree, heure_arrive_ordre=:heureArrive" +
+        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, duree_ordre=:duree, heure_arrive_ordre=:heureArrive " +
                 "WHERE id_vehi=:vehi AND id_com=:com";
 
         try {
@@ -62,10 +62,10 @@ public class MoissonSQL {
     public static ObservableList<Moisson> getMoissonList() {
 
         String request = "SELECT * FROM Ordre " +
-                        "INNER JOIN Commande ON Commande.id_com = Ordre.id_com"+
+                        "INNER JOIN Commande ON Commande.id_com = Ordre.id_com "+
                         "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
-                        "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri" +
-                        "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ ";
+                        "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
+                        "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
 
         ObservableList<Moisson> moissonList = FXCollections.observableArrayList();
 

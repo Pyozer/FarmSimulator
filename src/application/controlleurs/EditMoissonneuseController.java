@@ -4,6 +4,7 @@ import application.modeles.Moissonneuse;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -26,7 +27,12 @@ public class EditMoissonneuseController {
     @FXML private JFXTextField conso_route;
     @FXML private JFXTextField poids;
 
+    @FXML private Label title;
+
     private VehiculeController vehiculeController;
+    private Moissonneuse selectedMoissonneuse;
+
+    private boolean isEdit = false;
 
     /**
      * Initializes the controller class.
@@ -39,18 +45,28 @@ public class EditMoissonneuseController {
         liste_etat.setValue(liste_etat.getItems().get(0));
     }
 
-    public void initTextFields(Moissonneuse moissonneuse) {
-        modele.setText(moissonneuse.getModele());
-        marque.setText(moissonneuse.getMarque());
-        liste_etat.setValue(moissonneuse.getEtat());
-        taille_tremis.setText(String.valueOf(moissonneuse.getCapacite_tremis()));
-        taille_reservoir.setText(String.valueOf(moissonneuse.getCapacite_reservoir()));
-        largeur_route.setText(String.valueOf(moissonneuse.getLargeur()));
-        largeur_coupe.setText(String.valueOf(moissonneuse.getTaille_coupe()));
-        conso_fonctionnement.setText(String.valueOf(moissonneuse.getConso_fonctionnement()));
-        conso_route.setText(String.valueOf(moissonneuse.getConso_route()));
-        poids.setText(String.valueOf(moissonneuse.getPoids()));
-        hauteur.setText(String.valueOf(moissonneuse.getHauteur()));
+    public void setEditionMode(boolean state) {
+        isEdit = state;
+    }
+
+    public void initView(Moissonneuse moissonneuse) {
+        if(isEdit) {
+            title.setText("Modifier la moissonneuse");
+
+            selectedMoissonneuse = moissonneuse;
+
+            modele.setText(moissonneuse.getModele());
+            marque.setText(moissonneuse.getMarque());
+            liste_etat.setValue(moissonneuse.getEtat());
+            taille_tremis.setText(String.valueOf(moissonneuse.getCapacite_tremis()));
+            taille_reservoir.setText(String.valueOf(moissonneuse.getCapacite_reservoir()));
+            largeur_route.setText(String.valueOf(moissonneuse.getLargeur()));
+            largeur_coupe.setText(String.valueOf(moissonneuse.getTaille_coupe()));
+            conso_fonctionnement.setText(String.valueOf(moissonneuse.getConso_fonctionnement()));
+            conso_route.setText(String.valueOf(moissonneuse.getConso_route()));
+            poids.setText(String.valueOf(moissonneuse.getPoids()));
+            hauteur.setText(String.valueOf(moissonneuse.getHauteur()));
+        }
     }
 
     @FXML

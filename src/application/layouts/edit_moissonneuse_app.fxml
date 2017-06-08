@@ -15,7 +15,7 @@
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
             <padding><Insets bottom="15" left="15" right="15" top="15" /></padding>
 
-            <Label prefHeight="100.0" styleClass="pane_title" text="Modifier une moissonneuse">
+            <Label fx:id="title" prefHeight="100.0" styleClass="pane_title" text="Ajouter une moissonneuse">
                 <padding>
                     <Insets bottom="30" />
                 </padding>

@@ -32,7 +32,7 @@ public class VehiculeSQL {
     }
 
     private static void loadTracteur() {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule" +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
@@ -60,7 +60,7 @@ public class VehiculeSQL {
     }
 
     private static void loadBotteleuse() {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule" +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule " +
                 "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
@@ -89,7 +89,7 @@ public class VehiculeSQL {
     }
 
     private static void loadMoissonneuse() {
-        String request = "SELECT * FROM Vehicule" +
+        String request = "SELECT * FROM Vehicule " +
                 "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
 
         try {

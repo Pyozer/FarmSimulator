@@ -12,7 +12,7 @@
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.EditCommandeController">
     <center>
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-            <Label text="Modifier une commande" styleClass="pane_title" prefHeight="100.0">
+            <Label fx:id="title" text="Ajouter une commande" styleClass="pane_title" prefHeight="100.0">
                 <padding>
                     <Insets bottom="30"/>
                 </padding>

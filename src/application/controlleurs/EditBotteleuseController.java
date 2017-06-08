@@ -4,10 +4,11 @@ import application.modeles.Botteleuse;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Controlleur pour ma modification d'une botteleuse
+ * Controlleur pour gestion (Ajout/Modification) d'une botteleuse
  */
 public class EditBotteleuseController {
 
@@ -20,7 +21,12 @@ public class EditBotteleuseController {
     @FXML private JFXComboBox<String> type;
     @FXML private JFXComboBox<String> liste_etat;
 
+    @FXML private Label title;
+
     private VehiculeController vehiculeController;
+    private Botteleuse selectedBotteleuse;
+
+    private boolean isEdit = false;
 
     /**
      * Initializes the controller class.
@@ -36,16 +42,26 @@ public class EditBotteleuseController {
         type.setValue(type.getItems().get(0));
     }
 
-    public void initTextFields(Botteleuse botteleuse) {
-        modele.setText(botteleuse.getModele());
-        marque.setText(botteleuse.getMarque());
-        liste_etat.setValue(botteleuse.getEtat());
-        type.setValue(botteleuse.isBotte_ronde() ? "Rond" : "Carré");
+    public void setEditionMode(boolean state) {
+        isEdit = state;
+    }
+
+    public void initView(Botteleuse botteleuse) {
+        if(isEdit) {
+            title.setText("Modifier la botteleuse");
+
+            selectedBotteleuse = botteleuse;
+
+            modele.setText(botteleuse.getModele());
+            marque.setText(botteleuse.getMarque());
+            liste_etat.setValue(botteleuse.getEtat());
+            type.setValue(botteleuse.isBotte_ronde() ? "Rond" : "Carré");
+        }
     }
 
     @FXML
     public void handleSaveBotteleuse() {
-        // TODO : Modification d'une botteleuse
+        // TODO : Ajout/Modification d'une botteleuse
     }
 
     public void defineVehiculeController(VehiculeController vehiculeController) {

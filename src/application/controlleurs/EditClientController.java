@@ -6,17 +6,20 @@ import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur de la vue de la gestion des clients (Ajouté/Modifier) de l'ETA
  */
 public class EditClientController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
     /** Elements **/
+    @FXML private Label title;
+
     @FXML private JFXTextField nom_client;
     @FXML private JFXTextField prenom_client;
     @FXML private JFXTextField tel_client;
@@ -24,8 +27,9 @@ public class EditClientController {
     @FXML private JFXTextField email_client;
 
     private Agriculteur agriculteurToEdit;
-
     private ClientController clientController;
+
+    private boolean isEdit = false;
 
     /**
      * Initializes the controller class.
@@ -34,14 +38,22 @@ public class EditClientController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
     }
 
-    public void initTextFields(Agriculteur agriculteur) {
-        agriculteurToEdit = agriculteur;
+    public void setEditionMode(boolean state) {
+        isEdit = state;
+    }
 
-        nom_client.setText(agriculteur.getNom());
-        prenom_client.setText(agriculteur.getPrenom());
-        tel_client.setText(agriculteur.getNum_tel());
-        adresse_client.setText(agriculteur.getAdresse());
-        email_client.setText(agriculteur.getEmail());
+    public void initView(Agriculteur agriculteur) {
+        if(isEdit) {
+            title.setText("Modification du client");
+
+            agriculteurToEdit = agriculteur;
+
+            nom_client.setText(agriculteur.getNom());
+            prenom_client.setText(agriculteur.getPrenom());
+            tel_client.setText(agriculteur.getNum_tel());
+            adresse_client.setText(agriculteur.getAdresse());
+            email_client.setText(agriculteur.getEmail());
+        }
     }
 
     @FXML
@@ -56,15 +68,25 @@ public class EditClientController {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            agriculteurToEdit.setNom(inputNom);
-            agriculteurToEdit.setPrenom(inputPrenom);
-            agriculteurToEdit.setNum_tel(inputTel);
-            agriculteurToEdit.setAdresse(inputAdresse);
-            agriculteurToEdit.setEmail(inputEmail);
+            String message = "Le client a bien été";
 
-            ClientSQL.editClient(agriculteurToEdit);
+            if(isEdit) {
+                agriculteurToEdit.setNom(inputNom);
+                agriculteurToEdit.setPrenom(inputPrenom);
+                agriculteurToEdit.setNum_tel(inputTel);
+                agriculteurToEdit.setAdresse(inputAdresse);
+                agriculteurToEdit.setEmail(inputEmail);
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le client à bien été ajouté !", Alert.AlertType.INFORMATION);
+                ClientSQL.editClient(agriculteurToEdit);
+
+                message += " modifié !";
+            } else {
+                ClientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
+
+                message += " ajouté !";
+            }
+
+            AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
             alert.show();
 
             clientController.initData();

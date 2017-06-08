@@ -75,19 +75,19 @@ public class ChoixVehiculeController {
     public void nextStep() {
         SwitchView switchView;
         if (tracteur_selected) {
-            switchView = new SwitchView("add_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
-            AddTracteurController addTracteurController = switchView.getFxmlLoader().getController();
-            addTracteurController.defineVehiculeController(vehiculeController);
+            switchView = new SwitchView("edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditTracteurController editTracteurController = switchView.getFxmlLoader().getController();
+            editTracteurController.defineVehiculeController(vehiculeController);
             switchView.showScene();
         } else if(moissonneuse_selected) {
-            switchView = new SwitchView("add_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
-            AddMoissonneuseController addMoissonneuseController = switchView.getFxmlLoader().getController();
-            addMoissonneuseController.defineVehiculeController(vehiculeController);
+            switchView = new SwitchView("edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditMoissonneuseController editMoissonneuseController = switchView.getFxmlLoader().getController();
+            editMoissonneuseController.defineVehiculeController(vehiculeController);
             switchView.showScene();
         } else if(botteleuse_selected) {
-            switchView = new SwitchView("add_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
-            AddBotteleuseController addBotteleuseController = switchView.getFxmlLoader().getController();
-            addBotteleuseController.defineVehiculeController(vehiculeController);
+            switchView = new SwitchView("edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            EditBotteleuseController editBotteleuseController = switchView.getFxmlLoader().getController();
+            editBotteleuseController.defineVehiculeController(vehiculeController);
             switchView.showScene();
         }
     }
