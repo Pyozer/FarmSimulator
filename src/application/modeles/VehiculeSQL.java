@@ -7,6 +7,7 @@ import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -129,6 +130,32 @@ public class VehiculeSQL {
 
             // Execute select SQL statement
             stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public static void addBotteleuse(String modele, String marque, String type, String etat) {
+        String request = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
+        String r2 = "SELECT LAST_INSERT_ID()";
+        //String request2 = "INSER INTO Botteleuse('marque_vehi', 'modele_vehi', 'etat_vehi', 'position_vehi') VALUES (':marque',':modele',':etat',':position')";
+
+        try {
+            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
+            stmt.setString("marque", marque);
+            stmt.setString("modele", modele);
+            stmt.setString("etat", etat);
+            stmt.setString("position", "[47.970575,-1.448591]");
+
+            NamedParameterStatement stmt2 = new NamedParameterStatement(DBConnection.getConnection(), r2);
+            // Execute select SQL statement
+            stmt.executeUpdate();
+            ResultSet s = stmt2.executeQuery();
+
+            while(s.next()) {
+                System.err.println(s.getString(1));
+            }
             stmt.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

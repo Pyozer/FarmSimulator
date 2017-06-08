@@ -35,6 +35,6 @@ public class AddBotteleuseController {
 
     @FXML
     public void handleSaveBotteleuse() {
-        // TODO: FAIRE AJOUT DE LA BOTTELEUSE
+
     }
 }
