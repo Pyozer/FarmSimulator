@@ -2,6 +2,7 @@ package application.controlleurs;
 
 import application.Constant;
 import application.classes.*;
+import application.controlleurs.commande.AffectationController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -92,7 +93,7 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void goToCommandes() {
-        SwitchView switchView = new SwitchView("commande_app", Constant.ACCUEIL_APP_TITLE);
+        SwitchView switchView = new SwitchView("commande/commande_app", Constant.ACCUEIL_APP_TITLE);
         switchView.showScene();
     }
 
@@ -117,7 +118,7 @@ public class GlobalController implements APIGoogleMap {
 
     @FXML
     public void showAffects() {
-        SwitchView switchViewData = new SwitchView("affectations_app", Constant.ADD_VEHICULE_APP_TITLE);
+        SwitchView switchViewData = new SwitchView("commande/affectations_app", Constant.ADD_VEHICULE_APP_TITLE);
         AffectationController affectationController = switchViewData.getFxmlLoader().getController();
         affectationController.defineCommandeSelected(commandeSelected);
         switchViewData.showScene();

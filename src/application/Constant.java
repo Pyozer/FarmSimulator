@@ -9,7 +9,7 @@ public interface Constant {
 	
 	String TITLE_APP = "Farm Simulator";
 
-	String LAYOUT_PATH = "/application/layouts/";
+	String LAYOUT_PATH = "/application/vues/";
 	String STYLE_PATH = "/application/styles/";
 	String IMAGE_PATH = "/application/images/";
 

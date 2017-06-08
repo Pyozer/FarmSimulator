@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.champ.ChampController">
+    <center>
+        <VBox BorderPane.alignment="TOP_LEFT">
+            <StackPane style="-fx-background-color: #ea4335;-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" minHeight="130">
+                <Label text="CHAMPS" styleClass="pane_title" textFill="white" />
+            </StackPane>
+            <SplitPane dividerPositions="0.40" VBox.vgrow="SOMETIMES" BorderPane.alignment="CENTER">
+                <BorderPane fx:id="infoContent" minWidth="700.0" maxWidth="700.0">
+                    <top>
+                        <VBox spacing="10">
+                            <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
+                            <Label text="Tous les champs" styleClass="pane_title" prefHeight="75.0" />
+                            <TableView fx:id="tableView" minHeight="200.0" maxHeight="200">
+                                <columns>
+                                    <TableColumn fx:id="column_type_culture" minWidth="225.0" text="Type de culture" />
+                                    <TableColumn fx:id="column_proprietaire" minWidth="300.0" text="Proprietaire" />
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </top>
+                    <center>
+                        <VBox>
+                            <VBox fx:id="listInfo" managed="false" visible="false" spacing="10">
+                                <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
+                                <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
+                                <ListView fx:id="listInfos" minHeight="100" maxHeight="250"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10" minHeight="70" maxHeight="70">
+                                <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
+                                <JFXButton text="Ajouter un champ" onAction="#addChamp" styleClass="btn, btn-success" prefHeight="40">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton fx:id="edit_btn" managed="false" visible="false" text="Modifier le champ" onAction="#editChamp" styleClass="btn, btn-primary" prefHeight="40">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton fx:id="delete_btn" managed="false" visible="false" text="Supprimer le champ" onAction="#deleteChamp" styleClass="btn, btn-danger" prefHeight="40">
+                                    <graphic>
+                                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
+                                    </graphic>
+                                </JFXButton>
+                            </HBox>
+                        </VBox>
+                    </center>
+                </BorderPane>
+
+                <StackPane fx:id="googleMaps"/>
+            </SplitPane>
+        </VBox>
+    </center>
+</BorderPane>
