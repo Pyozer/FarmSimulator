@@ -3,11 +3,13 @@ package application.controlleurs.client;
 import application.classes.AlertDialog;
 import application.modeles.Agriculteur;
 import application.modeles.ClientSQL;
+import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +27,7 @@ public class EditClientController {
     @FXML private JFXTextField tel_client;
     @FXML private JFXTextField adresse_client;
     @FXML private JFXTextField email_client;
+    @FXML private JFXColorPicker couleur_client;
 
     private Agriculteur agriculteurToEdit;
     private ClientController clientController;
@@ -53,6 +56,8 @@ public class EditClientController {
             tel_client.setText(agriculteur.getNum_tel());
             adresse_client.setText(agriculteur.getAdresse());
             email_client.setText(agriculteur.getEmail());
+            couleur_client.setValue(agriculteur.getCouleur());
+
         }
     }
 
@@ -63,8 +68,9 @@ public class EditClientController {
         String inputTel = tel_client.getText();
         String inputAdresse = adresse_client.getText();
         String inputEmail = email_client.getText();
+        Color inputCouleur = couleur_client.getValue();
 
-        if(inputNom.isEmpty() || inputPrenom.isEmpty() || inputTel.isEmpty() || inputAdresse.isEmpty() || inputEmail.isEmpty()) {
+        if(inputNom.isEmpty() || inputPrenom.isEmpty() || inputTel.isEmpty() || inputAdresse.isEmpty() || inputEmail.isEmpty() || inputCouleur.toString().isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
@@ -76,12 +82,13 @@ public class EditClientController {
                 agriculteurToEdit.setNum_tel(inputTel);
                 agriculteurToEdit.setAdresse(inputAdresse);
                 agriculteurToEdit.setEmail(inputEmail);
+                agriculteurToEdit.setCouleur(inputCouleur);
 
                 ClientSQL.editClient(agriculteurToEdit);
 
                 message += " modifié !";
             } else {
-                ClientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail);
+                ClientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail, inputCouleur);
 
                 message += " ajouté !";
             }
@@ -90,6 +97,7 @@ public class EditClientController {
             alert.show();
 
             clientController.initData();
+            clientController.clearAllSelection();
 
             Stage stage = (Stage) bpane.getScene().getWindow();
             stage.close();

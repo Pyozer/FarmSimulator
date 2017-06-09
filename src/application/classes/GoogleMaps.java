@@ -2,8 +2,10 @@ package application.classes;
 
 import application.Constant;
 import application.modeles.Agriculteur;
+import application.modeles.Champ;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSException;
@@ -51,10 +53,13 @@ public class GoogleMaps extends Region {
     }
 
     /** Ajoute un Champ sur la Map **/
-    public void addChamp(int id, String culture, Agriculteur proprio, String adresse, float surface, Polygon coords) {
+    public void addChamp(Champ champ) {
+        addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
+    }
+    public void addChamp(int id, String culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
         try {
-            //System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "')");
-            javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords.toString());
+            javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
+            //System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "', '" + ConvertColor.ColorFXToWeb(couleur) + "')");
         } catch (JSException e) {
             e.printStackTrace();
         }

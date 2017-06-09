@@ -45,7 +45,7 @@ public class ClientController implements APIGoogleMap  {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        gMaps = new GoogleMaps("client/maps_client", this);
+        gMaps = new GoogleMaps("maps_client_champ", this);
         gMaps.setParent(googleMaps);
 
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -67,13 +67,11 @@ public class ClientController implements APIGoogleMap  {
 
             defineStateElements(true);
 
-			listInfos.getItems().clear();
-			for(ElementPair information : agriculteur.getInformations())
-				listInfos.getItems().add(information);
+			listInfos.getItems().setAll(agriculteur.getInformations());
 
 			gMaps.removeAll();
 			for(Champ champ : ClientSQL.getClientsChampsList(agriculteur.getId()))
-				gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+				gMaps.addChamp(champ);
 		}
     }
 
@@ -117,11 +115,11 @@ public class ClientController implements APIGoogleMap  {
     public void askToLoadChamps() {
         gMaps.removeAll();
         for(Champ champ : ClientSQL.getClientsChampsList()) {
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+            gMaps.addChamp(champ);
         }
     }
 
-    private void clearAllSelection() {
+    public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
         resetListInfo();
         defineStateElements(false);

@@ -28,22 +28,6 @@
 
             var affectSelection = false;
 
-            var selectedStyle = {
-                        strokeWeight: 2,
-                        strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                };
-            var selectedOverStyle = {
-                    strokeWeight: 3,
-                    strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                };
-            var originalStyle = {
-                    strokeWeight: 2,
-                    strokeColor: '#252525',
-                    fillColor: '#444444'
-                };
-
             var iconBase = '../images/';
             var icons = {
                 Eta: {
@@ -70,8 +54,8 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
-                //var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
-                //trafficLayer.setMap(map);
+                var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
+                trafficLayer.setMap(map);
 
                 infowindow = new google.maps.InfoWindow();
 
@@ -109,7 +93,11 @@
                     }
                     flightPlanCoordinates = [];
                     for (var i = 0; i < champs.length; i++)
-                        champs[i].setOptions(originalStyle);
+                        champs[i].setOptions({
+                            strokeWeight: 2,
+                            strokeColor: champs[i].couleur,
+                            fillColor: champs[i].couleur
+                        });
 
                     champsSelected = [0, 0];
                     infowindow.close();
@@ -187,16 +175,13 @@
             }
 
             /** Ajouter un champ à la Map **/
-            function addChamp(id, culture, proprio, adresse, surface, coords) {
+            function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
                 var path = [];
                 var coordsParse = JSON.parse(coords);
 
                 coordsParse.forEach(function(point){
                     var split = point.toString().split(",");
-                    var lat = split[0];
-                    var lng = split[1];
-                    var pointObj = new google.maps.LatLng(lat, lng);
-                    path.push(pointObj);
+                    path.push(new google.maps.LatLng(split[0], split[1]));
 
                 });
 
@@ -206,8 +191,25 @@
                   culture: culture,
                   proprio: proprio,
                   adresse: adresse,
-                  surface: surface
+                  surface: surface,
+                  couleur
                 });
+
+                var selectedStyle = {
+                        strokeWeight: 2,
+                        strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                };
+                var selectedOverStyle = {
+                        strokeWeight: 3,
+                        strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                    };
+                var originalStyle = {
+                        strokeWeight: 2,
+                        strokeColor: couleur,
+                        fillColor: couleur
+                    };
 
                 polygon.setOptions(originalStyle);
                 polygon.setMap(map);
@@ -229,10 +231,6 @@
                             'Le champ a été choisi pour l\'affectation.';
                     }
 
-                    for (var i = 0; i < champs.length; i++)
-                        if(champs[i].id != champsSelected[0] && champs[i].id != champsSelected[1])
-                            champs[i].setOptions(originalStyle);
-
                     polygon.setOptions(selectedStyle);
 
                     infowindow.setContent(contentString);
@@ -247,7 +245,11 @@
 
                     for (var i = 0; i < champs.length; i++)
                         if(champs[i].id != champsSelected[1])
-                            champs[i].setOptions(originalStyle);
+                            champs[i].setOptions({
+                                strokeWeight: 2,
+                                strokeColor: champs[i].couleur,
+                                fillColor: champs[i].couleur
+                            });
 
                     if (flightPath != null) {
                         flightPath.setMap(null);
@@ -270,7 +272,11 @@
 
                     for (var i = 0; i < champs.length; i++)
                         if(champs[i].id != champsSelected[0])
-                            champs[i].setOptions(originalStyle);
+                            champs[i].setOptions({
+                                strokeWeight: 2,
+                                strokeColor: champs[i].couleur,
+                                fillColor: champs[i].couleur
+                            });
 
                     if (flightPath != null) {
                         flightPath.setMap(null);

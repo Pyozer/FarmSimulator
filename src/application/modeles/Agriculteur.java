@@ -1,7 +1,10 @@
 package application.modeles;
 
+import application.classes.ConvertColor;
 import application.classes.ElementPair;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.paint.Color;
 
 /**
  * Classe pour les Agriculteurs
@@ -13,20 +16,23 @@ public class Agriculteur extends Element {
     private SimpleStringProperty num_tel; // Numéro de téléphone de l'agriculteur
     private SimpleStringProperty adresse; // Adresse de l'agriculteur
     private SimpleStringProperty email; // Adresse email de l'agriculteur
+    private SimpleObjectProperty<Color> couleur; // Couleur de l'agriculteur
 
-    public Agriculteur(int id, String nom, String prenom, String num_tel, String adresse, String email) {
+    public Agriculteur(int id, String nom, String prenom, String num_tel, String adresse, String email, Color couleur) {
         super(id);
         this.nom = new SimpleStringProperty(nom);
         this.prenom = new SimpleStringProperty(prenom);
         this.num_tel = new SimpleStringProperty(num_tel);
         this.adresse = new SimpleStringProperty(adresse);
         this.email = new SimpleStringProperty(email);
+        this.couleur = new SimpleObjectProperty<>(couleur);
 
         getInformations().add(new ElementPair("Nom", nom));
         getInformations().add(new ElementPair("Prénom", prenom));
         getInformations().add(new ElementPair("Numéro téléphone", num_tel));
         getInformations().add(new ElementPair("Adresse", adresse));
         getInformations().add(new ElementPair("Email", email));
+        getInformations().add(new ElementPair("Couleur", ConvertColor.ColorFXToWeb(couleur)));
     }
 
     public String getNom() {
@@ -67,6 +73,14 @@ public class Agriculteur extends Element {
 
     public void setEmail(String email) {
         this.email.set(email);
+    }
+
+    public Color getCouleur() {
+        return couleur.get();
+    }
+
+    public void setCouleur(Color couleur) {
+        this.couleur.set(couleur);
     }
 
     public String toString() {

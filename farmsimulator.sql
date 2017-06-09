@@ -36,7 +36,9 @@ CREATE TABLE `agriculteur` (
   `prenom_agri` varchar(50) NOT NULL,
   `adr_agri` varchar(100) NOT NULL,
   `tel_agri` varchar(20) NOT NULL,
-  `email_agri` varchar(100) NOT NULL
+  `email_agri` varchar(100) NOT NULL,
+  `couleur_agri` varchar(10) NOT NULL DEFAULT '#444444'
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -76,8 +78,6 @@ INSERT INTO `botteleuse` (`id_bott`, `id_vehi`, `type_bott`) VALUES
 -- Structure de la table `champ`
 --
 
-
-
 CREATE TABLE `champ` (
   `id_champ` int(11) NOT NULL,
   `surf_champ` float NOT NULL,
@@ -113,9 +113,6 @@ INSERT INTO `champ` (`id_champ`, `surf_champ`, `adr_champ`, `coord_centre_champ`
 --
 -- Structure de la table `commande`
 --
-
-
-
 CREATE TABLE `commande` (
   `id_com` int(11) NOT NULL,
   `date_com` date NOT NULL,
@@ -124,7 +121,8 @@ CREATE TABLE `commande` (
   `taille_max_transp_com` float DEFAULT NULL,
   `tonne_com` float DEFAULT '0',
   `cout_com` float NOT NULL DEFAULT '0',
-  `id_champ` int(11) NOT NULL
+  `id_champ` int(11) NOT NULL,
+  `effectuer_com` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -155,7 +153,6 @@ INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_
 -- Structure de la table `culture`
 --
 
-
 CREATE TABLE `culture` (
   `id_cul` int(11) NOT NULL,
   `type_cul` varchar(50) NOT NULL
@@ -176,8 +173,6 @@ INSERT INTO `culture` (`id_cul`, `type_cul`) VALUES
 --
 -- Structure de la table `eta`
 --
-
-
 
 CREATE TABLE `eta` (
   `id` int(11) NOT NULL,

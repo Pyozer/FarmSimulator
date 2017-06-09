@@ -3,6 +3,7 @@ package application;
 import application.classes.SwitchView;
 import application.database.DBConnection;
 import javafx.application.Application;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;

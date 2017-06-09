@@ -11,29 +11,12 @@
     <body>
         <div id="map"></div>
 
-        <script src="champs_polygons.js"></script>
         <script type="text/javascript">
             var map;
             var infowindow;
             var markerOrigin;
             var champsSelected;
             var champs = [];
-
-            var selectedStyle = {
-                        strokeWeight: 2,
-                        strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                };
-            var selectedOverStyle = {
-                    strokeWeight: 3,
-                    strokeColor: '#FF0000',
-                        fillColor: '#FF0000'
-                };
-            var originalStyle = {
-                    strokeWeight: 2,
-                    strokeColor: '#252525',
-                    fillColor: '#444444'
-                };
 
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -74,7 +57,11 @@
 
                 map.addListener("click", function(){
                     for (var i = 0; i < champs.length; i++)
-                        champs[i].setOptions(originalStyle);
+                        champs[i].setOptions({
+                            strokeWeight: 2,
+                            strokeColor: champs[i].couleur,
+                            fillColor: champs[i].couleur
+                        });
 
                     champsSelected = null;
                     infowindow.close();
@@ -92,17 +79,13 @@
             }
 
             /** Ajouter un champ à la Map **/
-            function addChamp(id, culture, proprio, adresse, surface, coords) {
+            function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
                 var path = [];
                 var coordsParse = JSON.parse(coords);
 
                 coordsParse.forEach(function(point){
                     var split = point.toString().split(",");
-                    var lat = split[0];
-                    var lng = split[1];
-                    var pointObj = new google.maps.LatLng(lat, lng);
-                    path.push(pointObj);
-
+                    path.push(new google.maps.LatLng(split[0], split[1]));
                 });
 
                 var polygon = new google.maps.Polygon({
@@ -111,8 +94,25 @@
                   culture: culture,
                   proprio: proprio,
                   adresse: adresse,
-                  surface: surface
+                  surface: surface,
+                  couleur: couleur
                 });
+
+                var selectedStyle = {
+                        strokeWeight: 2,
+                        strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                };
+                var selectedOverStyle = {
+                        strokeWeight: 3,
+                        strokeColor: '#FF0000',
+                        fillColor: '#FF0000'
+                    };
+                var originalStyle = {
+                        strokeWeight: 2,
+                        strokeColor: couleur,
+                        fillColor: couleur
+                    };
 
                 polygon.setOptions(originalStyle);
                 polygon.setMap(map);
@@ -120,7 +120,11 @@
                 polygon.addListener('click', function(event) {
                     if(champsSelected != null)
                         for (var i = 0; i < champs.length; i++)
-                            champs[i].setOptions(originalStyle);
+                            champs[i].setOptions({
+                                strokeWeight: 2,
+                                strokeColor: champs[i].couleur,
+                                fillColor: champs[i].couleur
+                            });
 
                     champsSelected = polygon.id;
                     polygon.setOptions(selectedStyle);

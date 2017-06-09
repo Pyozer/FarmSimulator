@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.ConvertColor;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.classes.Polygon;
@@ -7,6 +8,7 @@ import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +37,8 @@ public class ClientSQL {
                         rs.getString("nom_agri"),
                         rs.getString("tel_agri"),
                         rs.getString("adr_agri"),
-                        rs.getString("email_agri")
+                        rs.getString("email_agri"),
+                        ConvertColor.webToColorFX(rs.getString("couleur_agri"))
                 ));
             }
 
@@ -84,7 +87,8 @@ public class ClientSQL {
                                 rs.getString("prenom_agri"),
                                 rs.getString("tel_agri"),
                                 rs.getString("adr_agri"),
-                                rs.getString("email_agri"))
+                                rs.getString("email_agri"),
+                                ConvertColor.webToColorFX(rs.getString("couleur_agri")))
                 ));
             }
 
@@ -97,9 +101,9 @@ public class ClientSQL {
         return clientChampList;
     }
 
-    public static void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail) {
-        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri) " +
-                "VALUES(:nom, :prenom, :adresse, :tel, :email)";
+    public static void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail, Color inputCouleur) {
+        String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri, couleur_agri) " +
+                "VALUES(:nom, :prenom, :adresse, :tel, :email, :couleur)";
 
         try {
             NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -109,6 +113,7 @@ public class ClientSQL {
             preparedStatement.setString("tel", inputTel);
             preparedStatement.setString("adresse", inputAdresse);
             preparedStatement.setString("email", inputEmail);
+            preparedStatement.setString("couleur", ConvertColor.ColorFXToWeb(inputCouleur));
 
             // Execute SQL statement
             preparedStatement.executeUpdate();
@@ -121,7 +126,7 @@ public class ClientSQL {
     }
 
     public static void editClient(Agriculteur agri) {
-        String request = "UPDATE Agriculteur SET nom_agri=:nom_agri, prenom_agri=:prenom_agri, adr_agri=:adr_agri, tel_agri=:tel_agri, email_agri=:email_agri " +
+        String request = "UPDATE Agriculteur SET nom_agri=:nom_agri, prenom_agri=:prenom_agri, adr_agri=:adr_agri, tel_agri=:tel_agri, email_agri=:email_agri , couleur_agri=:couleur_agri " +
                 "WHERE id_agri=:id_agri";
 
         try {
@@ -132,6 +137,7 @@ public class ClientSQL {
             preparedStatement.setString("adr_agri", agri.getAdresse());
             preparedStatement.setString("tel_agri", agri.getNum_tel());
             preparedStatement.setString("email_agri", agri.getEmail());
+            preparedStatement.setString("couleur_agri", ConvertColor.ColorFXToWeb(agri.getCouleur()));
             preparedStatement.setInt("id_agri", agri.getId());
 
             // Execute SQL statement

@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.ConvertColor;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.classes.Polygon;
@@ -46,7 +47,8 @@ public class ChampSQL {
                                 rs.getString("nom_agri"),
                                 rs.getString("tel_agri"),
                                 rs.getString("adr_agri"),
-                                rs.getString("email_agri"))
+                                rs.getString("email_agri"),
+                                ConvertColor.webToColorFX(rs.getString("couleur_agri")))
                 ));
             }
 

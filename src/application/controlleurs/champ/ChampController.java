@@ -47,7 +47,7 @@ public class ChampController implements APIGoogleMap {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        gMaps = new GoogleMaps("champ/maps_champ", this);
+        gMaps = new GoogleMaps("maps_client_champ", this);
         gMaps.setParent(googleMaps);
 
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
@@ -74,7 +74,7 @@ public class ChampController implements APIGoogleMap {
                 listInfos.getItems().add(information);
 
             gMaps.removeAll();
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
         }
     }
 
@@ -123,7 +123,7 @@ public class ChampController implements APIGoogleMap {
     public void askToLoadChamps() {
         gMaps.removeAll();
         for (Champ champ : ChampSQL.getChampsList()) {
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp());
+            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
         }
     }
 
