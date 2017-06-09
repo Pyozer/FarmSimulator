@@ -89,8 +89,7 @@ public class VehiculeSQL {
     }
 
     private static void loadMoissonneuse() {
-        String request = "SELECT * FROM Vehicule " +
-                "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
+        String request = "SELECT * FROM Vehicule INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
 
         try {
             PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
