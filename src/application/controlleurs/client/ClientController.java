@@ -2,7 +2,9 @@ package application.controlleurs.client;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.*;
+import application.modeles.Agriculteur;
+import application.modeles.Champ;
+import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

@@ -1,7 +1,5 @@
 package application.controlleurs.parametre;
 
-import java.util.Properties;
-
 import application.classes.AlertDialog;
 import application.database.DBConnection;
 import application.database.DBProperties;
@@ -9,9 +7,11 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.util.Properties;
 
 /**
  * Controlleur de la vue de paramétrage de la BDD

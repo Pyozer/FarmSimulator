@@ -2,11 +2,9 @@ package application.controlleurs.commande;
 
 import application.Constant;
 import application.classes.AlertDialog;
-import application.modeles.ClientSQL;
 import application.modeles.Commande;
 import application.modeles.MoissonSQL;
 import application.modeles.Vehicule;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
@@ -14,18 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
-import java.time.temporal.ChronoUnit;import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 public class EditMoissonController implements Constant {
 

@@ -29,13 +29,6 @@ public class EditChampController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
-        // Initialisation des ComboxBox
-        liste_type.getItems().setAll(ChampSQL.getTypeChampList());
-        liste_type.setValue(liste_type.getItems().get(0));
-
-        liste_proprio.getItems().setAll(ClientSQL.getClientsList());
-        liste_proprio.setValue(liste_proprio.getItems().get(0));
     }
 
     public void setEditionMode(boolean state) {
@@ -45,6 +38,12 @@ public class EditChampController {
     public void initView(Champ champ) {
         if(isEdit) {
             title.setText("Modifier le champ");
+
+            liste_type.getItems().setAll(ChampSQL.getTypeChampList());
+            liste_type.setValue(liste_type.getItems().get(0));
+
+            liste_proprio.getItems().setAll(ClientSQL.getClientsList());
+            liste_proprio.setValue(liste_proprio.getItems().get(0));
 
             selectedChamp = champ;
         }

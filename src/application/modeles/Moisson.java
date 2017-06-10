@@ -1,9 +1,5 @@
 package application.modeles;
 
-import application.classes.ElementPair;
-import application.classes.Point;
-import javafx.beans.property.SimpleBooleanProperty;
-
 /**
  * Classe pour les Moisson
  */

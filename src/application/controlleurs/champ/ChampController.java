@@ -2,6 +2,7 @@ package application.controlleurs.champ;
 
 import application.Constant;
 import application.classes.*;
+import application.controlleurs.client.EditClientController;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
@@ -110,7 +111,14 @@ public class ChampController implements APIGoogleMap {
 
     @FXML
     public void editChamp() {
-        // TODO: Faire la modification d'un champ
+        Champ champ = tableView.getSelectionModel().getSelectedItem();
+
+        SwitchView switchView = new SwitchView("champ/edit_champ_app", Constant.ADD_CHAMP_APP_TITLE);
+        EditChampController editChampController = switchView.getFxmlLoader().getController();
+        editChampController.setEditionMode(true);
+        editChampController.initView(champ);
+        editChampController.defineChampController(this);
+        switchView.showScene();
     }
 
     private void clearAllSelection() {

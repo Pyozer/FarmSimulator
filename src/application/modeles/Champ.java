@@ -3,7 +3,9 @@ package application.modeles;
 import application.classes.ElementPair;
 import application.classes.Point;
 import application.classes.Polygon;
-import javafx.beans.property.*;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Classe pour les Champs

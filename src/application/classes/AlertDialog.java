@@ -1,9 +1,6 @@
 package application.classes;
 
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 
 /**
  * Classe pour gérer les AlertsBox

@@ -1,8 +1,5 @@
 package application.controlleurs;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import application.Constant;
 import application.classes.AlertDialog;
 import application.classes.SwitchView;
@@ -14,6 +11,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Controlleur de la vue de connexion au logiciel

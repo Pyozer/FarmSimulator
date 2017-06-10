@@ -1,7 +1,6 @@
 package application.classes;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * Une classe pour encoder et décoder au format JSON<br>

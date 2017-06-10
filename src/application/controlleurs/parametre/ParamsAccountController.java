@@ -7,10 +7,10 @@ import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
