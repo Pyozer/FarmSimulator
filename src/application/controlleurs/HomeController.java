@@ -45,11 +45,13 @@ public class HomeController {
 
     @FXML
     public void handleParams() {
-        // TODO : Afficher fenetre Parametres
+        SwitchView switchView = new SwitchView("parametre/params-app", Constant.CHAMP_APP_TITLE);
+        switchView.showScene();
     }
 
     @FXML
     public void handleExit() {
-        // TODO : Faire une fenetre pour quitter l'app
+        SwitchView switchView = new SwitchView("home_login_app", Constant.CHAMP_APP_TITLE);
+        switchView.showScene();
     }
 }
