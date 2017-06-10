@@ -3,6 +3,7 @@ package application.classes;
 import application.Constant;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
+import application.modeles.Culture;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -38,7 +39,7 @@ public class GoogleMaps extends Region {
     }
 
     public void setParent(StackPane parent) {
-        parent.getChildren().add(webView);
+        parent.getChildren().setAll(webView);
     }
 
     /** Affiche L'itineraire entre 2 points sur la Map **/
@@ -56,7 +57,7 @@ public class GoogleMaps extends Region {
     public void addChamp(Champ champ) {
         addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
     }
-    public void addChamp(int id, String culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
+    public void addChamp(int id, Culture culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
         try {
             javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
             //System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "', '" + ConvertColor.ColorFXToWeb(couleur) + "')");
@@ -73,16 +74,6 @@ public class GoogleMaps extends Region {
     /** Réaffiche tous les markers sur la carte **/
     public void removeAll() {
         javascriptOBJ.call("removeAll");
-    }
-
-    /** Active le mode selection **/
-    public void enableAffectSelection() {
-        javascriptOBJ.call("enableAffectSelection");
-    }
-
-    /** Désactive le mode selection **/
-    public void disableAffectSelection() {
-        javascriptOBJ.call("disableAffectSelection");
     }
 
 }

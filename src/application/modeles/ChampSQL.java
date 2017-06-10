@@ -39,7 +39,7 @@ public class ChampSQL {
                         rs.getString("adr_champ"),
                         coord_center,
                         coord_champ,
-                        rs.getString("type_cul"),
+                        new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
                         new Agriculteur(
                                 Integer.parseInt(rs.getString("id_agri")),
                                 rs.getString("prenom_agri"),
@@ -83,6 +83,51 @@ public class ChampSQL {
             System.err.println(ex.getMessage());
         }
         return listCulture;
+    }
+
+    public static void addChamp(float surf_champ, String adr_champ, Point coord_centre, Polygon coords_champ, Culture type_champ, Agriculteur proprio) {
+        String request = "INSERT INTO Champ(surf_champ, adr_champ, coord_centre_champ, coords_champ, type_champ, id_agri) " +
+                "VALUES(:surf_champ, :adr_champ, :coord_centre_champ, :coords_champ, :type_champ, :id_agri)";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            preparedStatement.setFloat("surf_champ", surf_champ);
+            preparedStatement.setString("adr_champ", adr_champ);
+            preparedStatement.setString("coord_centre_champ", coord_centre.toString());
+            preparedStatement.setString("coords_champ", coords_champ.toString());
+            preparedStatement.setInt("type_champ", type_champ.getId());
+            preparedStatement.setInt("id_agri", proprio.getId());
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public static void editChamp(Champ champ) {
+        String request = "UPDATE Champ SET surf_champ=:surf_champ, adr_champ=:adr_champ, coord_centre_champ=:coord_centre_champ, coords_champ=:coords_champ, type_champ=:type_champ, " +
+                "id_agri=:id_agri WHERE id_champ=:id_champ";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            preparedStatement.setFloat("surf_champ", champ.getSurface());
+            preparedStatement.setString("adr_champ", champ.getAdresse());
+            preparedStatement.setString("coord_centre_champ", champ.getCoordCenter().toString());
+            preparedStatement.setString("coords_champ", champ.getCoordChamp().toString());
+            preparedStatement.setInt("type_champ", champ.getType_culture().getId());
+            preparedStatement.setInt("id_agri", champ.getProprietaire().getId());
+            preparedStatement.setInt("id_champ", champ.getId());
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     public static void deleteChamp(Champ champ) {

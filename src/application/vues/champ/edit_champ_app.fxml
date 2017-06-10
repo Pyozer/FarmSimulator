@@ -27,33 +27,16 @@
                 <Label text="Propriétaire :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <JFXComboBox fx:id="liste_proprio" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Point 1 :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <HBox alignment="BASELINE_CENTER" minWidth="350" prefWidth="350" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <JFXTextField fx:id="point1_lat" labelFloat="true" promptText="Latitude" minWidth="165.0" prefWidth="165.0" />
-                    <JFXTextField fx:id="point1_long" labelFloat="true" promptText="Longitude" minWidth="165.0" prefWidth="165.0" />
-                </HBox>
+                <Label text="Adresse du champ:" textAlignment="RIGHT" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <JFXTextField fx:id="adresse" promptText="Adresse du champ" labelFloat="true" focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-                <Label text="Point 2 :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <HBox minWidth="350" prefWidth="350" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <JFXTextField fx:id="point2_lat" labelFloat="true" promptText="Latitude" minWidth="165.0" prefWidth="165.0" />
-                    <JFXTextField fx:id="point2_long" labelFloat="true" promptText="Longitude" minWidth="165.0" prefWidth="165.0" />
-                </HBox>
+                <Label text="Surface en m² :" alignment="BASELINE_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <JFXTextField fx:id="surface" promptText="Surface en m² du champ" labelFloat="true" focusTraversable="false" minWidth="350.0" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-                <Label text="Point 3 :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <HBox alignment="BASELINE_CENTER" minWidth="350" prefWidth="350" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                    <JFXTextField fx:id="point3_lat" labelFloat="true" promptText="Latitude" minWidth="165.0" prefWidth="165.0" />
-                    <JFXTextField fx:id="point3_long" labelFloat="true" promptText="Longitude" minWidth="165.0" prefWidth="165.0" />
-                </HBox>
+                <Label text="Position du champ :" alignment="TOP_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <StackPane fx:id="googleMaps" maxWidth="350" maxHeight="350" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-                <Label text="Point 4 :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <HBox minWidth="350" prefWidth="350" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <JFXTextField fx:id="point4_lat" labelFloat="true" promptText="Latitude" minWidth="165.0" prefWidth="165.0" />
-                    <JFXTextField fx:id="point4_long" labelFloat="true" promptText="Longitude" minWidth="165.0" prefWidth="165.0" />
-                </HBox>
-
-                <JFXButton text="Ajouter un point" onAction="#onAddPoint" buttonType="RAISED" styleClass="btn, btn-default" minWidth="350.0" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-
-                <JFXButton text="Valider" onAction="#onSubmit" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <JFXButton text="Valider" onAction="#onSubmit" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
             </GridPane>
         </VBox>
     </center>

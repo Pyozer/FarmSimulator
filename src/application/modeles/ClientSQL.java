@@ -79,7 +79,7 @@ public class ClientSQL {
                         rs.getString("adr_champ"),
                         coord_center,
                         coord_champ,
-                        rs.getString("type_cul"),
+                        new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
                         new Agriculteur(
                                 Integer.parseInt(rs.getString("id_agri")),
                                 rs.getString("nom_agri"),

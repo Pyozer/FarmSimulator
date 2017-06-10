@@ -27,4 +27,14 @@ public class Culture extends Element {
     public String toString() {
         return type_culture;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Culture culture = (Culture) o;
+
+        return type_culture != null ? type_culture.equals(culture.type_culture) : culture.type_culture == null;
+    }
 }

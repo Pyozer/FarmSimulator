@@ -32,8 +32,7 @@ public class JSONManager {
 	 * @return le tableau de points
 	 */
 	public static Point readPoint(String jsonStr) {
-
-        JSONArray jsonarray = new JSONArray(jsonStr);
+		JSONArray jsonarray = new JSONArray(jsonStr);
 
 		return new Point(jsonarray.getDouble(0), jsonarray.getDouble(1));
 	}

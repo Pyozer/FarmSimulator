@@ -16,16 +16,16 @@ public class Champ extends Element {
     private SimpleStringProperty adresse; // Surface en m2
     private SimpleObjectProperty<Point> coord_center;
     private SimpleObjectProperty<Polygon> coord_champ; // Longitude du champs
-    private SimpleStringProperty type_culture; // Type de culture (Blé, Orge,..)
+    private SimpleObjectProperty<Culture> type_culture; // Type de culture (Blé, Orge,..)
     private SimpleObjectProperty<Agriculteur> proprietaire; // Nom du propriétaire
 
-    public Champ(int id, float surface, String adresse, Point coord_center, Polygon coord_champ, String type_culture, Agriculteur proprietaire) {
+    public Champ(int id, float surface, String adresse, Point coord_center, Polygon coord_champ, Culture type_culture, Agriculteur proprietaire) {
         super(id);
         this.surface = new SimpleFloatProperty(surface);
         this.adresse = new SimpleStringProperty(adresse);
         this.coord_center = new SimpleObjectProperty<>(coord_center);
         this.coord_champ = new SimpleObjectProperty<>(coord_champ);
-        this.type_culture = new SimpleStringProperty(type_culture);
+        this.type_culture = new SimpleObjectProperty<>(type_culture);
         this.proprietaire = new SimpleObjectProperty<>(proprietaire);
 
         getInformations().add(new ElementPair("Surface", surface + " m²"));
@@ -65,11 +65,11 @@ public class Champ extends Element {
         this.coord_champ.set(coordChamp);
     }
 
-    public String getType_culture() {
+    public Culture getType_culture() {
         return type_culture.get();
     }
 
-    public void setTypeCulture(String type_culture) {
+    public void setTypeCulture(Culture type_culture) {
         this.type_culture.set(type_culture);
     }
 

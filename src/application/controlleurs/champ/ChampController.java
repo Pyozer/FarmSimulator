@@ -121,7 +121,7 @@ public class ChampController implements APIGoogleMap {
         switchView.showScene();
     }
 
-    private void clearAllSelection() {
+    public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
         resetListInfo();
         defineStateElements(false);
