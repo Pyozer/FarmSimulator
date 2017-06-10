@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class AffectationSQL implements Constant {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
-    private static final String UPDATE_POISITION = "UPDATE Vehicule SET position_vehi=:position_vehi WHERE id_vehi=:id_vehi";
+    private static final String UPDATE_POSITION = "UPDATE Vehicule SET position_vehi=:position_vehi WHERE id_vehi=:id_vehi";
 
     public static void addAffect(Commande inputCommande, Vehicule inputVehicule) {
         String request = "INSERT INTO Ordre(id_com, id_vehi) VALUES(:id_com, :id_vehi)";
@@ -33,13 +33,11 @@ public class AffectationSQL implements Constant {
 
             preparedStatement.close();
 
-            updatePosition(inputVehicule, inputCommande.getChampCommande().getCoordCenter().toString());
-
+            updatePosition(inputVehicule, inputCommande.getChampCommande().getCoordCenter());
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-
     }
 
     public static void deleteAffect(Commande inputCommande, Vehicule inputVehicule) {
@@ -105,25 +103,23 @@ public class AffectationSQL implements Constant {
     }
 
     private static void updatePosition(Vehicule inputVehicule){
-        if(inputVehicule.getType() == "Moissonneuse") updatePosition(inputVehicule, Constant.POS_DEFAULT_MOISSONNEUSE );
-        else if(inputVehicule.getType() == "Tracteur") updatePosition(inputVehicule, Constant.POS_DEFAULT_Tracteur );
-        else if(inputVehicule.getType() == "Botteleuse") updatePosition(inputVehicule, Constant.POS_DEFAULT_Botteleuse );
+        if(inputVehicule.getType().equals("Moissonneuse")) updatePosition(inputVehicule, Constant.POS_DEFAULT_MOISSONNEUSE);
+        else if(inputVehicule.getType().equals("Tracteur")) updatePosition(inputVehicule, Constant.POS_DEFAULT_TRACTEUR);
+        else if(inputVehicule.getType().equals("Botteleuse")) updatePosition(inputVehicule, Constant.POS_DEFAULT_BOTTELEUSE);
     }
 
-    private static void updatePosition(Vehicule inputVehicule, String inputPosition){
+    private static void updatePosition(Vehicule inputVehicule, Point inputPosition){
         try {
-            NamedParameterStatement preparedStatement2 = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_POISITION);
+            NamedParameterStatement preparedStatementPos = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_POSITION);
 
-            preparedStatement2.setString("position_vehi", inputPosition);
-            preparedStatement2.setInt("id_vehi", inputVehicule.getId());
-
+            preparedStatementPos.setString("position_vehi", inputPosition.toString());
+            preparedStatementPos.setInt("id_vehi", inputVehicule.getId());
             // Execute SQL statement
-            preparedStatement2.executeUpdate();
+            preparedStatementPos.executeUpdate();
 
-            preparedStatement2.close();
-        }
-        catch (SQLException ex) {
-                System.err.println(ex.getMessage());
+            preparedStatementPos.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 
@@ -189,11 +185,11 @@ public class AffectationSQL implements Constant {
                         Integer.parseInt(rs.getString("poids_moi"))
                 ));
             }
+
             rs.close();
             stmt.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
-
 }
