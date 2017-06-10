@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.Constant;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
@@ -13,9 +14,10 @@ import java.sql.SQLException;
 /**
  * Classe pour la gestion des affectations d'un véhicule à une commande.
  */
-public class AffectationSQL {
+public class AffectationSQL implements Constant {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
+    private static final String UPDATE_POISITION = "UPDATE Vehicule SET position_vehi=:position_vehi WHERE id_vehi=:id_vehi";
 
     public static void addAffect(Commande inputCommande, Vehicule inputVehicule) {
         String request = "INSERT INTO Ordre(id_com, id_vehi) VALUES(:id_com, :id_vehi)";
@@ -30,6 +32,9 @@ public class AffectationSQL {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+
+            updatePosition(inputVehicule, inputCommande.getChampCommande().getCoordCenter().toString());
+
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -50,6 +55,8 @@ public class AffectationSQL {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+
+            updatePosition(inputVehicule);
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -94,6 +101,29 @@ public class AffectationSQL {
             stmt.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
+        }
+    }
+
+    private static void updatePosition(Vehicule inputVehicule){
+        if(inputVehicule.getType() == "Moissonneuse") updatePosition(inputVehicule, Constant.POS_DEFAULT_MOISSONNEUSE );
+        else if(inputVehicule.getType() == "Tracteur") updatePosition(inputVehicule, Constant.POS_DEFAULT_Tracteur );
+        else if(inputVehicule.getType() == "Botteleuse") updatePosition(inputVehicule, Constant.POS_DEFAULT_Botteleuse );
+    }
+
+    private static void updatePosition(Vehicule inputVehicule, String inputPosition){
+        try {
+            NamedParameterStatement preparedStatement2 = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_POISITION);
+
+            preparedStatement2.setString("position_vehi", inputPosition);
+            preparedStatement2.setInt("id_vehi", inputVehicule.getId());
+
+            // Execute SQL statement
+            preparedStatement2.executeUpdate();
+
+            preparedStatement2.close();
+        }
+        catch (SQLException ex) {
+                System.err.println(ex.getMessage());
         }
     }
 
