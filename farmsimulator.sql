@@ -282,10 +282,10 @@ INSERT INTO `moissonneuse` (`id_moi`, `id_vehi`, `taille_tremis_moi`, `taille_re
 
 CREATE TABLE `ordre` (
   `id_ordre` int(11) NOT NULL,
-  `heure_arrive_ordre` varchar(25) DEFAULT '0',
-  `duree_ordre` varchar(25) DEFAULT '0',
+  `heure_arrive_ordre` varchar(50) NOT NULL DEFAULT '0',
+  `duree_ordre` double NOT NULL DEFAULT '0',
   `nb_km_ordre` float DEFAULT '0',
-  `tonnes_ordre` decimal(10,2) DEFAULT '0.00',
+  `tonnes_ordre` float NOT NULL DEFAULT '0',
   `id_vehi` int(11) NOT NULL,
   `id_com` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
