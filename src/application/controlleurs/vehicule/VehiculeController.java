@@ -144,7 +144,7 @@ public class VehiculeController implements APIGoogleMap {
         }
     }
 	
-	private void clearAllSelection() {
+	public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
         resetListInfo();
         defineStateElements(false);

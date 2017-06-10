@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.classes.ConvertColor;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 public class VehiculeSQL {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
-
+    final static String REQUEST_VEHICULE = "UPDATE VEHICULE SET marque:marque, modele=:modele WHERE id_vehi:id_vehi";
     public static ObservableList<Vehicule> getVehiculeList() {
         vehiculeList.clear();
 
@@ -172,5 +173,59 @@ public class VehiculeSQL {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public static void editBotteleuse(Botteleuse bott) {
+        String request = "UPDATE Botteleuse SET type_bott=:type_bott " +
+                "WHERE id_vehi=:id_vehi";
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+
+            preparedStatement.setString("type_bott", bott.getType());
+            preparedStatement.setInt("id_vehi", bott.getId());
+
+            // Execute SQL statement
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public static void editMoissonneuse(Moissonneuse moi) {
+        String request = "UPDATE Moissonneuse SET taille_tremis_moi=:taille_tremis_moi, taille_reservoir_moi=:taille_reservoir_moi, " +
+                "largeur_route_moi=:largeur_route_moi, hauteur_moi=:hauteur_moi, largeur_coupe_moi=:largeur_coupe_moi, conso_fonct_moi=:conso_fonct_moi, " +
+                "conso_route_moi=:conso_route_moi, poids_moi=:poids_moi" +
+                "WHERE id_vehi=:id_vehi";
+
+
+        try {
+            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+
+            preparedStatement.setInt("taille_reservoir_moi", moi.getCapacite_reservoir());
+            preparedStatement.setInt("taille_tremis_moi", moi.getCapacite_tremis());
+            preparedStatement.setFloat("largeur_route_moi", moi.getLargeur());
+            preparedStatement.setFloat("largeur_coupe_moi", moi.getTaille_coupe());
+            preparedStatement.setFloat("hauteur_moi", moi.getHauteur());
+            preparedStatement.setInt("conso_fonct_moi", moi.getConso_fonctionnement());
+            preparedStatement.setInt("conso_route_moi", moi.getConso_route());
+            preparedStatement.setFloat("poids_moi", moi.getPoids());
+            preparedStatement.setInt("id_vehi", moi.getId());
+
+
+            // Execute SQL statement
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public static void addMoissonneuse(String inputModele, String inputMarque, String inputEtat, int inputConsoFonctionnement, int inputConsoRoute, float inputHauteur, float inputLargeurCoupe, float inputLargeurRoute, float inputPoids, int inputTailleReservoir, int inputTailleTremis) {
     }
 }

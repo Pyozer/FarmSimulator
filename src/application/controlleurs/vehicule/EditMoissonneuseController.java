@@ -1,11 +1,15 @@
 package application.controlleurs.vehicule;
 
+import application.classes.AlertDialog;
 import application.modeles.Moissonneuse;
+import application.modeles.VehiculeSQL;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * Controlleur pour la modification d'une moissonneuse
@@ -30,7 +34,7 @@ public class EditMoissonneuseController {
     @FXML private Label title;
 
     private VehiculeController vehiculeController;
-    private Moissonneuse selectedMoissonneuse;
+    private Moissonneuse moissonneuseToEdit;
 
     private boolean isEdit = false;
 
@@ -53,7 +57,7 @@ public class EditMoissonneuseController {
         if(isEdit) {
             title.setText("Modifier la moissonneuse");
 
-            selectedMoissonneuse = moissonneuse;
+            moissonneuseToEdit = moissonneuse;
 
             modele.setText(moissonneuse.getModele());
             marque.setText(moissonneuse.getMarque());
@@ -70,8 +74,71 @@ public class EditMoissonneuseController {
     }
 
     @FXML
-    public void onSubmit() {
-        // TODO: Modification d'une moissonneuse
+    public void handleSaveMoissonneuse() {
+        String inputEtat = liste_etat.getValue();
+        String inputMarque = marque.getText();
+        String inputModele = modele.getText();
+        String inputTailleTremisString = taille_tremis.getText();
+        String inputTailleReservoirString = taille_reservoir.getText();
+        String inputLargeurRouteString = largeur_route.getText();
+        String inputLargeurCoupeString = largeur_route.getText();
+        String inputConsoFonctionnementString = conso_fonctionnement.getText();
+        String inputConsoRouteString = conso_route.getText();
+        String inputPoidsString = poids.getText();
+        String inputHauteurString = hauteur.getText();
+        
+
+        if(inputMarque.isEmpty() || inputModele.isEmpty() || inputTailleReservoirString.isEmpty() || inputEtat.isEmpty() || inputTailleTremisString.isEmpty() ||
+                inputLargeurRouteString.isEmpty() || inputTailleReservoirString.isEmpty() || inputLargeurCoupeString.isEmpty() || inputConsoFonctionnementString.isEmpty() ||
+                inputConsoRouteString.isEmpty() || inputPoidsString.isEmpty() || inputHauteurString.isEmpty()) {
+            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+            alert.show();
+        } else {
+            String message = "La moissonneuse a bien été";
+
+            int inputTailleReservoir = Integer.parseInt(inputTailleReservoirString);
+            float inputLargeurRoute = Float.parseFloat(inputLargeurRouteString);
+            float inputLargeurCoupe = Float.parseFloat(inputLargeurCoupeString);
+            int inputConsoFonctionnement = Integer.parseInt(inputConsoFonctionnementString);
+            int inputConsoRoute = Integer.parseInt(inputConsoRouteString);
+            float inputPoids = Float.parseFloat(inputPoidsString);
+            float inputHauteur = Float.parseFloat(inputHauteurString;
+            int inputTailleTremis = Integer.parseInt(inputTailleTremisString);
+
+            if(isEdit) {
+
+                moissonneuseToEdit.setEtat(inputEtat);
+                moissonneuseToEdit.setMarque(inputMarque);
+                moissonneuseToEdit.setModele(inputModele);
+                moissonneuseToEdit.setCapacite_reservoir(inputTailleReservoir);
+                moissonneuseToEdit.setCapacite_tremis(inputTailleTremis));
+                moissonneuseToEdit.setConso_fonctionnement(inputConsoFonctionnement));
+                moissonneuseToEdit.setHauteur(inputHauteur));
+                moissonneuseToEdit.setLargeur(inputLargeurRoute));
+                moissonneuseToEdit.setConso_route(inputConsoRoute));
+                moissonneuseToEdit.setPoids(inputPoids));
+                moissonneuseToEdit.setTaille_coupe(inputLargeurCoupe));
+
+
+
+                VehiculeSQL.editMoissonneuse(moissonneuseToEdit);
+
+                message += " modifié !";
+            } else {
+                VehiculeSQL.addMoissonneuse(inputModele, inputMarque, inputEtat, inputConsoFonctionnement, inputConsoRoute, inputHauteur, inputLargeurCoupe, inputLargeurRoute, inputPoids, inputTailleReservoir, inputTailleTremis);
+
+                message += " ajouté !";
+            }
+
+            AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+            alert.show();
+
+            vehiculeController.initData();
+            vehiculeController.clearAllSelection();
+
+            Stage stage = (Stage) bpane.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void defineVehiculeController(VehiculeController vehiculeController) {

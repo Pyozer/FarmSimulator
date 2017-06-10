@@ -1,11 +1,18 @@
 package application.controlleurs.vehicule;
 
+import application.classes.AlertDialog;
 import application.modeles.Botteleuse;
+import application.modeles.ClientSQL;
+import application.modeles.Vehicule;
+import application.modeles.VehiculeSQL;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * Controlleur pour gestion (Ajout/Modification) d'une botteleuse
@@ -24,7 +31,7 @@ public class EditBotteleuseController {
     @FXML private Label title;
 
     private VehiculeController vehiculeController;
-    private Botteleuse selectedBotteleuse;
+    private Botteleuse botteleuseToEdit;
 
     private boolean isEdit = false;
 
@@ -33,13 +40,10 @@ public class EditBotteleuseController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
         // Initalisation des ComboBox
-        liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
-        liste_etat.setValue(liste_etat.getItems().get(0));
-
         type.getItems().addAll("Ronde", "Carré");
-        type.setValue(type.getItems().get(0));
+        liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
+        liste_etat.setValue(liste_etat.getItems().get(2));
     }
 
     public void setEditionMode(boolean state) {
@@ -48,20 +52,61 @@ public class EditBotteleuseController {
 
     public void initView(Botteleuse botteleuse) {
         if(isEdit) {
+            System.out.println("de");
             title.setText("Modifier la botteleuse");
 
-            selectedBotteleuse = botteleuse;
+            botteleuseToEdit = botteleuse;
 
             modele.setText(botteleuse.getModele());
             marque.setText(botteleuse.getMarque());
             liste_etat.setValue(botteleuse.getEtat());
             type.setValue(botteleuse.isBotte_ronde() ? "Rond" : "Carré");
         }
+        else{
+            title.setText("Ajouter une botteleuse");
+
+            System.err.println("66");
+        }
     }
 
     @FXML
     public void handleSaveBotteleuse() {
-        // TODO : Ajout/Modification d'une botteleuse
+        String inputEtat = liste_etat.getValue();
+        String inputMarque = marque.getText();
+        String inputModele = modele.getText();
+        String inputType = type.getValue();
+
+        if(inputMarque.isEmpty() || inputModele.isEmpty() || inputType.isEmpty() || inputEtat.isEmpty()) {
+            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+            alert.show();
+        } else {
+            String message = "La botteleuse a bien été";
+
+            if(isEdit) {
+                botteleuseToEdit.setEtat(inputEtat);
+                botteleuseToEdit.setMarque(inputMarque);
+                botteleuseToEdit.setModele(inputModele);
+                botteleuseToEdit.setType(inputType);
+
+
+                VehiculeSQL.editBotteleuse(botteleuseToEdit);
+
+                message += " modifié !";
+            } else {
+                VehiculeSQL.addBotteleuse(inputModele, inputMarque, inputType, inputEtat);
+
+                message += " ajouté !";
+            }
+
+            AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+            alert.show();
+
+            vehiculeController.initData();
+            vehiculeController.clearAllSelection();
+
+            Stage stage = (Stage) bpane.getScene().getWindow();
+            stage.close();
+        }
     }
 
     public void defineVehiculeController(VehiculeController vehiculeController) {
