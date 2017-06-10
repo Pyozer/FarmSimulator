@@ -11,6 +11,7 @@ public interface Constant {
     // TITRE DE L'APPLICATION
     String TITLE_APP = "Farm Simulator";
 
+
     // CHEMINS D'ACCES
     String LAYOUT_PATH = "/application/vues/";
     String STYLE_PATH = "/application/styles/";
