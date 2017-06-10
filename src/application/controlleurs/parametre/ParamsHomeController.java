@@ -34,7 +34,7 @@ public class ParamsHomeController {
 
 	@FXML
 	private void btnNextAction(ActionEvent event) {
-		SwitchView switchView = new SwitchView("parametre/params_account", Constant.PARAMS_ACCOUNT);
+		SwitchView switchView = new SwitchView("parametre/params_account", Constant.PARAMS_ACCOUNT_TITLE);
 		switchView.showScene();
 	}
 
