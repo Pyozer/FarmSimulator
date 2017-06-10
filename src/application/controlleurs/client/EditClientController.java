@@ -39,6 +39,8 @@ public class EditClientController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
+        couleur_client.setValue(Color.rgb(68, 68, 68));
     }
 
     public void setEditionMode(boolean state) {
@@ -57,7 +59,6 @@ public class EditClientController {
             adresse_client.setText(agriculteur.getAdresse());
             email_client.setText(agriculteur.getEmail());
             couleur_client.setValue(agriculteur.getCouleur());
-
         }
     }
 
