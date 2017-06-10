@@ -86,8 +86,9 @@ public class EditBotteleuseController {
                 botteleuseToEdit.setEtat(inputEtat);
                 botteleuseToEdit.setMarque(inputMarque);
                 botteleuseToEdit.setModele(inputModele);
-                botteleuseToEdit.setType(inputType);
 
+                if(inputType == "Ronde") botteleuseToEdit.setBotte_ronde(true);
+                else botteleuseToEdit.setBotte_ronde(false);
 
                 VehiculeSQL.editBotteleuse(botteleuseToEdit);
 

@@ -19,7 +19,12 @@ import java.sql.SQLException;
 public class VehiculeSQL {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
-    final static String REQUEST_VEHICULE = "UPDATE VEHICULE SET marque:marque, modele=:modele WHERE id_vehi:id_vehi";
+
+    final static String UPDATE_VEHICULE = "UPDATE VEHICULE SET marque_vehi:marque_vehi, modele_vehi=:modele_vehi, etat_vehi=:etat_vehi WHERE id_vehi:id_vehi";
+    final static String INSERT_VEHICULE = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
+    final static String GET_ID_VEHI = "SELECT LAST_INSERT_ID()";
+
+
     public static ObservableList<Vehicule> getVehiculeList() {
         vehiculeList.clear();
 
@@ -138,13 +143,12 @@ public class VehiculeSQL {
     }
 
     public static void addBotteleuse(String modele, String marque, String type, String etat) {
-        String insertVehi = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
-        String getIdVehi = "SELECT LAST_INSERT_ID()";
+
         String insertBott = "INSERT INTO Botteleuse(id_vehi, type_bott) VALUES (:id_vehi, :type_bott)";
 
         try {
             // On insert le vehicule
-            NamedParameterStatement insertVehiStmt = new NamedParameterStatement(DBConnection.getConnection(), insertVehi);
+            NamedParameterStatement insertVehiStmt = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE);
             insertVehiStmt.setString("marque", marque);
             insertVehiStmt.setString("modele", modele);
             insertVehiStmt.setString("etat", etat);
@@ -154,7 +158,7 @@ public class VehiculeSQL {
             insertVehiStmt.close();
 
             // On récupère l'ID du vehicule ajouté
-            PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(getIdVehi);
+            PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(GET_ID_VEHI);
             // Execute select SQL statement
             ResultSet result = getLastIdStmt.executeQuery();
             result.next();
@@ -163,7 +167,7 @@ public class VehiculeSQL {
             result.close();
 
             // On insert la botteleuse
-            NamedParameterStatement insertBottStmt = new NamedParameterStatement(DBConnection.getConnection(), insertVehi);
+            NamedParameterStatement insertBottStmt = new NamedParameterStatement(DBConnection.getConnection(), insertBott);
             insertBottStmt.setInt("id_vehi", idVehi);
             insertBottStmt.setString("type_bott", type);
 
@@ -189,10 +193,67 @@ public class VehiculeSQL {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+
+            NamedParameterStatement updateBotteleuseVehicule = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
+
+            updateBotteleuseVehicule.setString("marque_vehi", bott.getMarque());
+            updateBotteleuseVehicule.setString("etat", bott.getEtat());
+            updateBotteleuseVehicule.setString("modele_vehi", bott.getModele());
+            updateBotteleuseVehicule.setInt("id_vehi", bott.getId());
+
+            // Execute SQL statement
+            updateBotteleuseVehicule.executeUpdate();
+
+            updateBotteleuseVehicule.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+    }
+
+    public static void addMoissonneuse(String modele, String marque, String etat, int consoFonctionnement, int consoRoute, float hauteur, float largeurCoupe, float largeurRoute, float poids, int tailleReservoir, int tailleTremis) {
+        String insertMois = "INSERT INTO Moissonneuse (`id_vehi`, `taille_tremis_moi`, `taille_reserve_moi`, `largeur_route_moi`, `hauteur_moi`, `largeur_coupe_moi`, `conso_fonct_moi`, `conso_route_moi`, `poids_moi`) VALUES " +
+                "(:id_vehi, :taille_tremis_moi, :taille_reserve_moi, :largeur_route_moi, :hauteur_moi, :largeur_coupe_moi, :conso_fonct_moi, :conso_route_moi, :poids_moi)";
+
+        try {
+            // On insert le vehicule
+            NamedParameterStatement insertVehiStmt = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE);
+            insertVehiStmt.setString("marque", marque);
+            insertVehiStmt.setString("modele", modele);
+            insertVehiStmt.setString("etat", etat);
+            insertVehiStmt.setString("position", "[47.970575,-1.448591]");
+
+            insertVehiStmt.executeUpdate();
+            insertVehiStmt.close();
+
+            // On récupère l'ID du vehicule ajouté
+            PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(GET_ID_VEHI);
+            // Execute select SQL statement
+            ResultSet result = getLastIdStmt.executeQuery();
+            result.next();
+            int idVehi = result.getInt(0);
+
+            result.close();
+
+            // On insert la moissonneuse
+            NamedParameterStatement insertMoisStmt = new NamedParameterStatement(DBConnection.getConnection(), insertMois);
+            insertMoisStmt.setInt("id_vehi", idVehi);
+            insertMoisStmt.setInt("conso_route_moi", consoRoute );
+            insertMoisStmt.setFloat("conso_fonct_moi", consoFonctionnement );
+            insertMoisStmt.setFloat("poids_moi", poids );
+            insertMoisStmt.setFloat("hauteur_moi", hauteur );
+            insertMoisStmt.setFloat("largeur_coupe_moi", largeurCoupe );
+            insertMoisStmt.setFloat("largeur_route_moi", largeurRoute );
+            insertMoisStmt.setInt("taille_tremis_moi", tailleTremis );
+            insertMoisStmt.setInt("taille_reserve_moi", tailleReservoir );
+
+            insertMoisStmt.executeUpdate();
+            insertMoisStmt.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+
     }
 
     public static void editMoissonneuse(Moissonneuse moi) {
@@ -220,12 +281,90 @@ public class VehiculeSQL {
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
+
+            NamedParameterStatement updateMoissonneuseVehicule = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
+
+            updateMoissonneuseVehicule.setString("marque_vehi", moi.getMarque());
+            updateMoissonneuseVehicule.setString("etat", moi.getEtat());
+            updateMoissonneuseVehicule.setString("modele_vehi", moi.getModele());
+            updateMoissonneuseVehicule.setInt("id_vehi", moi.getId());
+
+            // Execute SQL statement
+            updateMoissonneuseVehicule.executeUpdate();
+
+            updateMoissonneuseVehicule.close();
+
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
-    public static void addMoissonneuse(String inputModele, String inputMarque, String inputEtat, int inputConsoFonctionnement, int inputConsoRoute, float inputHauteur, float inputLargeurCoupe, float inputLargeurRoute, float inputPoids, int inputTailleReservoir, int inputTailleTremis) {
+    public static void addTracteur(String modele, String marque, int cap_rem, String etat) {
+        String insertTract = "INSERT INTO Tracteur(id_vehi, cap_rem_tract) VALUES (:id_vehi, :cap_rem_tract)";
+
+        try {
+            // On insert le vehicule
+            NamedParameterStatement insertVehiStmt = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE);
+            insertVehiStmt.setString("marque", marque);
+            insertVehiStmt.setString("modele", modele);
+            insertVehiStmt.setString("etat", etat);
+            insertVehiStmt.setString("position", "[47.970575,-1.448591]");
+
+            insertVehiStmt.executeUpdate();
+            insertVehiStmt.close();
+
+            // On récupère l'ID du vehicule ajouté
+            PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(GET_ID_VEHI);
+            // Execute select SQL statement
+            ResultSet result = getLastIdStmt.executeQuery();
+            result.next();
+            int idVehi = result.getInt(0);
+
+            result.close();
+
+            // On insert la botteleuse
+            NamedParameterStatement insertBottStmt = new NamedParameterStatement(DBConnection.getConnection(), insertTract);
+            insertBottStmt.setInt("id_vehi", idVehi);
+            insertBottStmt.setInt("cap_rem_tract", cap_rem);
+
+            insertBottStmt.executeUpdate();
+            insertBottStmt.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public static void editTracteur(Tracteur tracteur) {
+
+        String requestTracteur = "UPDATE Tracteur SET cap_rem_tract=:cap_rem_tract " +
+                "WHERE id_vehi=:id_vehi";
+
+        try {
+            NamedParameterStatement preparedStmtVehi = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
+
+            preparedStmtVehi.setString("marque_vehi", tracteur.getMarque());
+            preparedStmtVehi.setString("modele_vehi", tracteur.getModele());
+            preparedStmtVehi.setString("etat_vehi", tracteur.getEtat());
+            preparedStmtVehi.setString("position_vehi", tracteur.getPosition().toString());
+            preparedStmtVehi.setInt("id_vehi", tracteur.getId());
+            // Execute SQL statement
+            preparedStmtVehi.executeUpdate();
+
+            preparedStmtVehi.close();
+
+            NamedParameterStatement preparedStmtTract = new NamedParameterStatement(DBConnection.getConnection(), requestTracteur);
+
+            preparedStmtTract.setInt("cap_rem_tract", tracteur.getCapacite_remorque());
+            preparedStmtTract.setInt("id_vehi", tracteur.getId());
+            // Execute SQL statement
+            preparedStmtTract.executeUpdate();
+
+            preparedStmtTract.close();
+        }
+        catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 }

@@ -102,7 +102,7 @@ public class EditMoissonneuseController {
             int inputConsoFonctionnement = Integer.parseInt(inputConsoFonctionnementString);
             int inputConsoRoute = Integer.parseInt(inputConsoRouteString);
             float inputPoids = Float.parseFloat(inputPoidsString);
-            float inputHauteur = Float.parseFloat(inputHauteurString;
+            float inputHauteur = Float.parseFloat(inputHauteurString);
             int inputTailleTremis = Integer.parseInt(inputTailleTremisString);
 
             if(isEdit) {
@@ -111,13 +111,13 @@ public class EditMoissonneuseController {
                 moissonneuseToEdit.setMarque(inputMarque);
                 moissonneuseToEdit.setModele(inputModele);
                 moissonneuseToEdit.setCapacite_reservoir(inputTailleReservoir);
-                moissonneuseToEdit.setCapacite_tremis(inputTailleTremis));
-                moissonneuseToEdit.setConso_fonctionnement(inputConsoFonctionnement));
-                moissonneuseToEdit.setHauteur(inputHauteur));
-                moissonneuseToEdit.setLargeur(inputLargeurRoute));
-                moissonneuseToEdit.setConso_route(inputConsoRoute));
-                moissonneuseToEdit.setPoids(inputPoids));
-                moissonneuseToEdit.setTaille_coupe(inputLargeurCoupe));
+                moissonneuseToEdit.setCapacite_tremis(inputTailleTremis);
+                moissonneuseToEdit.setConso_fonctionnement(inputConsoFonctionnement);
+                moissonneuseToEdit.setHauteur(inputHauteur);
+                moissonneuseToEdit.setLargeur(inputLargeurRoute);
+                moissonneuseToEdit.setConso_route(inputConsoRoute);
+                moissonneuseToEdit.setPoids(inputPoids);
+                moissonneuseToEdit.setTaille_coupe(inputLargeurCoupe);
 
 
 
