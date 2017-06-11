@@ -61,7 +61,7 @@ public class AffectationController {
 			selectedVehicule = vehicule;
 
             defineStateElements(true);
-		    if(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule)) defineStateDeleteRapport(true);
+            defineStateDeleteRapport(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule));
 		}
 
 
@@ -93,6 +93,15 @@ public class AffectationController {
         }
     }
 
+    @FXML
+    public void editRapport(){
+        SwitchView switchViewData = new SwitchView("commande/edit_moisson_app", Constant.ADD_COMMANDE_APP_TITLE);
+        EditMoissonController editMoissonController = switchViewData.getFxmlLoader().getController();
+        editMoissonController.setEditionMode(true);
+        editMoissonController.initView(MoissonSQL.getMoissonSelected(selectedCommande, selectedVehicule));
+        editMoissonController.defineCommandeController(this);
+        switchViewData.showScene();
+    }
 
     @FXML
     public void newRapport() {
@@ -125,6 +134,7 @@ public class AffectationController {
 	
 	private void clearAllSelection() {
         defineStateElements(false);
+        defineStateDeleteRapport(false);
         tableView.getSelectionModel().clearSelection();
     }
 

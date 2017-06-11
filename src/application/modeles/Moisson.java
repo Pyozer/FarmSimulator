@@ -8,19 +8,29 @@ public class Moisson {
     private int id;
     private Commande commande;
     private Vehicule vehicule;
-    private String h_fin;
+    private String h_fin, h_debut;
     private Float nbKilo, nbTonne, duree;
 
-    public Moisson(int id, Commande commande, Vehicule vehicule, String h_fin, Float duree, Float nbKilo, Float nbTonne) {
+
+    public Moisson(int id, Commande commande, Vehicule vehicule, String h_fin, String h_debut, Float duree, Float nbKilo, Float nbTonne) {
         this.id = id;
         this.commande = commande;
         this.vehicule = vehicule;
         this.duree = duree;
         this.h_fin = h_fin;
+        this.h_debut = h_debut;
         this.nbKilo = nbKilo;
         this.nbTonne = nbTonne;
     }
 
+
+    public String getH_debut() {
+        return h_debut;
+    }
+
+    public void setH_debut(String h_debut) {
+        this.h_debut = h_debut;
+    }
 
     public int getId() {
         return id;
