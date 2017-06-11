@@ -39,6 +39,11 @@
                             <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="16.0" wrappingWidth="18" />
                         </graphic>
                     </JFXButton>
+                    <JFXButton fx:id="delete_rapport_btn" text="Supprimer rapport moisson" managed="false" onAction="#deleteRapport" styleClass="btn, btn-primary" prefHeight="40">
+                        <graphic>
+                            <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
+                        </graphic>
+                    </JFXButton>
                 </HBox>
             </VBox>
         </VBox>
