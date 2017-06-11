@@ -52,7 +52,7 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-            SwitchView switchView = new SwitchView("params_bdd", Constant.FIRST_PARAMS_BDD_TITLE, true);
+            SwitchView switchView = new SwitchView("parametre/params_bdd", Constant.FIRST_PARAMS_BDD_TITLE, true);
             switchView.showScene();
         }
         return con;
