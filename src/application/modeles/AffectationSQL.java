@@ -28,7 +28,7 @@ public class AffectationSQL implements Constant {
             "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi " +
             "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
             "WHERE id_com=:id_com";
-private static final String SELECT_MOISSONNEUSE_AFFECTATION_REQUETE = "SELECT * FROM Vehicule " +
+    private static final String SELECT_MOISSONNEUSE_AFFECTATION_REQUETE = "SELECT * FROM Vehicule " +
             "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi " +
             "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
             "WHERE id_com=:id_com";
@@ -46,8 +46,7 @@ private static final String SELECT_MOISSONNEUSE_AFFECTATION_REQUETE = "SELECT * 
 
             insertAffectationStatement.close();
 
-            updatePosition(inputVehicule, inputCommande.getChampCommande().getCoordCenter().toString());
-
+            updatePosition(inputVehicule, inputCommande.getChampCommande().getCoordCenter());
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -76,18 +75,17 @@ private static final String SELECT_MOISSONNEUSE_AFFECTATION_REQUETE = "SELECT * 
     }
 
     private static void updatePosition(Vehicule inputVehicule){
-        if(inputVehicule.getType() == "Moissonneuse") updatePosition(inputVehicule, Constant.POS_DEFAULT_MOISSONNEUSE.toString() );
-        else if(inputVehicule.getType() == "Tracteur") updatePosition(inputVehicule, Constant.POS_DEFAULT_TRACTEUR.toString() );
-        else if(inputVehicule.getType() == "Botteleuse") updatePosition(inputVehicule, Constant.POS_DEFAULT_BOTTELEUSE.toString() );
+        if(inputVehicule.getType().equals("Moissonneuse")) updatePosition(inputVehicule, Constant.POS_DEFAULT_MOISSONNEUSE);
+        else if(inputVehicule.getType().equals("Tracteur")) updatePosition(inputVehicule, Constant.POS_DEFAULT_TRACTEUR);
+        else if(inputVehicule.getType().equals("Botteleuse")) updatePosition(inputVehicule, Constant.POS_DEFAULT_BOTTELEUSE);
     }
 
-    private static void updatePosition(Vehicule inputVehicule, String inputPosition){
+    private static void updatePosition(Vehicule inputVehicule, Point inputPosition){
         try {
             NamedParameterStatement updatePositionStatement = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_POISITION_REQUETE);
 
-            updatePositionStatement.setString("position_vehi", inputPosition);
+            updatePositionStatement.setString("position_vehi", inputPosition.toString());
             updatePositionStatement.setInt("id_vehi", inputVehicule.getId());
-
             // Execute SQL statement
             updatePositionStatement.executeUpdate();
 
@@ -195,5 +193,4 @@ private static final String SELECT_MOISSONNEUSE_AFFECTATION_REQUETE = "SELECT * 
             System.err.println(ex.getMessage());
         }
     }
-
 }
