@@ -170,12 +170,13 @@ public class MoissonSQL {
         return getMoissonList();
     }*/
 
-    public static void deleteMoisson(Moisson moisson) {
-        String request = "DELETE FROM Ordre WHERE id_com=:id";
+    public static void deleteMoisson(Vehicule vehicule, Commande commande) {
+        String request = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=id_vehi";
 
         try {
             NamedParameterStatement deleteMoisson = new NamedParameterStatement(DBConnection.getConnection(), request);
-            deleteMoisson.setInt("id", moisson.getId());
+            deleteMoisson.setInt("id_vehi", vehicule.getId());
+            deleteMoisson.setInt("id_vehi", commande.getId());
             deleteMoisson.executeUpdate();
 
             deleteMoisson.close();
