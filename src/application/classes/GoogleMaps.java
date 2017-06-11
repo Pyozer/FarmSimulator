@@ -36,7 +36,6 @@ public class GoogleMaps extends Region {
         javascriptOBJ.setMember("jsInterface", controller);
         webEngine.setOnAlert(e -> System.out.println(e.toString()));
         webEngine.setOnError(e -> System.err.println(e.toString()));
-
     }
 
     public void setParent(StackPane parent) {
@@ -50,7 +49,6 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Point sur la Map **/
     public void addMarker(int id, Point position, String title, String type, String etat) {
-        //System.out.println("addMarker(" + id + ", '" + position.x() + "', '" + position.y() + "', '" + title + "', '" + type + "', '" + etat + "')");
         javascriptOBJ.call("addMarker", id, position.x(), position.y(), title, type, etat);
     }
 
@@ -61,7 +59,6 @@ public class GoogleMaps extends Region {
     public void addChamp(int id, Culture culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
         try {
             javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
-            //System.out.println("addChamp(" + id + ", '" + culture + "', '" + proprio.toString() + "', '" + adresse + "', '" + surface + "', '" + coords.toString() + "', '" + ConvertColor.ColorFXToWeb(couleur) + "')");
         } catch (JSException e) {
             e.printStackTrace();
         }
