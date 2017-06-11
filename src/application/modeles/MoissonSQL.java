@@ -171,7 +171,7 @@ public class MoissonSQL {
     }*/
 
     public static void deleteMoisson(Vehicule vehicule, Commande commande) {
-        String request = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=id_vehi";
+        String request = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=:id_vehi";
 
         try {
             NamedParameterStatement deleteMoisson = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -186,4 +186,25 @@ public class MoissonSQL {
         }
     }
 
+    public static boolean isRapportExist(Commande selectedCommande, Vehicule selectedVehicule) {
+        String request = "SELECT heure_arrive_ordre FROM Ordre WHERE id_com=:id_com AND id_vehi=:id_vehi";
+
+        try {
+            NamedParameterStatement isRapportStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            isRapportStatement.setInt("id_vehi", selectedVehicule.getId());
+            isRapportStatement.setInt("id_com", selectedCommande.getId());
+
+            ResultSet rs = isRapportStatement.executeQuery();
+
+            while (rs.next()){
+                if(rs.getString("heure_arrive_ordre") != "0") return false;
+            }
+
+            isRapportStatement.close();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
 }

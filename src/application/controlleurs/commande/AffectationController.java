@@ -61,7 +61,10 @@ public class AffectationController {
 			selectedVehicule = vehicule;
 
             defineStateElements(true);
+		    if(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule)) defineStateDeleteRapport(true);
 		}
+
+
     }
 
     @FXML
@@ -130,7 +133,12 @@ public class AffectationController {
         delete_btn.setManaged(state);
         add_rapport_btn.setVisible(state);
         add_rapport_btn.setManaged(state);
-        delete_rapport_btn.setVisible(state);
-        delete_rapport_btn.setManaged(state);
     }
+
+    private void defineStateDeleteRapport(boolean b) {
+        delete_rapport_btn.setVisible(b);
+        delete_rapport_btn.setManaged(b);
+    }
+
+
 }
