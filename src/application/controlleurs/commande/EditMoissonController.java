@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,15 +31,13 @@ public class EditMoissonController implements Constant {
     @FXML private JFXTimePicker time_debut;
     @FXML private JFXTimePicker time_fin;
 
-    @FXML private Label title;
-
     private Commande selectedCommande;
     private Vehicule selectedVehicule;
 
     private AffectationController affectationController;
 
     private boolean isEdit = false;
-    private Moisson moissoneToEdit;
+    private Moisson moissonToEdit;
 
     /**
      * Initializes the controller class.
@@ -62,17 +61,16 @@ public class EditMoissonController implements Constant {
 
     public void initView(Moisson moisson) {
         if(isEdit) {
-            title.setText("Modifier le rapport");
 
-            moissoneToEdit = moisson;
+            moissonToEdit = moisson;
 
-            poid_recolte.setText("" +  moissoneToEdit.getNbTonne());
-            nb_Kilo.setText("" + moissoneToEdit.getNbKilo());
+            poid_recolte.setText(moissonToEdit.getNbTonne().toString());
+            nb_Kilo.setText(moissonToEdit.getNbKilo().toString());
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-            LocalDateTime fin = LocalDateTime.parse(moissoneToEdit.getH_fin(), formatter);
-            LocalDateTime debut = LocalDateTime.parse(moissoneToEdit.getH_debut(), formatter);
+            LocalDateTime fin = LocalDateTime.parse(moissonToEdit.getH_fin(), formatter);
+            LocalDateTime debut = LocalDateTime.parse(moissonToEdit.getH_debut(), formatter);
 
             LocalDate d_fin = fin.toLocalDate();
             LocalTime h_fin = fin.toLocalTime();
@@ -80,7 +78,7 @@ public class EditMoissonController implements Constant {
             LocalDate d_debut = debut.toLocalDate();
             LocalTime h_debut = debut.toLocalTime();
 
-            date_debut.setValue(d_fin);
+            date_debut.setValue(d_debut);
             time_debut.setValue(h_debut);
 
             date_fin.setValue(d_fin);
@@ -118,8 +116,11 @@ public class EditMoissonController implements Constant {
 
             MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDuree, inputDateTimeFin, inputDateTimeDebut, inputNbKilo, inputPoidRecolte);
 
-            AlertDialog alert = new AlertDialog("Succès", null, "Le rapport de moisson à bien été modifié !", Alert.AlertType.INFORMATION);
+            AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la moficiation", "Le rapport de moisson à bien été modifié !");
             alert.show();
+
+            Stage stage = (Stage) bpane.getScene().getWindow();
+            stage.close();
         }
     }
 

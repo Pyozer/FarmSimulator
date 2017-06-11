@@ -16,18 +16,16 @@ import java.sql.SQLException;
 public class MoissonSQL {
 
     public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, Float inputDuree, String inputH_fin, String inputH_deb, Float inputNbKilo, Float inputNbTonne) {
-        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, duree_ordre=:duree, heure_arrive_ordre=:heureArrive, heure_debut_ordre=:heureDebut" +
+        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, duree_ordre=:duree, heure_arrive_ordre=:heureArrive, heure_debut_ordre=:heureDebut " +
                 "WHERE id_vehi=:vehi AND id_com=:com";
 
         try {
             NamedParameterStatement editMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            System.out.println("id : " + inputVehicule.getId());
             editMoissonStatement.setFloat("tonnes", inputNbTonne);
             editMoissonStatement.setFloat("nbKilo", inputNbKilo );
             editMoissonStatement.setString("heureArrive", inputH_fin);
-            editMoissonStatement.setString("heureDebut" +
-                    "", inputH_deb);
+            editMoissonStatement.setString("heureDebut", inputH_deb);
             editMoissonStatement.setFloat("duree",  inputDuree);
             editMoissonStatement.setInt("vehi", inputVehicule.getId());
             editMoissonStatement.setInt("com", inputCommande.getId());
@@ -41,25 +39,6 @@ public class MoissonSQL {
             System.err.println(ex.getMessage());
         }
 
-    }
-
-    public static void addMoisson(Commande inputCommande, Vehicule inputVehicule) {
-            String request = "INSERT INTO Ordre(id_vehi, id_com) VALUES (:id_vehi, :id_com)";
-
-        try {
-            NamedParameterStatement addMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-
-            addMoissonStatement.setString("id_vehi", "" + inputVehicule.getId());
-            addMoissonStatement.setString("id_com", "" + inputCommande.getId());
-
-            // Execute SQL statement
-            addMoissonStatement.executeUpdate();
-
-            addMoissonStatement.close();
-        }
-        catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
     }
 
     public static ObservableList<Moisson> getMoissonList() {
@@ -199,13 +178,14 @@ public class MoissonSQL {
 
             ResultSet rs = isRapportStatement.executeQuery();
 
-            while (rs.next()){
-                System.out.println(rs.getString("heure_arrive_ordre"));
-                if(rs.getString("heure_arrive_ordre").equals("0")) return false;
-                else return true;
-            }
+            rs.next();
+
+            String value = rs.getString("heure_arrive_ordre");
+            System.out.println(value);
 
             isRapportStatement.close();
+
+            return !value.equals("0");
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

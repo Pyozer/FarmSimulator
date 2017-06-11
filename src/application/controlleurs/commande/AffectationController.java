@@ -97,7 +97,7 @@ public class AffectationController {
     public void editRapport(){
         SwitchView switchViewData = new SwitchView("commande/edit_moisson_app", Constant.ADD_COMMANDE_APP_TITLE);
         EditMoissonController editMoissonController = switchViewData.getFxmlLoader().getController();
-        editMoissonController.setEditionMode(true);
+        editMoissonController.setEditionMode(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule));
         editMoissonController.initView(MoissonSQL.getMoissonSelected(selectedCommande, selectedVehicule));
         editMoissonController.defineCommandeController(this);
         switchViewData.showScene();
