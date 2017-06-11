@@ -13,7 +13,7 @@
 
         <script type="text/javascript">
             var map;
-            var polygonDrawed;
+            var polygon;
             var drawingManager;
 
             function initMap() {
@@ -46,13 +46,13 @@
                         drawingControl: false
                     });
 
-                    polygonDrawed = e.overlay;
-                    polygonDrawed.type = e.type;
+                    polygon = e.overlay;
+                    polygon.type = e.type;
 
-                    console.log(polygonDrawed);
+                    console.log(polygon);
 
-                    google.maps.event.addListener(polygonDrawed, 'rightclick', deleteNode);
-                    jsInterface.setPolygonEdited(toJavaArray(polygonDrawed));
+                    google.maps.event.addListener(polygon, 'rightclick', deleteNode);
+                    jsInterface.setPolygonEdited(toJavaArray(polygon));
                 });
 
                 jsInterface.askToLoadChamps(); // On demande à Java de setup le champ
@@ -60,16 +60,9 @@
 
             /** Ajouter un champ à la Map **/
             function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
-                var path = [];
-                var coordsParse = JSON.parse(coords);
 
-                coordsParse.forEach(function(point){
-                    var split = point.toString().split(",");
-                    path.push(new google.maps.LatLng(split[0], split[1]));
-                });
-
-                polygonDrawed = new google.maps.Polygon({
-                  paths: path,
+                polygon = new google.maps.Polygon({
+                  paths: toJavascriptArray(coords),
                   id: id,
                   strokeWeight: 3,
                   strokeColor: '#000000',
@@ -77,22 +70,22 @@
                   editable: true
                 });
 
-                polygonDrawed.setMap(map);
-                map.setCenter(getPolygonCenter(polygonDrawed));
+                polygon.setMap(map);
+                map.setCenter(getPolygonCenter(polygon));
 
-                polygonDrawed.addListener('rightclick', deleteNode);
+                polygon.addListener('rightclick', deleteNode);
 
-                polygonDrawed.getPaths().forEach(function(path, index){
+                polygon.getPaths().forEach(function(path, index){
                     google.maps.event.addListener(path, 'insert_at', function(){
-                        jsInterface.setPolygonEdited(toJavaArray(polygonDrawed));
+                        jsInterface.setPolygonEdited(toJavaArray(polygon));
                     });
 
                     google.maps.event.addListener(path, 'remove_at', function(){
-                        jsInterface.setPolygonEdited(toJavaArray(polygonDrawed));
+                        jsInterface.setPolygonEdited(toJavaArray(polygon));
                     });
 
                     google.maps.event.addListener(path, 'set_at', function(){
-                        jsInterface.setPolygonEdited(toJavaArray(polygonDrawed));
+                        jsInterface.setPolygonEdited(toJavaArray(polygon));
                     });
                 });
 
@@ -101,45 +94,12 @@
                     drawingControl: false
                 });
             }
-
-            function getPolygonCenter(polygon) {
-                var bounds = new google.maps.LatLngBounds();
-                var vertices = polygon.getPath();
-                for (var i = 0; i < vertices.getLength(); i++) {
-                    bounds.extend(vertices.getAt(i));
-                }
-                return bounds.getCenter();
-            }
-
-            function toJavaArray(polygon) {
-                var javaArray = "[";
-
-                var vertices = polygon.getPath();
-                var length = vertices.getLength();
-
-                vertices.forEach(function(xy, i) {
-                    javaArray += "[" + xy.lat() + ',' + xy.lng() + "]";
-                    if(i < length - 1)
-                        javaArray += ",";
-                });
-                javaArray += "]";
-
-                return javaArray;
-            }
-
-            var deleteNode = function deleteNode(mev) {
-                if (mev.vertex != null) {
-                    polygonDrawed.getPath().removeAt(mev.vertex);
-                }
-                if(polygonDrawed.getPath().getLength() < 2) {
-                    polygonDrawed.setMap(null);
-                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-                    drawingManager.setOptions({
-                       drawingControl: true
-                    });
-                }
-            }
         </script>
+        <script src="../javascript/getCenterPolygon.js"></script>
+        <script src="../javascript/removeVerticePolygon.js"></script>
+        <script src="../javascript/toJavaArray.js"></script>
+        <script src="../javascript/toJavascriptArray.js"></script>
+        <script src="../javascript/removeAllChamps.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap&libraries=drawing" async defer></script>
     </body>
 </html>

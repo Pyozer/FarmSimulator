@@ -47,7 +47,7 @@ public class ClientController implements APIGoogleMap  {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        gMaps = new GoogleMaps("maps_client_champ", this);
+        gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
 
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -71,7 +71,7 @@ public class ClientController implements APIGoogleMap  {
 
 			listInfos.getItems().setAll(agriculteur.getInformations());
 
-			gMaps.removeAll();
+			gMaps.removeAllChamps();
 			for(Champ champ : ClientSQL.getClientsChampsList(agriculteur.getId()))
 				gMaps.addChamp(champ);
 		}
@@ -115,7 +115,7 @@ public class ClientController implements APIGoogleMap  {
     }
 
     public void askToLoadChamps() {
-        gMaps.removeAll();
+        gMaps.removeAllChamps();
         for(Champ champ : ClientSQL.getClientsChampsList()) {
             gMaps.addChamp(champ);
         }

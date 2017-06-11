@@ -50,7 +50,7 @@ public class GlobalController implements APIGoogleMap {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        gMaps = new GoogleMaps("maps_global", this);
+        gMaps = new GoogleMaps("global/maps_global", this);
         gMaps.setParent(googleMaps);
 
         column_date.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -83,7 +83,7 @@ public class GlobalController implements APIGoogleMap {
     }
 
     public void askToLoadData() {
-        gMaps.removeAll();
+        gMaps.removeAllChampsMarkers();
         for (Champ champ : ChampSQL.getChampsList())
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
 
@@ -140,7 +140,7 @@ public class GlobalController implements APIGoogleMap {
 
         defineStateElements(false);
 
-        gMaps.removeAll();
+        gMaps.removeAllChampsMarkers();
         askToLoadData();
     }
 

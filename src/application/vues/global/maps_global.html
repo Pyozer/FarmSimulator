@@ -26,24 +26,6 @@
             var markers = [];
             var markerCluster;
 
-            var affectSelection = false;
-
-            var iconBase = '../images/';
-            var icons = {
-                Eta: {
-                    icon: iconBase + 'marker_eta.png'
-                },
-                Moissonneuse: {
-                    icon: iconBase + 'marker_moissonneuse.png'
-                },
-                Tracteur: {
-                    icon: iconBase + 'marker_tracteur.png'
-                },
-                Botteleuse: {
-                    icon: iconBase + 'marker_botteleuse.png'
-                }
-            };
-
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
 
@@ -59,12 +41,7 @@
 
                 infowindow = new google.maps.InfoWindow();
 
-                markerOrigin = new google.maps.Marker({
-                    position: latLng,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    title: 'Les rivière, Janzé'
-                });
+                markerOrigin = createMarker(map, latLng);
 
                 // Itinéraire qui peut être afficher
                 directionsDisplay = new google.maps.DirectionsRenderer({
@@ -75,17 +52,7 @@
                     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
                 // Rayon de 20km autour du point de départ
-                var cityCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.7,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.03,
-                    map: map,
-                    center: latLng,
-                    radius: 20 * 1000,
-                    clickable: false
-                });
+                createCircle(map, latLng);
 
                 map.addListener("click", function() {
                     if (flightPath != null) {
@@ -108,15 +75,6 @@
                 jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
             }
 
-            function getPolygonCenter(polygon) {
-                var bounds = new google.maps.LatLngBounds();
-                var vertices = polygon.getPath();
-                for (var i = 0; i < vertices.getLength(); i++) {
-                    bounds.extend(vertices.getAt(i));
-                }
-                return bounds.getCenter();
-            }
-
             /** Ajouter un marker à la Map **/
             function addMarker(id, latitude, longitude, title, type, etat) {
 
@@ -132,16 +90,10 @@
                 });
 
                 marker.addListener('click', function(event) {
-                    if(affectSelection) {
-                        jsInterface.defineVehiculeAffect(marker.id);
+                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                    'Type: ' + marker.type + '<br />' +
+                    'Etat: ' + marker.etat + '<br />';
 
-                        var contentString = '<strong>AFFECTATION</strong><br /><br />' +
-                            'Véhicule choisi pour l\'affectation.';
-                    } else {
-                        var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
-                        'Type: ' + marker.type + '<br />' +
-                        'Etat: ' + marker.etat + '<br />';
-                    }
                     infowindow.setContent(contentString);
                     infowindow.open(map, marker);
 
@@ -176,17 +128,9 @@
 
             /** Ajouter un champ à la Map **/
             function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
-                var path = [];
-                var coordsParse = JSON.parse(coords);
-
-                coordsParse.forEach(function(point){
-                    var split = point.toString().split(",");
-                    path.push(new google.maps.LatLng(split[0], split[1]));
-
-                });
 
                 var polygon = new google.maps.Polygon({
-                  paths: path,
+                  paths: toJavascriptArray(coords),
                   id: id,
                   culture: culture,
                   proprio: proprio,
@@ -216,20 +160,13 @@
 
                 polygon.addListener('click', function(event) {
 
-                    if(!affectSelection) {
-                        jsInterface.setFirstChamp(getPolygonCenter(polygon));
+                    jsInterface.setFirstChamp(getPolygonCenter(polygon));
 
-                        var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
-                            'Culture: ' + polygon.culture + '<br />' +
-                            'Propriétaire: ' + polygon.proprio + '<br />' +
-                            'Adresse: ' + polygon.adresse + '<br />' +
-                            'Surface: ' + polygon.surface + ' m²';
-                    } else {
-                        jsInterface.defineChampAffect(polygon.id);
-
-                        var contentString = '<strong>AFFECTATION</strong><br /><br />' +
-                            'Le champ a été choisi pour l\'affectation.';
-                    }
+                    var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
+                        'Culture: ' + polygon.culture + '<br />' +
+                        'Propriétaire: ' + polygon.proprio + '<br />' +
+                        'Adresse: ' + polygon.adresse + '<br />' +
+                        'Surface: ' + polygon.surface + ' m²';
 
                     polygon.setOptions(selectedStyle);
 
@@ -307,19 +244,6 @@
 
             }
 
-            /** Cache tous les champs **/
-            function removeAll() {
-                infowindow.close();
-                for (var i = 0; i < champs.length; i++)
-                    champs[i].setMap(null);
-                champs = [];
-
-                for (var i = 0; i < markers.length; i++)
-                    markers[i].setMap(null);
-                markers = [];
-                markerCluster.clearMarkers();
-            }
-
             /** Calcule un itinéraire entre 2 points **/
             function calculate(origin, destination) {
                 if (origin && destination) {
@@ -378,20 +302,16 @@
                 infowindow.setPosition(getLineCenter(flightPlanCoordinates));
                 infowindow.open(map);
             }
-
-            /** Refresh **/
-            function refresh() {
-                map.setZoom(map.getZoom() - 1);
-                map.setZoom(map.getZoom() + 1);
-            }
-
-            function enableAffectSelection() {
-                affectSelection = true;
-            }
-            function disableAffectSelection() {
-                affectSelection = false;
-            }
         </script>
+        <script src="../javascript/initCircle.js"></script>
+        <script src="../javascript/initIconsMarkers.js"></script>
+        <script src="../javascript/initMarkerOrigin.js"></script>
+        <script src="../javascript/getCenterPolygon.js"></script>
+        <script src="../javascript/refreshMap.js"></script>
+        <script src="../javascript/toJavascriptArray.js"></script>
+        <script src="../javascript/removeAllChamps.js"></script>
+        <script src="../javascript/removeAllMarkers.js"></script>
+
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>

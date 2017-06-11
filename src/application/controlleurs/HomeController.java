@@ -39,7 +39,7 @@ public class HomeController {
     }
 
     public void handleGlobal() {
-        SwitchView switchView = new SwitchView("global_app", Constant.CHAMP_APP_TITLE);
+        SwitchView switchView = new SwitchView("global/global_app", Constant.CHAMP_APP_TITLE);
         switchView.showScene();
     }
 

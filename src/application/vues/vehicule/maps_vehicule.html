@@ -18,22 +18,6 @@
             var markers = [];
             var markerCluster;
 
-            var iconBase = '../../images/';
-            var icons = {
-                Eta: {
-                    icon: iconBase + 'marker_eta.png'
-                },
-                Moissonneuse: {
-                    icon: iconBase + 'marker_moissonneuse.png'
-                },
-                Tracteur: {
-                    icon: iconBase + 'marker_tracteur.png'
-                },
-                Botteleuse: {
-                    icon: iconBase + 'marker_botteleuse.png'
-                }
-            };
-
             function initMap() {
                 var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
 
@@ -49,29 +33,13 @@
 
                 infowindow = new google.maps.InfoWindow();
 
-                markerOrigin = new google.maps.Marker({
-                    position: latLng,
-                    icon: icons['Eta'].icon,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    title: 'Les rivières, Janzé'
-                });
+                markerOrigin = createMarker(map, latLng);
 
                 markerCluster = new MarkerClusterer(map, [],
                     {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});                
 
                 // Rayon de 20km autour du point de départ
-                var cityCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.7,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.03,
-                    map: map,
-                    center: latLng,
-                    radius: 20 * 1000,
-                    clickable: false
-                });
+                createCircle(map, latLng);
 
                 map.addListener('click', function(event) {
                     infowindow.close();
@@ -122,24 +90,13 @@
 
                 refresh();
             }
-
-            /** Supprime tous les Marker **/
-            function removeAll() {
-                infowindow.close();
-                for (var i = 0; i < markers.length; i++)
-                    markers[i].setMap(null);
-                markers = [];
-                markerCluster.clearMarkers();
-            }
-
-
-            /** Refresh **/
-            function refresh() {
-                map.setZoom(map.getZoom() - 1);
-                map.setZoom(map.getZoom() + 1);
-            }
         </script>
 
+        <script src="../javascript/initCircle.js"></script>
+        <script src="../javascript/initIconsMarkers.js"></script>
+        <script src="../javascript/initMarkerOrigin.js"></script>
+        <script src="../javascript/refreshMap.js"></script>
+        <script src="../javascript/removeAllMarkers.js"></script>
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
 

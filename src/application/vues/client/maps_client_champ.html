@@ -28,32 +28,17 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
                 });
 
-                //var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
-                //trafficLayer.setMap(map);
+                var trafficLayer = new google.maps.TrafficLayer(); // Ajout des données traffic
+                trafficLayer.setMap(map);
 
                 infowindow = new google.maps.InfoWindow();
 
-                markerOrigin = new google.maps.Marker({
-                    position: latLng,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    title: 'Les rivières, Janzé'
-                });
+                markerOrigin = createMarker(map, latLng);
 
                 jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
 
                 // Rayon de 20km autour du point de départ
-                var cityCircle = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.7,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.03,
-                    map: map,
-                    center: latLng,
-                    radius: 20 * 1000,
-                    clickable: false
-                });
+                createCircle(map, latLng);
 
                 map.addListener("click", function(){
                     for (var i = 0; i < champs.length; i++)
@@ -69,27 +54,11 @@
 
             }
 
-            function getPolygonCenter(polygon) {
-                var bounds = new google.maps.LatLngBounds();
-                var vertices = polygon.getPath();
-                for (var i = 0; i < vertices.getLength(); i++) {
-                    bounds.extend(vertices.getAt(i));
-                }
-                return bounds.getCenter();
-            }
-
             /** Ajouter un champ à la Map **/
             function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
-                var path = [];
-                var coordsParse = JSON.parse(coords);
-
-                coordsParse.forEach(function(point){
-                    var split = point.toString().split(",");
-                    path.push(new google.maps.LatLng(split[0], split[1]));
-                });
 
                 var polygon = new google.maps.Polygon({
-                  paths: path,
+                  paths: toJavascriptArray(coords),
                   id: id,
                   culture: culture,
                   proprio: proprio,
@@ -158,14 +127,14 @@
 
             }
 
-            /** Cache tous les champs **/
-            function removeAll() {
-                infowindow.close();
-                for (var i = 0; i < champs.length; i++)
-                    champs[i].setMap(null);
-                champs = [];
-            }
         </script>
+        <script src="../javascript/initCircle.js"></script>
+        <script src="../javascript/initIconsMarkers.js"></script>
+        <script src="../javascript/initMarkerOrigin.js"></script>
+        <script src="../javascript/getCenterPolygon.js"></script>
+        <script src="../javascript/toJavascriptArray.js"></script>
+        <script src="../javascript/removeAllChamps.js"></script>
+
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>
 </html>

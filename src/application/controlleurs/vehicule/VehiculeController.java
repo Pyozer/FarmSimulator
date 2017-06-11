@@ -138,7 +138,7 @@ public class VehiculeController implements APIGoogleMap {
     }
 
     public void askToLoadMarkers() {
-		gMaps.removeAll();
+		gMaps.removeAllMarkers();
         for(Vehicule vehicule : vehiculeList) {
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
         }

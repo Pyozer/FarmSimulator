@@ -83,7 +83,6 @@ public class EditChampController implements APIGoogleMap {
     }
 
     public void askToLoadChamps() {
-        gMaps.removeAll();
         gMaps.addChamp(selectedChamp);
     }
 

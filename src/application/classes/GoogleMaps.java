@@ -72,9 +72,20 @@ public class GoogleMaps extends Region {
         javascriptOBJ.call("hideAllExceptOne", id);
     }
 
+    /** Réaffiche tous les champs sur la carte **/
+    public void removeAllChamps() {
+        javascriptOBJ.call("removeAllChamps");
+    }
+
     /** Réaffiche tous les markers sur la carte **/
-    public void removeAll() {
-        javascriptOBJ.call("removeAll");
+    public void removeAllMarkers() {
+        javascriptOBJ.call("removeAllMarkers");
+    }
+
+    /** Réaffiche tous les champs et markers sur la carte **/
+    public void removeAllChampsMarkers() {
+        javascriptOBJ.call("removeAllChamps");
+        javascriptOBJ.call("removeAllMarkers");
     }
 
 }
