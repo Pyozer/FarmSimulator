@@ -31,7 +31,6 @@ public class AffectationController {
 
 	@FXML private JFXButton delete_btn;
 	@FXML private JFXButton add_rapport_btn;
-    @FXML private JFXButton edit_rapport_btn;
     @FXML private JFXButton delete_rapport_btn;
 
 
@@ -109,8 +108,7 @@ public class AffectationController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            MoissonSQL.deleteMoisson(selectedCommande, selectedVehicule);
-            clearAllSelection();
+            MoissonSQL.deleteMoisson(selectedVehicule, selectedCommande);
         } else {
             alert.close();
         }

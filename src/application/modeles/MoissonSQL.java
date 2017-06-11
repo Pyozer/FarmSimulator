@@ -176,7 +176,7 @@ public class MoissonSQL {
         try {
             NamedParameterStatement deleteMoisson = new NamedParameterStatement(DBConnection.getConnection(), request);
             deleteMoisson.setInt("id_vehi", vehicule.getId());
-            deleteMoisson.setInt("id_vehi", commande.getId());
+            deleteMoisson.setInt("id_com", commande.getId());
             deleteMoisson.executeUpdate();
 
             deleteMoisson.close();
