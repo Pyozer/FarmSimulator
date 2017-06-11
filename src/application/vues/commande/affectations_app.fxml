@@ -34,7 +34,7 @@
                             <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
                         </graphic>
                     </JFXButton>
-                    <JFXButton fx:id="rapport_btn" text="Rapport de moisson" managed="false" onAction="#newRapport" styleClass="btn, btn-primary" prefHeight="40">
+                    <JFXButton fx:id="add_rapport_btn" text="Rapport de moisson" managed="false" onAction="#newRapport" styleClass="btn, btn-primary" prefHeight="40">
                         <graphic>
                             <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="16.0" wrappingWidth="18" />
                         </graphic>
