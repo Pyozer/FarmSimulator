@@ -20,6 +20,9 @@ public class Moisson {
         this.datetime_debut = datetime_debut;
         this.nbKilo = nbKilo;
         this.nbTonne = nbTonne;
+
+        System.out.println(datetime_debut);
+        System.out.println(datetime_fin);
     }
 
 

@@ -180,31 +180,34 @@ public class MoissonSQL {
 
     public static Moisson getMoissonSelected(Commande selectedCommande, Vehicule selectedVehicule) {
         String request = "SELECT id_ordre, heure_arrive_ordre, heure_fin_ordre, nb_km_ordre, tonnes_ordre FROM Ordre Where id_vehi=:id_vehi AND id_com=:id_com";
-        Moisson moisson = null;
         try {
             NamedParameterStatement getMoissonSelected = new NamedParameterStatement(DBConnection.getConnection(), request);
             getMoissonSelected.setInt("id_vehi", selectedVehicule.getId());
             getMoissonSelected.setInt("id_com", selectedCommande.getId());
 
             ResultSet rs = getMoissonSelected.executeQuery();
+            rs.next();
 
-            while (rs.next()){
-               moisson = new Moisson(
-                       rs.getInt("id_ordre"),
-                       selectedCommande,
-                       selectedVehicule,
-                       rs.getString("heure_arrive_ordre"),
-                       rs.getString("heure_fin_ordre"),
-                       rs.getFloat("nb_km_ordre"),
-                       rs.getFloat("tonnes_ordre")
-               );
-            }
+            String inputDebut = rs.getString("heure_arrive_ordre");
+            String inputFin = rs.getString("heure_fin_ordre");
+
+            Moisson moisson = new Moisson(
+                    rs.getInt("id_ordre"),
+                    selectedCommande,
+                    selectedVehicule,
+                    inputDebut.substring(0, inputDebut.length() - 2),
+                    inputFin.substring(0, inputFin.length() - 2),
+                    rs.getFloat("nb_km_ordre"),
+                    rs.getFloat("tonnes_ordre")
+            );
 
             getMoissonSelected.close();
+
+            return moisson;
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return moisson;
+        return null;
     }
 }

@@ -67,7 +67,7 @@ public class EditMoissonController implements Constant {
             poid_recolte.setText(moissonToEdit.getNbTonne().toString());
             nb_Kilo.setText(moissonToEdit.getNbKilo().toString());
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             System.out.println(moissonToEdit.getDatetimeFin());
             LocalDateTime fin = LocalDateTime.parse(moissonToEdit.getDatetimeFin(), formatter);
@@ -99,7 +99,7 @@ public class EditMoissonController implements Constant {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
             LocalDateTime tempInputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
