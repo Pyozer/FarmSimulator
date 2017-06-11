@@ -19,18 +19,18 @@ public class CommandeSQL {
         String request = "INSERT INTO Commande(date_com, bott_com, transp_com, taille_max_transp_com, id_champ) VALUES(:date, :bott, :transp, :tMaxTransp, :champ)";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement addCommandeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("date", inputDate);
-            preparedStatement.setString("bott", inputTypeBott);
-            preparedStatement.setString("transp", inputTransport);
-            preparedStatement.setFloat("tMaxTransp", inputTailleMax);
-            preparedStatement.setInt("champ", inputChamp.getId());
+            addCommandeStatement.setString("date", inputDate);
+            addCommandeStatement.setString("bott", inputTypeBott);
+            addCommandeStatement.setString("transp", inputTransport);
+            addCommandeStatement.setFloat("tMaxTransp", inputTailleMax);
+            addCommandeStatement.setInt("champ", inputChamp.getId());
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            addCommandeStatement.executeUpdate();
 
-            preparedStatement.close();
+            addCommandeStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -41,19 +41,19 @@ public class CommandeSQL {
             String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, effectuer_com=:effectuer_com WHERE id_com=:id_com";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement editCommandeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("date_com", commande.getDate().toString());
-            preparedStatement.setString("bott_com", commande.getTypebott());
-            preparedStatement.setString("transp_com", commande.getTransport());
-            preparedStatement.setFloat("taille_max_transp_com", commande.getTaillemax());
-            preparedStatement.setInt("id_com", commande.getId());
-            preparedStatement.setInt("effectuer_com", commande.isEffectuer() ? 1 : 0);
+            editCommandeStatement.setString("date_com", commande.getDate().toString());
+            editCommandeStatement.setString("bott_com", commande.getTypebott());
+            editCommandeStatement.setString("transp_com", commande.getTransport());
+            editCommandeStatement.setFloat("taille_max_transp_com", commande.getTaillemax());
+            editCommandeStatement.setInt("id_com", commande.getId());
+            editCommandeStatement.setInt("effectuer_com", commande.isEffectuer() ? 1 : 0);
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            editCommandeStatement.executeUpdate();
 
-            preparedStatement.close();
+            editCommandeStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -96,9 +96,9 @@ public class CommandeSQL {
         ObservableList<Commande> commandeList = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement getCommandeStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = getCommandeStatement.executeQuery();
 
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
@@ -134,7 +134,7 @@ public class CommandeSQL {
             }
 
             rs.close();
-            preparedStatement.close();
+            getCommandeStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -145,11 +145,11 @@ public class CommandeSQL {
         String request = "DELETE FROM Commande WHERE id_com=:id";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setInt("id", commande.getId());
-            preparedStatement.executeUpdate();
+            NamedParameterStatement deleteCommandeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            deleteCommandeStatement.setInt("id", commande.getId());
+            deleteCommandeStatement.executeUpdate();
 
-            preparedStatement.close();
+            deleteCommandeStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

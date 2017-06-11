@@ -25,9 +25,9 @@ public class ClientSQL {
 
         ObservableList<Agriculteur> clientList = FXCollections.observableArrayList();
         try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement getClientsStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = getClientsStatement.executeQuery();
 
             while (rs.next()) {
                 clientList.add(new Agriculteur(
@@ -42,7 +42,7 @@ public class ClientSQL {
             }
 
             rs.close();
-            preparedStatement.close();
+            getClientsStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -64,9 +64,9 @@ public class ClientSQL {
 
         ObservableList<Champ> clientChampList = FXCollections.observableArrayList();
         try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement getClientChampStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = getClientChampStatement.executeQuery();
 
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
@@ -92,7 +92,7 @@ public class ClientSQL {
             }
 
             rs.close();
-            preparedStatement.close();
+            getClientChampStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -105,19 +105,19 @@ public class ClientSQL {
                 "VALUES(:nom, :prenom, :adresse, :tel, :email, :couleur)";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement addClientStratement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("nom", inputNom);
-            preparedStatement.setString("prenom", inputPrenom);
-            preparedStatement.setString("tel", inputTel);
-            preparedStatement.setString("adresse", inputAdresse);
-            preparedStatement.setString("email", inputEmail);
-            preparedStatement.setString("couleur", ConvertColor.ColorFXToWeb(inputCouleur));
+            addClientStratement.setString("nom", inputNom);
+            addClientStratement.setString("prenom", inputPrenom);
+            addClientStratement.setString("tel", inputTel);
+            addClientStratement.setString("adresse", inputAdresse);
+            addClientStratement.setString("email", inputEmail);
+            addClientStratement.setString("couleur", ConvertColor.ColorFXToWeb(inputCouleur));
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            addClientStratement.executeUpdate();
 
-            preparedStatement.close();
+            addClientStratement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -129,20 +129,20 @@ public class ClientSQL {
                 "WHERE id_agri=:id_agri";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement editClientStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("nom_agri", agri.getNom());
-            preparedStatement.setString("prenom_agri", agri.getPrenom());
-            preparedStatement.setString("adr_agri", agri.getAdresse());
-            preparedStatement.setString("tel_agri", agri.getNum_tel());
-            preparedStatement.setString("email_agri", agri.getEmail());
-            preparedStatement.setString("couleur_agri", ConvertColor.ColorFXToWeb(agri.getCouleur()));
-            preparedStatement.setInt("id_agri", agri.getId());
+            editClientStatement.setString("nom_agri", agri.getNom());
+            editClientStatement.setString("prenom_agri", agri.getPrenom());
+            editClientStatement.setString("adr_agri", agri.getAdresse());
+            editClientStatement.setString("tel_agri", agri.getNum_tel());
+            editClientStatement.setString("email_agri", agri.getEmail());
+            editClientStatement.setString("couleur_agri", ConvertColor.ColorFXToWeb(agri.getCouleur()));
+            editClientStatement.setInt("id_agri", agri.getId());
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            editClientStatement.executeUpdate();
 
-            preparedStatement.close();
+            editClientStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -153,11 +153,11 @@ public class ClientSQL {
         String request = "DELETE FROM Agriculteur WHERE id_agri=:id";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setInt("id", agriculteur.getId());
-            preparedStatement.executeUpdate();
+            NamedParameterStatement deleteClient = new NamedParameterStatement(DBConnection.getConnection(), request);
+            deleteClient.setInt("id", agriculteur.getId());
+            deleteClient.executeUpdate();
 
-            preparedStatement.close();
+            deleteClient.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

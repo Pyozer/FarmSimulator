@@ -24,9 +24,9 @@ public class ChampSQL {
 
         ObservableList<Champ> champList = FXCollections.observableArrayList();
         try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement getChampsStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = getChampsStatement.executeQuery();
 
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
@@ -52,7 +52,7 @@ public class ChampSQL {
             }
 
             rs.close();
-            preparedStatement.close();
+            getChampsStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -64,9 +64,9 @@ public class ChampSQL {
 
         List<Culture> listCulture = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement getTypeChampStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = getTypeChampStatement.executeQuery();
 
             while (rs.next()) {
 
@@ -77,7 +77,7 @@ public class ChampSQL {
             }
 
             rs.close();
-            preparedStatement.close();
+            getTypeChampStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -90,17 +90,17 @@ public class ChampSQL {
                 "VALUES(:surf_champ, :adr_champ, :coord_centre_champ, :coords_champ, :type_champ, :id_agri)";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setFloat("surf_champ", surf_champ);
-            preparedStatement.setString("adr_champ", adr_champ);
-            preparedStatement.setString("coord_centre_champ", coord_centre.toString());
-            preparedStatement.setString("coords_champ", coords_champ.toString());
-            preparedStatement.setInt("type_champ", type_champ.getId());
-            preparedStatement.setInt("id_agri", proprio.getId());
+            NamedParameterStatement addChampStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            addChampStatement.setFloat("surf_champ", surf_champ);
+            addChampStatement.setString("adr_champ", adr_champ);
+            addChampStatement.setString("coord_centre_champ", coord_centre.toString());
+            addChampStatement.setString("coords_champ", coords_champ.toString());
+            addChampStatement.setInt("type_champ", type_champ.getId());
+            addChampStatement.setInt("id_agri", proprio.getId());
 
-            preparedStatement.executeUpdate();
+            addChampStatement.executeUpdate();
 
-            preparedStatement.close();
+            addChampStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -112,18 +112,18 @@ public class ChampSQL {
                 "id_agri=:id_agri WHERE id_champ=:id_champ";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setFloat("surf_champ", champ.getSurface());
-            preparedStatement.setString("adr_champ", champ.getAdresse());
-            preparedStatement.setString("coord_centre_champ", champ.getCoordCenter().toString());
-            preparedStatement.setString("coords_champ", champ.getCoordChamp().toString());
-            preparedStatement.setInt("type_champ", champ.getType_culture().getId());
-            preparedStatement.setInt("id_agri", champ.getProprietaire().getId());
-            preparedStatement.setInt("id_champ", champ.getId());
+            NamedParameterStatement editChampStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            editChampStatement.setFloat("surf_champ", champ.getSurface());
+            editChampStatement.setString("adr_champ", champ.getAdresse());
+            editChampStatement.setString("coord_centre_champ", champ.getCoordCenter().toString());
+            editChampStatement.setString("coords_champ", champ.getCoordChamp().toString());
+            editChampStatement.setInt("type_champ", champ.getType_culture().getId());
+            editChampStatement.setInt("id_agri", champ.getProprietaire().getId());
+            editChampStatement.setInt("id_champ", champ.getId());
 
-            preparedStatement.executeUpdate();
+            editChampStatement.executeUpdate();
 
-            preparedStatement.close();
+            editChampStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -134,11 +134,11 @@ public class ChampSQL {
         String request = "DELETE FROM Champ WHERE id_champ=:id";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setInt("id", champ.getId());
-            preparedStatement.executeUpdate();
+            NamedParameterStatement deleteChampStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            deleteChampStatement.setInt("id", champ.getId());
+            deleteChampStatement.executeUpdate();
 
-            preparedStatement.close();
+            deleteChampStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

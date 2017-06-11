@@ -20,20 +20,20 @@ public class MoissonSQL {
                 "WHERE id_vehi=:vehi AND id_com=:com";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement editMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             System.out.println("id : " + inputVehicule.getId());
-            preparedStatement.setFloat("tonnes", inputNbTonne);
-            preparedStatement.setFloat("nbKilo", inputNbKilo );
-            preparedStatement.setString("heureArrive", inputH_fin);
-            preparedStatement.setFloat("duree",  inputDuree);
-            preparedStatement.setInt("vehi", inputVehicule.getId());
-            preparedStatement.setInt("com", inputCommande.getId());
+            editMoissonStatement.setFloat("tonnes", inputNbTonne);
+            editMoissonStatement.setFloat("nbKilo", inputNbKilo );
+            editMoissonStatement.setString("heureArrive", inputH_fin);
+            editMoissonStatement.setFloat("duree",  inputDuree);
+            editMoissonStatement.setInt("vehi", inputVehicule.getId());
+            editMoissonStatement.setInt("com", inputCommande.getId());
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            editMoissonStatement.executeUpdate();
 
-            preparedStatement.close();
+            editMoissonStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -45,15 +45,15 @@ public class MoissonSQL {
             String request = "INSERT INTO Ordre(id_vehi, id_com) VALUES (:id_vehi, :id_com)";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement addMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("id_vehi", "" + inputVehicule.getId());
-            preparedStatement.setString("id_com", "" + inputCommande.getId());
+            addMoissonStatement.setString("id_vehi", "" + inputVehicule.getId());
+            addMoissonStatement.setString("id_com", "" + inputCommande.getId());
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            addMoissonStatement.executeUpdate();
 
-            preparedStatement.close();
+            addMoissonStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -71,9 +71,9 @@ public class MoissonSQL {
         ObservableList<Moisson> moissonList = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement getMoissonStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute SQL statement
-            ResultSet rs = preparedStatement.executeQuery();
+            ResultSet rs = getMoissonStatement.executeQuery();
 
             while (rs.next()) {
 
@@ -159,7 +159,7 @@ public class MoissonSQL {
             }
 
             rs.close();
-            preparedStatement.close();
+            getMoissonStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -174,11 +174,11 @@ public class MoissonSQL {
         String request = "DELETE FROM Ordre WHERE id_com=:id";
 
         try {
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            preparedStatement.setInt("id", moisson.getId());
-            preparedStatement.executeUpdate();
+            NamedParameterStatement deleteMoisson = new NamedParameterStatement(DBConnection.getConnection(), request);
+            deleteMoisson.setInt("id", moisson.getId());
+            deleteMoisson.executeUpdate();
 
-            preparedStatement.close();
+            deleteMoisson.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

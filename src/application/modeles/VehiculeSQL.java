@@ -35,14 +35,14 @@ public class VehiculeSQL {
 
     private static int addVehicule(String marque, String modele, String etat, String position) throws SQLException{
         // On insert le vehicule
-        NamedParameterStatement insertVehiStmt = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE);
-        insertVehiStmt.setString("marque", marque);
-        insertVehiStmt.setString("modele", modele);
-        insertVehiStmt.setString("etat", etat);
-        insertVehiStmt.setString("position", position);
+        NamedParameterStatement addVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE);
+        addVehiculeStatement.setString("marque", marque);
+        addVehiculeStatement.setString("modele", modele);
+        addVehiculeStatement.setString("etat", etat);
+        addVehiculeStatement.setString("position", position);
 
-        insertVehiStmt.executeUpdate();
-        insertVehiStmt.close();
+        addVehiculeStatement.executeUpdate();
+        addVehiculeStatement.close();
 
         // On récupère l'ID du vehicule ajouté
         PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(GET_ID_VEHI);
@@ -59,17 +59,17 @@ public class VehiculeSQL {
 
     private static void editVehicule(int id, String marque, String modele, String etat, String position) throws SQLException{
         // On update le vehicule
-        NamedParameterStatement preparedStmtVehi = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
+        NamedParameterStatement editVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
 
-        preparedStmtVehi.setString("marque_vehi", marque);
-        preparedStmtVehi.setString("modele_vehi", modele);
-        preparedStmtVehi.setString("etat_vehi", etat);
-        preparedStmtVehi.setString("position_vehi", position);
-        preparedStmtVehi.setInt("id_vehi", id);
+        editVehiculeStatement.setString("marque_vehi", marque);
+        editVehiculeStatement.setString("modele_vehi", modele);
+        editVehiculeStatement.setString("etat_vehi", etat);
+        editVehiculeStatement.setString("position_vehi", position);
+        editVehiculeStatement.setInt("id_vehi", id);
         // Execute SQL statement
-        preparedStmtVehi.executeUpdate();
+        editVehiculeStatement.executeUpdate();
 
-        preparedStmtVehi.close();
+        editVehiculeStatement.close();
     }
 
     private static void loadTracteur() {
@@ -77,9 +77,9 @@ public class VehiculeSQL {
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement loadTrateurStatement = DBConnection.getConnection().prepareStatement(request);
             // Execute select SQL statement
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = loadTrateurStatement.executeQuery();
 
             while (rs.next()) {
                 Point position = JSONManager.readPoint(rs.getString("position_vehi"));
@@ -94,7 +94,7 @@ public class VehiculeSQL {
                 ));
             }
             rs.close();
-            stmt.close();
+            loadTrateurStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -105,10 +105,10 @@ public class VehiculeSQL {
                 "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement loadBotteleuseStatement = DBConnection.getConnection().prepareStatement(request);
 
             // execute select SQL stetement
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = loadBotteleuseStatement.executeQuery();
 
             while (rs.next()) {
                 Point position = JSONManager.readPoint(rs.getString("position_vehi"));
@@ -123,7 +123,7 @@ public class VehiculeSQL {
                 ));
             }
             rs.close();
-            stmt.close();
+            loadBotteleuseStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -133,10 +133,10 @@ public class VehiculeSQL {
         String request = "SELECT * FROM Vehicule INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi";
 
         try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(request);
+            PreparedStatement loadMoissonneuseStatement = DBConnection.getConnection().prepareStatement(request);
 
             // Execute select SQL stetement
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = loadMoissonneuseStatement.executeQuery();
 
             while (rs.next()) {
                 Point position = JSONManager.readPoint(rs.getString("position_vehi"));
@@ -158,7 +158,7 @@ public class VehiculeSQL {
                 ));
             }
             rs.close();
-            stmt.close();
+            loadMoissonneuseStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -168,12 +168,12 @@ public class VehiculeSQL {
         String request = "DELETE FROM vehicule WHERE id_vehi=:id";
 
         try {
-            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
-            stmt.setInt("id", vehicule.getId());
+            NamedParameterStatement deleteVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            deleteVehiculeStatement.setInt("id", vehicule.getId());
 
             // Execute select SQL statement
-            stmt.executeUpdate();
-            stmt.close();
+            deleteVehiculeStatement.executeUpdate();
+            deleteVehiculeStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -188,12 +188,12 @@ public class VehiculeSQL {
             int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
 
             // On insert la botteleuse
-            NamedParameterStatement insertBottStmt = new NamedParameterStatement(DBConnection.getConnection(), insertBott);
-            insertBottStmt.setInt("id_vehi", idVehi);
-            insertBottStmt.setString("type_bott", type);
+            NamedParameterStatement addBotteleuseStatement = new NamedParameterStatement(DBConnection.getConnection(), insertBott);
+            addBotteleuseStatement.setInt("id_vehi", idVehi);
+            addBotteleuseStatement.setString("type_bott", type);
 
-            insertBottStmt.executeUpdate();
-            insertBottStmt.close();
+            addBotteleuseStatement.executeUpdate();
+            addBotteleuseStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -208,15 +208,15 @@ public class VehiculeSQL {
             // On update le véhicule
             editVehicule(bott.getId(), bott.getMarque(), bott.getModele(), bott.getEtat(), bott.getPosition().toString());
 
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement editBotteleuseStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setString("type_bott", bott.getType());
-            preparedStatement.setInt("id_vehi", bott.getId());
+            editBotteleuseStatement.setString("type_bott", bott.getType());
+            editBotteleuseStatement.setInt("id_vehi", bott.getId());
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            editBotteleuseStatement.executeUpdate();
 
-            preparedStatement.close();
+            editBotteleuseStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -232,19 +232,19 @@ public class VehiculeSQL {
             int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
 
             // On insert la moissonneuse
-            NamedParameterStatement insertMoisStmt = new NamedParameterStatement(DBConnection.getConnection(), insertMois);
-            insertMoisStmt.setInt("id_vehi", idVehi);
-            insertMoisStmt.setInt("conso_route_moi", consoRoute );
-            insertMoisStmt.setFloat("conso_fonct_moi", consoFonctionnement );
-            insertMoisStmt.setFloat("poids_moi", poids );
-            insertMoisStmt.setFloat("hauteur_moi", hauteur );
-            insertMoisStmt.setFloat("largeur_coupe_moi", largeurCoupe );
-            insertMoisStmt.setFloat("largeur_route_moi", largeurRoute );
-            insertMoisStmt.setInt("taille_tremis_moi", tailleTremis );
-            insertMoisStmt.setInt("taille_reserve_moi", tailleReservoir );
+            NamedParameterStatement addMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), insertMois);
+            addMoissonneuseStatement.setInt("id_vehi", idVehi);
+            addMoissonneuseStatement.setInt("conso_route_moi", consoRoute );
+            addMoissonneuseStatement.setFloat("conso_fonct_moi", consoFonctionnement );
+            addMoissonneuseStatement.setFloat("poids_moi", poids );
+            addMoissonneuseStatement.setFloat("hauteur_moi", hauteur );
+            addMoissonneuseStatement.setFloat("largeur_coupe_moi", largeurCoupe );
+            addMoissonneuseStatement.setFloat("largeur_route_moi", largeurRoute );
+            addMoissonneuseStatement.setInt("taille_tremis_moi", tailleTremis );
+            addMoissonneuseStatement.setInt("taille_reserve_moi", tailleReservoir );
 
-            insertMoisStmt.executeUpdate();
-            insertMoisStmt.close();
+            addMoissonneuseStatement.executeUpdate();
+            addMoissonneuseStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -262,22 +262,22 @@ public class VehiculeSQL {
             // On update le véhicule
             editVehicule(moi.getId(), moi.getMarque(), moi.getModele(), moi.getEtat(), moi.getPosition().toString());
 
-            NamedParameterStatement preparedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
+            NamedParameterStatement editMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            preparedStatement.setInt("taille_reservoir_moi", moi.getCapacite_reservoir());
-            preparedStatement.setInt("taille_tremis_moi", moi.getCapacite_tremis());
-            preparedStatement.setFloat("largeur_route_moi", moi.getLargeur());
-            preparedStatement.setFloat("largeur_coupe_moi", moi.getTaille_coupe());
-            preparedStatement.setFloat("hauteur_moi", moi.getHauteur());
-            preparedStatement.setInt("conso_fonct_moi", moi.getConso_fonctionnement());
-            preparedStatement.setInt("conso_route_moi", moi.getConso_route());
-            preparedStatement.setFloat("poids_moi", moi.getPoids());
-            preparedStatement.setInt("id_vehi", moi.getId());
+            editMoissonneuseStatement.setInt("taille_reservoir_moi", moi.getCapacite_reservoir());
+            editMoissonneuseStatement.setInt("taille_tremis_moi", moi.getCapacite_tremis());
+            editMoissonneuseStatement.setFloat("largeur_route_moi", moi.getLargeur());
+            editMoissonneuseStatement.setFloat("largeur_coupe_moi", moi.getTaille_coupe());
+            editMoissonneuseStatement.setFloat("hauteur_moi", moi.getHauteur());
+            editMoissonneuseStatement.setInt("conso_fonct_moi", moi.getConso_fonctionnement());
+            editMoissonneuseStatement.setInt("conso_route_moi", moi.getConso_route());
+            editMoissonneuseStatement.setFloat("poids_moi", moi.getPoids());
+            editMoissonneuseStatement.setInt("id_vehi", moi.getId());
 
             // Execute SQL statement
-            preparedStatement.executeUpdate();
+            editMoissonneuseStatement.executeUpdate();
 
-            preparedStatement.close();
+            editMoissonneuseStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -292,12 +292,12 @@ public class VehiculeSQL {
             int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
 
             // On insert la botteleuse
-            NamedParameterStatement insertBottStmt = new NamedParameterStatement(DBConnection.getConnection(), insertTract);
-            insertBottStmt.setInt("id_vehi", idVehi);
-            insertBottStmt.setInt("cap_rem_tract", cap_rem);
+            NamedParameterStatement addTracteurStatement = new NamedParameterStatement(DBConnection.getConnection(), insertTract);
+            addTracteurStatement.setInt("id_vehi", idVehi);
+            addTracteurStatement.setInt("cap_rem_tract", cap_rem);
 
-            insertBottStmt.executeUpdate();
-            insertBottStmt.close();
+            addTracteurStatement.executeUpdate();
+            addTracteurStatement.close();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -313,14 +313,14 @@ public class VehiculeSQL {
             // On update le véhicule
             editVehicule(tracteur.getId(), tracteur.getMarque(), tracteur.getModele(), tracteur.getEtat(), tracteur.getPosition().toString());
 
-            NamedParameterStatement preparedStmtTract = new NamedParameterStatement(DBConnection.getConnection(), requestTracteur);
+            NamedParameterStatement editTracteurStatement = new NamedParameterStatement(DBConnection.getConnection(), requestTracteur);
 
-            preparedStmtTract.setInt("cap_rem_tract", tracteur.getCapacite_remorque());
-            preparedStmtTract.setInt("id_vehi", tracteur.getId());
+            editTracteurStatement.setInt("cap_rem_tract", tracteur.getCapacite_remorque());
+            editTracteurStatement.setInt("id_vehi", tracteur.getId());
             // Execute SQL statement
-            preparedStmtTract.executeUpdate();
+            editTracteurStatement.executeUpdate();
 
-            preparedStmtTract.close();
+            editTracteurStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
