@@ -31,7 +31,6 @@ public class AffectationController {
 
 	@FXML private JFXButton delete_btn;
 	@FXML private JFXButton add_rapport_btn;
-    @FXML private JFXButton edit_rapport_btn;
     @FXML private JFXButton delete_rapport_btn;
 
 
@@ -105,12 +104,11 @@ public class AffectationController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppression affectation");
         alert.setHeaderText("Confirmation de suppression du rapport de moisson");
-        alert.setContentText("Voulez-vous vraiment supprimer le rapport de moisson de\n" + selectedVehicule + "\npour la commande\n" + selectedCommande);
+        alert.setContentText("Voulez-vous vraiment supprimer le rapport de moisson de \n" + selectedVehicule + "\npour la commande\n" + selectedCommande);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            //MoissonSQL.deleteMoisson(selectedCommande, selectedVehicule);
-            clearAllSelection();
+            MoissonSQL.deleteMoisson(selectedVehicule, selectedCommande);
         } else {
             alert.close();
         }
