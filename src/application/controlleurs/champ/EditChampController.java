@@ -63,9 +63,6 @@ public class EditChampController implements APIGoogleMap {
         if(isEdit) {
             title.setText("Modifier le champ");
 
-            gMaps = new GoogleMaps("champ/maps_add_champ", this);
-            gMaps.setParent(googleMaps);
-
             selectedChamp = champ;
 
             adresse.setText(champ.getAdresse());
