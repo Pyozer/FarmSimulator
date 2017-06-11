@@ -27,6 +27,7 @@ public class GoogleMaps extends Region {
 
         webView = new WebView();
         webEngine = webView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
 
         final URL urlGoogleMaps = getClass().getResource(Constant.LAYOUT_PATH + mapHTML + ".html");
         webEngine.load(urlGoogleMaps.toExternalForm());
