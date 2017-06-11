@@ -5,6 +5,7 @@ import application.classes.MenuApp;
 import application.classes.SwitchView;
 import application.modeles.AffectationSQL;
 import application.modeles.Commande;
+import application.modeles.MoissonSQL;
 import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,7 +30,10 @@ public class AffectationController {
     @FXML private TableColumn<Vehicule, String> column_vehicule;
 
 	@FXML private JFXButton delete_btn;
-	@FXML private JFXButton rapport_btn;
+	@FXML private JFXButton add_rapport_btn;
+    @FXML private JFXButton edit_rapport_btn;
+    @FXML private JFXButton delete_rapport_btn;
+
 
     private Vehicule selectedVehicule = null;
     private Commande selectedCommande = null;
@@ -73,7 +77,7 @@ public class AffectationController {
     @FXML
     public void deleteAffect() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Suppresion affectation");
+        alert.setTitle("Suppression affectation");
         alert.setHeaderText("Confirmation de suppression de l'affectation");
         alert.setContentText("Voulez-vous vraiment supprimer le véhicule\n" + selectedVehicule + "\npour la commande\n" + selectedCommande);
 
@@ -87,12 +91,29 @@ public class AffectationController {
         }
     }
 
+
     @FXML
     public void newRapport() {
         SwitchView switchView = new SwitchView("commande/edit_moisson_app", Constant.ADD_VEHICULE_APP_TITLE);
         EditMoissonController editMoissonController = switchView.getFxmlLoader().getController();
         editMoissonController.defineVariableMoisson(selectedCommande, selectedVehicule);
         switchView.showScene();
+    }
+
+    @FXML
+    public void deleteRapport() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression affectation");
+        alert.setHeaderText("Confirmation de suppression du rapport de moisson");
+        alert.setContentText("Voulez-vous vraiment supprimer le rapport de moisson de \n" + selectedVehicule + "\npour la commande\n" + selectedCommande);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            MoissonSQL.deleteMoisson(selectedCommande, selectedVehicule);
+            clearAllSelection();
+        } else {
+            alert.close();
+        }
     }
 
     public void defineCommandeSelected(Commande commande) {
@@ -109,7 +130,9 @@ public class AffectationController {
     private void defineStateElements(boolean state) {
         delete_btn.setVisible(state);
         delete_btn.setManaged(state);
-        rapport_btn.setVisible(state);
-        rapport_btn.setManaged(state);
+        add_rapport_btn.setVisible(state);
+        add_rapport_btn.setManaged(state);
+        delete_rapport_btn.setVisible(state);
+        delete_rapport_btn.setManaged(state);
     }
 }
