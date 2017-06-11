@@ -15,8 +15,8 @@ import java.sql.SQLException;
 
 public class MoissonSQL {
 
-    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, Float inputDuree, String inputH_fin, String inputH_deb, Float inputNbKilo, Float inputNbTonne) {
-        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, duree_ordre=:duree, heure_arrive_ordre=:heureArrive, heure_debut_ordre=:heureDebut " +
+    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, String heure_debut, String heure_fin, Float inputNbKilo, Float inputNbTonne) {
+        String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, heure_arrive_ordre=:heureArrive, heure_fin_ordre=:heureFin " +
                 "WHERE id_vehi=:vehi AND id_com=:com";
 
         try {
@@ -24,9 +24,8 @@ public class MoissonSQL {
 
             editMoissonStatement.setFloat("tonnes", inputNbTonne);
             editMoissonStatement.setFloat("nbKilo", inputNbKilo );
-            editMoissonStatement.setString("heureArrive", inputH_fin);
-            editMoissonStatement.setString("heureDebut", inputH_deb);
-            editMoissonStatement.setFloat("duree",  inputDuree);
+            editMoissonStatement.setString("heureArrive", heure_debut);
+            editMoissonStatement.setString("heureFin", heure_fin);
             editMoissonStatement.setInt("vehi", inputVehicule.getId());
             editMoissonStatement.setInt("com", inputCommande.getId());
 
@@ -132,8 +131,7 @@ public class MoissonSQL {
                         ),
                         vehi_com,
                         rs.getString("heure_arrive_ordre"),
-                        rs.getString("heure_debut_ordre"),
-                        Float.parseFloat(rs.getString("duree_ordre")),
+                        rs.getString("heure_fin_ordre"),
                         Float.parseFloat(rs.getString("nb_km_ordre")),
                         Float.parseFloat(rs.getString("tonnes_ordre"))
                     ));
@@ -153,19 +151,7 @@ public class MoissonSQL {
     }*/
 
     public static void deleteMoisson(Vehicule vehicule, Commande commande) {
-        String request = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=:id_vehi";
-
-        try {
-            NamedParameterStatement deleteMoisson = new NamedParameterStatement(DBConnection.getConnection(), request);
-            deleteMoisson.setInt("id_vehi", vehicule.getId());
-            deleteMoisson.setInt("id_com", commande.getId());
-            deleteMoisson.executeUpdate();
-
-            deleteMoisson.close();
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
+        editMoisson(commande, vehicule, null, null, (float) 0, (float) 0);
     }
 
     public static boolean isRapportExist(Commande selectedCommande, Vehicule selectedVehicule) {
@@ -181,11 +167,10 @@ public class MoissonSQL {
             rs.next();
 
             String value = rs.getString("heure_arrive_ordre");
-            System.out.println(value);
 
             isRapportStatement.close();
 
-            return !value.equals("0");
+            return !(value == null || value.equals("NULL"));
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -194,7 +179,7 @@ public class MoissonSQL {
     }
 
     public static Moisson getMoissonSelected(Commande selectedCommande, Vehicule selectedVehicule) {
-        String request = "SELECT id_ordre, heure_arrive_ordre, heure_depart_ordre duree_ordre, nb_km_ordre, tonnes_ordre FROM Ordre Where id_vehi=:id_vehi AND id_com=:id_com";
+        String request = "SELECT id_ordre, heure_arrive_ordre, heure_fin_ordre, nb_km_ordre, tonnes_ordre FROM Ordre Where id_vehi=:id_vehi AND id_com=:id_com";
         Moisson moisson = null;
         try {
             NamedParameterStatement getMoissonSelected = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -202,20 +187,21 @@ public class MoissonSQL {
             getMoissonSelected.setInt("id_com", selectedCommande.getId());
 
             ResultSet rs = getMoissonSelected.executeQuery();
+
             while (rs.next()){
                moisson = new Moisson(
                        rs.getInt("id_ordre"),
                        selectedCommande,
                        selectedVehicule,
                        rs.getString("heure_arrive_ordre"),
-                       rs.getString("heure_depart_ordre"),
-                       rs.getFloat("duree_ordre"),
-                       rs.getFloat("nb_km_kilo"),
+                       rs.getString("heure_fin_ordre"),
+                       rs.getFloat("nb_km_ordre"),
                        rs.getFloat("tonnes_ordre")
                );
             }
 
             getMoissonSelected.close();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }

@@ -69,20 +69,15 @@ public class EditMoissonController implements Constant {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-            LocalDateTime fin = LocalDateTime.parse(moissonToEdit.getH_fin(), formatter);
-            LocalDateTime debut = LocalDateTime.parse(moissonToEdit.getH_debut(), formatter);
+            System.out.println(moissonToEdit.getDatetimeFin());
+            LocalDateTime fin = LocalDateTime.parse(moissonToEdit.getDatetimeFin(), formatter);
+            LocalDateTime debut = LocalDateTime.parse(moissonToEdit.getDatetimeDebut(), formatter);
 
-            LocalDate d_fin = fin.toLocalDate();
-            LocalTime h_fin = fin.toLocalTime();
+            date_debut.setValue(debut.toLocalDate());
+            time_debut.setValue(debut.toLocalTime());
 
-            LocalDate d_debut = debut.toLocalDate();
-            LocalTime h_debut = debut.toLocalTime();
-
-            date_debut.setValue(d_debut);
-            time_debut.setValue(h_debut);
-
-            date_fin.setValue(d_fin);
-            time_fin.setValue(h_fin);
+            date_fin.setValue(fin.toLocalDate());
+            time_fin.setValue(fin.toLocalTime());
 
         }
     }
@@ -104,8 +99,6 @@ public class EditMoissonController implements Constant {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
             alert.show();
         } else {
-            Float inputDuree = getDuree(inputDateDebut, inputTimeDebut, inputDateFin, inputTimeFin);
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
             LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
@@ -114,7 +107,7 @@ public class EditMoissonController implements Constant {
             String inputDateTimeFin = tempInputDateTimeFin.format(formatter);
             String inputDateTimeDebut = tempInputDateTimeDebut.format(formatter);
 
-            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDuree, inputDateTimeFin, inputDateTimeDebut, inputNbKilo, inputPoidRecolte);
+            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDateTimeDebut, inputDateTimeFin, inputNbKilo, inputPoidRecolte);
 
             AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la moficiation", "Le rapport de moisson à bien été modifié !");
             alert.show();

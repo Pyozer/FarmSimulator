@@ -8,28 +8,27 @@ public class Moisson {
     private int id;
     private Commande commande;
     private Vehicule vehicule;
-    private String h_fin, h_debut;
-    private Float nbKilo, nbTonne, duree;
+    private String datetime_fin, datetime_debut;
+    private Float nbKilo, nbTonne;
 
 
-    public Moisson(int id, Commande commande, Vehicule vehicule, String h_fin, String h_debut, Float duree, Float nbKilo, Float nbTonne) {
+    public Moisson(int id, Commande commande, Vehicule vehicule, String datetime_debut, String datetime_fin, Float nbKilo, Float nbTonne) {
         this.id = id;
         this.commande = commande;
         this.vehicule = vehicule;
-        this.duree = duree;
-        this.h_fin = h_fin;
-        this.h_debut = h_debut;
+        this.datetime_fin = datetime_fin;
+        this.datetime_debut = datetime_debut;
         this.nbKilo = nbKilo;
         this.nbTonne = nbTonne;
     }
 
 
-    public String getH_debut() {
-        return h_debut;
+    public String getDatetimeDebut() {
+        return datetime_debut;
     }
 
-    public void setH_debut(String h_debut) {
-        this.h_debut = h_debut;
+    public void setDatetimeDebut(String datetime_debut) {
+        this.datetime_debut = datetime_debut;
     }
 
     public int getId() {
@@ -56,18 +55,12 @@ public class Moisson {
         this.vehicule = vehicule;
     }
 
-    public Float getDuree() {
-        return duree;
+    public String getDatetimeFin() {
+        return datetime_fin;
     }
 
-    public void setDuree(Float duree) { this.duree = duree; }
-
-    public String getH_fin() {
-        return h_fin;
-    }
-
-    public void setH_fin(String h_fin) {
-        this.h_fin = h_fin;
+    public void setDatetimeFin(String datetime_fin) {
+        this.datetime_fin = datetime_fin;
     }
 
     public Float getNbKilo() {

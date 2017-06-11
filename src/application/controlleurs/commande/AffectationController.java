@@ -94,19 +94,17 @@ public class AffectationController {
     }
 
     @FXML
-    public void editRapport(){
-        SwitchView switchViewData = new SwitchView("commande/edit_moisson_app", Constant.ADD_COMMANDE_APP_TITLE);
-        EditMoissonController editMoissonController = switchViewData.getFxmlLoader().getController();
-        editMoissonController.setEditionMode(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule));
-        editMoissonController.initView(MoissonSQL.getMoissonSelected(selectedCommande, selectedVehicule));
-        editMoissonController.defineCommandeController(this);
-        switchViewData.showScene();
-    }
-
-    @FXML
     public void newRapport() {
         SwitchView switchView = new SwitchView("commande/edit_moisson_app", Constant.ADD_VEHICULE_APP_TITLE);
         EditMoissonController editMoissonController = switchView.getFxmlLoader().getController();
+
+        boolean isRapportExist = MoissonSQL.isRapportExist(selectedCommande, selectedVehicule);
+        editMoissonController.setEditionMode(isRapportExist);
+
+        if(isRapportExist)
+            editMoissonController.initView(MoissonSQL.getMoissonSelected(selectedCommande, selectedVehicule));
+
+        editMoissonController.defineCommandeController(this);
         editMoissonController.defineVariableMoisson(selectedCommande, selectedVehicule);
         switchView.showScene();
     }
