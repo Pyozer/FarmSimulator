@@ -3,6 +3,7 @@ var infowindow;
 var markerOrigin;
 var markers = [];
 var markerCluster;
+var oms;
 
 function initMap() {
     var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -22,6 +23,12 @@ function initMap() {
     markerOrigin = createMarker(map, latLng);
 
     markerCluster = new MarkerClusterer(map, [], {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+    oms = new OverlappingMarkerSpiderfier(map, {
+        markersWontMove: true,
+        markersWontHide: true,
+        basicFormatEvents: true
+    });
 
     // Rayon de 20km autour du point de départ
     createCircle(map, latLng);
@@ -47,17 +54,19 @@ function addMarker(id, latitude, longitude, title, type, etat) {
         animation: google.maps.Animation.DROP
     });
 
-    marker.addListener('click', function(event) {
-        var contentString = '<span class="label"><strong>INFORMATIONS</strong></span><br /><br />' +
-        'Type: ' + marker.type + '<br />' +
-        'Etat: ' + marker.etat;
+    var contentString = '<span class="label"><strong>INFORMATIONS</strong></span><br /><br />' +
+            'Type: ' + marker.type + '<br />' +
+            'Etat: ' + marker.etat;
 
+    marker.addListener('click', function(event) {
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
     });
 
+    oms.addMarker(marker);  // adds the marker to the spiderfier _and_ the map
+
     markers.push(marker);
-    markerCluster.addMarker(marker);
+    //markerCluster.addMarker(marker);
 }
 
 /** Supprime tous les markers sauf un **/
