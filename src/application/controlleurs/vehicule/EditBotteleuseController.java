@@ -52,7 +52,6 @@ public class EditBotteleuseController {
 
     public void initView(Botteleuse botteleuse) {
         if(isEdit) {
-            System.out.println("de");
             title.setText("Modifier la botteleuse");
 
             botteleuseToEdit = botteleuse;

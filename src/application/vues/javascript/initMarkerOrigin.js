@@ -1,6 +1,5 @@
 // Rayon de 20km autour du point de départ
 function createMarker(map, latLng) {
-
     return new google.maps.Marker({
         position: latLng,
         icon: icons['Eta'].icon,

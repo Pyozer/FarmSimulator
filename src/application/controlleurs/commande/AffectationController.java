@@ -119,6 +119,7 @@ public class AffectationController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             MoissonSQL.deleteMoisson(selectedVehicule, selectedCommande);
+            defineStateDeleteRapport(false);
         } else {
             alert.close();
         }

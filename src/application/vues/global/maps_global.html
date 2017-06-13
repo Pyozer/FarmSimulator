@@ -4,11 +4,30 @@
         <meta charset="UTF-8">
         <style type="text/css">
             html, body { height: 100%; margin: 0; padding: 0; }
-            #map { height: 100%; }
+            #map { height: 100%; width: 100%; }
+            #road {
+                font-family: 'Roboto', 'sans-serif';
+                line-height: 30px;
+                padding-left: 10px;
+                right: 0;
+                top: 0;
+                width: 30%;
+                height: 100%;
+                background: #ffffff;
+                overflow-y: scroll;
+                position: absolute;
+                display: none;
+            }
+            #road select, #road input { font-size: 15px; }
+            #road select { width: 100%; }
+            #road i { font-size: 12px; }
+            .fullWidth { width: 100%!important; }
+            .dividedWidth {width: 70%!important; }
         </style>
     </head>
     <body>
         <div id="map"></div>
+        <div id="road"></div>
 
         <script type="text/javascript">
             var map;
@@ -43,13 +62,12 @@
 
                 markerOrigin = createMarker(map, latLng);
 
-                // Itinéraire qui peut être afficher
                 directionsDisplay = new google.maps.DirectionsRenderer({
                     map: map
                 });
+                directionsDisplay.setPanel(document.getElementById('road'));
 
-                markerCluster = new MarkerClusterer(map, [],
-                    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                markerCluster = new MarkerClusterer(map, [], {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
                 // Rayon de 20km autour du point de départ
                 createCircle(map, latLng);
@@ -70,6 +88,13 @@
                     infowindow.close();
                     destSelect = false;
                     originSelected = false;
+
+                    directionsDisplay.setMap(null);
+                    document.getElementById('road').style.display = 'none';
+                    document.getElementById("map").className = "fullWidth";
+
+                    jsInterface.setFirstChamp("");
+                    jsInterface.setSecondChamp("");
                 });
 
                 jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
@@ -96,9 +121,7 @@
 
                     infowindow.setContent(contentString);
                     infowindow.open(map, marker);
-
                 });
-
                 markers.push(marker);
                 markerCluster.addMarker(marker);
             }
@@ -263,10 +286,11 @@
                     };
                     var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
                     directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
-                        if (status == google.maps.DirectionsStatus.OK) {
-                            //markerOrigin.setMap(null);
+                        if (status == 'OK') {
+                            directionsDisplay.setMap(map);
                             directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-                            refresh();
+                            document.getElementById('road').style.display = 'block';
+                            document.getElementById("map").className = "dividedWidth";
                         }
                     });
                 }
@@ -290,7 +314,6 @@
                     strokeOpacity: 1.0,
                     strokeWeight: 2
                 });
-
                 flightPath.setMap(map);
             }
 
@@ -302,6 +325,7 @@
                 infowindow.setPosition(getLineCenter(flightPlanCoordinates));
                 infowindow.open(map);
             }
+
         </script>
         <script src="../javascript/initCircle.js"></script>
         <script src="../javascript/initIconsMarkers.js"></script>

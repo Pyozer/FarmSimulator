@@ -112,6 +112,8 @@ public class EditMoissonController implements Constant {
             AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la moficiation", "Le rapport de moisson à bien été modifié !");
             alert.show();
 
+            affectationController.defineCommandeSelected(selectedCommande);
+
             Stage stage = (Stage) bpane.getScene().getWindow();
             stage.close();
         }

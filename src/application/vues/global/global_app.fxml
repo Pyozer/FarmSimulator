@@ -12,7 +12,7 @@
                 <Label text="GLOBAL" styleClass="pane_title" textFill="white" />
             </StackPane>
             <SplitPane dividerPositions="0.40" VBox.vgrow="SOMETIMES">
-                <VBox fx:id="infoContent" spacing="25" minWidth="600" maxWidth="600">
+                <VBox fx:id="infoContent" spacing="25" minWidth="525" maxWidth="525">
                     <padding><Insets bottom="15" left="20" right="20" top="15" /></padding>
                     <VBox spacing="18">
                         <Label text="Calculer un itinéraire">

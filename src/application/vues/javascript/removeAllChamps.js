@@ -1,6 +1,8 @@
  /** Cache tous les champs **/
 function removeAllChamps() {
-    infowindow.close();
+    if(infowindow) {
+        infowindow.close();
+    }
 
     for (var i = 0; i < champs.length; i++)
         champs[i].setMap(null);
