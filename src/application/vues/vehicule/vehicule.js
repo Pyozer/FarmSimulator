@@ -2,7 +2,7 @@ var map;
 var infowindow;
 var markerOrigin;
 var markers = [];
-var markerCluster;
+//var markerCluster;
 var oms;
 
 function initMap() {
@@ -22,7 +22,7 @@ function initMap() {
 
     markerOrigin = createMarker(map, latLng);
 
-    markerCluster = new MarkerClusterer(map, [], {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    //markerCluster = new MarkerClusterer(map, [], {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
     oms = new OverlappingMarkerSpiderfier(map, {
         markersWontMove: true,
@@ -71,7 +71,7 @@ function addMarker(id, latitude, longitude, title, type, etat) {
 
 /** Supprime tous les markers sauf un **/
 function hideAllExceptOne(id) {
-    markerCluster.clearMarkers();
+    //markerCluster.clearMarkers();
 
     for (var i = 0; i < markers.length; i++) {
         if(markers[i].id != id) {
