@@ -15,22 +15,23 @@ public class SwitchView {
 
     private Stage newStage;
     private FXMLLoader fxmlLoader;
-    private Parent root;
+    private Parent parent;
 
     private boolean showAndWait = false;
     private boolean popup = false;
 
     private final static String STYLECSS = "styles.css";
 
-    public SwitchView(String view, String title) {
+    public SwitchView(String view, String title, Parent parent) {
+        this.parent = parent;
+
         fxmlLoader = new FXMLLoader();
 
         try {
             fxmlLoader.setLocation(getClass().getResource(Constant.LAYOUT_PATH + view + ".fxml"));
             fxmlLoader.load();
 
-            root = fxmlLoader.getRoot();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(fxmlLoader.getRoot());
             scene.getStylesheets().add(Constant.STYLE_PATH + STYLECSS);
             newStage = new Stage();
             newStage.setScene(scene);
@@ -41,35 +42,39 @@ public class SwitchView {
             newStage.setHeight(Constant.PREF_HEIGHT);
             newStage.setWidth(Constant.PREF_WIDTH);
 
-            newStage.setMaximized(true);
+            newStage.setMaximized(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public SwitchView(String view, String title) {
+        this(view, title, null);
+    }
+
     public SwitchView(String view, String title, boolean showAndWait) {
-        this(view, title);
+        this(view, title, null);
         this.showAndWait = showAndWait;
     }
 
-    public void setPopUp(boolean popup) {
-        this.popup = popup;
+    public void setPopUp() {
+        this.popup = true;
     }
 
     public FXMLLoader getFxmlLoader() { return fxmlLoader; }
 
     public void showScene() {
         if (!popup)
-            newStage.setMaximized(false);
+            newStage.setMaximized(true);
 
         if (showAndWait)
             newStage.showAndWait();
         else
             newStage.show();
 
-        /*if (root != null) {
-              Stage stage = (Stage) root.getScene().getWindow();
+        if (!popup && parent != null) {
+              Stage stage = (Stage) parent.getScene().getWindow();
               stage.close();
-        }*/
+        }
     }
 }

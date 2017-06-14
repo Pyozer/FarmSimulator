@@ -119,8 +119,6 @@ public class EditMoissonneuseController {
                 moissonneuseToEdit.setPoids(inputPoids);
                 moissonneuseToEdit.setTaille_coupe(inputLargeurCoupe);
 
-
-
                 VehiculeSQL.editMoissonneuse(moissonneuseToEdit);
 
                 message += " modifié !";

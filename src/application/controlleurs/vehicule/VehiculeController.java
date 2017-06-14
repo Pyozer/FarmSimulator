@@ -83,6 +83,7 @@ public class VehiculeController implements APIGoogleMap {
     @FXML
     public void addVehicule() {
         SwitchView switchView = new SwitchView("vehicule/choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
+        switchView.setPopUp();
         ChoixVehiculeController choixVehiculeController = switchView.getFxmlLoader().getController();
         choixVehiculeController.defineVehiculeController(this);
         switchView.showScene();
@@ -113,6 +114,7 @@ public class VehiculeController implements APIGoogleMap {
 
         if (vehiculeSelected instanceof Botteleuse){
             switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView.setPopUp();
             EditBotteleuseController editBotController = switchView.getFxmlLoader().getController();
             editBotController.setEditionMode(true);
             editBotController.initView((Botteleuse) vehiculeSelected);
@@ -121,6 +123,7 @@ public class VehiculeController implements APIGoogleMap {
 
         } else if (vehiculeSelected instanceof Moissonneuse){
             switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView.setPopUp();
             EditMoissonneuseController editMoiController = switchView.getFxmlLoader().getController();
             editMoiController.setEditionMode(true);
             editMoiController.initView((Moissonneuse) vehiculeSelected);
@@ -128,7 +131,8 @@ public class VehiculeController implements APIGoogleMap {
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Tracteur) {
-            switchView =new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView.setPopUp();
             EditTracteurController editTraController = switchView.getFxmlLoader().getController();
             editTraController.setEditionMode(true);
             editTraController.initView((Tracteur) vehiculeSelected);

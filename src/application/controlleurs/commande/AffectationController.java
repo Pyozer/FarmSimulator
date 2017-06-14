@@ -70,6 +70,7 @@ public class AffectationController {
     @FXML
     public void addAffect() {
         SwitchView switchView = new SwitchView("commande/add_affectation_app", Constant.ADD_VEHICULE_APP_TITLE);
+        switchView.setPopUp();
         AddAffectationController addAffectationController = switchView.getFxmlLoader().getController();
         addAffectationController.defineCommandeSelected(selectedCommande);
         addAffectationController.defineAffectController(this);
@@ -96,6 +97,7 @@ public class AffectationController {
     @FXML
     public void newRapport() {
         SwitchView switchView = new SwitchView("commande/edit_moisson_app", Constant.ADD_VEHICULE_APP_TITLE);
+        switchView.setPopUp();
         EditMoissonController editMoissonController = switchView.getFxmlLoader().getController();
 
         boolean isRapportExist = MoissonSQL.isRapportExist(selectedCommande, selectedVehicule);

@@ -27,8 +27,6 @@ public class Main extends Application {
 
         SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE);
         switchView.showScene();
-
-        //VehiculeSQL.addBotteleuse("jc","js","d","c");
     }
 
     public static void main(String[] args) {

@@ -76,18 +76,21 @@ public class ChoixVehiculeController {
         SwitchView switchView;
         if (tracteur_selected) {
             switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView.setPopUp();
             EditTracteurController editTracteurController = switchView.getFxmlLoader().getController();
             editTracteurController.defineVehiculeController(vehiculeController);
             editTracteurController.setEditionMode(false);
             switchView.showScene();
         } else if(moissonneuse_selected) {
             switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView.setPopUp();
             EditMoissonneuseController editMoissonneuseController = switchView.getFxmlLoader().getController();
             editMoissonneuseController.defineVehiculeController(vehiculeController);
             editMoissonneuseController.setEditionMode(false);
             switchView.showScene();
         } else if(botteleuse_selected) {
             switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView.setPopUp();
             EditBotteleuseController editBotteleuseController = switchView.getFxmlLoader().getController();
             editBotteleuseController.defineVehiculeController(vehiculeController);
             editBotteleuseController.setEditionMode(false);

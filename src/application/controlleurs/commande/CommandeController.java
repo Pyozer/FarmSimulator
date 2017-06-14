@@ -107,6 +107,7 @@ public class CommandeController {
     @FXML
     public void addCommande() {
         SwitchView switchView = new SwitchView("commande/edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE);
+        switchView.setPopUp();
         EditCommandeController editCommandeController = switchView.getFxmlLoader().getController();
         editCommandeController.defineCommandeController(this);
         switchView.showScene();
@@ -137,12 +138,13 @@ public class CommandeController {
     public void editCommande() {
         Commande commandeSelected = tableView_todo.getSelectionModel().getSelectedItem();
 
-        SwitchView switchViewData = new SwitchView("commande/edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE);
-        EditCommandeController editCommandeController = switchViewData.getFxmlLoader().getController();
+        SwitchView switchView = new SwitchView("commande/edit_commande_app", Constant.ADD_VEHICULE_APP_TITLE);
+        switchView.setPopUp();
+        EditCommandeController editCommandeController = switchView.getFxmlLoader().getController();
         editCommandeController.setEditionMode(true);
         editCommandeController.initView(commandeSelected);
         editCommandeController.defineCommandeController(this);
-        switchViewData.showScene();
+        switchView.showScene();
     }
 
     @FXML
@@ -167,7 +169,7 @@ public class CommandeController {
 
     @FXML
     public void showAffects() {
-        SwitchView switchViewData = new SwitchView("commande/affectations_app", Constant.ADD_VEHICULE_APP_TITLE);
+        SwitchView switchViewData = new SwitchView("commande/affectations_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
         AffectationController affectationController = switchViewData.getFxmlLoader().getController();
         affectationController.defineCommandeSelected(selectedCommande);
         switchViewData.showScene();
