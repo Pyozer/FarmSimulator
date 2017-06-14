@@ -1,5 +1,6 @@
 package application.controlleurs.commande;
 
+import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * Controlleur pour la gestion d'une commande (Ajout/Modification) d'une commande
  */
-public class EditCommandeController {
+public class EditCommandeController implements Constant {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -54,7 +55,7 @@ public class EditCommandeController {
         liste_transport.getItems().setAll("Le client", "ETA", "Négociant");
         liste_transport.setValue(liste_transport.getItems().get(0));
 
-        liste_type_bott.getItems().setAll("Ronde", "Carré", "Pas Demandé");
+        liste_type_bott.getItems().setAll(TYPE_BOTT_ROND, TYPE_BOTT_CARRE, "Pas Demandé");
         liste_type_bott.setValue(liste_type_bott.getItems().get(0));
 
         date_commande.setValue(LocalDate.now());

@@ -1,5 +1,6 @@
 package application.controlleurs.vehicule;
 
+import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Botteleuse;
 import application.modeles.ClientSQL;
@@ -11,13 +12,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
  * Controlleur pour gestion (Ajout/Modification) d'une botteleuse
  */
-public class EditBotteleuseController {
+public class EditBotteleuseController implements Constant{
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -41,7 +41,8 @@ public class EditBotteleuseController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
         // Initalisation des ComboBox
-        type.getItems().addAll("Ronde", "Carré");
+        type.getItems().addAll(TYPE_BOTT_ROND, TYPE_BOTT_CARRE);
+        type.setValue(type.getItems().get(0));
         liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
         liste_etat.setValue(liste_etat.getItems().get(2));
     }
@@ -59,7 +60,7 @@ public class EditBotteleuseController {
             modele.setText(botteleuse.getModele());
             marque.setText(botteleuse.getMarque());
             liste_etat.setValue(botteleuse.getEtat());
-            type.setValue(botteleuse.isBotte_ronde() ? "Rond" : "Carré");
+            type.setValue(botteleuse.isBotte_ronde() ? TYPE_BOTT_ROND : TYPE_BOTT_CARRE);
         }
         else{
             title.setText("Ajouter une botteleuse");
@@ -86,7 +87,7 @@ public class EditBotteleuseController {
                 botteleuseToEdit.setMarque(inputMarque);
                 botteleuseToEdit.setModele(inputModele);
 
-                if(inputType == "Ronde") botteleuseToEdit.setBotte_ronde(true);
+                if(inputType == TYPE_BOTT_ROND) botteleuseToEdit.setBotte_ronde(true);
                 else botteleuseToEdit.setBotte_ronde(false);
 
                 VehiculeSQL.editBotteleuse(botteleuseToEdit);

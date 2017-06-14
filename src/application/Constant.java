@@ -66,4 +66,7 @@ public interface Constant {
     Point POS_DEFAULT_TRACTEUR = new Point(47.969551, -1.448362);
     Point POS_DEFAULT_BOTTELEUSE = new Point(47.968977, -1.449486);
     Point POS_DEFAULT_MOISSONNEUSE = new Point(47.970712, -1.449572);
+
+    String TYPE_BOTT_ROND = "Ronde";
+    String TYPE_BOTT_CARRE = "Carré";
 }

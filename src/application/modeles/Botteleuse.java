@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.Constant;
 import application.classes.ElementPair;
 import application.classes.Point;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -7,7 +8,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 /**
  * Classe pour les Botteleuse
  */
-public class Botteleuse extends Vehicule {
+public class Botteleuse extends Vehicule implements Constant {
 
     private SimpleBooleanProperty botte_ronde; // Si bottellage rond ou carré
 
@@ -17,7 +18,7 @@ public class Botteleuse extends Vehicule {
         super(id, TYPE, marque, modele, etat, position);
         this.botte_ronde = new SimpleBooleanProperty(botte_ronde);
 
-        getInformations().add(new ElementPair("Botte ronde", (botte_ronde) ? "Rond" : "Carré"));
+        getInformations().add(new ElementPair("Botte ronde", (botte_ronde) ? TYPE_BOTT_ROND : TYPE_BOTT_CARRE));
     }
 
     public boolean isBotte_ronde() {
