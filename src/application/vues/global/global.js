@@ -66,7 +66,7 @@ function initMap() {
     });
 
     google.maps.event.addListener(map, "tilesloaded", function() {
-        document.getElementById("loader_content").style.display = "none";
+        //document.getElementById("loader_content").style.display = "none";
     });
 
     jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
@@ -246,10 +246,6 @@ function calculate(origin, destination) {
             origin: origin,
             destination: destination,
             travelMode: google.maps.TravelMode.DRIVING,
-            drivingOptions: {
-                departureTime: new Date(Date.now()),  // for the time N milliseconds from now.
-                trafficModel: "optimistic"
-            },
             region: 'FR',
             optimizeWaypoints: true,
             avoidHighways: true,

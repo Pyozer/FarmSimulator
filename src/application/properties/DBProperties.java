@@ -1,5 +1,7 @@
 package application.properties;
 
+import application.Constant;
+
 import java.io.*;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -9,7 +11,7 @@ import java.util.logging.Logger;
  * Classe pour la gestion des paramètres de connexion à la base de données.
  * Utilisation d'un fichier "database.properties".
  */
-public class DBProperties {
+public class DBProperties implements Constant {
 
     private Properties properties = new Properties();
     private final static String FILE_CONFIG = "database.properties";
@@ -26,11 +28,11 @@ public class DBProperties {
 
         try {
             OutputStream output = new FileOutputStream(FILE_CONFIG);
-            properties.setProperty("host", hote);
-            properties.setProperty("port", port);
-            properties.setProperty("db", dbname);
-            properties.setProperty("user", user);
-            properties.setProperty("password", password);
+            properties.setProperty(PROP_HOST, hote);
+            properties.setProperty(PROP_PORT, port);
+            properties.setProperty(PROP_PORT, dbname);
+            properties.setProperty(PROP_USER, user);
+            properties.setProperty(PROP_PASS, password);
             properties.store(output, null);
             output.close();
         } catch (IOException ex) {

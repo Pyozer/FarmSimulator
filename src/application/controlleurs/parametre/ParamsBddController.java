@@ -1,5 +1,6 @@
 package application.controlleurs.parametre;
 
+import application.Constant;
 import application.classes.AlertDialog;
 import application.database.DBConnection;
 import application.properties.DBProperties;
@@ -16,7 +17,7 @@ import java.util.Properties;
 /**
  * Controlleur de la vue de paramétrage de la BDD
  */
-public class ParamsBddController {
+public class ParamsBddController implements Constant {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -36,11 +37,11 @@ public class ParamsBddController {
 
         Properties properties = new DBProperties().loadPropertiesFile();
 
-        hote_bdd.setText(properties.getProperty("host"));
-        port_bdd.setText(properties.getProperty("port"));
-        dbname_bdd.setText(properties.getProperty("db"));
-        identifiant_bdd.setText(properties.getProperty("user"));
-        password_bdd.setText(properties.getProperty("password"));
+        hote_bdd.setText(properties.getProperty(PROP_HOST));
+        port_bdd.setText(properties.getProperty(PROP_PORT));
+        dbname_bdd.setText(properties.getProperty(PROP_DB));
+        identifiant_bdd.setText(properties.getProperty(PROP_USER));
+        password_bdd.setText(properties.getProperty(PROP_PASS));
 
 	}
 

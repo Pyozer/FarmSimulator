@@ -6,6 +6,7 @@ import application.classes.Settings;
 import application.classes.SwitchView;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
+import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,11 +15,12 @@ import javafx.scene.layout.BorderPane;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Controlleur de la vue de paramétrage des infos de l'ETA
  */
-public class ParamsInfosController {
+public class ParamsInfosController implements Constant {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -58,7 +60,7 @@ public class ParamsInfosController {
      */
     private boolean alreadyEtaExists(String name_eta, String adresse_eta) {
         // TODO: Faire un modele SQL
-        String request = "SELECT COUNT(*) as rowCount FROM Eta WHERE nom=:nom OR adresse=:adresse";
+        String request = "SELECT COUNT(*) as rowCount FROM Eta WHERE nom_eta=:nom OR adresse_eta=:adresse";
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("nom", name_eta);
@@ -85,7 +87,7 @@ public class ParamsInfosController {
      */
     private void saveEtaInBDD(String nom_eta, String adresse_eta) {
         // TODO: Faire un modele SQL
-        String request = "INSERT INTO Eta(nom, adresse) VALUES(:nom, :adresse)";
+        String request = "INSERT INTO Eta(nom_eta, adresse_eta) VALUES(:nom, :adresse)";
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("nom", nom_eta);
@@ -94,8 +96,12 @@ public class ParamsInfosController {
 
             stmt.close();
 
-            Settings settings = new Settings();
-            settings.setParams("already_boot", "true");
+            Properties prop = SettingsProperties.loadPropertiesFile();
+            if (prop != null) {
+                prop.setProperty(PROP_ALREADY_RUN, "true");
+            }
+
+            SettingsProperties.makeSettingsProperties(prop);
 
             loadLogin();
 
@@ -105,7 +111,7 @@ public class ParamsInfosController {
     }
 
 	private void loadLogin() {
-        SwitchView switchView = new SwitchView("parametre/home_login", Constant.HOME_LOGIN_TITLE, bpane);
+        SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN_TITLE, bpane);
         switchView.showScene();
 	}
 

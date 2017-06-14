@@ -2,12 +2,14 @@ package application;
 
 import application.classes.SwitchView;
 import application.database.DBConnection;
+import application.properties.SettingsProperties;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.Properties;
 
-public class Main extends Application {
+public class Main extends Application implements Constant {
 
     @Override
     public void start(Stage primaryStage) {
@@ -25,7 +27,12 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE);
+        SwitchView switchView = new SwitchView("parametre/params_home", Constant.PARAMS_APP_TITLE);
+
+        Properties properties = SettingsProperties.loadPropertiesFile();
+        if(properties != null && properties.getProperty(PROP_ALREADY_RUN).equals("true"))
+            switchView = new SwitchView("home_login", Constant.ACCUEIL_APP_TITLE);
+
         switchView.showScene();
     }
 

@@ -69,4 +69,12 @@ public interface Constant {
 
     String TYPE_BOTT_ROND = "Ronde";
     String TYPE_BOTT_CARRE = "Carré";
+
+    String PROP_HOST = "host";
+    String PROP_PORT = "port";
+    String PROP_DB = "db";
+    String PROP_USER = "user";
+    String PROP_PASS = "password";
+
+    String PROP_ALREADY_RUN = "already_run";
 }

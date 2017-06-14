@@ -12,12 +12,12 @@
     <center>
         <StackPane BorderPane.alignment="CENTER">
             <Rectangle styleClass="rect" width="800.0" height="600"/>
-            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="40">
                 <padding><Insets bottom="15" left="15" right="15" top="25" /></padding>
 
                 <Text styleClass="pane_title" fill="white" text="Connexion" />
 
-                <GridPane alignment="CENTER" hgap="25" vgap="15">
+                <GridPane alignment="CENTER" hgap="25" vgap="35">
                     <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" maxWidth="200" minWidth="200" />
                         <ColumnConstraints halignment="LEFT" />

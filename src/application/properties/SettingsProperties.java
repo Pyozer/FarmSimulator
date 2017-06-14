@@ -1,6 +1,10 @@
 package application.properties;
 
+import application.Constant;
+
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,20 +13,17 @@ import java.util.logging.Logger;
  * Classe pour la gestion des paramètres du logiciel
  * Utilisation d'un fichier "settings.properties".
  */
-public class SettingsProperties {
+public class SettingsProperties implements Constant {
 
-    private Properties properties = new Properties();
     private final static String FILE_CONFIG = "settings.properties";
-    private final static String ALREADY_RUN = "false";
 
     /**
      * Création du fichier "settings.properties"
      */
-    public void makeSettingsProperties(String already_run) {
+    public static void makeSettingsProperties(Properties properties) {
 
         try {
             OutputStream output = new FileOutputStream(FILE_CONFIG);
-            properties.setProperty("already_run", already_run);
             properties.store(output, null);
             output.close();
         } catch (IOException ex) {
@@ -30,19 +31,25 @@ public class SettingsProperties {
         }
     }
 
-    public void makeDefaultSettingsProperties() {
-        makeSettingsProperties(ALREADY_RUN);
+    public static void makeDefaultSettingsProperties() {
+        Properties properties = new Properties();
+        properties.setProperty(PROP_ALREADY_RUN, "false");
+        makeSettingsProperties(properties);
     }
 
     /**
      * On charge le fichier "settings.properties" en type Properties
      * @return
      */
-    public Properties loadPropertiesFile() {
+    public static Properties loadPropertiesFile() {
         try {
             InputStream inputStream = new FileInputStream(FILE_CONFIG);
+
+            Properties properties = new Properties();
             properties.load(inputStream);
+
             return properties;
+
         } catch (FileNotFoundException ex) {
             // On créer alors le fichier puis rappel cette fonction
             makeDefaultSettingsProperties();
