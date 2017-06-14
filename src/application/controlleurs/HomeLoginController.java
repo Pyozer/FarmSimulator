@@ -26,7 +26,6 @@ public class HomeLoginController {
 	/** Elements **/
 	@FXML private JFXTextField user_login; // Champs identifiant
 	@FXML private JFXPasswordField password_login; // Champs mot de passe
-	@FXML private Label label_check;
 	
     /**
      * Initializes the controller class.
@@ -45,9 +44,6 @@ public class HomeLoginController {
 	}
 
 	private void login(String email, String password) {
-
-		label_check.setTextFill(Constant.SUCCESS_COLOR);
-		label_check.setText("Identification...");
 
         boolean login_ok = false;
 
@@ -71,11 +67,9 @@ public class HomeLoginController {
 			stmt.close();
 			rs.close();
 
-			label_check.setText("");
-
-			if(login_ok) {
+			if(login_ok)
 				loadHome();
-            } else {
+            else {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Identifiants incorrectes !\nRéessayez.", Alert.AlertType.ERROR);
                 alert.show();
             }

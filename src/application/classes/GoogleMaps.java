@@ -86,4 +86,12 @@ public class GoogleMaps extends Region {
         javascriptOBJ.call("removeAllMarkers");
     }
 
+    public void enableFlightItinerary() {
+        javascriptOBJ.call("enableFlightItinerary");
+    }
+
+    public void disableFlightItinerary() {
+        javascriptOBJ.call("disableFlightItinerary");
+    }
+
 }

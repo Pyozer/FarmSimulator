@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.GlobalController">
     <center>
         <VBox BorderPane.alignment="CENTER">
-            <StackPane style="-fx-background-color: #009688;-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" minHeight="130">
-                <Label text="GLOBAL" styleClass="pane_title" textFill="white" />
+            <StackPane minHeight="130" styleClass="header_colored">
+                <Label styleClass="pane_title" text="GLOBAL" textFill="white" />
             </StackPane>
-            <SplitPane dividerPositions="0.40" VBox.vgrow="SOMETIMES">
-                <VBox fx:id="infoContent" spacing="25" minWidth="525" maxWidth="525">
+            <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES">
+                <VBox fx:id="infoContent" maxWidth="525" minWidth="525" spacing="25">
                     <padding><Insets bottom="15" left="20" right="20" top="15" /></padding>
                     <VBox spacing="18">
                         <Label text="Calculer un itinéraire">
@@ -21,19 +30,22 @@
                         <Label text="Origine :">
                             <font><Font name="Roboto Medium" size="15.0" /></font>
                         </Label>
-                        <JFXTextField fx:id="FChamp" promptText="Position du 1er champ" labelFloat="true" />
+                        <JFXTextField fx:id="FChamp" labelFloat="true" promptText="Position du 1er champ" />
                         <Label text="Destination :">
                             <font><Font name="Roboto Medium" size="15.0" /></font>
                         </Label>
-                        <JFXTextField fx:id="SChamp" promptText="Position du 2ème champ" labelFloat="true" />
-                        <JFXButton text="Calculer itinéraire" onAction="#calculIntineraire" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
+                        <JFXTextField fx:id="SChamp" labelFloat="true" promptText="Position du 2ème champ" />
+                        <HBox spacing="30">
+                            <JFXButton buttonType="RAISED" onAction="#calculIntineraire" prefHeight="40" styleClass="btn, btn-primary" text="Calculer itinéraire" />
+                            <JFXToggleButton fx:id="toggleButton" maxHeight="40.0" minHeight="40.0" mnemonicParsing="false" text="Vol d'oiseau" toggleLineColor="#a6d3cf" unToggleColor="#ececec" unToggleLineColor="#a6a6a6" />
+                        </HBox>
                     </VBox>
                     <VBox spacing="10">
                         <Label text="Commandes prioritaire">
                             <font><Font name="Roboto Medium" size="30.0" /></font>
                         </Label>
 
-                        <TableView fx:id="tableView" minHeight="200.0" maxHeight="200.0">
+                        <TableView fx:id="tableView" maxHeight="200.0" minHeight="200.0">
                             <columns>
                                 <TableColumn fx:id="column_date" text="Date" />
                                 <TableColumn fx:id="column_adresse" text="Adresse" />
@@ -43,9 +55,9 @@
                         </TableView>
 
                         <HBox spacing="15">
-                            <JFXButton text="Afficher tout" onAction="#goToCommandes" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
-                            <JFXButton fx:id="btn_markDone" text="Valider commande" managed="false" visible="false" onAction="#markToDone" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
-                            <JFXButton fx:id="btn_affects" text="Affectation(s)" managed="false" visible="false" onAction="#showAffects" styleClass="btn, btn-primary" buttonType="RAISED" prefHeight="40"/>
+                            <JFXButton buttonType="RAISED" onAction="#goToCommandes" prefHeight="40" styleClass="btn, btn-primary" text="Afficher tout" />
+                            <JFXButton fx:id="btn_markDone" buttonType="RAISED" managed="false" onAction="#markToDone" prefHeight="40" styleClass="btn, btn-primary" text="Valider commande" visible="false" />
+                            <JFXButton fx:id="btn_affects" buttonType="RAISED" managed="false" onAction="#showAffects" prefHeight="40" styleClass="btn, btn-primary" text="Affectation(s)" visible="false" />
                         </HBox>
                     </VBox>
                 </VBox>

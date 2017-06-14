@@ -1,9 +1,14 @@
 package application.controlleurs;
 
 import application.Constant;
+import application.classes.MenuApp;
 import application.classes.SwitchView;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+
+import javafx.scene.image.ImageView;
 
 /**
  * Controlleur de la vue de l'accueil
@@ -12,12 +17,22 @@ public class HomeController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
+    @FXML private ImageView params;
+    @FXML private ImageView exit;
 
     /**
      * Initializes the controller class.
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
+        params.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            handleParams();
+        });
+
+        exit.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            handleExit();
+        });
     }
 
     @FXML
@@ -28,7 +43,7 @@ public class HomeController {
 
     @FXML
     public void handleVehicule() {
-        SwitchView switchView = new SwitchView("vehicule/vehicule_app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("vehicule/vehicule_app", Constant.VEHICULE_APP_TITLE, bpane);
         switchView.showScene();
     }
 
@@ -39,19 +54,17 @@ public class HomeController {
     }
 
     public void handleGlobal() {
-        SwitchView switchView = new SwitchView("global/global_app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("global/global_app", Constant.GLOBAL_APP_TITLE, bpane);
         switchView.showScene();
     }
 
-    @FXML
     public void handleParams() {
-        SwitchView switchView = new SwitchView("parametre/params-app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("parametre/params_app", Constant.PARAMS_APP_TITLE, bpane);
         switchView.showScene();
     }
 
-    @FXML
     public void handleExit() {
-        SwitchView switchView = new SwitchView("home_login_app", Constant.CHAMP_APP_TITLE, bpane);
+        SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN_TITLE, bpane);
         switchView.showScene();
     }
 }

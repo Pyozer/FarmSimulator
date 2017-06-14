@@ -5,17 +5,19 @@
         <style type="text/css">
             #road {
                 font-family: 'Roboto', 'sans-serif';
-                line-height: 30px;
-                padding-left: 10px;
+                line-height: 28px;
                 right: 0;
                 top: 0;
                 width: 30%;
                 height: 100%;
-                background: rgba(255, 255, 255, 0.8);
+                background: #ffffff;
                 border-left: 1px solid #999;
                 overflow-y: scroll;
                 position: absolute;
                 display: none;
+            }
+            #road > div:first-child {
+                padding: 0 10px;
             }
             #road select, #road input { font-size: 15px; }
             #road select { width: 100%; }
@@ -38,6 +40,8 @@
             </div>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js"></script>
+
         <script src="global.js"></script>
 
         <script src="../javascript/initCircle.js"></script>
@@ -49,7 +53,6 @@
         <script src="../javascript/removeAllChamps.js"></script>
         <script src="../javascript/removeAllMarkers.js"></script>
 
-        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbikGyg54hhQ7U_3qsCfOq9G3YV4jeWuk&callback=initMap" async defer></script>
     </body>
 </html>

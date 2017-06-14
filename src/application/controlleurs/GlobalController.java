@@ -6,16 +6,18 @@ import application.controlleurs.commande.AffectationController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
@@ -34,6 +36,8 @@ public class GlobalController implements APIGoogleMap {
     @FXML private JFXButton btn_markDone;
     @FXML private JFXButton btn_affects;
 
+    @FXML private JFXToggleButton toggleButton;
+
     @FXML private TableView<Commande> tableView;
     @FXML private TableColumn<Commande, String> column_date;
     @FXML private TableColumn<Commande, String> column_adresse;
@@ -41,6 +45,7 @@ public class GlobalController implements APIGoogleMap {
     @FXML private TableColumn<Commande, String> column_type_bott;
 
     private GoogleMaps gMaps;
+    private boolean addFlightItinerary = false;
 
     private Commande commandeSelected;
 
@@ -63,6 +68,13 @@ public class GlobalController implements APIGoogleMap {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
+
+        toggleButton.selectedProperty().addListener(((observable, oldValue, newValue) -> {
+            if(newValue)
+                gMaps.enableFlightItinerary();
+            else
+                gMaps.disableFlightItinerary();
+        }));
     }
 
     public void setFirstChamp(String firstChamp) {
@@ -137,12 +149,15 @@ public class GlobalController implements APIGoogleMap {
     private void clearAllSelection() {
         commandeSelected = null;
 
-        tableView.getSelectionModel().clearSelection();
+        if(tableView.getSelectionModel().getSelectedItem() != null) {
 
-        defineStateElements(false);
+            tableView.getSelectionModel().clearSelection();
 
-        gMaps.removeAllChampsMarkers();
-        askToLoadData();
+            defineStateElements(false);
+
+            gMaps.removeAllChampsMarkers();
+            askToLoadData();
+        }
     }
 
     private void defineStateElements(boolean state) {

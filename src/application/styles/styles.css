@@ -81,6 +81,18 @@
     -fx-background-radius: 8;
 }
 
+.header_colored {
+    -fx-background-color: #009688;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.img_home {
+    -fx-opacity: 1;
+}
+.img_home:hover {
+    -fx-opacity: 0.8;
+}
+
 .list-view {
     -fx-padding: 3px;
 }

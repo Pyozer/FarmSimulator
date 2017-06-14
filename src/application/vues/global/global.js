@@ -11,7 +11,9 @@ var destSelect = false;
 
 var champs = [];
 var markers = [];
-var markerCluster;
+var oms;
+
+var byFlight = false;
 
 function initMap() {
     var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -35,7 +37,11 @@ function initMap() {
     });
     directionsDisplay.setPanel(document.getElementById('road'));
 
-    markerCluster = new MarkerClusterer(map, [], {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    oms = new OverlappingMarkerSpiderfier(map, {
+            markersWontMove: true,
+            markersWontHide: true,
+            basicFormatEvents: true
+        });
 
     // Rayon de 20km autour du point de départ
     createCircle(map, latLng);
@@ -66,7 +72,7 @@ function initMap() {
     });
 
     google.maps.event.addListener(map, "tilesloaded", function() {
-        //document.getElementById("loader_content").style.display = "none";
+        document.getElementById("loader_content").style.display = "none";
     });
 
     jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
@@ -95,12 +101,11 @@ function addMarker(id, latitude, longitude, title, type, etat) {
         infowindow.open(map, marker);
     });
     markers.push(marker);
-    markerCluster.addMarker(marker);
+    oms.addMarker(marker);  // adds the marker to the spiderfier _and_ the map
 }
 
 /** Supprime tous les markers sauf un **/
 function hideAllExceptOne(id) {
-    markerCluster.clearMarkers();
     for (var i = 0; i < markers.length; i++) {
         if(markers[i].id != id) {
             markers[i].setMap(null);
@@ -114,10 +119,8 @@ function hideAllExceptOne(id) {
 
 /** Réaffiche tous les markers **/
 function showAll() {
-    markerCluster.clearMarkers();
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(map);
-        markerCluster.addMarker(markers[i]);
     }
 }
 
@@ -190,10 +193,7 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
 
         polygon.setOptions(selectedStyle);
 
-        if (originSelect && destSelect) { // Si origin et dest sélectionnés
-            calcFlightPath(flightPlanCoordinates);
-            showDist(flightPlanCoordinates);
-        }
+        checkIfItinerary();
     });
 
     polygon.addListener('rightclick', function(event) {
@@ -217,10 +217,7 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
 
         polygon.setOptions(selectedStyle);
 
-        if (originSelect && destSelect) { // Si origin et dest sélectionnés
-            calcFlightPath(flightPlanCoordinates);
-            showDist(flightPlanCoordinates);
-        }
+        checkIfItinerary();
     });
 
     polygon.addListener("mouseover", function(){
@@ -239,6 +236,13 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
 
 }
 
+function checkIfItinerary() {
+    if (originSelect && destSelect) { // Si origin et dest sélectionnés
+        if(byFlight)
+            calcFlightPath(flightPlanCoordinates);
+    }
+}
+
 /** Calcule un itinéraire entre 2 points **/
 function calculate(origin, destination) {
     if (origin && destination) {
@@ -255,6 +259,7 @@ function calculate(origin, destination) {
         var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
         directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
             if (status == 'OK') {
+                infowindow.close();
                 directionsDisplay.setMap(map);
                 directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                 document.getElementById("road").style.display = "block";
@@ -283,13 +288,22 @@ function calcFlightPath(coordinates) {
         strokeWeight: 2
     });
     flightPath.setMap(map);
+
+    showDist(coordinates);
 }
 
 /** Affiche l'infowindow sur la ligne **/
 function showDist(coordinates) {
-    var dist = Math.round(google.maps.geometry.spherical.computeDistanceBetween(flightPlanCoordinates[0], flightPlanCoordinates[1])); // En mètres
+    var dist = Math.round(google.maps.geometry.spherical.computeDistanceBetween(coordinates[0], coordinates[1])); // En mètres
     var distStr = dist + "";
     infowindow.setContent("<strong>" + (Math.round(dist / 1000)) + " km " + distStr.substring(distStr.length - 3) + " mètres</strong>");
-    infowindow.setPosition(getLineCenter(flightPlanCoordinates));
+    infowindow.setPosition(getLineCenter(coordinates));
     infowindow.open(map);
+}
+
+function enableFlightItinerary() {
+    byFlight = true;
+}
+function disableFlightItinerary() {
+    byFlight = false;
 }
