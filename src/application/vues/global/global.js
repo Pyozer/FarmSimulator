@@ -58,11 +58,15 @@ function initMap() {
         originSelected = false;
 
         directionsDisplay.setMap(null);
-        document.getElementById('road').style.display = 'none';
+        document.getElementById("road").style.display = "none";
         document.getElementById("map").className = "fullWidth";
 
         jsInterface.setFirstChamp("");
         jsInterface.setSecondChamp("");
+    });
+
+    google.maps.event.addListener(map, "tilesloaded", function() {
+        document.getElementById("loader_content").style.display = "none";
     });
 
     jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
@@ -257,7 +261,7 @@ function calculate(origin, destination) {
             if (status == 'OK') {
                 directionsDisplay.setMap(map);
                 directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-                document.getElementById('road').style.display = 'block';
+                document.getElementById("road").style.display = "block";
                 document.getElementById("map").className = "dividedWidth";
             }
         });

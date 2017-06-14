@@ -34,6 +34,10 @@ function initMap() {
         infowindow.close();
     });
 
+    google.maps.event.addListener(map, "tilesloaded", function() {
+        document.getElementById("loader_content").style.display = "none";
+    });
+
     jsInterface.askToLoadMarkers(); // On demande à Java de setup les véhicules
 }
 

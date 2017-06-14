@@ -35,6 +35,10 @@ function initMap() {
         jsInterface.setPolygonEdited(toJavaArray(polygon));
     });
 
+    google.maps.event.addListener(map, "tilesloaded", function() {
+        document.getElementById("loader_content").style.display = "none";
+    });
+
     jsInterface.askToLoadChamps(); // On demande à Java de setup le champ
 }
 

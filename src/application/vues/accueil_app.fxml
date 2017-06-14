@@ -57,7 +57,7 @@
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="127.0" minHeight="-Infinity" prefHeight="1.0" prefWidth="72.0" style="-fx-background-color: #ffffff;" textAlignment="CENTER" />
             </Pane>
             <Pane onMouseClicked="#handleGlobal" style="-fx-background-color: #009688;" styleClass="home_box" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
-                <Text fill="WHITE" layoutX="288.0" layoutY="68.0" text="ACCUEIL" textAlignment="CENTER">
+                <Text fill="WHITE" layoutX="288.0" layoutY="68.0" text="GLOBAL" textAlignment="CENTER">
                     <font>
                         <Font name="Roboto Medium" size="20.0" />
                     </font>
