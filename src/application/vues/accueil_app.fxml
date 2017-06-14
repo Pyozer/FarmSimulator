@@ -71,4 +71,9 @@
             </Pane>
         </GridPane>
     </center>
+    <bottom>
+        <HBox spacing="15" BorderPane.alignment="BOTTOM_RIGHT">
+
+        </HBox>
+    </bottom>
 </BorderPane>

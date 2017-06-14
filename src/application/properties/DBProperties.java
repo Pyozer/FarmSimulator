@@ -1,4 +1,4 @@
-package application.database;
+package application.properties;
 
 import java.io.*;
 import java.util.Properties;

@@ -169,7 +169,8 @@ public class CommandeController {
 
     @FXML
     public void showAffects() {
-        SwitchView switchViewData = new SwitchView("commande/affectations_app", Constant.ADD_VEHICULE_APP_TITLE, bpane);
+        SwitchView switchViewData = new SwitchView("commande/affectations_app", Constant.ADD_VEHICULE_APP_TITLE);
+        switchViewData.setPopUp();
         AffectationController affectationController = switchViewData.getFxmlLoader().getController();
         affectationController.defineCommandeSelected(selectedCommande);
         switchViewData.showScene();

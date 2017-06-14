@@ -1,5 +1,7 @@
 package application.database;
 
+import application.properties.DBProperties;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;

@@ -59,7 +59,7 @@ public class GoogleMaps extends Region {
     }
     public void addChamp(int id, Culture culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
         try {
-            javascriptOBJ.call("addChamp", id, culture, proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
+            javascriptOBJ.call("addChamp", id, culture.toString(), proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
         } catch (JSException e) {
             e.printStackTrace();
         }

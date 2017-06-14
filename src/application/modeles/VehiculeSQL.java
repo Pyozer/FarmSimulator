@@ -21,7 +21,7 @@ public class VehiculeSQL {
 
     private final static String UPDATE_VEHICULE = "UPDATE VEHICULE SET marque_vehi:marque_vehi, modele_vehi=:modele_vehi, etat_vehi=:etat_vehi WHERE id_vehi:id_vehi";
     private final static String INSERT_VEHICULE = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
-    private final static String GET_ID_VEHI = "SELECT LAST_INSERT_ID()";
+    private final static String GET_ID_VEHI = "SELECT LAST_INSERT_ID() as lastID";
 
     public static ObservableList<Vehicule> getVehiculeList() {
         vehiculeList.clear();
@@ -50,7 +50,7 @@ public class VehiculeSQL {
         ResultSet result = getLastIdStmt.executeQuery();
         result.next();
 
-        int idVehi = result.getInt(0);
+        int idVehi = result.getInt("lastID");
 
         result.close();
 

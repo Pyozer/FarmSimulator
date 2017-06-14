@@ -2,7 +2,7 @@ package application.controlleurs.parametre;
 
 import application.classes.AlertDialog;
 import application.database.DBConnection;
-import application.database.DBProperties;
+import application.properties.DBProperties;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;

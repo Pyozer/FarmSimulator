@@ -2,6 +2,7 @@ package application.database;
 
 import application.Constant;
 import application.classes.SwitchView;
+import application.properties.DBProperties;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
