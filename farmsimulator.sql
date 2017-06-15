@@ -55,10 +55,12 @@ INSERT INTO `agriculteur` (`id_agri`, `nom_agri`, `prenom_agri`, `adr_agri`, `te
 --
 -- Structure de la table `botteleuse`
 --
+
 CREATE TABLE `botteleuse` (
   `id_bott` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
   `type_bott` varchar(50) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -77,8 +79,6 @@ INSERT INTO `botteleuse` (`id_bott`, `id_vehi`, `type_bott`) VALUES
 -- Structure de la table `champ`
 --
 
-
-
 CREATE TABLE `champ` (
   `id_champ` int(11) NOT NULL,
   `surf_champ` float NOT NULL,
@@ -87,6 +87,7 @@ CREATE TABLE `champ` (
   `coords_champ` text NOT NULL,
   `type_champ` int(11) NOT NULL,
   `id_agri` int(11) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -115,8 +116,6 @@ INSERT INTO `champ` (`id_champ`, `surf_champ`, `adr_champ`, `coord_centre_champ`
 -- Structure de la table `commande`
 --
 
-
-
 CREATE TABLE `commande` (
   `id_com` int(11) NOT NULL,
   `date_com` date NOT NULL,
@@ -127,6 +126,7 @@ CREATE TABLE `commande` (
   `cout_com` float NOT NULL DEFAULT '0',
   `id_champ` int(11) NOT NULL,
   `effectuer_com` tinyint(1) NOT NULL DEFAULT '0'
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -157,10 +157,10 @@ INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_
 -- Structure de la table `culture`
 --
 
-
 CREATE TABLE `culture` (
   `id_cul` int(11) NOT NULL,
   `type_cul` varchar(50) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -179,12 +179,11 @@ INSERT INTO `culture` (`id_cul`, `type_cul`) VALUES
 -- Structure de la table `eta`
 --
 
-
-
 CREATE TABLE `eta` (
-  `id` int(11) NOT NULL,
-  `non` varchar(50) NOT NULL,
-  `adresse` varchar(250) NOT NULL
+  `id_eta` int(11) NOT NULL,
+  `nom_eta` varchar(100) NOT NULL,
+  `adresse_eta` varchar(250) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -193,11 +192,11 @@ CREATE TABLE `eta` (
 -- Structure de la table `moisson`
 --
 
-
 CREATE TABLE `moisson` (
   `id_moi` int(11) NOT NULL,
   `id_cul` int(11) NOT NULL,
   `vitesse_moi` float NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -242,7 +241,6 @@ INSERT INTO `moisson` (`id_moi`, `id_cul`, `vitesse_moi`) VALUES
 -- Structure de la table `moissonneuse`
 --
 
-
 CREATE TABLE `moissonneuse` (
   `id_moi` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
@@ -254,12 +252,12 @@ CREATE TABLE `moissonneuse` (
   `conso_fonct_moi` float NOT NULL,
   `conso_route_moi` float NOT NULL,
   `poids_moi` float NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `moissonneuse`
 --
-
 INSERT INTO `moissonneuse` (`id_moi`, `id_vehi`, `taille_tremis_moi`, `taille_reserve_moi`, `largeur_route_moi`, `hauteur_moi`, `largeur_coupe_moi`, `conso_fonct_moi`, `conso_route_moi`, `poids_moi`) VALUES
 (1, 2, 11500, 1000, 3, 3, 9, 45, 10, 19),
 (2, 3, 7500, 580, 3, 3, 5, 25, 8, 15),
@@ -277,8 +275,6 @@ INSERT INTO `moissonneuse` (`id_moi`, `id_vehi`, `taille_tremis_moi`, `taille_re
 -- Structure de la table `ordre`
 --
 
-
-
 CREATE TABLE `ordre` (
   `id_ordre` int(11) NOT NULL,
   `heure_arrive_ordre` varchar(50) NOT NULL DEFAULT '0',
@@ -287,6 +283,7 @@ CREATE TABLE `ordre` (
   `tonnes_ordre` float NOT NULL DEFAULT '0',
   `id_vehi` int(11) NOT NULL,
   `id_com` int(11) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -337,12 +334,11 @@ INSERT INTO `ordre` (`id_ordre`, `heure_arrive_ordre`, `duree_ordre`, `nb_km_ord
 -- Structure de la table `tracteur`
 --
 
-
-
 CREATE TABLE `tracteur` (
   `id_tract` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
   `cap_rem_tract` float NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -376,13 +372,13 @@ INSERT INTO `tracteur` (`id_tract`, `id_vehi`, `cap_rem_tract`) VALUES
 -- Structure de la table `user`
 --
 
-
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(100) NOT NULL,
-  `prenom` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `email` varchar(250) NOT NULL
+  `id_user` int(11) NOT NULL,
+  `nom_user` varchar(100) NOT NULL,
+  `prenom_user` varchar(100) NOT NULL,
+  `password_user` varchar(100) NOT NULL,
+  `email_user` varchar(250) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -391,13 +387,13 @@ CREATE TABLE `user` (
 -- Structure de la table `vehicule`
 --
 
-
 CREATE TABLE `vehicule` (
   `id_vehi` int(11) NOT NULL,
   `marque_vehi` varchar(50) NOT NULL,
   `modele_vehi` varchar(50) NOT NULL,
   `etat_vehi` varchar(50) NOT NULL,
   `position_vehi` varchar(100) NOT NULL DEFAULT '47.970575, -1.448591'
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -480,7 +476,7 @@ ALTER TABLE `culture`
 -- Index pour la table `eta`
 --
 ALTER TABLE `eta`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_eta`);
 
 --
 -- Index pour la table `moisson`
@@ -556,7 +552,7 @@ ALTER TABLE `culture`
 -- AUTO_INCREMENT pour la table `eta`
 --
 ALTER TABLE `eta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_eta` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `moissonneuse`
 --
@@ -577,6 +573,11 @@ ALTER TABLE `tracteur`
 --
 ALTER TABLE `vehicule`
   MODIFY `id_vehi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT pour la table `eta`
+--
+ALTER TABLE `user`
+    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables déchargées
 --
