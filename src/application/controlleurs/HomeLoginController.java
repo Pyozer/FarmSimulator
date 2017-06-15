@@ -5,6 +5,7 @@ import application.classes.AlertDialog;
 import application.classes.SwitchView;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
+import application.modeles.UserSQL;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -44,40 +45,12 @@ public class HomeLoginController {
 	}
 
 	private void login(String email, String password) {
-
-        boolean login_ok = false;
-
-        // TODO: Faire un UserSQL
-		String request = "SELECT email, password FROM User WHERE email=:email AND password=:password LIMIT 1";
-		try {
-			NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
-			stmt.setString("email", email);
-			stmt.setString("password", password);
-			// execute select SQL stetement
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-			    if(rs.getString("email").equals(email) && rs.getString("password").equals(password)) {
-			        System.out.println(rs.getString("email"));
-			        System.out.println(rs.getString("password"));
-                    login_ok = true;
-                }
-			}
-
-			stmt.close();
-			rs.close();
-
-			if(login_ok)
-				loadHome();
-            else {
-                AlertDialog alert = new AlertDialog("Erreur", null, "Identifiants incorrectes !\nRéessayez.", Alert.AlertType.ERROR);
-                alert.show();
-            }
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(UserSQL.checkIdentifiants(email, password))
+			loadHome();
+		else {
+			AlertDialog alert = new AlertDialog("Erreur", null, "Identifiants incorrectes !\nRéessayez.", Alert.AlertType.ERROR);
+			alert.show();
 		}
-
     }
 
 	private void loadHome() {

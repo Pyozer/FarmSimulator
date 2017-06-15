@@ -21,14 +21,14 @@ public class Point {
 	/**
 	 * @return la latitude
 	 */
-	public double x() {
+	public double getX() {
 		return this.x;
 	}
 	
 	/**
 	 * @return la longitude
 	 */
-	public double y() {
+	public double getY() {
 		return this.y;
 	}
 	

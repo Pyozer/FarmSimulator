@@ -182,7 +182,8 @@ INSERT INTO `culture` (`id_cul`, `type_cul`) VALUES
 CREATE TABLE `eta` (
   `id_eta` int(11) NOT NULL,
   `nom_eta` varchar(100) NOT NULL,
-  `adresse_eta` varchar(250) NOT NULL
+  `adresse_eta` varchar(250) NOT NULL,
+  `position_eta` varchar(250) NOT NULL
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -511,7 +512,7 @@ ALTER TABLE `tracteur`
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- Index pour la table `vehicule`

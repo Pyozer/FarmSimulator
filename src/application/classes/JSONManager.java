@@ -47,8 +47,8 @@ public class JSONManager {
 
 		for (Point point : coords) {
 		    JSONArray pointArray = new JSONArray();
-		    pointArray.put(point.x());
-		    pointArray.put(point.y());
+		    pointArray.put(point.getX());
+		    pointArray.put(point.getY());
             jsonArr.put(pointArray);
 		}
 
@@ -64,8 +64,8 @@ public class JSONManager {
 
         JSONArray jsonArr = new JSONArray();
 
-        jsonArr.put(point.x());
-        jsonArr.put(point.y());
+        jsonArr.put(point.getX());
+        jsonArr.put(point.getY());
 
         return jsonArr.toString();
 	}

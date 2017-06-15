@@ -30,8 +30,8 @@ public class Polygon {
 		int pointCount = points.length;
 		for (int i = 0;i < pointCount - 1;i++){
 			final Point point = points[i];
-			x += point.x();
-			y += point.y();
+			x += point.getX();
+			y += point.getY();
 		}
 
 		x = x/pointCount;

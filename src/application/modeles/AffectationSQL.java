@@ -17,26 +17,11 @@ import java.sql.SQLException;
 public class AffectationSQL implements Constant {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
-    private static final String UPDATE_POISITION_REQUETE = "UPDATE Vehicule SET position_vehi=:position_vehi WHERE id_vehi=:id_vehi";
-    private static final String INSERT_AFFECTATION_REQUETE = "INSERT INTO Ordre(id_com, id_vehi) VALUES(:id_com, :id_vehi)";
-    private static final String DELETE_AFFECTATION_REQUETE = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=:id_vehi";
-    private static final String SELECT_TRACTEUR_AFFECTATION_REQUETE = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
-            "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi " +
-            "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
-            "WHERE id_com=:id_com";
-    private static final String SELECT_BOTTELEUSE_AFFECTATION_REQUETE = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule " +
-            "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi " +
-            "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
-            "WHERE id_com=:id_com";
-    private static final String SELECT_MOISSONNEUSE_AFFECTATION_REQUETE = "SELECT * FROM Vehicule " +
-            "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi " +
-            "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
-            "WHERE id_com=:id_com";
 
     public static void addAffect(Commande inputCommande, Vehicule inputVehicule) {
-
+        String request = "INSERT INTO Ordre(id_com, id_vehi) VALUES(:id_com, :id_vehi)";
         try {
-            NamedParameterStatement insertAffectationStatement = new NamedParameterStatement(DBConnection.getConnection(), INSERT_AFFECTATION_REQUETE);
+            NamedParameterStatement insertAffectationStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             insertAffectationStatement.setInt("id_com", inputCommande.getId());
             insertAffectationStatement.setInt("id_vehi", inputVehicule.getId());
@@ -55,9 +40,10 @@ public class AffectationSQL implements Constant {
     }
 
     public static void deleteAffect(Commande inputCommande, Vehicule inputVehicule) {
+        String request = "DELETE FROM Ordre WHERE id_com=:id_com AND id_vehi=:id_vehi";
 
         try {
-            NamedParameterStatement deleteAffectationStatement = new NamedParameterStatement(DBConnection.getConnection(), DELETE_AFFECTATION_REQUETE);
+            NamedParameterStatement deleteAffectationStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             deleteAffectationStatement.setInt("id_com", inputCommande.getId());
             deleteAffectationStatement.setInt("id_vehi", inputVehicule.getId());
@@ -81,8 +67,9 @@ public class AffectationSQL implements Constant {
     }
 
     private static void updatePosition(Vehicule inputVehicule, Point inputPosition){
+        String request = "UPDATE Vehicule SET position_vehi=:position_vehi WHERE id_vehi=:id_vehi";
         try {
-            NamedParameterStatement updatePositionStatement = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_POISITION_REQUETE);
+            NamedParameterStatement updatePositionStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             updatePositionStatement.setString("position_vehi", inputPosition.toString());
             updatePositionStatement.setInt("id_vehi", inputVehicule.getId());
@@ -107,9 +94,13 @@ public class AffectationSQL implements Constant {
     }
 
     private static void loadTracteur(Commande commande) {
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
+                "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi " +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
+                "WHERE id_com=:id_com";
 
         try {
-            NamedParameterStatement loadTracteurStatement = new NamedParameterStatement(DBConnection.getConnection(), SELECT_TRACTEUR_AFFECTATION_REQUETE);
+            NamedParameterStatement loadTracteurStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             loadTracteurStatement.setInt("id_com", commande.getId());
             // Execute select SQL statement
             ResultSet rs = loadTracteurStatement.executeQuery();
@@ -134,9 +125,13 @@ public class AffectationSQL implements Constant {
     }
 
     private static void loadBotteleuse(Commande commande) {
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule " +
+                "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi " +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
+                "WHERE id_com=:id_com";
 
         try {
-            NamedParameterStatement loadBotteleuseStatement = new NamedParameterStatement(DBConnection.getConnection(), SELECT_BOTTELEUSE_AFFECTATION_REQUETE);
+            NamedParameterStatement loadBotteleuseStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             loadBotteleuseStatement.setInt("id_com", commande.getId());
             // Execute select SQL statement
             ResultSet rs = loadBotteleuseStatement.executeQuery();
@@ -161,9 +156,13 @@ public class AffectationSQL implements Constant {
     }
 
     private static void loadMoissonneuse(Commande commande) {
+        String request = "SELECT * FROM Vehicule " +
+                "INNER JOIN Moissonneuse ON Vehicule.id_vehi=Moissonneuse.id_vehi " +
+                "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
+                "WHERE id_com=:id_com";
 
         try {
-            NamedParameterStatement loadMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), SELECT_MOISSONNEUSE_AFFECTATION_REQUETE);
+            NamedParameterStatement loadMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             loadMoissonneuseStatement.setInt("id_com", commande.getId());
             // Execute select SQL statement
             ResultSet rs = loadMoissonneuseStatement.executeQuery();

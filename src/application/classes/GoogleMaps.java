@@ -49,8 +49,8 @@ public class GoogleMaps extends Region {
 
     /** Ajoute un Point sur la Map **/
     public void addMarker(int id, Point position, String title, String type, String etat) {
-        //System.out.println("addMarker('" + id + "','" + position.x() + "','" + position.y() + "','" + title + "','" + type + "','" + etat + "');");
-        javascriptOBJ.call("addMarker", id, position.x(), position.y(), title, type, etat);
+        //System.out.println("addMarker('" + id + "','" + position.getX() + "','" + position.getY() + "','" + title + "','" + type + "','" + etat + "');");
+        javascriptOBJ.call("addMarker", id, position.getX(), position.getY(), title, type, etat);
     }
 
     /** Ajoute un Champ sur la Map **/

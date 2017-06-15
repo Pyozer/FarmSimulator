@@ -2,19 +2,15 @@ package application.controlleurs.parametre;
 
 import application.Constant;
 import application.classes.AlertDialog;
-import application.classes.Settings;
+import application.classes.Point;
 import application.classes.SwitchView;
-import application.database.DBConnection;
-import application.database.NamedParameterStatement;
+import application.modeles.EtaSQL;
 import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -26,22 +22,38 @@ public class ParamsInfosController implements Constant {
 	@FXML private BorderPane bpane;
 
 	/** Elements **/
-	@FXML private JFXTextField name_eta; // Champs identifiant
-	@FXML private JFXTextField adr_eta; // Champs mot de passe
-	
+	@FXML private JFXTextField name_eta; // Nom de l'ETA
+	@FXML private JFXTextField adr_eta; // Adresse postal de l'ETA
+	@FXML private JFXTextField posLat_eta; // Position - Latitude de l'ETA
+	@FXML private JFXTextField posLong_eta; // Position - Longitude de l'ETA
+
     /**
      * Initializes the controller class.
      */
 	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
 	}
 
 	@FXML
-    private void btnNextAction(ActionEvent event) {
-		if (!name_eta.getText().isEmpty() && !adr_eta.getText().isEmpty()) {
-		    if(!alreadyEtaExists(name_eta.getText(), adr_eta.getText())) {
-                saveEtaInBDD(name_eta.getText(), adr_eta.getText());
+    private void btnNextAction() {
+	    String nomInput = name_eta.getText().trim();
+	    String adresseInput = adr_eta.getText().trim();
+	    String posLatInput = posLat_eta.getText().trim();
+	    String posLongInput = posLong_eta.getText().trim();
+
+		if (!nomInput.isEmpty() && !adresseInput.isEmpty() && !posLatInput.isEmpty() && !posLongInput.isEmpty()) {
+		    if(!EtaSQL.checkIfExists(nomInput, adresseInput)) {
+		        Point position = new Point(Double.parseDouble(posLatInput), Double.parseDouble(posLongInput));
+                EtaSQL.addEta(nomInput, adresseInput, position);
+
+                Properties prop = SettingsProperties.loadPropertiesFile();
+                if (prop != null) {
+                    prop.setProperty(PROP_ALREADY_RUN, "true");
+                }
+
+                SettingsProperties.makeSettingsProperties(prop);
+
+                loadLogin();
             } else {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Un ETA possède déjà le même nom ou la même adresse !", Alert.AlertType.ERROR);
                 alert.show();
@@ -51,64 +63,6 @@ public class ParamsInfosController implements Constant {
 			alert.show();
 		}
 	}
-
-    /**
-     * Vérifie si il n'y a pas déjà un ETA ayant le même nom ou adresse
-     * @param name_eta String
-     * @param adresse_eta String
-     * @return boolean
-     */
-    private boolean alreadyEtaExists(String name_eta, String adresse_eta) {
-        // TODO: Faire un modele SQL
-        String request = "SELECT COUNT(*) as rowCount FROM Eta WHERE nom_eta=:nom OR adresse_eta=:adresse";
-        try {
-            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
-            stmt.setString("nom", name_eta);
-            stmt.setString("adresse", adresse_eta);
-            ResultSet res = stmt.executeQuery();
-
-            res.next();
-            int count = res.getInt("rowCount");
-
-            res.close();
-            stmt.close();
-
-            return count >= 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    /**
-     * Sauvegarde les informations de l'ETA dans la BDD
-     * @param nom_eta String
-     * @param adresse_eta String
-     */
-    private void saveEtaInBDD(String nom_eta, String adresse_eta) {
-        // TODO: Faire un modele SQL
-        String request = "INSERT INTO Eta(nom_eta, adresse_eta) VALUES(:nom, :adresse)";
-        try {
-            NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
-            stmt.setString("nom", nom_eta);
-            stmt.setString("adresse", adresse_eta);
-            stmt.executeUpdate();
-
-            stmt.close();
-
-            Properties prop = SettingsProperties.loadPropertiesFile();
-            if (prop != null) {
-                prop.setProperty(PROP_ALREADY_RUN, "true");
-            }
-
-            SettingsProperties.makeSettingsProperties(prop);
-
-            loadLogin();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 	private void loadLogin() {
         SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN_TITLE, bpane);

@@ -6,7 +6,6 @@ import application.database.DBConnection;
 import application.properties.DBProperties;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
@@ -42,21 +41,24 @@ public class ParamsBddController implements Constant {
         dbname_bdd.setText(properties.getProperty(PROP_DB));
         identifiant_bdd.setText(properties.getProperty(PROP_USER));
         password_bdd.setText(properties.getProperty(PROP_PASS));
-
 	}
 
-	@FXML private void btnCheckAction(ActionEvent event) {
+	@FXML
+    private void btnCheckAction() {
         DBProperties properties = new DBProperties();
 
-        properties.makeDbProperties(hote_bdd.getText().trim(), port_bdd.getText().trim(), dbname_bdd.getText().trim(), identifiant_bdd.getText().trim(), password_bdd.getText().trim());
-
         if (DBConnection.checkConnection()) {
+            properties.makeDbProperties(hote_bdd.getText().trim(), port_bdd.getText().trim(), dbname_bdd.getText().trim(), identifiant_bdd.getText().trim(), password_bdd.getText().trim());
+
             AlertDialog alert = new AlertDialog("Information", null, "Connexion à la base de donnée réussi !");
             alert.show();
+
             disableFields();
+
             exitWindow();
         } else {
             enableFields();
+
             AlertDialog alert = new AlertDialog("Erreur", null, "Connexion à la base de donnée impossible !\nVérifiez les données saisies et réessayez.", Alert.AlertType.ERROR);
             alert.show();
         }

@@ -33,7 +33,7 @@
                 <ImageView fitHeight="96.0" fitWidth="108.0" layoutX="187.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/farmer.png" />
                 </ImageView>
-                <JFXTextField fx:id="user_login" labelFloat="true" layoutX="77.0" layoutY="184.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Nom d'utilisateur">
+                <JFXTextField fx:id="user_login" labelFloat="true" layoutX="77.0" layoutY="184.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Adresse Mail">
                     <font>
                         <Font name="Roboto Medium" size="14.0" />
                     </font>
