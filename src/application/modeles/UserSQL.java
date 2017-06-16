@@ -4,6 +4,7 @@ import application.Constant;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -78,6 +79,27 @@ public class UserSQL implements Constant {
             e.printStackTrace();
         }
         return count >= 1;
+    }
+
+    public static int getNbAccount() {
+        int count = 0;
+
+        String request = "SELECT COUNT(id_user) as rowCount FROM User";
+
+        try {
+            PreparedStatement nbAccount = DBConnection.getConnection().prepareStatement(request);
+            ResultSet res = nbAccount.executeQuery();
+
+            res.next();
+            count = res.getInt("rowCount");
+
+            res.close();
+            nbAccount.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
 }

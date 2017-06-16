@@ -2,6 +2,7 @@ package application.controlleurs.parametre;
 
 import application.Constant;
 import application.classes.SwitchView;
+import application.modeles.UserSQL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -34,8 +35,13 @@ public class ParamsHomeController {
 
 	@FXML
 	private void btnNextAction(ActionEvent event) {
-		SwitchView switchView = new SwitchView("parametre/params_account", Constant.PARAMS_ACCOUNT_TITLE, bpane);
-		switchView.showScene();
+		if(UserSQL.getNbAccount() == 0) {
+            SwitchView switchView = new SwitchView("parametre/params_account", Constant.PARAMS_ACCOUNT_TITLE, bpane);
+            switchView.showScene();
+        } else {
+            SwitchView switchView = new SwitchView("parametre/params_infos", Constant.FIRST_PARAMS_INFOS_TITLE, bpane);
+            switchView.showScene();
+        }
 	}
 
 }

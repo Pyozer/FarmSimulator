@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.properties.SettingsProperties;
+
 import java.util.Properties;
 
 /**
@@ -13,7 +14,7 @@ public class EtaSettings implements Constant {
 
     public static void addEta(String nom, String adresse, Point position) {
 
-        Properties prop = SettingsProperties.loadPropertiesFile();
+        Properties prop = SettingsProperties.loadSettingsPropertiesFile();
         if (prop != null) {
             prop.setProperty(PROP_ETA_NAME, nom);
             prop.setProperty(PROP_ETA_ADRESSE, adresse);
@@ -25,15 +26,19 @@ public class EtaSettings implements Constant {
 
     public static boolean checkIfExists(String nom, String adresse) {
 
-        Properties prop = SettingsProperties.loadPropertiesFile();
+        Properties prop = SettingsProperties.loadSettingsPropertiesFile();
 
-        if (prop != null) {
+        if (prop != null
+                && prop.getProperty(PROP_ETA_NAME) != null
+                && prop.getProperty(PROP_ETA_ADRESSE) != null
+                && prop.getProperty(PROP_ETA_POSITION) != null) {
+
             String eta_name = prop.getProperty(PROP_ETA_NAME).trim();
             String eta_adresse = prop.getProperty(PROP_ETA_ADRESSE).trim();
             String eta_position = prop.getProperty(PROP_ETA_POSITION).trim();
 
-            if(!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty())
-                if(eta_name.equals(nom) && eta_adresse.equals(adresse))
+            if (!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty())
+                if (eta_name.equals(nom) && eta_adresse.equals(adresse))
                     return true;
         }
 
@@ -44,14 +49,14 @@ public class EtaSettings implements Constant {
 
         ETA eta = null;
 
-        Properties prop = SettingsProperties.loadPropertiesFile();
+        Properties prop = SettingsProperties.loadSettingsPropertiesFile();
 
         if (prop != null) {
             String eta_name = prop.getProperty(PROP_ETA_NAME).trim();
             String eta_adresse = prop.getProperty(PROP_ETA_ADRESSE).trim();
             String eta_position = prop.getProperty(PROP_ETA_POSITION).trim();
 
-            if(!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty()) {
+            if (!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty()) {
                 Point position_eta = JSONManager.readPoint(eta_position);
                 eta = new ETA(1, eta_name, eta_adresse, position_eta);
             }
@@ -59,5 +64,4 @@ public class EtaSettings implements Constant {
 
         return eta;
     }
-
 }

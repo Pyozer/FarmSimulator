@@ -46,7 +46,7 @@ public class ParamsInfosController implements Constant {
 		        Point position = new Point(Double.parseDouble(posLatInput), Double.parseDouble(posLongInput));
                 EtaSettings.addEta(nomInput, adresseInput, position);
 
-                Properties prop = SettingsProperties.loadPropertiesFile();
+                Properties prop = SettingsProperties.loadSettingsPropertiesFile();
                 if (prop != null) {
                     prop.setProperty(PROP_ALREADY_RUN, "true");
                 }

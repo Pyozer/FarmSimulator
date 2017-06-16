@@ -15,11 +15,6 @@ public class DBProperties implements Constant {
 
     private Properties properties = new Properties();
     private final static String FILE_CONFIG = "database.properties";
-    private final static String HOTE = "localhost";
-    private final static String PORT = "3306";
-    private final static String DBNAME = "pts2";
-    private final static String USER = "root";
-    private final static String PASSWORD = "";
 
     /**
      * Création du fichier "database.properties"
@@ -41,7 +36,7 @@ public class DBProperties implements Constant {
     }
 
     private void makeDefaultDbProperties() {
-        makeDbProperties(HOTE, PORT, DBNAME, USER, PASSWORD);
+        makeDbProperties(PROP_HOST_DEF, PROP_PORT_DEF, PROP_DB_DEF, PROP_USER_DEF, PROP_PASS_DEF);
     }
 
     /**
@@ -54,7 +49,7 @@ public class DBProperties implements Constant {
             InputStream inputStream = new FileInputStream(FILE_CONFIG);
             properties.load(inputStream);
 
-            /*if (properties.getProperty(PROP_HOST) == null
+            if (properties.getProperty(PROP_HOST) == null
                     || properties.getProperty(PROP_PORT) == null
                     || properties.getProperty(PROP_DB) == null
                     || properties.getProperty(PROP_USER) == null
@@ -62,9 +57,10 @@ public class DBProperties implements Constant {
 
 
                 makeDefaultDbProperties();
+
                 inputStream = new FileInputStream(FILE_CONFIG);
                 properties.load(inputStream);
-            }*/
+            }
 
             return properties;
         } catch (FileNotFoundException ex) {

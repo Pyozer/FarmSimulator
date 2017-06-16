@@ -65,14 +65,23 @@ public interface Constant {
     String TYPE_BOTT_CARRE = "Carré";
 
     String PROP_HOST = "host";
+    String PROP_HOST_DEF = "localhost";
     String PROP_PORT = "port";
+    String PROP_PORT_DEF = "3306";
     String PROP_DB = "db";
+    String PROP_DB_DEF = "pts2";
     String PROP_USER = "user";
+    String PROP_USER_DEF = "root";
     String PROP_PASS = "password";
+    String PROP_PASS_DEF = "";
 
     String PROP_ETA_NAME = "name_eta";
+    String PROP_ETA_NAME_DEF = "Nom de l'ETA";
     String PROP_ETA_ADRESSE = "adresse_eta";
+    String PROP_ETA_ADRESSE_DEF = "Adresse de l'ETA";
     String PROP_ETA_POSITION = "position_eta";
+    String PROP_ETA_POSITION_DEF = "[48.086004,-0.759585]";
 
     String PROP_ALREADY_RUN = "already_run";
+    String PROP_ALREADY_RUN_DEF = "false";
 }

@@ -29,7 +29,7 @@ public class Main extends Application implements Constant {
 
         SwitchView switchView = new SwitchView("parametre/params_home", Constant.PARAMS_APP_TITLE);
 
-        Properties properties = SettingsProperties.loadPropertiesFile();
+        Properties properties = SettingsProperties.loadSettingsPropertiesFile();
         if(properties != null && properties.getProperty(PROP_ALREADY_RUN).equals("true"))
             switchView = new SwitchView("home_login", Constant.ACCUEIL_APP_TITLE);
 
