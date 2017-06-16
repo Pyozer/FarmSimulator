@@ -2,6 +2,7 @@ package application.controlleurs.parametre;
 
 import application.Constant;
 import application.classes.SwitchView;
+import application.modeles.EtaSettings;
 import application.modeles.UserSQL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +39,7 @@ public class ParamsHomeController {
 		if(UserSQL.getNbAccount() == 0) {
             SwitchView switchView = new SwitchView("parametre/params_account", Constant.PARAMS_ACCOUNT_TITLE, bpane);
             switchView.showScene();
-        } else {
+        } else if(!EtaSettings.isAlreadyETA()) {
             SwitchView switchView = new SwitchView("parametre/params_infos", Constant.FIRST_PARAMS_INFOS_TITLE, bpane);
             switchView.showScene();
         }

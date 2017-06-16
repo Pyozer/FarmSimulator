@@ -3,17 +3,21 @@ package application.controlleurs.parametre;
 import application.Constant;
 import application.classes.AlertDialog;
 import application.classes.SwitchView;
+import application.modeles.EtaSettings;
 import application.modeles.UserSQL;
+import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
+import java.util.Properties;
+
 /**
  * Controlleur de la vue de création d'un compte admin
  */
-public class ParamsAccountController {
+public class ParamsAccountController implements Constant {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -67,8 +71,20 @@ public class ParamsAccountController {
 	 * Charge la fenetre pour les paramètres de l'ETA
 	 */
 	private void loadParamsInfos() {
-        SwitchView switchView = new SwitchView("parametre/params_infos", Constant.FIRST_PARAMS_INFOS_TITLE, bpane);
-        switchView.showScene();
+		if(!EtaSettings.isAlreadyETA()) {
+			SwitchView switchView = new SwitchView("parametre/params_infos", Constant.FIRST_PARAMS_INFOS_TITLE, bpane);
+			switchView.showScene();
+		} else {
+            Properties prop = SettingsProperties.loadSettingsPropertiesFile();
+            if (prop != null) {
+                prop.setProperty(PROP_ALREADY_RUN, "true");
+            }
+
+            SettingsProperties.makeSettingsProperties(prop);
+
+			SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN_TITLE, bpane);
+			switchView.showScene();
+		}
 	}
 
 }
