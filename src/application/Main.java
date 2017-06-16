@@ -1,11 +1,13 @@
 package application;
 
+import application.classes.SHA1;
 import application.classes.SwitchView;
 import application.database.DBConnection;
 import application.properties.SettingsProperties;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -13,6 +15,7 @@ public class Main extends Application implements Constant {
 
     @Override
     public void start(Stage primaryStage) {
+
         /*
         System.setProperty("http.proxyHost", "proxy.univ-lemans.fr");
         System.setProperty("http.proxyPort", "3128");

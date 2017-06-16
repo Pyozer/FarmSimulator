@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class CommandeSQL {
 
@@ -63,23 +64,19 @@ public class CommandeSQL {
     public static ObservableList<Commande> getCommandeMakedList(boolean commandMaked) {
         int statut = (commandMaked) ? 1 : 0;
 
-        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande " +
+        String request = "SELECT * FROM Commande " +
                 "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
                 "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
                 "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ " +
-                "INNER JOIN Ordre ON Commande.id_com = ordre.id_com " +
-                "WHERE Commande.effectuer_com=" + statut + " " +
-                "GROUP BY Commande.id_com";
+                "WHERE Commande.effectuer_com=" + statut;
         return getCommandeFromRequest(request);
     }
 
     public static ObservableList<Commande> getCommandeList(int max_entries) {
-        String request = "SELECT *, SUM(Ordre.tonnes_ordre) FROM Commande " +
+        String request = "SELECT * FROM Commande " +
                 "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
                 "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
-                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ " +
-                "INNER JOIN Ordre ON Commande.id_com = ordre.id_com " +
-                "GROUP BY Commande.id_com";
+                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
         if (max_entries > 0) {
             request += " ORDER BY date_com LIMIT " + max_entries;
         }
@@ -104,23 +101,29 @@ public class CommandeSQL {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
                 Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
 
+                String requestGetSomme = "SELECT COUNT(*), SUM(tonnes_ordre) as tonne_get FROM Ordre INNER JOIN Commande ON Commande.id_com=Ordre.id_com GROUP BY Commande.id_com";
+                PreparedStatement getTonneRecolte = DBConnection.getConnection().prepareStatement(requestGetSomme);
+                // Execute SQL statement
+                ResultSet tonneGet = getTonneRecolte.executeQuery();
+                tonneGet.next();
+
                 commandeList.add(new Commande(
-                        Integer.parseInt(rs.getString("id_com")),
+                        rs.getInt("id_com"),
                         rs.getString("transp_com"),
                         rs.getString("bott_com"),
-                        Float.parseFloat(rs.getString("taille_max_transp_com")),
+                        rs.getFloat("taille_max_transp_com"),
                         rs.getString("date_com"),
-                        Float.parseFloat(rs.getString("SUM(Ordre.tonnes_ordre)")),
-                        Float.parseFloat(rs.getString("cout_com")),
+                        tonneGet.getFloat("tonne_get"),
+                        rs.getFloat("cout_com"),
                         new Champ(
-                                Integer.parseInt(rs.getString("id_agri")),
-                                Float.parseFloat(rs.getString("surf_champ")),
+                                rs.getInt("id_agri"),
+                                rs.getFloat("surf_champ"),
                                 rs.getString("adr_champ"),
                                 coord_center,
                                 coord_champ,
                                 new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
                                 new Agriculteur(
-                                            Integer.parseInt(rs.getString("id_agri")),
+                                            rs.getInt("id_agri"),
                                             rs.getString("prenom_agri"),
                                             rs.getString("nom_agri"),
                                             rs.getString("tel_agri"),

@@ -22,7 +22,6 @@ public class SettingsProperties implements Constant {
      * Création du fichier "settings.properties"
      */
     public static void makeSettingsProperties(Properties properties) {
-        System.out.println(properties);
         try {
             OutputStream output = new FileOutputStream(FILE_CONFIG);
             properties.store(output, null);
@@ -32,7 +31,7 @@ public class SettingsProperties implements Constant {
         }
     }
 
-    public static void makeDefaultSettingsProperties() {
+    private static void makeDefaultSettingsProperties() {
         Properties properties = new Properties();
         properties.setProperty(PROP_ALREADY_RUN, PROP_ALREADY_RUN_DEF);
         makeSettingsProperties(properties);
@@ -40,7 +39,7 @@ public class SettingsProperties implements Constant {
 
     /**
      * On charge le fichier "settings.properties" en type Properties
-     * @return
+     * @return Properties
      */
     public static Properties loadSettingsPropertiesFile() {
         try {

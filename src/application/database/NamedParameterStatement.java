@@ -18,17 +18,31 @@ public class NamedParameterStatement {
 
     /**
      * Creates a NamedParameterStatement.  Wraps a call to
-     * c.{@link Connection#prepareStatement(java.lang.String)
-    prepareStatement}.
+     * c.{@link Connection#prepareStatement(java.lang.String) prepareStatement}.
      * @param connection the database connection
      * @param query      the parameterized query
      * @throws SQLException if the statement could not be created
      */
-    public NamedParameterStatement(Connection connection, String query) throws
-            SQLException {
-        indexMap=new HashMap();
-        String parsedQuery=parse(query, indexMap);
-        statement=connection.prepareStatement(parsedQuery);
+    public NamedParameterStatement(Connection connection, String query) throws SQLException {
+        this(connection, query, 0);
+    }
+
+    /**
+     * Creates a NamedParameterStatement.  Wraps a call to
+     * c.{@link Connection#prepareStatement(java.lang.String) prepareStatement}.
+     * @param connection the database connection
+     * @param query      the parameterized query
+     * @param option     the Statement option
+     * @throws SQLException if the statement could not be created
+     */
+    public NamedParameterStatement(Connection connection, String query, int option) throws SQLException {
+        indexMap = new HashMap();
+
+        String parsedQuery = parse(query, indexMap);
+        if(option == 0)
+            statement = connection.prepareStatement(parsedQuery);
+        else
+            statement = connection.prepareStatement(parsedQuery, option);
     }
 
 

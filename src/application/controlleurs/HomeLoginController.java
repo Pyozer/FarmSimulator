@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -35,7 +36,7 @@ public class HomeLoginController {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 	}
 
-	@FXML private void btnLoginAction() {
+	@FXML private void btnLoginAction() throws NoSuchAlgorithmException {
 		String userInput = user_login.getText().trim();
 		String passInput = password_login.getText().trim();
 		if (!userInput.isEmpty() && !passInput.isEmpty()) {
@@ -46,7 +47,7 @@ public class HomeLoginController {
 		}
 	}
 
-	private void login(String email, String password) {
+	private void login(String email, String password) throws NoSuchAlgorithmException {
 		if(UserSQL.checkIdentifiants(email, password))
 			loadHome();
 		else {

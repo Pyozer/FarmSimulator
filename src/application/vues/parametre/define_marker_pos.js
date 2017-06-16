@@ -63,7 +63,7 @@ function toJavaArrayMarker(marker) {
 
     var xy = marker.getPosition();
 
-    var javaArray += "[" + xy.lat() + ',' + xy.lng() + "]";
+    var javaArray = "[" + xy.lat() + ',' + xy.lng() + "]";
 
     return javaArray;
 }

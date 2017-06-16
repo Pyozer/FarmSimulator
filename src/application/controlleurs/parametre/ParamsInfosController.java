@@ -15,7 +15,7 @@ import java.util.Properties;
 /**
  * Controlleur de la vue de paramétrage des infos de l'Eta
  */
-public class ParamsInfosController implements Constant, APIGoogleMap {
+public class ParamsInfosController implements APIGoogleMap, Constant {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -25,9 +25,7 @@ public class ParamsInfosController implements Constant, APIGoogleMap {
 	@FXML private JFXTextField adr_eta; // Adresse postal de l'Eta
     @FXML private StackPane googleMaps;
 
-    private GoogleMaps gMaps;
-
-	private Point position_eta = null;
+    private Point position_eta = null;
 
     /**
      * Initializes the controller class.
@@ -35,7 +33,7 @@ public class ParamsInfosController implements Constant, APIGoogleMap {
 	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        gMaps = new GoogleMaps("parametre/maps_eta_position", this);
+        GoogleMaps gMaps = new GoogleMaps("parametre/maps_eta_position", this);
         gMaps.setParent(googleMaps);
 	}
 
@@ -72,15 +70,11 @@ public class ParamsInfosController implements Constant, APIGoogleMap {
 	}
 
 	public void setMarkerEdited(String marker_pos) {
-        System.out.println("ok");
         if(marker_pos.isEmpty()) {
             position_eta = null;
-            System.out.println("ok null");
-        }else {
+        } else {
             position_eta = JSONManager.readPoint(marker_pos);
-            System.out.println("ok pt");
         }
-        System.out.println("Point : " + position_eta);
     }
 
     public void log(String msg) {

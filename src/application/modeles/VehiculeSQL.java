@@ -1,27 +1,27 @@
 package application.modeles;
 
+import application.Constant;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
+import application.properties.SettingsProperties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 
 /**
  * Created by Pyozer on 23/05/2017.
  *
  */
-public class VehiculeSQL {
+public class VehiculeSQL implements Constant {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
 
     private final static String UPDATE_VEHICULE = "UPDATE VEHICULE SET marque_vehi:marque_vehi, modele_vehi=:modele_vehi, etat_vehi=:etat_vehi, position_vehi=:position_vehi WHERE id_vehi:id_vehi";
     private final static String INSERT_VEHICULE = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
-    private final static String GET_ID_VEHI = "SELECT LAST_INSERT_ID() as lastID";
 
     public static ObservableList<Vehicule> getVehiculeList() {
         vehiculeList.clear();
@@ -33,28 +33,26 @@ public class VehiculeSQL {
         return vehiculeList;
     }
 
-    private static int addVehicule(String marque, String modele, String etat, String position) throws SQLException{
+    private static int addVehicule(String marque, String modele, String etat, String position) throws SQLException {
+        int last_inserted_id = 0;
+
         // On insert le vehicule
-        NamedParameterStatement addVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE);
+        NamedParameterStatement addVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), INSERT_VEHICULE, Statement.RETURN_GENERATED_KEYS);
         addVehiculeStatement.setString("marque", marque);
         addVehiculeStatement.setString("modele", modele);
         addVehiculeStatement.setString("etat", etat);
         addVehiculeStatement.setString("position", position);
 
         addVehiculeStatement.executeUpdate();
+
+        ResultSet rs = addVehiculeStatement.getStatement().getGeneratedKeys();
+
+        if(rs.next())
+            last_inserted_id = rs.getInt(1);
+
         addVehiculeStatement.close();
 
-        // On récupère l'ID du vehicule ajouté
-        PreparedStatement getLastIdStmt = DBConnection.getConnection().prepareStatement(GET_ID_VEHI);
-        // Execute select SQL statement
-        ResultSet result = getLastIdStmt.executeQuery();
-        result.next();
-
-        int idVehi = result.getInt("lastID");
-
-        result.close();
-
-        return idVehi;
+        return last_inserted_id;
     }
 
     private static void editVehicule(int id, String marque, String modele, String etat, String position) throws SQLException{
@@ -72,6 +70,33 @@ public class VehiculeSQL {
         editVehiculeStatement.close();
     }
 
+    private static Point getActualPositionVehicule(int id_vehi) {
+        Point position = JSONManager.readPoint(SettingsProperties.loadSettingsPropertiesFile().getProperty(PROP_ETA_POSITION, PROP_ETA_POSITION_DEF));
+        try {
+            String requestPosition = "SELECT coord_centre_champ FROM Champ " +
+                    "INNER JOIN Commande ON Commande.id_champ=Champ.id_champ " +
+                    "INNER JOIN Ordre ON Ordre.id_com=Commande.id_com " +
+                    "INNER JOIN Vehicule ON Vehicule.id_vehi=Ordre.id_vehi " +
+                    "WHERE date_com=:date AND Vehicule.id_vehi=:idVehi";
+
+            NamedParameterStatement getPositionVehi = new NamedParameterStatement(DBConnection.getConnection(), requestPosition);
+            getPositionVehi.setString("date", LocalDate.now().toString());
+            getPositionVehi.setInt("idVehi", id_vehi);
+            // Execute select SQL statement
+            ResultSet rs_position = getPositionVehi.executeQuery();
+            if(rs_position.next()) {
+                String position_vehi = rs_position.getString("coord_centre_champ");
+
+                if (!position_vehi.isEmpty())
+                    position = JSONManager.readPoint(position_vehi);
+            }
+
+        } catch(SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return position;
+    }
+
     private static void loadTracteur() {
         String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
@@ -82,15 +107,13 @@ public class VehiculeSQL {
             ResultSet rs = loadTrateurStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
-
                 vehiculeList.add(new Tracteur(
-                        Integer.parseInt(rs.getString("id_vehi")),
+                        rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
-                        position,
-                        Integer.parseInt(rs.getString("cap_rem_tract"))
+                        getActualPositionVehicule(rs.getInt("id_vehi")),
+                        rs.getInt("cap_rem_tract")
                 ));
             }
             rs.close();
@@ -118,7 +141,7 @@ public class VehiculeSQL {
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
-                        position,
+                        getActualPositionVehicule(rs.getInt("id_vehi")),
                         Boolean.parseBoolean(rs.getString("type_bott"))
                 ));
             }
@@ -146,7 +169,7 @@ public class VehiculeSQL {
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
-                        position,
+                        getActualPositionVehicule(rs.getInt("id_vehi")),
                         Integer.parseInt(rs.getString("taille_tremis_moi")),
                         Integer.parseInt(rs.getString("taille_reserve_moi")),
                         Integer.parseInt(rs.getString("largeur_route_moi")),
@@ -185,6 +208,7 @@ public class VehiculeSQL {
 
         try {
             // On insert le vehicule
+            // TODO: A MODIFIER
             int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
 
             // On insert la botteleuse
@@ -229,6 +253,7 @@ public class VehiculeSQL {
 
         try {
             // On insert le vehicule
+            // TODO: A MODIFIER
             int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
 
             // On insert la moissonneuse
@@ -289,6 +314,7 @@ public class VehiculeSQL {
 
         try {
             // On insert le vehicule
+            // TODO: A MODIFIER
             int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
 
             // On insert la botteleuse

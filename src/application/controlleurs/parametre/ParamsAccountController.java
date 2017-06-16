@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 /**
@@ -37,7 +38,7 @@ public class ParamsAccountController implements Constant {
 	}
 
 	@FXML
-	private void btnNextAction() {
+	private void btnNextAction() throws NoSuchAlgorithmException {
 		String nomInput = nom.getText().trim();
 		String prenomInput = prenom.getText().trim();
 		String emailInput = email.getText().trim();

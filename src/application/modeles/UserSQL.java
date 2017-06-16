@@ -1,9 +1,12 @@
 package application.modeles;
 
 import application.Constant;
+import application.classes.SHA1;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,19 +16,19 @@ import java.sql.SQLException;
  */
 public class UserSQL implements Constant {
 
-    public static boolean checkIdentifiants(String email, String password) {
+    public static boolean checkIdentifiants(String email, String password) throws NoSuchAlgorithmException {
         boolean login_ok = false;
 
-        String request = "SELECT email_user, password_user FROM User WHERE email_user=:email AND password_user=:password";
+        String request = "SELECT COUNT(id_user) as rowCount, email_user, password_user FROM User WHERE email_user=:email AND password_user=:password";
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("email", email);
-            stmt.setString("password", password);
+            stmt.setString("password", SHA1.cryptToSHA1(password));
             // execute select SQL stetement
             ResultSet rs = stmt.executeQuery();
 
             rs.next();
-            if(rs.getString("email_user").equals(email) && rs.getString("password_user").equals(password)) {
+            if(rs.getInt("rowCount") > 0) {
                 login_ok = true;
             }
 
@@ -39,7 +42,7 @@ public class UserSQL implements Constant {
         return login_ok;
     }
 
-    public static void addAccount(String nom, String prenom, String email, String password) {
+    public static void addAccount(String nom, String prenom, String email, String password) throws NoSuchAlgorithmException {
         String request = "INSERT INTO User(nom_user, prenom_user, email_user, password_user) VALUES(:nom, :prenom, :email, :password)";
         try {
             NamedParameterStatement addAccount = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -47,7 +50,7 @@ public class UserSQL implements Constant {
             addAccount.setString("nom", nom);
             addAccount.setString("prenom", prenom);
             addAccount.setString("email", email);
-            addAccount.setString("password", password);
+            addAccount.setString("password", SHA1.cryptToSHA1(password));
 
             // Execute SQL statement
             addAccount.executeUpdate();
@@ -84,7 +87,7 @@ public class UserSQL implements Constant {
     public static int getNbAccount() {
         int count = 0;
 
-        String request = "SELECT COUNT(id_user) as rowCount FROM User";
+        String request = "SELECT COUNT(id_user) as rowCount FROM `user`";
 
         try {
             PreparedStatement nbAccount = DBConnection.getConnection().prepareStatement(request);
