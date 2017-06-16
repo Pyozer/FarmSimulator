@@ -52,7 +52,7 @@ public class EditCommandeController implements Constant {
         liste_champs.getItems().setAll(listChamps);
         liste_champs.setValue(liste_champs.getItems().get(0));
 
-        liste_transport.getItems().setAll("Le client", "ETA", "Négociant");
+        liste_transport.getItems().setAll("Le client", "Eta", "Négociant");
         liste_transport.setValue(liste_transport.getItems().get(0));
 
         liste_type_bott.getItems().setAll(TYPE_BOTT_ROND, TYPE_BOTT_CARRE, "Pas Demandé");

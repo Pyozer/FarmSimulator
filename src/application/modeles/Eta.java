@@ -3,15 +3,15 @@ package application.modeles;
 import application.classes.Point;
 
 /**
- * Classe pour l'ETA
+ * Classe pour l'Eta
  */
-public class ETA extends Element {
+public class Eta extends Element {
 
-    private String nom; // Nom de l'ETA
-    private String adresse; // Adresse postal de l'ETA
-    private Point position; // Position de l'ETA
+    private String nom; // Nom de l'Eta
+    private String adresse; // Adresse postal de l'Eta
+    private Point position; // Position de l'Eta
 
-    public ETA(int id, String nom, String adresse, Point position) {
+    public Eta(int id, String nom, String adresse, Point position) {
         super(id);
         this.nom = nom;
         this.adresse = adresse;

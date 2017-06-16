@@ -68,7 +68,7 @@ public class ParamsAccountController implements Constant {
 	}
 
 	/**
-	 * Charge la fenetre pour les paramètres de l'ETA
+	 * Charge la fenetre pour les paramètres de l'Eta
 	 */
 	private void loadParamsInfos() {
 		if(!EtaSettings.isAlreadyETA()) {

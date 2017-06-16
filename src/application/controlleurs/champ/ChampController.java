@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des champs de l'ETA
+ * Controlleur de la vue de la gestion des champs de l'Eta
  */
 public class ChampController implements APIGoogleMap {
 

@@ -8,7 +8,7 @@ import application.properties.SettingsProperties;
 import java.util.Properties;
 
 /**
- * Classe pour la gestion des ETA
+ * Classe pour la gestion des Eta
  */
 public class EtaSettings implements Constant {
 
@@ -60,9 +60,9 @@ public class EtaSettings implements Constant {
         return false;
     }
 
-    public static ETA getInfosEta() {
+    public static Eta getInfosEta() {
 
-        ETA eta = null;
+        Eta eta = null;
 
         Properties prop = SettingsProperties.loadSettingsPropertiesFile();
 
@@ -73,7 +73,7 @@ public class EtaSettings implements Constant {
 
             if (!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty()) {
                 Point position_eta = JSONManager.readPoint(eta_position);
-                eta = new ETA(1, eta_name, eta_adresse, position_eta);
+                eta = new Eta(1, eta_name, eta_adresse, position_eta);
             }
         }
 

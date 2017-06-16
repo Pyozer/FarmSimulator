@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des véhicules de l'ETA
+ * Controlleur de la vue de la gestion des véhicules de l'Eta
  */
 public class VehiculeController implements APIGoogleMap {
 

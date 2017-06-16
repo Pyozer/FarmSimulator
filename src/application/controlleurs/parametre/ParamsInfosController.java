@@ -1,50 +1,52 @@
 package application.controlleurs.parametre;
 
 import application.Constant;
-import application.classes.AlertDialog;
-import application.classes.Point;
-import application.classes.SwitchView;
+import application.classes.*;
 import application.modeles.EtaSettings;
 import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 import java.util.Properties;
 
 /**
- * Controlleur de la vue de paramétrage des infos de l'ETA
+ * Controlleur de la vue de paramétrage des infos de l'Eta
  */
-public class ParamsInfosController implements Constant {
+public class ParamsInfosController implements Constant, APIGoogleMap {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
 
 	/** Elements **/
-	@FXML private JFXTextField name_eta; // Nom de l'ETA
-	@FXML private JFXTextField adr_eta; // Adresse postal de l'ETA
-	@FXML private JFXTextField posLat_eta; // Position - Latitude de l'ETA
-	@FXML private JFXTextField posLong_eta; // Position - Longitude de l'ETA
+	@FXML private JFXTextField name_eta; // Nom de l'Eta
+	@FXML private JFXTextField adr_eta; // Adresse postal de l'Eta
+    @FXML private StackPane googleMaps;
+
+    private GoogleMaps gMaps;
+
+	private Point position_eta = null;
 
     /**
      * Initializes the controller class.
      */
 	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
+        gMaps = new GoogleMaps("parametre/maps_eta_position", this);
+        gMaps.setParent(googleMaps);
 	}
 
 	@FXML
     private void btnNextAction() {
 	    String nomInput = name_eta.getText().trim();
 	    String adresseInput = adr_eta.getText().trim();
-	    String posLatInput = posLat_eta.getText().trim();
-	    String posLongInput = posLong_eta.getText().trim();
 
-		if (!nomInput.isEmpty() && !adresseInput.isEmpty() && !posLatInput.isEmpty() && !posLongInput.isEmpty()) {
+		if (!nomInput.isEmpty() && !adresseInput.isEmpty() && position_eta != null) {
 		    if(!EtaSettings.checkIfExists(nomInput, adresseInput)) {
-		        Point position = new Point(Double.parseDouble(posLatInput), Double.parseDouble(posLongInput));
-                EtaSettings.addEta(nomInput, adresseInput, position);
+                EtaSettings.addEta(nomInput, adresseInput, position_eta);
 
                 Properties prop = SettingsProperties.loadSettingsPropertiesFile();
                 if (prop != null) {
@@ -55,7 +57,7 @@ public class ParamsInfosController implements Constant {
 
                 loadLogin();
             } else {
-                AlertDialog alert = new AlertDialog("Erreur", null, "Un ETA possède déjà le même nom ou la même adresse !", Alert.AlertType.ERROR);
+                AlertDialog alert = new AlertDialog("Erreur", null, "Un Eta possède déjà le même nom ou la même adresse !", Alert.AlertType.ERROR);
                 alert.show();
             }
 		} else {
@@ -68,5 +70,21 @@ public class ParamsInfosController implements Constant {
         SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN_TITLE, bpane);
         switchView.showScene();
 	}
+
+	public void setMarkerEdited(String marker_pos) {
+        System.out.println("ok");
+        if(marker_pos.isEmpty()) {
+            position_eta = null;
+            System.out.println("ok null");
+        }else {
+            position_eta = JSONManager.readPoint(marker_pos);
+            System.out.println("ok pt");
+        }
+        System.out.println("Point : " + position_eta);
+    }
+
+    public void log(String msg) {
+        System.err.println(msg);
+    }
 
 }

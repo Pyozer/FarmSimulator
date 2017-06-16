@@ -76,9 +76,9 @@ public interface Constant {
     String PROP_PASS_DEF = "";
 
     String PROP_ETA_NAME = "name_eta";
-    String PROP_ETA_NAME_DEF = "Nom de l'ETA";
+    String PROP_ETA_NAME_DEF = "Nom de l'Eta";
     String PROP_ETA_ADRESSE = "adresse_eta";
-    String PROP_ETA_ADRESSE_DEF = "Adresse de l'ETA";
+    String PROP_ETA_ADRESSE_DEF = "Adresse de l'Eta";
     String PROP_ETA_POSITION = "position_eta";
     String PROP_ETA_POSITION_DEF = "[48.086004,-0.759585]";
 

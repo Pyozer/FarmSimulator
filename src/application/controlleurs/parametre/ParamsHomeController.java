@@ -27,7 +27,7 @@ public class ParamsHomeController {
 	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-		text_home.setText("Ce logiciel vous permet de gérer votre ETA de manière simple et intuitive.\n"
+		text_home.setText("Ce logiciel vous permet de gérer votre Eta de manière simple et intuitive.\n"
 				+ "Avant tout, vous devez le configurer pour que celui-ci fonctionne.\n"
 				+ "Suivez étapes par étapes le processus.");
 		text_home.setFont(Font.font ("Raleway", 20));

@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des clients de l'ETA
+ * Controlleur de la vue de la gestion des clients de l'Eta
  */
 public class ClientController implements APIGoogleMap  {
 

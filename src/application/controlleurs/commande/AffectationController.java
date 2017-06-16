@@ -17,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des affectations de l'ETA
+ * Controlleur de la vue de la gestion des affectations de l'Eta
  */
 public class AffectationController {
 

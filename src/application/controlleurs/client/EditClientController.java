@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * Controlleur de la vue de la gestion des clients (Ajouté/Modifier) de l'ETA
+ * Controlleur de la vue de la gestion des clients (Ajouté/Modifier) de l'Eta
  */
 public class EditClientController {
 

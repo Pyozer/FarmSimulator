@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 /**
- * Controlleur de la vue de la gestion des commandes de l'ETA
+ * Controlleur de la vue de la gestion des commandes de l'Eta
  */
 public class CommandeController {
 

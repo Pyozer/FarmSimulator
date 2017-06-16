@@ -32,10 +32,7 @@
                     <JFXTextField fx:id="adr_eta" promptText="Adresse postale de l'ETA" labelFloat="true" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                     <Label text="Position de l'ETA :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <JFXTextField fx:id="posLat_eta" promptText="Latitude" labelFloat="true" styleClass="form-control-light" minWidth="170" prefWidth="170.0" />
-                        <JFXTextField fx:id="posLong_eta" promptText="Longitude" labelFloat="true" styleClass="form-control-light" minWidth="170" prefWidth="170.0" />
-                    </HBox>
+                    <StackPane fx:id="googleMaps" GridPane.columnIndex="1" GridPane.rowIndex="2" minWidth="350" maxWidth="350" minHeight="280" maxHeight="280"/>
 
                     <JFXButton text="Valider" onAction="#btnNextAction" styleClass="btn, btn-primary" minWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 </GridPane>
