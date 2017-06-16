@@ -7,17 +7,13 @@ import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
@@ -45,7 +41,6 @@ public class GlobalController implements APIGoogleMap {
     @FXML private TableColumn<Commande, String> column_type_bott;
 
     private GoogleMaps gMaps;
-    private boolean addFlightItinerary = false;
 
     private Commande commandeSelected;
 

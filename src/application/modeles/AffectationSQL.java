@@ -61,9 +61,10 @@ public class AffectationSQL implements Constant {
     }
 
     private static void updatePosition(Vehicule inputVehicule){
-        if(inputVehicule.getType().equals("Moissonneuse")) updatePosition(inputVehicule, Constant.POS_DEFAULT_MOISSONNEUSE);
-        else if(inputVehicule.getType().equals("Tracteur")) updatePosition(inputVehicule, Constant.POS_DEFAULT_TRACTEUR);
-        else if(inputVehicule.getType().equals("Botteleuse")) updatePosition(inputVehicule, Constant.POS_DEFAULT_BOTTELEUSE);
+        Point positionEta = EtaSettings.getInfosEta().getPosition();
+        if(inputVehicule.getType().equals("Moissonneuse")) updatePosition(inputVehicule, positionEta);
+        else if(inputVehicule.getType().equals("Tracteur")) updatePosition(inputVehicule, positionEta);
+        else if(inputVehicule.getType().equals("Botteleuse")) updatePosition(inputVehicule, positionEta);
     }
 
     private static void updatePosition(Vehicule inputVehicule, Point inputPosition){

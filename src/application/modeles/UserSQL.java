@@ -24,7 +24,7 @@ public class UserSQL implements Constant {
             ResultSet rs = stmt.executeQuery();
 
             rs.next();
-            if(rs.getString("email").equals(email) && rs.getString("password").equals(password)) {
+            if(rs.getString("email_user").equals(email) && rs.getString("password_user").equals(password)) {
                 login_ok = true;
             }
 

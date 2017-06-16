@@ -36,8 +36,10 @@ public class HomeLoginController {
 	}
 
 	@FXML private void btnLoginAction() {
-		if (!user_login.getText().isEmpty() && !password_login.getText().isEmpty()) {
-			login(user_login.getText(), password_login.getText());
+		String userInput = user_login.getText().trim();
+		String passInput = password_login.getText().trim();
+		if (!userInput.isEmpty() && !passInput.isEmpty()) {
+			login(userInput, passInput);
 		} else {
 			AlertDialog alert = new AlertDialog("Erreur", null, "Veuillez saisir tous les champs de texte !", Alert.AlertType.ERROR);
 			alert.show();

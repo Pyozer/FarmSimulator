@@ -18,9 +18,9 @@
 
                 <GridPane alignment="CENTER" hgap="25" vgap="25">
                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" maxWidth="200" minWidth="200" />
                         <ColumnConstraints halignment="LEFT" />
                         <ColumnConstraints maxWidth="200" minWidth="200" />
-                        <ColumnConstraints halignment="RIGHT" maxWidth="200" minWidth="200" />
                     </columnConstraints>
 
                     <padding><Insets bottom="10" left="25" right="25" top="30" /></padding>
@@ -32,7 +32,7 @@
                     <JFXTextField fx:id="adr_eta" promptText="Adresse postale de l'ETA" labelFloat="true" styleClass="form-control-light" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                     <Label text="Position de l'ETA :" textFill="white" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                    <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <JFXTextField fx:id="posLat_eta" promptText="Latitude" labelFloat="true" styleClass="form-control-light" minWidth="170" prefWidth="170.0" />
                         <JFXTextField fx:id="posLong_eta" promptText="Longitude" labelFloat="true" styleClass="form-control-light" minWidth="170" prefWidth="170.0" />
                     </HBox>

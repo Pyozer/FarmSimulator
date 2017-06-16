@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 /**
  * Classe pour gérer la connexion à la base de donnée
  */
-public class DBConnection {
+public class DBConnection implements Constant {
 
     private static Connection con;
     private static String url;
@@ -28,9 +28,9 @@ public class DBConnection {
      */
     private static void defineProperties() {
         Properties properties = new DBProperties().loadPropertiesFile();
-        url = "jdbc:mysql://" + properties.getProperty("host") + ":" + properties.getProperty("port") + "/" + properties.getProperty("db");
-        user = properties.getProperty("user");
-        pass = properties.getProperty("password");
+        url = "jdbc:mysql://" + properties.getProperty(PROP_HOST) + ":" + properties.getProperty(PROP_PORT) + "/" + properties.getProperty(PROP_DB);
+        user = properties.getProperty(PROP_USER);
+        pass = properties.getProperty(PROP_PASS);
     }
 
     /**
@@ -78,7 +78,7 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-            SwitchView switchView = new SwitchView("params_bdd", Constant.FIRST_PARAMS_BDD_TITLE, true);
+            SwitchView switchView = new SwitchView("parametre/params_bdd", Constant.FIRST_PARAMS_BDD_TITLE, true);
             switchView.showScene();
         }
         return con;

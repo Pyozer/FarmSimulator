@@ -4,7 +4,7 @@ import application.Constant;
 import application.classes.AlertDialog;
 import application.classes.Point;
 import application.classes.SwitchView;
-import application.modeles.EtaSQL;
+import application.modeles.EtaSettings;
 import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -42,9 +42,9 @@ public class ParamsInfosController implements Constant {
 	    String posLongInput = posLong_eta.getText().trim();
 
 		if (!nomInput.isEmpty() && !adresseInput.isEmpty() && !posLatInput.isEmpty() && !posLongInput.isEmpty()) {
-		    if(!EtaSQL.checkIfExists(nomInput, adresseInput)) {
+		    if(!EtaSettings.checkIfExists(nomInput, adresseInput)) {
 		        Point position = new Point(Double.parseDouble(posLatInput), Double.parseDouble(posLongInput));
-                EtaSQL.addEta(nomInput, adresseInput, position);
+                EtaSettings.addEta(nomInput, adresseInput, position);
 
                 Properties prop = SettingsProperties.loadPropertiesFile();
                 if (prop != null) {

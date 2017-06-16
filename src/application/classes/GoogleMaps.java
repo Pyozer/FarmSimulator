@@ -20,13 +20,12 @@ import java.net.URL;
 public class GoogleMaps extends Region {
 
     private WebView webView;
-    private WebEngine webEngine;
     private JSObject javascriptOBJ;
 
     public GoogleMaps(String mapHTML, APIGoogleMap controller) {
 
         webView = new WebView();
-        webEngine = webView.getEngine();
+        WebEngine webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(true);
 
         final URL urlGoogleMaps = getClass().getResource(Constant.LAYOUT_PATH + mapHTML + ".html");
@@ -42,21 +41,46 @@ public class GoogleMaps extends Region {
         parent.getChildren().setAll(webView);
     }
 
-    /** Affiche L'itineraire entre 2 points sur la Map **/
+    /**
+     * Affiche L'itineraire entre 2 points sur la Map
+     * @param originNew String
+     * @param destNew String
+     */
     public void changeRoute(String originNew, String destNew) {
         javascriptOBJ.call("calculate", originNew, destNew);
     }
 
-    /** Ajoute un Point sur la Map **/
+    /**
+     * Ajoute un Point sur la Map
+     * @param id int
+     * @param position Point
+     * @param title String
+     * @param type String
+     * @param etat String
+     */
     public void addMarker(int id, Point position, String title, String type, String etat) {
         //System.out.println("addMarker('" + id + "','" + position.getX() + "','" + position.getY() + "','" + title + "','" + type + "','" + etat + "');");
         javascriptOBJ.call("addMarker", id, position.getX(), position.getY(), title, type, etat);
     }
 
-    /** Ajoute un Champ sur la Map **/
+    /**
+     * Ajoute un Champ sur la Map
+     * @param champ Champ
+     */
     public void addChamp(Champ champ) {
         addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
     }
+
+    /**
+     *
+     * @param id String
+     * @param culture Culture
+     * @param proprio Agriculteur
+     * @param adresse String
+     * @param surface float
+     * @param coords Polygon
+     * @param couleur Color
+     */
     public void addChamp(int id, Culture culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
         try {
             javascriptOBJ.call("addChamp", id, culture.toString(), proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
@@ -65,31 +89,46 @@ public class GoogleMaps extends Region {
         }
     }
 
-    /** Cache tous les Marker sauf un sur la carte **/
+    /**
+     * Cache tous les Marker sauf un sur la carte
+     * @param id int
+     */
     public void hideAllExceptOne(int id) {
         javascriptOBJ.call("hideAllExceptOne", id);
     }
 
-    /** Réaffiche tous les champs sur la carte **/
+    /**
+     * Réaffiche tous les champs sur la carte
+     */
     public void removeAllChamps() {
         javascriptOBJ.call("removeAllChamps");
     }
 
-    /** Réaffiche tous les markers sur la carte **/
+    /**
+     * Réaffiche tous les markers sur la carte
+     */
     public void removeAllMarkers() {
         javascriptOBJ.call("removeAllMarkers");
     }
 
-    /** Réaffiche tous les champs et markers sur la carte **/
+    /**
+     * Réaffiche tous les champs et markers sur la carte
+     */
     public void removeAllChampsMarkers() {
         javascriptOBJ.call("removeAllChamps");
         javascriptOBJ.call("removeAllMarkers");
     }
 
+    /**
+     * Active l'affiche de la distance à vol d'oiseau
+     */
     public void enableFlightItinerary() {
         javascriptOBJ.call("enableFlightItinerary");
     }
 
+    /**
+     * Désactive l'affiche de la distance à vol d'oiseau
+     */
     public void disableFlightItinerary() {
         javascriptOBJ.call("disableFlightItinerary");
     }

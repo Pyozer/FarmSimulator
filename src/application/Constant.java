@@ -11,7 +11,6 @@ public interface Constant {
     // TITRE DE L'APPLICATION
     String TITLE_APP = "Farm Simulator";
 
-
     // CHEMINS D'ACCES
     String LAYOUT_PATH = "/application/vues/";
     String STYLE_PATH = "/application/styles/";
@@ -62,11 +61,6 @@ public interface Constant {
     Color SUCCESS_COLOR = Color.LIMEGREEN;
     Color ERROR_COLOR = Color.rgb(235, 47, 47);
 
-    // Positions par defaut des véhicules
-    Point POS_DEFAULT_TRACTEUR = new Point(47.969551, -1.448362);
-    Point POS_DEFAULT_BOTTELEUSE = new Point(47.968977, -1.449486);
-    Point POS_DEFAULT_MOISSONNEUSE = new Point(47.970712, -1.449572);
-
     String TYPE_BOTT_ROND = "Ronde";
     String TYPE_BOTT_CARRE = "Carré";
 
@@ -75,6 +69,10 @@ public interface Constant {
     String PROP_DB = "db";
     String PROP_USER = "user";
     String PROP_PASS = "password";
+
+    String PROP_ETA_NAME = "name_eta";
+    String PROP_ETA_ADRESSE = "adresse_eta";
+    String PROP_ETA_POSITION = "position_eta";
 
     String PROP_ALREADY_RUN = "already_run";
 }

@@ -1,10 +1,10 @@
 package application.controlleurs;
 
 import application.Constant;
-import application.classes.MenuApp;
 import application.classes.SwitchView;
-import javafx.event.EventHandler;
+import application.modeles.EtaSettings;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -19,12 +19,15 @@ public class HomeController {
     @FXML private BorderPane bpane;
     @FXML private ImageView params;
     @FXML private ImageView exit;
+    @FXML private Label title;
 
     /**
      * Initializes the controller class.
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
+        title.setText(EtaSettings.getInfosEta().toString());
 
         params.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             handleParams();
