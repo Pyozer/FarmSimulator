@@ -31,7 +31,8 @@ public class SwitchView {
             fxmlLoader.setLocation(getClass().getResource(Constant.LAYOUT_PATH + view + ".fxml"));
             fxmlLoader.load();
 
-            Scene scene = new Scene(fxmlLoader.getRoot());
+            Parent root = fxmlLoader.getRoot();
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(Constant.STYLE_PATH + STYLECSS);
             newStage = new Stage();
             newStage.setScene(scene);

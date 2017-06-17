@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXListView?>
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.client.ClientController">
     <center>
         <VBox BorderPane.alignment="TOP_LEFT">
@@ -17,10 +18,10 @@
                         <VBox spacing="10">
                             <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
                             <Label text="Tous les clients" styleClass="pane_title" prefHeight="75.0" />
-                            <TableView fx:id="tableView" minHeight="200.0" maxHeight="200">
+                            <TableView fx:id="tableView" minHeight="215.0" maxHeight="215">
                                 <columns>
-                                    <TableColumn fx:id="column_nom" minWidth="250.0" text="Nom" />
-                                    <TableColumn fx:id="column_prenom" minWidth="250.0" text="Prenom" />
+                                    <TableColumn fx:id="column_nom" minWidth="245.0" text="Nom" />
+                                    <TableColumn fx:id="column_prenom" minWidth="245.0" text="Prenom" />
                                 </columns>
                             </TableView>
                         </VBox>
@@ -30,7 +31,7 @@
                             <VBox fx:id="listInfo" spacing="10" managed="false" visible="false">
                                 <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
                                 <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
-                                <ListView fx:id="listInfos" minHeight="100" maxHeight="270"/>
+                                <JFXListView fx:id="listInfos" minHeight="100" maxHeight="270"/>
                             </VBox>
                             <HBox alignment="CENTER_LEFT" spacing="15">
                                 <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>

@@ -1,3 +1,4 @@
+
 .home_pane {
     -fx-background-image: url("/application/images/accueil_01.jpg");
     -fx-background-size: cover;
@@ -10,7 +11,6 @@
 
 .pane_black {
     -fx-background-color: #000000;
-
 }
 
 .label_status {
@@ -41,7 +41,7 @@
 }
 
 .form-control-light {
-    -fx-text-fill: #000000;
+    -fx-text-fill: #f2f2f2;
     -fx-prompt-text-fill: #dbdbdb;
     -jfx-focus-color: #dbdbdb;
     -jfx-unfocus-color: #c1c1c1;
@@ -93,51 +93,126 @@
     -fx-opacity: 0.8;
 }
 
-.list-view {
-    -fx-padding: 3px;
+/*******************************************************************************
+ *                                                                             *
+ * ListView                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+.jfx-list-cell:empty {
+    -fx-background-color: red;
+}
+.jfx-list-cell {
+    -fx-padding: 0.9em 1em;
+    -fx-text-fill: #212121;
+    -fx-font: 12px "Segoe UI";
+}
+.jfx-list-cell:odd {
+    -fx-background-color: white;
 }
 
-.list-cell {
-    -fx-padding: 7px ;
-    -fx-background-color: transparent, -fx-background ;
-    -fx-background-insets: 0px, 2px ;
+.jfx-list-view:focused {
+    -fx-background-color: -fx-box-border,-fx-box-border,red;
+}
+.jfx-list-view:focused .jfx-list-cell:filled:selected,
+.jfx-list-view:focused .jfx-list-cell:filled:selected:hover,
+.jfx-list-view:focused .jfx-list-cell:filled:focused:selected,
+.jfx-list-view:focused .jfx-list-cell:odd:filled:selected:focused:hover {
+    -fx-background-color: -fx-box-border, rgb(205,205,205);
+}
+.jfx-list-view .jfx-list-cell:hover:empty,
+.jfx-list-view .jfx-list-cell:odd:hover:empty {
+    -fx-background-color: white;
+}
+.jfx-list-view .jfx-list-cell:hover,
+.jfx-list-view .jfx-list-cell:odd:hover,
+.jfx-list-view:focused .jfx-list-cell:odd:focused:hover,
+.jfx-list-view:focused .jfx-list-cell:focused:hover {
+    -fx-background-color: -fx-box-border,rgb(231,231, 231);
 }
 
-.list-cell:empty {
-    -fx-padding: 7px ;
-    -fx-background-color: transparent ;
-    -fx-background-insets: 0 ;
+/*******************************************************************************
+ *                                                                             *
+ * Inputs                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+.jfx-text-area, .text-area {
+    -fx-font-weight: BOLD;
 }
 
-.table-view {
-    -fx-table-cell-border-color: #ffffff;
-    -fx-table-header-border-color: #ffffff;
+.jfx-text-field:error, .jfx-password-field:error, .jfx-text-area:error {
+    -jfx-focus-color: #D34336;
+    -jfx-unfocus-color: #D34336;
 }
 
-.table-view .column-header-background {
-    -fx-background-color: #ffffff;
+.jfx-text-field .error-label, .jfx-password-field .error-label, .jfx-text-area .error-label {
+    -fx-text-fill: #D34336;
+    -fx-font-size: 0.75em;
 }
 
-.table-view .column-header, .table-view .filler {
-    -fx-padding: 10px;
-    -fx-text-alignment: center;
+.jfx-text-field .error-icon, .jfx-password-field .error-icon, .jfx-text-area .error-icon {
+    -fx-text-fill: #D34336;
+    -fx-font-size: 1em;
+}
+
+.jfx-check-box {
+    -fx-font-weight: BOLD;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Table View                                                                  *
+ *                                                                             *
+ ******************************************************************************/
+.table-view:focused .table-row-cell:selected {
+    -fx-text-fill: BLACK;
+}
+
+.table-view:focused .table-row-cell:selected .table-cell {
+    -fx-text-fill: BLACK;
+}
+
+/* TABLE VIEW HEADER */
+.table-view .column-header,
+.table-view .column-header-background,
+.table-view .column-header-background .filler {
+    -fx-background-color: TRANSPARENT;
+}
+
+.table-view .column-header {
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: #F3F3F3;
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-alignment: center-left;
-    -fx-opacity: 1;
+    -fx-text-fill: #949494;
+    -fx-padding: 16 0 16 0;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+.table-view .column-header:last-visible {
+    -fx-border-width: 0 2 0 1;
 }
 
+.table-view .column-header-background {
+    -fx-border-width: 0 0.0 1 0;
+    -fx-border-color: #F3F3F3;
+}
+
+/* TABLE VIEW CONTENT */
 .table-cell {
-    -fx-background-color: #ffffff;
-    -fx-background: #ffffff ;
-    -fx-alignment: center;
-    -fx-padding: 10px;
+    -fx-padding: 0.9em;
+    -fx-border-color: transparent -fx-box-border transparent transparent;
+    -fx-text-fill: #282828;
+
+}
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-width: 0 0 0 0;
+}
+.table-view:focused .table-row-cell:filled:selected, .table-view:row-selection .table-row-cell:filled:hover:selected {
+    -fx-background-color: rgb(205,205,205);
+    -fx-background-insets: 0,1 1 1 1 0;
+}
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: rgb(231,231,231);
 }

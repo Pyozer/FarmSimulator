@@ -6,6 +6,7 @@ import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,14 +27,14 @@ public class ClientController implements APIGoogleMap  {
 	@FXML private BorderPane infoContent;
 	@FXML private VBox listInfo;
 
-    @FXML private TableView<Agriculteur> tableView;
+	@FXML private TableView<Agriculteur> tableView;
     @FXML private TableColumn<Agriculteur, String> column_nom;
     @FXML private TableColumn<Agriculteur, String> column_prenom;
 	
 	@FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
-    @FXML private ListView<ElementPair> listInfos;
+    @FXML private JFXListView<ElementPair> listInfos;
 
     private GoogleMaps gMaps;
     private Agriculteur selectedAgri = null;
@@ -70,6 +71,7 @@ public class ClientController implements APIGoogleMap  {
             defineStateElements(true);
 
 			listInfos.getItems().setAll(agriculteur.getInformations());
+            listInfos.depthProperty().set(1);
 
 			gMaps.removeAllChamps();
 			for(Champ champ : ClientSQL.getClientsChampsList(agriculteur.getId()))
@@ -136,6 +138,7 @@ public class ClientController implements APIGoogleMap  {
 
     public void initData() {
         tableView.getItems().setAll(ClientSQL.getClientsList());
+        tableView.getItems().addAll(ClientSQL.getClientsList());
     }
 
     private void defineStateElements(boolean state) {

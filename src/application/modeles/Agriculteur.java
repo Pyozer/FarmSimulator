@@ -3,6 +3,7 @@ package application.modeles;
 import application.classes.ElementPair;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
 
 /**
@@ -84,5 +85,13 @@ public class Agriculteur extends Element {
 
     public String toString() {
         return nom.get() + " " + prenom.get();
+    }
+
+    public StringProperty getNomProperty() {
+        return nom;
+    }
+
+    public StringProperty getPrenomProperty() {
+        return prenom;
     }
 }
