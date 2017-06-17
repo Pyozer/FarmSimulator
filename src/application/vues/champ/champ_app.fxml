@@ -30,7 +30,7 @@
                             <VBox fx:id="listInfo" managed="false" visible="false" spacing="10">
                                 <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
                                 <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
-                                <ListView fx:id="listInfos" minHeight="100" maxHeight="250"/>
+                                <ListView fx:id="listInfos" styleClass="custom" minHeight="100" maxHeight="250"/>
                             </VBox>
                             <HBox alignment="CENTER_LEFT" spacing="10" minHeight="70" maxHeight="70">
                                 <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
