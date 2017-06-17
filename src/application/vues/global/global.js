@@ -37,6 +37,10 @@ function initMap() {
     });
     directionsDisplay.setPanel(document.getElementById('road'));
 
+    directionsDisplay.addListener('directions_changed', function() {
+        refresh();
+    });
+
     oms = new OverlappingMarkerSpiderfier(map, {
             markersWontMove: true,
             markersWontHide: true,
@@ -264,6 +268,12 @@ function calculate(origin, destination) {
                 directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                 document.getElementById("road").style.display = "block";
                 document.getElementById("map").className = "dividedWidth";
+
+                setTimeout(function(){
+                    map.setZoom(map.getZoom() - 1);
+                    map.setZoom(map.getZoom() + 1);
+                }, 150);
+
             }
         });
     }

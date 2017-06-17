@@ -31,14 +31,13 @@ public class CommandeSQL {
             addCommandeStatement.executeUpdate();
 
             addCommandeStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
 
     public static void editCommande(Commande commande) {
-            String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, effectuer_com=:effectuer_com WHERE id_com=:id_com";
+        String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, effectuer_com=:effectuer_com WHERE id_com=:id_com";
 
         try {
             NamedParameterStatement editCommandeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -54,8 +53,7 @@ public class CommandeSQL {
             editCommandeStatement.executeUpdate();
 
             editCommandeStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -82,7 +80,7 @@ public class CommandeSQL {
 
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
-                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
+                Polygon coord_champ = JSONManager.readPolygon(rs.getString("coords_champ"));
 
                 String requestGetSomme = "SELECT COUNT(*), SUM(tonnes_ordre) as tonne_get FROM Ordre INNER JOIN Commande ON Commande.id_com=Ordre.id_com GROUP BY Commande.id_com";
                 PreparedStatement getTonneRecolte = DBConnection.getConnection().prepareStatement(requestGetSomme);
@@ -106,18 +104,17 @@ public class CommandeSQL {
                                 coord_champ,
                                 new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
                                 new Agriculteur(
-                                            rs.getInt("id_agri"),
-                                            rs.getString("prenom_agri"),
-                                            rs.getString("nom_agri"),
-                                            rs.getString("tel_agri"),
-                                            rs.getString("adr_agri"),
-                                            rs.getString("email_agri"),
-                                            ConvertColor.webToColorFX(rs.getString("couleur_agri"))
+                                        rs.getInt("id_agri"),
+                                        rs.getString("prenom_agri"),
+                                        rs.getString("nom_agri"),
+                                        rs.getString("tel_agri"),
+                                        rs.getString("adr_agri"),
+                                        rs.getString("email_agri"),
+                                        ConvertColor.webToColorFX(rs.getString("couleur_agri"))
                                 )
                         ),
                         rs.getBoolean("effectuer_com")
-               ));
-                System.out.println(commandeList.get(commandeList.size() - 1));
+                ));
             }
 
             rs.close();

@@ -1,15 +1,8 @@
 package application.modeles;
 
-import application.classes.ConvertColor;
-import application.classes.JSONManager;
-import application.classes.Point;
-import application.classes.Polygon;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -39,116 +32,6 @@ public class MoissonSQL {
 
     }
 
-    public static ObservableList<Moisson> getMoissonList() {
-
-        String request = "SELECT * FROM Ordre " +
-                "INNER JOIN Commande ON Commande.id_com = Ordre.id_com " +
-                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
-                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
-                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
-
-        ObservableList<Moisson> moissonList = FXCollections.observableArrayList();
-
-        try {
-            PreparedStatement getMoissonStatement = DBConnection.getConnection().prepareStatement(request);
-            // Execute SQL statement
-            ResultSet rs = getMoissonStatement.executeQuery();
-
-            while (rs.next()) {
-
-                Vehicule vehi_com = null;
-
-                Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
-                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
-
-                Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
-
-                if (rs.getString("type_bott") != null) {
-                    vehi_com = new Botteleuse(
-                            rs.getInt("id_vehi"),
-                            rs.getString("marque_vehi"),
-                            rs.getString("modele_vehi"),
-                            rs.getString("etat_vehi"),
-                            position,
-                            rs.getBoolean("type_bott")
-                    );
-                } else if (rs.getString("taille_tremis_moi") != null) {
-                    vehi_com = new Moissonneuse(
-                            rs.getInt("id_vehi"),
-                            rs.getString("marque_vehi"),
-                            rs.getString("modele_vehi"),
-                            rs.getString("etat_vehi"),
-                            position,
-                            rs.getInt("taille_tremis_moi"),
-                            rs.getInt("taille_reserve_moi"),
-                            rs.getInt("largeur_route_moi"),
-                            rs.getInt("hauteur_moi"),
-                            rs.getInt("largeur_coupe_moi"),
-                            rs.getInt("conso_fonct_moi"),
-                            rs.getInt("conso_route_moi"),
-                            rs.getInt("poids_moi")
-                    );
-                } else if (rs.getString("cap_rem_tract") != null) {
-                    vehi_com = new Tracteur(
-                            rs.getInt("id_vehi"),
-                            rs.getString("marque_vehi"),
-                            rs.getString("modele_vehi"),
-                            rs.getString("etat_vehi"),
-                            position,
-                            rs.getInt("cap_rem_tract")
-                    );
-                }
-
-                moissonList.add(
-                        new Moisson(rs.getInt("id_ordre"),
-                        new Commande(
-                                rs.getInt("id_com"),
-                                rs.getString("transp_com"),
-                                rs.getString("bott_com"),
-                                rs.getFloat("taille_max_transp_com"),
-                                rs.getString("date_com"),
-                                rs.getFloat("tonne_com"),
-                                rs.getFloat("cout_com"),
-                                new Champ(
-                                        rs.getInt("id_agri"),
-                                        rs.getFloat("surf_champ"),
-                                        rs.getString("adr_champ"),
-                                        coord_center,
-                                        coord_champ,
-                                        new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
-                                        new Agriculteur(
-                                                rs.getInt("id_agri"),
-                                                rs.getString("prenom_agri"),
-                                                rs.getString("nom_agri"),
-                                                rs.getString("tel_agri"),
-                                                rs.getString("adr_agri"),
-                                                rs.getString("email_agri"),
-                                                ConvertColor.webToColorFX(rs.getString("couleur_agri"))
-                                        )
-                                ),
-                                rs.getBoolean("effectuer_com")
-                        ),
-                        vehi_com,
-                        rs.getString("heure_arrive_ordre"),
-                        rs.getString("heure_fin_ordre"),
-                        rs.getFloat("nb_km_ordre"),
-                        rs.getFloat("tonnes_ordre")
-                ));
-
-            }
-
-            rs.close();
-            getMoissonStatement.close();
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return moissonList;
-    }
-
-   /* public static ObservableList<Moisson> getMoissonList() {
-        return getMoissonList();
-    }*/
-
     public static void deleteMoisson(Vehicule vehicule, Commande commande) {
         editMoisson(commande, vehicule, null, null, (float) 0, (float) 0);
     }
@@ -163,9 +46,9 @@ public class MoissonSQL {
 
             ResultSet rs = isRapportStatement.executeQuery();
 
-            rs.next();
-
-            String value = rs.getString("heure_arrive_ordre");
+            String value = null;
+            if(rs.next())
+                value = rs.getString("heure_arrive_ordre");
 
             isRapportStatement.close();
 

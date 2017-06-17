@@ -15,10 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-/**
- * Created by Pyozer on 23/05/2017.
- *
- */
 public class VehiculeSQL implements Constant {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
@@ -49,7 +45,7 @@ public class VehiculeSQL implements Constant {
 
         ResultSet rs = addVehiculeStatement.getStatement().getGeneratedKeys();
 
-        if(rs.next())
+        if (rs.next())
             last_inserted_id = rs.getInt(1);
 
         addVehiculeStatement.close();
@@ -57,7 +53,7 @@ public class VehiculeSQL implements Constant {
         return last_inserted_id;
     }
 
-    private static void editVehicule(int id, String marque, String modele, String etat) throws SQLException{
+    private static void editVehicule(int id, String marque, String modele, String etat) throws SQLException {
         // On update le vehicule
         NamedParameterStatement editVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
 
@@ -85,14 +81,15 @@ public class VehiculeSQL implements Constant {
             getPositionVehi.setInt("idVehi", id_vehi);
             // Execute select SQL statement
             ResultSet rs_position = getPositionVehi.executeQuery();
-            if(rs_position.next()) {
+
+            if (rs_position.next()) {
                 String position_vehi = rs_position.getString("coord_centre_champ");
 
                 if (!position_vehi.isEmpty())
                     position = JSONManager.readPoint(position_vehi);
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return position;
@@ -109,6 +106,7 @@ public class VehiculeSQL implements Constant {
             ResultSet rs = loadTrateurStatement.executeQuery();
 
             while (rs.next()) {
+
                 vehiculeList.add(new Tracteur(
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
@@ -136,15 +134,14 @@ public class VehiculeSQL implements Constant {
             ResultSet rs = loadBotteleuseStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Botteleuse(
-                        Integer.parseInt(rs.getString("id_vehi")),
+                        rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
                         getActualPositionVehicule(rs.getInt("id_vehi")),
-                        Boolean.parseBoolean(rs.getString("type_bott"))
+                        rs.getBoolean("type_bott")
                 ));
             }
             rs.close();
@@ -164,22 +161,21 @@ public class VehiculeSQL implements Constant {
             ResultSet rs = loadMoissonneuseStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Moissonneuse(
-                        Integer.parseInt(rs.getString("id_vehi")),
+                        rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
                         getActualPositionVehicule(rs.getInt("id_vehi")),
-                        Integer.parseInt(rs.getString("taille_tremis_moi")),
-                        Integer.parseInt(rs.getString("taille_reserve_moi")),
-                        Integer.parseInt(rs.getString("largeur_route_moi")),
-                        Integer.parseInt(rs.getString("hauteur_moi")),
-                        Integer.parseInt(rs.getString("largeur_coupe_moi")),
-                        Integer.parseInt(rs.getString("conso_fonct_moi")),
-                        Integer.parseInt(rs.getString("conso_route_moi")),
-                        Integer.parseInt(rs.getString("poids_moi"))
+                        rs.getInt("taille_tremis_moi"),
+                        rs.getInt("taille_reserve_moi"),
+                        rs.getInt("largeur_route_moi"),
+                        rs.getInt("hauteur_moi"),
+                        rs.getInt("largeur_coupe_moi"),
+                        rs.getInt("conso_fonct_moi"),
+                        rs.getInt("conso_route_moi"),
+                        rs.getInt("poids_moi")
                 ));
             }
             rs.close();
@@ -210,7 +206,6 @@ public class VehiculeSQL implements Constant {
 
         try {
             // On insert le vehicule
-            // TODO: A MODIFIER
             int idVehi = addVehicule(marque, modele, etat);
 
             // On insert la botteleuse
@@ -243,8 +238,7 @@ public class VehiculeSQL implements Constant {
             editBotteleuseStatement.executeUpdate();
 
             editBotteleuseStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -255,20 +249,19 @@ public class VehiculeSQL implements Constant {
 
         try {
             // On insert le vehicule
-            // TODO: A MODIFIER
             int idVehi = addVehicule(marque, modele, etat);
 
             // On insert la moissonneuse
             NamedParameterStatement addMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), insertMois);
             addMoissonneuseStatement.setInt("id_vehi", idVehi);
-            addMoissonneuseStatement.setInt("conso_route_moi", consoRoute );
-            addMoissonneuseStatement.setFloat("conso_fonct_moi", consoFonctionnement );
-            addMoissonneuseStatement.setFloat("poids_moi", poids );
-            addMoissonneuseStatement.setFloat("hauteur_moi", hauteur );
-            addMoissonneuseStatement.setFloat("largeur_coupe_moi", largeurCoupe );
-            addMoissonneuseStatement.setFloat("largeur_route_moi", largeurRoute );
-            addMoissonneuseStatement.setInt("taille_tremis_moi", tailleTremis );
-            addMoissonneuseStatement.setInt("taille_reserve_moi", tailleReservoir );
+            addMoissonneuseStatement.setInt("conso_route_moi", consoRoute);
+            addMoissonneuseStatement.setFloat("conso_fonct_moi", consoFonctionnement);
+            addMoissonneuseStatement.setFloat("poids_moi", poids);
+            addMoissonneuseStatement.setFloat("hauteur_moi", hauteur);
+            addMoissonneuseStatement.setFloat("largeur_coupe_moi", largeurCoupe);
+            addMoissonneuseStatement.setFloat("largeur_route_moi", largeurRoute);
+            addMoissonneuseStatement.setInt("taille_tremis_moi", tailleTremis);
+            addMoissonneuseStatement.setInt("taille_reserve_moi", tailleReservoir);
 
             addMoissonneuseStatement.executeUpdate();
             addMoissonneuseStatement.close();
@@ -282,8 +275,7 @@ public class VehiculeSQL implements Constant {
     public static void editMoissonneuse(Moissonneuse moi) {
         String request = "UPDATE Moissonneuse SET taille_tremis_moi=:taille_tremis_moi, taille_reservoir_moi=:taille_reservoir_moi, " +
                 "largeur_route_moi=:largeur_route_moi, hauteur_moi=:hauteur_moi, largeur_coupe_moi=:largeur_coupe_moi, conso_fonct_moi=:conso_fonct_moi, " +
-                "conso_route_moi=:conso_route_moi, poids_moi=:poids_moi" +
-                "WHERE id_vehi=:id_vehi";
+                "conso_route_moi=:conso_route_moi, poids_moi=:poids_moi WHERE id_vehi=:id_vehi";
 
         try {
             // On update le véhicule
@@ -305,8 +297,7 @@ public class VehiculeSQL implements Constant {
             editMoissonneuseStatement.executeUpdate();
 
             editMoissonneuseStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -316,7 +307,6 @@ public class VehiculeSQL implements Constant {
 
         try {
             // On insert le vehicule
-            // TODO: A MODIFIER
             int idVehi = addVehicule(marque, modele, etat);
 
             // On insert la botteleuse
@@ -349,8 +339,7 @@ public class VehiculeSQL implements Constant {
             editTracteurStatement.executeUpdate();
 
             editTracteurStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }

@@ -49,15 +49,11 @@ public class EtaSettings implements Constant {
 
         Properties prop = SettingsProperties.loadSettingsPropertiesFile();
 
-        if (prop != null
+        return prop != null
                 && prop.getProperty(PROP_ETA_NAME) != null
                 && prop.getProperty(PROP_ETA_ADRESSE) != null
-                && prop.getProperty(PROP_ETA_POSITION) != null) {
+                && prop.getProperty(PROP_ETA_POSITION) != null;
 
-            return true;
-        }
-
-        return false;
     }
 
     public static Eta getInfosEta() {

@@ -2,6 +2,8 @@ package application;
 
 import application.classes.SwitchView;
 import application.database.DBConnection;
+import application.modeles.EtaSettings;
+import application.modeles.UserSQL;
 import application.properties.SettingsProperties;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -31,7 +33,7 @@ public class Main extends Application implements Constant {
         SwitchView switchView = new SwitchView("parametre/params_home", Constant.PARAMS_APP_TITLE);
 
         Properties properties = SettingsProperties.loadSettingsPropertiesFile();
-        if(properties != null && properties.getProperty(PROP_ALREADY_RUN).equals("true"))
+        if(properties != null && properties.getProperty(PROP_ALREADY_RUN).equals("true") && UserSQL.getNbAccount() > 0 && EtaSettings.isAlreadyETA())
             switchView = new SwitchView("home_login", Constant.ACCUEIL_APP_TITLE);
 
         switchView.showScene();

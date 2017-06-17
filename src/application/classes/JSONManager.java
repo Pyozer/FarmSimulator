@@ -13,7 +13,7 @@ public class JSONManager {
 	 * @param jsonStr la chaîne de caractère au format JSON
 	 * @return le tableau de points
 	 */
-	public static Point[] readPolygon(String jsonStr) {
+	public static Polygon readPolygon(String jsonStr) {
 
         JSONArray jsonarray = new JSONArray(jsonStr);
         Point[] coords = new Point[jsonarray.length()];
@@ -23,7 +23,7 @@ public class JSONManager {
             coords[i] = new Point(jsonPoint.getDouble(0), jsonPoint.getDouble(1));
         }
 
-		return coords;
+		return new Polygon(coords);
 	}
 
 	/**

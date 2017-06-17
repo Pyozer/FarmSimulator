@@ -85,6 +85,8 @@ public class GlobalController implements APIGoogleMap {
 
         tableView.getItems().setAll(CommandeSQL.getCommandeMakedList(false));
 
+        tableView.refresh();
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());

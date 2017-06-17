@@ -94,7 +94,7 @@ public class EditChampController implements APIGoogleMap {
         } else {
             String message = "Le champ a bien été";
 
-            Polygon champ = new Polygon(JSONManager.readPolygon(coords_edited));
+            Polygon champ = JSONManager.readPolygon(coords_edited);
             System.out.println(champ);
             Float surface = Float.parseFloat(inputSurface);
 

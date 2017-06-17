@@ -31,17 +31,20 @@ public class ChampSQL {
             while (rs.next()) {
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
 
-                Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
+                Polygon coord_champ = JSONManager.readPolygon(rs.getString("coords_champ"));
 
                 champList.add(new Champ(
-                        Integer.parseInt(rs.getString("id_champ")),
-                        Integer.parseInt(rs.getString("surf_champ")),
+                        rs.getInt("id_champ"),
+                        rs.getFloat("surf_champ"),
                         rs.getString("adr_champ"),
                         coord_center,
                         coord_champ,
-                        new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
+                        new Culture(
+                                rs.getInt("id_cul"),
+                                rs.getString("type_cul")
+                        ),
                         new Agriculteur(
-                                Integer.parseInt(rs.getString("id_agri")),
+                                rs.getInt("id_agri"),
                                 rs.getString("prenom_agri"),
                                 rs.getString("nom_agri"),
                                 rs.getString("tel_agri"),
@@ -71,7 +74,7 @@ public class ChampSQL {
             while (rs.next()) {
 
                 listCulture.add(new Culture(
-                        Integer.parseInt(rs.getString("id_cul")),
+                        rs.getInt("id_cul"),
                         rs.getString("type_cul"))
                 );
             }

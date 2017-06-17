@@ -23,13 +23,12 @@ public class UserSQL implements Constant {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("email", email);
             stmt.setString("password", SHA1.cryptToSHA1(password));
-            // execute select SQL stetement
+            // execute select SQL statement
             ResultSet rs = stmt.executeQuery();
 
             rs.next();
-            if(rs.getInt("rowCount") > 0) {
+            if(rs.getInt("rowCount") > 0)
                 login_ok = true;
-            }
 
             stmt.close();
             rs.close();

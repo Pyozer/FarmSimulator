@@ -29,8 +29,7 @@ public class AffectationSQL implements Constant {
             insertAffectationStatement.executeUpdate();
 
             insertAffectationStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
 
@@ -49,8 +48,7 @@ public class AffectationSQL implements Constant {
             deleteAffectationStatement.executeUpdate();
 
             deleteAffectationStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -78,19 +76,21 @@ public class AffectationSQL implements Constant {
             ResultSet rs = loadTracteurStatement.executeQuery();
 
             while (rs.next()) {
+
                 Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Tracteur(
-                        Integer.parseInt(rs.getString("id_vehi")),
+                        rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
                         position,
-                        Integer.parseInt(rs.getString("cap_rem_tract"))
+                        rs.getInt("cap_rem_tract")
                 ));
             }
             rs.close();
             loadTracteurStatement.close();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -112,12 +112,12 @@ public class AffectationSQL implements Constant {
                 Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Botteleuse(
-                        Integer.parseInt(rs.getString("id_vehi")),
+                        rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
                         position,
-                        Boolean.parseBoolean(rs.getString("type_bott"))
+                        rs.getBoolean("type_bott")
                 ));
             }
             rs.close();
@@ -143,19 +143,19 @@ public class AffectationSQL implements Constant {
                 Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Moissonneuse(
-                        Integer.parseInt(rs.getString("id_vehi")),
+                        rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
                         rs.getString("etat_vehi"),
                         position,
-                        Integer.parseInt(rs.getString("taille_tremis_moi")),
-                        Integer.parseInt(rs.getString("taille_reserve_moi")),
-                        Integer.parseInt(rs.getString("largeur_route_moi")),
-                        Integer.parseInt(rs.getString("hauteur_moi")),
-                        Integer.parseInt(rs.getString("largeur_coupe_moi")),
-                        Integer.parseInt(rs.getString("conso_fonct_moi")),
-                        Integer.parseInt(rs.getString("conso_route_moi")),
-                        Integer.parseInt(rs.getString("poids_moi"))
+                        rs.getInt("taille_tremis_moi"),
+                        rs.getInt("taille_reserve_moi"),
+                        rs.getInt("largeur_route_moi"),
+                        rs.getInt("hauteur_moi"),
+                        rs.getInt("largeur_coupe_moi"),
+                        rs.getInt("conso_fonct_moi"),
+                        rs.getInt("conso_route_moi"),
+                        rs.getInt("poids_moi")
                 ));
             }
             rs.close();
