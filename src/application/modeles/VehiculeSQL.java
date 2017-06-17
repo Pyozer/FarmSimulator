@@ -20,8 +20,8 @@ public class VehiculeSQL implements Constant {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
 
-    private final static String UPDATE_VEHICULE = "UPDATE VEHICULE SET marque_vehi:marque_vehi, modele_vehi=:modele_vehi, etat_vehi=:etat_vehi, position_vehi=:position_vehi WHERE id_vehi:id_vehi";
-    private final static String INSERT_VEHICULE = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi, position_vehi) VALUES (:marque, :modele, :etat, :position);";
+    private final static String UPDATE_VEHICULE = "UPDATE VEHICULE SET marque_vehi:marque_vehi, modele_vehi=:modele_vehi, etat_vehi=:etat_vehi WHERE id_vehi:id_vehi";
+    private final static String INSERT_VEHICULE = "INSERT INTO Vehicule(marque_vehi, modele_vehi, etat_vehi) VALUES (:marque, :modele, :etat);";
 
     public static ObservableList<Vehicule> getVehiculeList() {
         vehiculeList.clear();
@@ -33,7 +33,7 @@ public class VehiculeSQL implements Constant {
         return vehiculeList;
     }
 
-    private static int addVehicule(String marque, String modele, String etat, String position) throws SQLException {
+    private static int addVehicule(String marque, String modele, String etat) throws SQLException {
         int last_inserted_id = 0;
 
         // On insert le vehicule
@@ -41,7 +41,6 @@ public class VehiculeSQL implements Constant {
         addVehiculeStatement.setString("marque", marque);
         addVehiculeStatement.setString("modele", modele);
         addVehiculeStatement.setString("etat", etat);
-        addVehiculeStatement.setString("position", position);
 
         addVehiculeStatement.executeUpdate();
 
@@ -55,14 +54,13 @@ public class VehiculeSQL implements Constant {
         return last_inserted_id;
     }
 
-    private static void editVehicule(int id, String marque, String modele, String etat, String position) throws SQLException{
+    private static void editVehicule(int id, String marque, String modele, String etat) throws SQLException{
         // On update le vehicule
         NamedParameterStatement editVehiculeStatement = new NamedParameterStatement(DBConnection.getConnection(), UPDATE_VEHICULE);
 
         editVehiculeStatement.setString("marque_vehi", marque);
         editVehiculeStatement.setString("modele_vehi", modele);
         editVehiculeStatement.setString("etat_vehi", etat);
-        editVehiculeStatement.setString("position_vehi", position);
         editVehiculeStatement.setInt("id_vehi", id);
         // Execute SQL statement
         editVehiculeStatement.executeUpdate();
@@ -70,7 +68,7 @@ public class VehiculeSQL implements Constant {
         editVehiculeStatement.close();
     }
 
-    private static Point getActualPositionVehicule(int id_vehi) {
+    public static Point getActualPositionVehicule(int id_vehi) {
         Point position = JSONManager.readPoint(SettingsProperties.loadSettingsPropertiesFile().getProperty(PROP_ETA_POSITION, PROP_ETA_POSITION_DEF));
         try {
             String requestPosition = "SELECT coord_centre_champ FROM Champ " +
@@ -98,7 +96,7 @@ public class VehiculeSQL implements Constant {
     }
 
     private static void loadTracteur() {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, cap_rem_tract FROM Vehicule " +
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 
         try {
@@ -124,7 +122,7 @@ public class VehiculeSQL implements Constant {
     }
 
     private static void loadBotteleuse() {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule " +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, type_bott FROM Vehicule " +
                 "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi";
 
         try {
@@ -134,7 +132,7 @@ public class VehiculeSQL implements Constant {
             ResultSet rs = loadBotteleuseStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
+                Point position = getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Botteleuse(
                         Integer.parseInt(rs.getString("id_vehi")),
@@ -162,7 +160,7 @@ public class VehiculeSQL implements Constant {
             ResultSet rs = loadMoissonneuseStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
+                Point position = getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Moissonneuse(
                         Integer.parseInt(rs.getString("id_vehi")),
@@ -209,7 +207,7 @@ public class VehiculeSQL implements Constant {
         try {
             // On insert le vehicule
             // TODO: A MODIFIER
-            int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
+            int idVehi = addVehicule(marque, modele, etat);
 
             // On insert la botteleuse
             NamedParameterStatement addBotteleuseStatement = new NamedParameterStatement(DBConnection.getConnection(), insertBott);
@@ -230,7 +228,7 @@ public class VehiculeSQL implements Constant {
 
         try {
             // On update le véhicule
-            editVehicule(bott.getId(), bott.getMarque(), bott.getModele(), bott.getEtat(), bott.getPosition().toString());
+            editVehicule(bott.getId(), bott.getMarque(), bott.getModele(), bott.getEtat());
 
             NamedParameterStatement editBotteleuseStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
@@ -254,7 +252,7 @@ public class VehiculeSQL implements Constant {
         try {
             // On insert le vehicule
             // TODO: A MODIFIER
-            int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
+            int idVehi = addVehicule(marque, modele, etat);
 
             // On insert la moissonneuse
             NamedParameterStatement addMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), insertMois);
@@ -285,7 +283,7 @@ public class VehiculeSQL implements Constant {
 
         try {
             // On update le véhicule
-            editVehicule(moi.getId(), moi.getMarque(), moi.getModele(), moi.getEtat(), moi.getPosition().toString());
+            editVehicule(moi.getId(), moi.getMarque(), moi.getModele(), moi.getEtat());
 
             NamedParameterStatement editMoissonneuseStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
@@ -315,7 +313,7 @@ public class VehiculeSQL implements Constant {
         try {
             // On insert le vehicule
             // TODO: A MODIFIER
-            int idVehi = addVehicule(marque, modele, etat, "[47.970575,-1.448591]");
+            int idVehi = addVehicule(marque, modele, etat);
 
             // On insert la botteleuse
             NamedParameterStatement addTracteurStatement = new NamedParameterStatement(DBConnection.getConnection(), insertTract);
@@ -337,7 +335,7 @@ public class VehiculeSQL implements Constant {
 
         try {
             // On update le véhicule
-            editVehicule(tracteur.getId(), tracteur.getMarque(), tracteur.getModele(), tracteur.getEtat(), tracteur.getPosition().toString());
+            editVehicule(tracteur.getId(), tracteur.getMarque(), tracteur.getModele(), tracteur.getEtat());
 
             NamedParameterStatement editTracteurStatement = new NamedParameterStatement(DBConnection.getConnection(), requestTracteur);
 

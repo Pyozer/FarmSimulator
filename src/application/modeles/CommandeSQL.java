@@ -72,22 +72,6 @@ public class CommandeSQL {
         return getCommandeFromRequest(request);
     }
 
-    public static ObservableList<Commande> getCommandeList(int max_entries) {
-        String request = "SELECT * FROM Commande " +
-                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
-                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
-                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
-        if (max_entries > 0) {
-            request += " ORDER BY date_com LIMIT " + max_entries;
-        }
-
-        return getCommandeFromRequest(request);
-    }
-
-    public static ObservableList<Commande> getCommandeList() {
-        return getCommandeList(0);
-    }
-
     private static ObservableList<Commande> getCommandeFromRequest(String request) {
 
         ObservableList<Commande> commandeList = FXCollections.observableArrayList();

@@ -58,7 +58,7 @@ public class GlobalController implements APIGoogleMap {
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
 
-        tableView.getItems().addAll(CommandeSQL.getCommandeMakedList(false));
+        tableView.getItems().setAll(CommandeSQL.getCommandeMakedList(false));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
 

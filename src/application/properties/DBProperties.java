@@ -45,6 +45,14 @@ public class DBProperties implements Constant {
      * @return
      */
     public Properties loadPropertiesFile() {
+        // On vérifie que le fichier existe
+        try{
+            BufferedReader In = new BufferedReader(new FileReader(FILE_CONFIG));
+        } catch (FileNotFoundException fnfe) {
+            // Si il existe pas on le créer
+            makeDefaultDbProperties();
+        }
+
         try {
             InputStream inputStream = new FileInputStream(FILE_CONFIG);
             properties.load(inputStream);
@@ -64,9 +72,7 @@ public class DBProperties implements Constant {
 
             return properties;
         } catch (FileNotFoundException ex) {
-            // On créer alors le fichier puis rappel cette fonction
-            makeDefaultDbProperties();
-            loadPropertiesFile();
+            System.err.println(ex.getMessage());
         } catch (IOException ex) {
             Logger.getLogger(DBProperties.class.getName()).log(Level.SEVERE, null, ex);
         }

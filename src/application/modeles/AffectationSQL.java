@@ -30,8 +30,6 @@ public class AffectationSQL implements Constant {
             insertAffectationStatement.executeUpdate();
 
             insertAffectationStatement.close();
-
-            updatePosition(inputVehicule, inputCommande.getChampCommande().getCoordCenter());
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -52,32 +50,6 @@ public class AffectationSQL implements Constant {
             deleteAffectationStatement.executeUpdate();
 
             deleteAffectationStatement.close();
-
-            updatePosition(inputVehicule);
-        }
-        catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-    }
-
-    private static void updatePosition(Vehicule inputVehicule){
-        Point positionEta = EtaSettings.getInfosEta().getPosition();
-        if(inputVehicule.getType().equals("Moissonneuse")) updatePosition(inputVehicule, positionEta);
-        else if(inputVehicule.getType().equals("Tracteur")) updatePosition(inputVehicule, positionEta);
-        else if(inputVehicule.getType().equals("Botteleuse")) updatePosition(inputVehicule, positionEta);
-    }
-
-    private static void updatePosition(Vehicule inputVehicule, Point inputPosition){
-        String request = "UPDATE Vehicule SET position_vehi=:position_vehi WHERE id_vehi=:id_vehi";
-        try {
-            NamedParameterStatement updatePositionStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-
-            updatePositionStatement.setString("position_vehi", inputPosition.toString());
-            updatePositionStatement.setInt("id_vehi", inputVehicule.getId());
-            // Execute SQL statement
-            updatePositionStatement.executeUpdate();
-
-            updatePositionStatement.close();
         }
         catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -95,7 +67,7 @@ public class AffectationSQL implements Constant {
     }
 
     private static void loadTracteur(Commande commande) {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, cap_rem_tract FROM Vehicule " +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, cap_rem_tract FROM Vehicule " +
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi " +
                 "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
                 "WHERE id_com=:id_com";
@@ -107,7 +79,7 @@ public class AffectationSQL implements Constant {
             ResultSet rs = loadTracteurStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
+                Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Tracteur(
                         Integer.parseInt(rs.getString("id_vehi")),
@@ -126,7 +98,7 @@ public class AffectationSQL implements Constant {
     }
 
     private static void loadBotteleuse(Commande commande) {
-        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, position_vehi, type_bott FROM Vehicule " +
+        String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, type_bott FROM Vehicule " +
                 "INNER JOIN Botteleuse ON Vehicule.id_vehi=Botteleuse.id_vehi " +
                 "INNER JOIN Ordre ON Ordre.id_vehi=Vehicule.id_vehi " +
                 "WHERE id_com=:id_com";
@@ -138,7 +110,7 @@ public class AffectationSQL implements Constant {
             ResultSet rs = loadBotteleuseStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
+                Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Botteleuse(
                         Integer.parseInt(rs.getString("id_vehi")),
@@ -169,7 +141,7 @@ public class AffectationSQL implements Constant {
             ResultSet rs = loadMoissonneuseStatement.executeQuery();
 
             while (rs.next()) {
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
+                Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Moissonneuse(
                         Integer.parseInt(rs.getString("id_vehi")),

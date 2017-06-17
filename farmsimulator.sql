@@ -37,8 +37,8 @@ CREATE TABLE `agriculteur` (
   `tel_agri` varchar(20) NOT NULL,
   `email_agri` varchar(100) NOT NULL,
   `couleur_agri` varchar(10) NOT NULL DEFAULT '#444444'
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Déchargement des données de la table `agriculteur`
@@ -60,8 +60,8 @@ CREATE TABLE `botteleuse` (
   `id_bott` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
   `type_bott` varchar(50) NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Déchargement des données de la table `botteleuse`
@@ -76,7 +76,7 @@ INSERT INTO `botteleuse` (`id_bott`, `id_vehi`, `type_bott`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `champ`
+-- Table structure for table `champ`
 --
 
 CREATE TABLE `champ` (
@@ -87,7 +87,6 @@ CREATE TABLE `champ` (
   `coords_champ` text NOT NULL,
   `type_champ` int(11) NOT NULL,
   `id_agri` int(11) NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -113,7 +112,7 @@ INSERT INTO `champ` (`id_champ`, `surf_champ`, `adr_champ`, `coord_centre_champ`
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commande`
+-- Table structure for table `commande`
 --
 
 CREATE TABLE `commande` (
@@ -123,10 +122,9 @@ CREATE TABLE `commande` (
   `transp_com` varchar(50) NOT NULL,
   `taille_max_transp_com` float DEFAULT NULL,
   `tonne_com` float DEFAULT '0',
-  `cout_com` float NOT NULL DEFAULT '0',
+  `cout_com` float NOT NULL,
   `id_champ` int(11) NOT NULL,
   `effectuer_com` tinyint(1) NOT NULL DEFAULT '0'
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -154,13 +152,12 @@ INSERT INTO `commande` (`id_com`, `date_com`, `bott_com`, `transp_com`, `taille_
 -- --------------------------------------------------------
 
 --
--- Structure de la table `culture`
+-- Table structure for table `culture`
 --
 
 CREATE TABLE `culture` (
   `id_cul` int(11) NOT NULL,
   `type_cul` varchar(50) NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -176,28 +173,13 @@ INSERT INTO `culture` (`id_cul`, `type_cul`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `eta`
---
-
-CREATE TABLE `eta` (
-  `id_eta` int(11) NOT NULL,
-  `nom_eta` varchar(100) NOT NULL,
-  `adresse_eta` varchar(250) NOT NULL,
-  `position_eta` varchar(250) NOT NULL
-
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `moisson`
+-- Table structure for table `moisson`
 --
 
 CREATE TABLE `moisson` (
   `id_moi` int(11) NOT NULL,
   `id_cul` int(11) NOT NULL,
   `vitesse_moi` float NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -239,7 +221,7 @@ INSERT INTO `moisson` (`id_moi`, `id_cul`, `vitesse_moi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `moissonneuse`
+-- Table structure for table `moissonneuse`
 --
 
 CREATE TABLE `moissonneuse` (
@@ -253,7 +235,6 @@ CREATE TABLE `moissonneuse` (
   `conso_fonct_moi` float NOT NULL,
   `conso_route_moi` float NOT NULL,
   `poids_moi` float NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -273,18 +254,17 @@ INSERT INTO `moissonneuse` (`id_moi`, `id_vehi`, `taille_tremis_moi`, `taille_re
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ordre`
+-- Table structure for table `ordre`
 --
 
 CREATE TABLE `ordre` (
   `id_ordre` int(11) NOT NULL,
   `heure_arrive_ordre` datetime DEFAULT NULL,
   `heure_fin_ordre` datetime DEFAULT NULL,
-  `nb_km_ordre` float DEFAULT '0',
+  `nb_km_ordre` float NOT NULL DEFAULT '0',
   `tonnes_ordre` float NOT NULL DEFAULT '0',
   `id_vehi` int(11) NOT NULL,
   `id_com` int(11) NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -332,14 +312,13 @@ INSERT INTO `ordre` (`id_ordre`, `nb_km_ordre`, `tonnes_ordre`, `id_vehi`, `id_c
 -- --------------------------------------------------------
 
 --
--- Structure de la table `tracteur`
+-- Table structure for table `tracteur`
 --
 
 CREATE TABLE `tracteur` (
   `id_tract` int(11) NOT NULL,
   `id_vehi` int(11) NOT NULL,
   `cap_rem_tract` float NOT NULL
-
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -370,90 +349,87 @@ INSERT INTO `tracteur` (`id_tract`, `id_vehi`, `cap_rem_tract`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
   `nom_user` varchar(100) NOT NULL,
   `prenom_user` varchar(100) NOT NULL,
-  `password_user` varchar(100) NOT NULL,
-  `email_user` varchar(250) NOT NULL
-
+  `email_user` varchar(250) NOT NULL,
+  `password_user` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `vehicule`
+-- Table structure for table `vehicule`
 --
 
 CREATE TABLE `vehicule` (
   `id_vehi` int(11) NOT NULL,
   `marque_vehi` varchar(50) NOT NULL,
   `modele_vehi` varchar(50) NOT NULL,
-  `etat_vehi` varchar(50) NOT NULL,
-  `position_vehi` varchar(100) NOT NULL DEFAULT '47.970575, -1.448591'
-
+  `etat_vehi` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `vehicule`
 --
 
-INSERT INTO `vehicule` (`id_vehi`, `marque_vehi`, `modele_vehi`, `etat_vehi`, `position_vehi`) VALUES
-(1, 'New-holland', 'CX 720', 'Utilisé', '[47.970575,-1.448591]'),
-(2, 'New-holland', 'CR 9080', 'Utilisé', '[47.970575,-1.448591]'),
-(3, 'New-holland', 'CSX 7060', 'Utilisé', '[47.970575,-1.448591]'),
-(5, 'New-holland', 'CX 8050', 'Utilisé', '[47.970575,-1.448591]'),
-(6, 'New-holland', 'CX 8070', 'Non utilisé', '[47.970575,-1.448591]'),
-(7, 'New-holland', 'CX 5090', 'Utilisé', '[47.970575,-1.448591]'),
-(8, 'New-holland', 'TC 5050', 'Utilisé', '[47.970575,-1.448591]'),
-(9, 'New-holland', 'TX 68 SL', 'Non utilisé', '[47.970575,-1.448591]'),
-(10, 'New-holland', 'TX 64 SL', 'Utilisé', '[47.970575,-1.448591]'),
-(11, 'FENDT', '311', 'Utilisé', '[47.970575,-1.448591]'),
-(12, 'FENDT', '313', 'Utilisé', '[47.970575,-1.448591]'),
-(13, 'FENDT', '411', 'Utilisé', '[47.970575,-1.448591]'),
-(14, 'FENDT', '820', 'Utilisé', '[47.970575,-1.448591]'),
-(15, 'FENDT', '818', 'Utilisé', '[47.970575,-1.448591]'),
-(16, 'FENDT', '414', 'Utilisé', '[47.970575,-1.448591]'),
-(17, 'FENDT', '512', 'Utilisé', '[47.970575,-1.448591]'),
-(18, 'FENDT', '712', 'Utilisé', '[47.970575,-1.448591]'),
-(19, 'FENDT', '714', 'Utilisé', '[47.970575,-1.448591]'),
-(20, 'FENDT', '826', 'Utilisé', '[47.970575,-1.448591]'),
-(21, 'FENDT', '718', 'Utilisé', '[47.970575,-1.448591]'),
-(22, 'FENDT', '720', 'Utilisé', '[47.970575,-1.448591]'),
-(23, 'FENDT', '722', 'Utilisé', '[47.970575,-1.448591]'),
-(24, 'FENDT', '815', 'Utilisé', '[47.970575,-1.448591]'),
-(25, 'FENDT', '817', 'Utilisé', '[47.970575,-1.448591]'),
-(26, 'FENDT', '820', 'Utilisé', '[47.970575,-1.448591]'),
-(27, 'FENDT', '826', 'Utilisé', '[47.970575,-1.448591]'),
-(28, 'FENDT', '927', 'Utilisé', '[47.970575,-1.448591]'),
-(29, 'FENDT', '939', 'Utilisé', '[47.970575,-1.448591]'),
-(30, 'New-holland', 'BR 750 A', 'Utilisé', '[47.970575,-1.448591]'),
-(31, 'New-holland', 'ROLL BELT 180 ELITE', 'Utilisé', '[47.970575,-1.448591]'),
-(32, 'New-holland', 'BB 960 S ', 'Utilisé', '[47.970575,-1.448591]'),
-(33, 'New-holland', 'BB 1270', 'Utilisé', '[47.970575,-1.448591]');
+INSERT INTO `vehicule` (`id_vehi`, `marque_vehi`, `modele_vehi`, `etat_vehi`) VALUES
+(1, 'New-holland', 'CX 720', 'Utilisé'),
+(2, 'New-holland', 'CR 9080', 'Utilisé'),
+(3, 'New-holland', 'CSX 7060', 'Utilisé'),
+(5, 'New-holland', 'CX 8050', 'Utilisé'),
+(6, 'New-holland', 'CX 8070', 'Non utilisé'),
+(7, 'New-holland', 'CX 5090', 'Utilisé'),
+(8, 'New-holland', 'TC 5050', 'Utilisé'),
+(9, 'New-holland', 'TX 68 SL', 'Non utilisé'),
+(10, 'New-holland', 'TX 64 SL', 'Utilisé'),
+(11, 'FENDT', '311', 'Utilisé'),
+(12, 'FENDT', '313', 'Utilisé'),
+(13, 'FENDT', '411', 'Utilisé'),
+(14, 'FENDT', '820', 'Utilisé'),
+(15, 'FENDT', '818', 'Utilisé'),
+(16, 'FENDT', '414', 'Utilisé'),
+(17, 'FENDT', '512', 'Utilisé'),
+(18, 'FENDT', '712', 'Utilisé'),
+(19, 'FENDT', '714', 'Utilisé'),
+(20, 'FENDT', '826', 'Utilisé'),
+(21, 'FENDT', '718', 'Utilisé'),
+(22, 'FENDT', '720', 'Utilisé'),
+(23, 'FENDT', '722', 'Utilisé'),
+(24, 'FENDT', '815', 'Utilisé'),
+(25, 'FENDT', '817', 'Utilisé'),
+(26, 'FENDT', '820', 'Utilisé'),
+(27, 'FENDT', '826', 'Utilisé'),
+(28, 'FENDT', '927', 'Utilisé'),
+(29, 'FENDT', '939', 'Utilisé'),
+(30, 'New-holland', 'BR 750 A', 'Utilisé'),
+(31, 'New-holland', 'ROLL BELT 180 ELITE', 'Utilisé'),
+(32, 'New-holland', 'BB 960 S ', 'Utilisé'),
+(33, 'New-holland', 'BB 1270', 'Utilisé');
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `agriculteur`
+-- Indexes for table `agriculteur`
 --
 ALTER TABLE `agriculteur`
   ADD PRIMARY KEY (`id_agri`);
 
 --
--- Index pour la table `botteleuse`
+-- Indexes for table `botteleuse`
 --
 ALTER TABLE `botteleuse`
   ADD PRIMARY KEY (`id_bott`),
   ADD KEY `id_vehi` (`id_vehi`);
 
 --
--- Index pour la table `champ`
+-- Indexes for table `champ`
 --
 ALTER TABLE `champ`
   ADD PRIMARY KEY (`id_champ`),
@@ -461,40 +437,34 @@ ALTER TABLE `champ`
   ADD KEY `link_type_culture` (`type_champ`);
 
 --
--- Index pour la table `commande`
+-- Indexes for table `commande`
 --
 ALTER TABLE `commande`
   ADD PRIMARY KEY (`id_com`),
   ADD KEY `id_champ` (`id_champ`);
 
 --
--- Index pour la table `culture`
+-- Indexes for table `culture`
 --
 ALTER TABLE `culture`
   ADD PRIMARY KEY (`id_cul`);
 
 --
--- Index pour la table `eta`
---
-ALTER TABLE `eta`
-  ADD PRIMARY KEY (`id_eta`);
-
---
--- Index pour la table `moisson`
+-- Indexes for table `moisson`
 --
 ALTER TABLE `moisson`
   ADD KEY `id_cul` (`id_cul`),
   ADD KEY `id_moi` (`id_moi`);
 
 --
--- Index pour la table `moissonneuse`
+-- Indexes for table `moissonneuse`
 --
 ALTER TABLE `moissonneuse`
   ADD PRIMARY KEY (`id_moi`),
   ADD KEY `id_vehi` (`id_vehi`);
 
 --
--- Index pour la table `ordre`
+-- Indexes for table `ordre`
 --
 ALTER TABLE `ordre`
   ADD PRIMARY KEY (`id_ordre`),
@@ -502,128 +472,123 @@ ALTER TABLE `ordre`
   ADD KEY `id_com` (`id_com`);
 
 --
--- Index pour la table `tracteur`
+-- Indexes for table `tracteur`
 --
 ALTER TABLE `tracteur`
   ADD PRIMARY KEY (`id_tract`),
   ADD KEY `id_vehi` (`id_vehi`);
 
 --
--- Index pour la table `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Index pour la table `vehicule`
+-- Indexes for table `vehicule`
 --
 ALTER TABLE `vehicule`
   ADD PRIMARY KEY (`id_vehi`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `agriculteur`
+-- AUTO_INCREMENT for table `agriculteur`
 --
 ALTER TABLE `agriculteur`
   MODIFY `id_agri` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT pour la table `botteleuse`
+-- AUTO_INCREMENT for table `botteleuse`
 --
 ALTER TABLE `botteleuse`
   MODIFY `id_bott` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT pour la table `champ`
+-- AUTO_INCREMENT for table `champ`
 --
 ALTER TABLE `champ`
   MODIFY `id_champ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
--- AUTO_INCREMENT pour la table `commande`
+-- AUTO_INCREMENT for table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id_com` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_com` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
--- AUTO_INCREMENT pour la table `culture`
+-- AUTO_INCREMENT for table `culture`
 --
 ALTER TABLE `culture`
   MODIFY `id_cul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT pour la table `eta`
---
-ALTER TABLE `eta`
-  MODIFY `id_eta` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `moissonneuse`
+-- AUTO_INCREMENT for table `moissonneuse`
 --
 ALTER TABLE `moissonneuse`
   MODIFY `id_moi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT pour la table `ordre`
+-- AUTO_INCREMENT for table `ordre`
 --
 ALTER TABLE `ordre`
-  MODIFY `id_ordre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_ordre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
--- AUTO_INCREMENT pour la table `tracteur`
+-- AUTO_INCREMENT for table `tracteur`
 --
 ALTER TABLE `tracteur`
   MODIFY `id_tract` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
--- AUTO_INCREMENT pour la table `vehicule`
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `vehicule`
 --
 ALTER TABLE `vehicule`
   MODIFY `id_vehi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
--- AUTO_INCREMENT pour la table `eta`
---
-ALTER TABLE `user`
-    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
---
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `botteleuse`
+-- Constraints for table `botteleuse`
 --
 ALTER TABLE `botteleuse`
   ADD CONSTRAINT `botteleuse_ibfk_1` FOREIGN KEY (`id_vehi`) REFERENCES `vehicule` (`id_vehi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `champ`
+-- Constraints for table `champ`
 --
 ALTER TABLE `champ`
   ADD CONSTRAINT `champ_ibfk_1` FOREIGN KEY (`id_agri`) REFERENCES `agriculteur` (`id_agri`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `link_type_culture` FOREIGN KEY (`type_champ`) REFERENCES `culture` (`id_cul`);
 
 --
--- Contraintes pour la table `commande`
+-- Constraints for table `commande`
 --
 ALTER TABLE `commande`
   ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`id_champ`) REFERENCES `champ` (`id_champ`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `moisson`
+-- Constraints for table `moisson`
 --
 ALTER TABLE `moisson`
   ADD CONSTRAINT `moisson_ibfk_1` FOREIGN KEY (`id_moi`) REFERENCES `moissonneuse` (`id_moi`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `moisson_ibfk_2` FOREIGN KEY (`id_cul`) REFERENCES `culture` (`id_cul`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `moissonneuse`
+-- Constraints for table `moissonneuse`
 --
 ALTER TABLE `moissonneuse`
   ADD CONSTRAINT `moissonneuse_ibfk_1` FOREIGN KEY (`id_vehi`) REFERENCES `vehicule` (`id_vehi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `ordre`
+-- Constraints for table `ordre`
 --
 ALTER TABLE `ordre`
   ADD CONSTRAINT `ordre_ibfk_1` FOREIGN KEY (`id_vehi`) REFERENCES `vehicule` (`id_vehi`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ordre_ibfk_2` FOREIGN KEY (`id_com`) REFERENCES `commande` (`id_com`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `tracteur`
+-- Constraints for table `tracteur`
 --
 ALTER TABLE `tracteur`
   ADD CONSTRAINT `tracteur_ibfk_1` FOREIGN KEY (`id_vehi`) REFERENCES `vehicule` (`id_vehi`) ON DELETE CASCADE ON UPDATE CASCADE;

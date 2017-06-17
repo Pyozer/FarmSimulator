@@ -23,7 +23,7 @@ public class MoissonSQL {
             NamedParameterStatement editMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             editMoissonStatement.setFloat("tonnes", inputNbTonne);
-            editMoissonStatement.setFloat("nbKilo", inputNbKilo );
+            editMoissonStatement.setFloat("nbKilo", inputNbKilo);
             editMoissonStatement.setString("heureArrive", heure_debut);
             editMoissonStatement.setString("heureFin", heure_fin);
             editMoissonStatement.setInt("vehi", inputVehicule.getId());
@@ -33,8 +33,7 @@ public class MoissonSQL {
             editMoissonStatement.executeUpdate();
 
             editMoissonStatement.close();
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
 
@@ -43,10 +42,10 @@ public class MoissonSQL {
     public static ObservableList<Moisson> getMoissonList() {
 
         String request = "SELECT * FROM Ordre " +
-                        "INNER JOIN Commande ON Commande.id_com = Ordre.id_com "+
-                        "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
-                        "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
-                        "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
+                "INNER JOIN Commande ON Commande.id_com = Ordre.id_com " +
+                "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
+                "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
+                "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ";
 
         ObservableList<Moisson> moissonList = FXCollections.observableArrayList();
 
@@ -61,64 +60,64 @@ public class MoissonSQL {
 
                 Point coord_center = JSONManager.readPoint(rs.getString("coord_centre_champ"));
                 Polygon coord_champ = new Polygon(JSONManager.readPolygon(rs.getString("coords_champ")));
-                Point position = JSONManager.readPoint(rs.getString("position_vehi"));
 
-                if(rs.getString("type_bott") != null){
+                Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
+
+                if (rs.getString("type_bott") != null) {
                     vehi_com = new Botteleuse(
-                            Integer.parseInt(rs.getString("id_vehi")),
+                            rs.getInt("id_vehi"),
                             rs.getString("marque_vehi"),
                             rs.getString("modele_vehi"),
                             rs.getString("etat_vehi"),
                             position,
-                            Boolean.parseBoolean(rs.getString("type_bott"))
+                            rs.getBoolean("type_bott")
                     );
-                }
-                else if(rs.getString("taille_tremis_moi") != null){
+                } else if (rs.getString("taille_tremis_moi") != null) {
                     vehi_com = new Moissonneuse(
-                            Integer.parseInt(rs.getString("id_vehi")),
+                            rs.getInt("id_vehi"),
                             rs.getString("marque_vehi"),
                             rs.getString("modele_vehi"),
                             rs.getString("etat_vehi"),
                             position,
-                            Integer.parseInt(rs.getString("taille_tremis_moi")),
-                            Integer.parseInt(rs.getString("taille_reserve_moi")),
-                            Integer.parseInt(rs.getString("largeur_route_moi")),
-                            Integer.parseInt(rs.getString("hauteur_moi")),
-                            Integer.parseInt(rs.getString("largeur_coupe_moi")),
-                            Integer.parseInt(rs.getString("conso_fonct_moi")),
-                            Integer.parseInt(rs.getString("conso_route_moi")),
-                            Integer.parseInt(rs.getString("poids_moi"))
+                            rs.getInt("taille_tremis_moi"),
+                            rs.getInt("taille_reserve_moi"),
+                            rs.getInt("largeur_route_moi"),
+                            rs.getInt("hauteur_moi"),
+                            rs.getInt("largeur_coupe_moi"),
+                            rs.getInt("conso_fonct_moi"),
+                            rs.getInt("conso_route_moi"),
+                            rs.getInt("poids_moi")
                     );
-                }
-                else if(rs.getString("cap_rem_tract") != null){
+                } else if (rs.getString("cap_rem_tract") != null) {
                     vehi_com = new Tracteur(
-                            Integer.parseInt(rs.getString("id_vehi")),
+                            rs.getInt("id_vehi"),
                             rs.getString("marque_vehi"),
                             rs.getString("modele_vehi"),
                             rs.getString("etat_vehi"),
                             position,
-                            Integer.parseInt(rs.getString("cap_rem_tract"))
+                            rs.getInt("cap_rem_tract")
                     );
                 }
 
-                moissonList.add(new Moisson(Integer.parseInt(rs.getString("id_ordre")),
+                moissonList.add(
+                        new Moisson(rs.getInt("id_ordre"),
                         new Commande(
-                                Integer.parseInt(rs.getString("id_com")),
+                                rs.getInt("id_com"),
                                 rs.getString("transp_com"),
                                 rs.getString("bott_com"),
-                                Float.parseFloat(rs.getString("taille_max_transp_com")),
+                                rs.getFloat("taille_max_transp_com"),
                                 rs.getString("date_com"),
-                                Float.parseFloat(rs.getString("tonne_com")),
-                                Float.parseFloat(rs.getString("cout_com")),
+                                rs.getFloat("tonne_com"),
+                                rs.getFloat("cout_com"),
                                 new Champ(
-                                        Integer.parseInt(rs.getString("id_agri")),
-                                        Float.parseFloat(rs.getString("surf_champ")),
+                                        rs.getInt("id_agri"),
+                                        rs.getFloat("surf_champ"),
                                         rs.getString("adr_champ"),
                                         coord_center,
                                         coord_champ,
                                         new Culture(rs.getInt("id_cul"), rs.getString("type_cul")),
                                         new Agriculteur(
-                                                Integer.parseInt(rs.getString("id_agri")),
+                                                rs.getInt("id_agri"),
                                                 rs.getString("prenom_agri"),
                                                 rs.getString("nom_agri"),
                                                 rs.getString("tel_agri"),
@@ -132,9 +131,9 @@ public class MoissonSQL {
                         vehi_com,
                         rs.getString("heure_arrive_ordre"),
                         rs.getString("heure_fin_ordre"),
-                        Float.parseFloat(rs.getString("nb_km_ordre")),
-                        Float.parseFloat(rs.getString("tonnes_ordre"))
-                    ));
+                        rs.getFloat("nb_km_ordre"),
+                        rs.getFloat("tonnes_ordre")
+                ));
 
             }
 
