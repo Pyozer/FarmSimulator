@@ -9,7 +9,10 @@ import application.properties.SettingsProperties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 
 /**
@@ -96,6 +99,7 @@ public class VehiculeSQL implements Constant {
     }
 
     private static void loadTracteur() {
+        //language=MySQL
         String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, cap_rem_tract FROM Vehicule " +
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
 

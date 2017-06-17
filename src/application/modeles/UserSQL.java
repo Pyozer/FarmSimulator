@@ -5,7 +5,6 @@ import application.classes.SHA1;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

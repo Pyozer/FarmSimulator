@@ -1,7 +1,6 @@
 package application.modeles;
 
 import application.Constant;
-import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;

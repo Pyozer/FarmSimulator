@@ -107,7 +107,7 @@ public class ClientController implements APIGoogleMap  {
     public void editClient() {
         Agriculteur agriculteur = tableView.getSelectionModel().getSelectedItem();
 
-        SwitchView switchView = new SwitchView("client/edit_client_app", Constant.ADD_VEHICULE_APP_TITLE);
+        SwitchView switchView = new SwitchView("client/edit_client_app", Constant.EDIT_CLIENT_APP_TITLE);
         switchView.setPopUp();
         EditClientController editClientController = switchView.getFxmlLoader().getController();
         editClientController.setEditionMode(true);
@@ -131,7 +131,7 @@ public class ClientController implements APIGoogleMap  {
     }
 
     private void resetListInfo() {
-        listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
+        listInfos.getItems().clear();
     }
 
     public void initData() {

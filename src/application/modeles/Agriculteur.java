@@ -1,6 +1,5 @@
 package application.modeles;
 
-import application.classes.ConvertColor;
 import application.classes.ElementPair;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,7 +31,7 @@ public class Agriculteur extends Element {
         getInformations().add(new ElementPair("Numéro téléphone", num_tel));
         getInformations().add(new ElementPair("Adresse", adresse));
         getInformations().add(new ElementPair("Email", email));
-        getInformations().add(new ElementPair("Couleur", ConvertColor.ColorFXToWeb(couleur)));
+        getInformations().add(new ElementPair("Couleur", couleur));
     }
 
     public String getNom() {

@@ -5,10 +5,9 @@ import application.classes.SwitchView;
 import application.modeles.EtaSettings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-
-import javafx.scene.image.ImageView;
 
 /**
  * Controlleur de la vue de l'accueil

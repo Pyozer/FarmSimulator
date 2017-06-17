@@ -2,13 +2,15 @@ package application.controlleurs.commande;
 
 import application.Constant;
 import application.classes.AlertDialog;
-import application.modeles.*;
+import application.modeles.Commande;
+import application.modeles.Moisson;
+import application.modeles.MoissonSQL;
+import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 

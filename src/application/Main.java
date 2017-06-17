@@ -1,13 +1,11 @@
 package application;
 
-import application.classes.SHA1;
 import application.classes.SwitchView;
 import application.database.DBConnection;
 import application.properties.SettingsProperties;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Properties;
 

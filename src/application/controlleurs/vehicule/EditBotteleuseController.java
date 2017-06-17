@@ -3,8 +3,6 @@ package application.controlleurs.vehicule;
 import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Botteleuse;
-import application.modeles.ClientSQL;
-import application.modeles.Vehicule;
 import application.modeles.VehiculeSQL;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;

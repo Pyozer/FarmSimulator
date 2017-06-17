@@ -1,6 +1,5 @@
 package application;
 
-import application.classes.Point;
 import javafx.scene.paint.Color;
 
 /**
