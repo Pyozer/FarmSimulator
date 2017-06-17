@@ -98,36 +98,33 @@
  * ListView                                                                    *
  *                                                                             *
  ******************************************************************************/
-.jfx-list-cell:empty {
-    -fx-background-color: red;
+.custom.list-view .list-cell:empty {
+    -fx-background-color: white;
 }
-.jfx-list-cell {
+.custom.list-view .list-cell {
     -fx-padding: 0.9em 1em;
     -fx-text-fill: #212121;
-    -fx-font: 12px "Segoe UI";
+    -fx-font: 14px "Segoe UI";
 }
-.jfx-list-cell:odd {
+.custom.list-view .list-cell:odd {
     -fx-background-color: white;
 }
-
-.jfx-list-view:focused {
-    -fx-background-color: -fx-box-border,-fx-box-border,red;
+.custom.list-view:focused {
+    -fx-background-color: -fx-box-border, #999999;
 }
-.jfx-list-view:focused .jfx-list-cell:filled:selected,
-.jfx-list-view:focused .jfx-list-cell:filled:selected:hover,
-.jfx-list-view:focused .jfx-list-cell:filled:focused:selected,
-.jfx-list-view:focused .jfx-list-cell:odd:filled:selected:focused:hover {
+.custom.list-view:focused .list-cell:filled:selected,
+.custom.list-view:focused .list-cell:filled:selected:hover,
+.custom.list-view:focused .list-cell:filled:focused:selected,
+.custom.list-view:focused .list-cell:odd:filled:selected:focused:hover {
     -fx-background-color: -fx-box-border, rgb(205,205,205);
+    -fx-text-fill: BLACK;
 }
-.jfx-list-view .jfx-list-cell:hover:empty,
-.jfx-list-view .jfx-list-cell:odd:hover:empty {
-    -fx-background-color: white;
-}
-.jfx-list-view .jfx-list-cell:hover,
-.jfx-list-view .jfx-list-cell:odd:hover,
-.jfx-list-view:focused .jfx-list-cell:odd:focused:hover,
-.jfx-list-view:focused .jfx-list-cell:focused:hover {
+.custom.list-view .list-cell:hover,
+.custom.list-view .list-cell:odd:hover,
+.custom.list-view:focused .list-cell:odd:focused:hover,
+.custom.list-view:focused .list-cell:focused:hover {
     -fx-background-color: -fx-box-border,rgb(231,231, 231);
+    -fx-text-fill: BLACK;
 }
 
 /*******************************************************************************
@@ -164,11 +161,10 @@
  * Table View                                                                  *
  *                                                                             *
  ******************************************************************************/
-.table-view:focused .table-row-cell:selected {
+.table-view:focused .table-row-cell:selected .table-cell {
     -fx-text-fill: BLACK;
 }
-
-.table-view:focused .table-row-cell:selected .table-cell {
+.table-view .table-row-cell .table-cell {
     -fx-text-fill: BLACK;
 }
 
@@ -204,10 +200,6 @@
     -fx-border-color: transparent -fx-box-border transparent transparent;
     -fx-text-fill: #282828;
 
-}
-.table-row-cell {
-    -fx-background-color: white;
-    -fx-border-width: 0 0 0 0;
 }
 .table-view:focused .table-row-cell:filled:selected, .table-view:row-selection .table-row-cell:filled:hover:selected {
     -fx-background-color: rgb(205,205,205);

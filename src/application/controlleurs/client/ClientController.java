@@ -34,7 +34,7 @@ public class ClientController implements APIGoogleMap  {
 	@FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
-    @FXML private JFXListView<ElementPair> listInfos;
+    @FXML private ListView<ElementPair> listInfos;
 
     private GoogleMaps gMaps;
     private Agriculteur selectedAgri = null;
@@ -55,6 +55,9 @@ public class ClientController implements APIGoogleMap  {
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
+        tableView.getStyleClass().add("custom-table-view");
+
+        listInfos.getStyleClass().add("custom-list-view");
 
         resetListInfo();
         initData();
@@ -71,7 +74,6 @@ public class ClientController implements APIGoogleMap  {
             defineStateElements(true);
 
 			listInfos.getItems().setAll(agriculteur.getInformations());
-            listInfos.depthProperty().set(1);
 
 			gMaps.removeAllChamps();
 			for(Champ champ : ClientSQL.getClientsChampsList(agriculteur.getId()))

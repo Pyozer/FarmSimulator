@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import com.jfoenix.controls.JFXListView?>
+
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.client.ClientController">
     <center>
         <VBox BorderPane.alignment="TOP_LEFT">
@@ -31,7 +31,7 @@
                             <VBox fx:id="listInfo" spacing="10" managed="false" visible="false">
                                 <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
                                 <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
-                                <JFXListView fx:id="listInfos" minHeight="100" maxHeight="270"/>
+                                <ListView fx:id="listInfos" styleClass="custom" minHeight="100" maxHeight="270"/>
                             </VBox>
                             <HBox alignment="CENTER_LEFT" spacing="15">
                                 <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
