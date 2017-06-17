@@ -9,15 +9,15 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -60,6 +60,28 @@ public class GlobalController implements APIGoogleMap {
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
         column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
+
+        tableView.setRowFactory(row -> new TableRow<Commande>(){
+            @Override
+            public void updateItem(Commande item, boolean empty){
+                super.updateItem(item, empty);
+
+                if (item != null && !empty) {
+                    // Si la date de la commande est passé
+                    for(Node child : getChildren()){
+                        if (item.getDate().isBefore(LocalDate.now())) {
+                            //We apply now the changes in all the cells of the row
+                            ((Labeled) child).setTextFill(Color.RED);
+                            child.setStyle("-fx-font-weight: bold;");
+                        } else {
+                            ((Labeled) child).setTextFill(Color.BLACK);
+                            child.setStyle("-fx-font-weight: normal;");
+                        }
+
+                    }
+                }
+            }
+        });
 
         tableView.getItems().setAll(CommandeSQL.getCommandeMakedList(false));
 

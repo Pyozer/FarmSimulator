@@ -67,7 +67,7 @@ public class CommandeSQL {
                 "INNER JOIN Champ ON Champ.id_champ=Commande.id_champ " +
                 "INNER JOIN Agriculteur ON Agriculteur.id_agri=Champ.id_agri " +
                 "INNER JOIN Culture ON Culture.id_cul=Champ.type_champ " +
-                "WHERE Commande.effectuer_com=" + statut;
+                "WHERE Commande.effectuer_com=" + statut + " ORDER BY date_com ASC";
         return getCommandeFromRequest(request);
     }
 
@@ -117,6 +117,7 @@ public class CommandeSQL {
                         ),
                         rs.getBoolean("effectuer_com")
                ));
+                System.out.println(commandeList.get(commandeList.size() - 1));
             }
 
             rs.close();
