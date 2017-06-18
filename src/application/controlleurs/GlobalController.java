@@ -7,6 +7,7 @@ import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -38,7 +39,7 @@ public class GlobalController implements APIGoogleMap {
     @FXML private JFXToggleButton toggleButton;
 
     @FXML private TableView<Commande> tableView;
-    @FXML private TableColumn<Commande, String> column_date;
+    @FXML private TableColumn<Commande, LocalDate> column_date;
     @FXML private TableColumn<Commande, String> column_adresse;
     @FXML private TableColumn<Commande, String> column_transport;
 
@@ -55,9 +56,9 @@ public class GlobalController implements APIGoogleMap {
         gMaps = new GoogleMaps("global/maps_global", this);
         gMaps.setParent(googleMaps);
 
-        column_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        column_date.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
-        column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
+        column_transport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransport()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_date.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 25% width

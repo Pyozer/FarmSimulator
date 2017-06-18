@@ -1,29 +1,28 @@
 package application.modeles;
 
 import application.classes.ElementPair;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Element {
 
-    private SimpleIntegerProperty id; // ID de l'élément
+    private int id; // ID de l'élément
 
     private List<ElementPair> informations = new ArrayList<>();
 
     public Element(int id) {
-        this.id = new SimpleIntegerProperty(id);
+        this.id = id;
 
         informations.add(new ElementPair("ID", id));
     }
 
     public int getId() {
-        return id.get();
+        return id;
     }
 
     public void setId(int id) {
-        this.id.set(id);
+        this.id = id;
     }
 
     public List<ElementPair> getInformations() {
@@ -32,6 +31,6 @@ public abstract class Element {
 
     @Override
     public String toString() {
-        return "#" + id.get();
+        return "#" + id;
     }
 }

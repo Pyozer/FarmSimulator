@@ -6,6 +6,7 @@ import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,7 +30,7 @@ public class ClientController implements APIGoogleMap  {
 	@FXML private TableView<Agriculteur> tableView;
     @FXML private TableColumn<Agriculteur, String> column_nom;
     @FXML private TableColumn<Agriculteur, String> column_prenom;
-	
+
 	@FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
@@ -50,8 +51,8 @@ public class ClientController implements APIGoogleMap  {
         gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
 
-        column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        column_nom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
+        column_prenom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_nom.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width

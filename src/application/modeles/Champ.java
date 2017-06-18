@@ -3,30 +3,27 @@ package application.modeles;
 import application.classes.ElementPair;
 import application.classes.Point;
 import application.classes.Polygon;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Classe pour les Champs
  */
 public class Champ extends Element {
 
-    private SimpleFloatProperty surface; // Surface en m2
-    private SimpleStringProperty adresse; // Surface en m2
-    private SimpleObjectProperty<Point> coord_center;
-    private SimpleObjectProperty<Polygon> coord_champ; // Longitude du champs
-    private SimpleObjectProperty<Culture> type_culture; // Type de culture (Blé, Orge,..)
-    private SimpleObjectProperty<Agriculteur> proprietaire; // Nom du propriétaire
+    private float surface; // Surface en m2
+    private String adresse; // Surface en m2
+    private Point coord_center;
+    private Polygon coord_champ; // Longitude du champs
+    private Culture type_culture; // Type de culture (Blé, Orge,..)
+    private Agriculteur proprietaire; // Nom du propriétaire
 
     public Champ(int id, float surface, String adresse, Point coord_center, Polygon coord_champ, Culture type_culture, Agriculteur proprietaire) {
         super(id);
-        this.surface = new SimpleFloatProperty(surface);
-        this.adresse = new SimpleStringProperty(adresse);
-        this.coord_center = new SimpleObjectProperty<>(coord_center);
-        this.coord_champ = new SimpleObjectProperty<>(coord_champ);
-        this.type_culture = new SimpleObjectProperty<>(type_culture);
-        this.proprietaire = new SimpleObjectProperty<>(proprietaire);
+        this.surface = surface;
+        this.adresse = adresse;
+        this.coord_center = coord_center;
+        this.coord_champ = coord_champ;
+        this.type_culture = type_culture;
+        this.proprietaire = proprietaire;
 
         getInformations().add(new ElementPair("Surface", surface + " m²"));
         getInformations().add(new ElementPair("Adresse", adresse));
@@ -36,49 +33,49 @@ public class Champ extends Element {
     }
 
     public float getSurface() {
-        return surface.get();
+        return surface;
     }
 
     public void setSurface(float surface) {
-        this.surface.set(surface);
+        this.surface = surface;
     }
 
     public String getAdresse() {
-        return adresse.get();
+        return adresse;
     }
 
     public void setAdresse(String adresse) {
-        this.adresse.set(adresse);
+        this.adresse = adresse;
     }
 
     public Point getCoordCenter() {
-        return coord_center.get();
+        return coord_center;
     }
 
-    public void setCoordCenter(Point latitude) { this.coord_center.set(latitude); }
+    public void setCoordCenter(Point latitude) { this.coord_center = latitude; }
 
     public Polygon getCoordChamp() {
-        return coord_champ.get();
+        return coord_champ;
     }
 
     public void setCoordChamp(Polygon coordChamp) {
-        this.coord_champ.set(coordChamp);
+        this.coord_champ = coordChamp;
     }
 
     public Culture getType_culture() {
-        return type_culture.get();
+        return type_culture;
     }
 
     public void setTypeCulture(Culture type_culture) {
-        this.type_culture.set(type_culture);
+        this.type_culture = type_culture;
     }
 
     public Agriculteur getProprietaire() {
-        return proprietaire.get();
+        return proprietaire;
     }
 
     public void setProprietaire(Agriculteur proprietaire) {
-        this.proprietaire.set(proprietaire);
+        this.proprietaire = proprietaire;
     }
 
     @Override
@@ -93,7 +90,7 @@ public class Champ extends Element {
 
         Champ champ = (Champ) champToCheck;
 
-        if (!surface.equals(champ.surface)) return false;
+        if (surface != champ.surface) return false;
         if (!adresse.equals(champ.adresse)) return false;
         if (!coord_center.equals(champ.coord_center)) return false;
         if (!coord_champ.equals(champ.coord_champ)) return false;

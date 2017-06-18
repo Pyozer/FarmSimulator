@@ -1,10 +1,5 @@
 package application.modeles;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -15,100 +10,99 @@ import java.util.Locale;
  */
 public class Commande extends Element {
 
-    private SimpleObjectProperty<Champ> champCommande;
-    private SimpleStringProperty transport; //transport de la commande
-    private SimpleStringProperty typebott;// type de boot commande
-    private SimpleFloatProperty taillemax;// taille max commande
-    private SimpleObjectProperty<LocalDate> date;
-    private SimpleFloatProperty tonne;
-    private SimpleFloatProperty cout;
-    private SimpleBooleanProperty effectuer;
+    private Champ champCommande;
+    private String transport; //transport de la commande
+    private String typebott;// type de boot commande
+    private float taillemax;// taille max commande
+    private LocalDate date;
+    private float tonne;
+    private float cout;
+    private boolean effectuer;
 
     public Commande(int id, String transport, String typebott, float taillemax, String date, float tonne, float cout, Champ champCommande, boolean effectuer) {
         super(id);
-        this.transport = new SimpleStringProperty(transport);
-        this.typebott = new SimpleStringProperty(typebott);
-        this.taillemax = new SimpleFloatProperty(taillemax);
-        this.date = new SimpleObjectProperty<>(LocalDate.parse(date));
-        this.tonne = new SimpleFloatProperty(tonne);
-        this.cout = new SimpleFloatProperty(cout);
-        this.champCommande = new SimpleObjectProperty<>(champCommande);
-        this.effectuer = new SimpleBooleanProperty(effectuer);
+        this.transport = transport;
+        this.typebott = typebott;
+        this.taillemax = taillemax;
+        this.date = LocalDate.parse(date);
+        this.tonne = tonne;
+        this.cout = cout;
+        this.champCommande = champCommande;
+        this.effectuer = effectuer;
     }
 
     public Champ getChampCommande() {
-        return champCommande.get();
+        return champCommande;
     }
 
     public void setChampCommande(Champ champCommande) {
-        this.champCommande.set(champCommande);
+        this.champCommande = champCommande;
     }
 
     public LocalDate getDate() {
-        return date.get();
+        return date;
     }
 
     public void setDate(String date) {
-        DateTimeFormatter frenchFormat = DateTimeFormatter.ofLocalizedDate(
-                FormatStyle.MEDIUM).withLocale(Locale.FRANCE);
-        this.date.set(LocalDate.parse(date, frenchFormat));
+        DateTimeFormatter frenchFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.FRANCE);
+        this.date = LocalDate.parse(date, frenchFormat);
     }
 
     public void setDate(LocalDate date) {
-        this.date.set(date);
+        this.date = date;
     }
 
     public String getTransport() {
-        return transport.get();
+        return transport;
     }
 
     public void setTransport(String transport) {
-        this.transport.set(transport);
+        this.transport = transport;
     }
 
     public String getTypebott() {
-        return typebott.get();
+        return typebott;
     }
 
     public void setTypebott(String typebott) {
-        this.typebott.set(typebott);
+        this.typebott = typebott;
     }
 
     public float getTaillemax() {
-        return taillemax.get();
+        return taillemax;
     }
 
     public void setTailleMax(float taillemax) {
-        this.taillemax.set(taillemax);
+        this.taillemax = taillemax;
     }
 
     public float getTonne() {
-        return tonne.get();
+        return tonne;
     }
 
     public void setTonne(float tonne) {
-        this.tonne.set(tonne);
+        this.tonne = tonne;
     }
 
     public float getCout() {
-        return cout.get();
+        return cout;
     }
 
     public void setCout(float cout) {
-        this.cout.set(cout);
+        this.cout = cout;
     }
 
     public boolean isEffectuer() {
-        return effectuer.get();
+        return effectuer;
     }
 
     public void setEffectuer(boolean effectuer) {
-        this.effectuer.set(effectuer);
+        this.effectuer = effectuer;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " - " + getDate().toString() + " pour " + getChampCommande().getProprietaire();
+        return super.toString() + " - " + date.toString() + " pour " + champCommande.getProprietaire();
     }
 
 

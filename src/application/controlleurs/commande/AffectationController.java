@@ -8,6 +8,7 @@ import application.modeles.Commande;
 import application.modeles.MoissonSQL;
 import application.modeles.Vehicule;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -46,7 +47,7 @@ public class AffectationController {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        column_type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        column_type.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
         column_vehicule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque() + " " + cellData.getValue().getModele()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
@@ -67,8 +68,6 @@ public class AffectationController {
             defineStateElements(true);
             defineStateDeleteRapport(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule));
 		}
-
-
     }
 
     @FXML

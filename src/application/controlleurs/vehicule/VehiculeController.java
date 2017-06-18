@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -52,10 +53,10 @@ public class VehiculeController implements APIGoogleMap {
         gMaps = new GoogleMaps("vehicule/maps_vehicule", this);
         gMaps.setParent(googleMaps);
 
-        column_type.setCellValueFactory(new PropertyValueFactory<>("type"));
-        column_marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
-        column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
-        column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        column_type.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
+        column_marque.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque()));
+        column_modele.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModele()));
+        column_etat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEtat()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width

@@ -5,7 +5,10 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
+import application.modeles.Culture;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,7 +30,7 @@ public class ChampController implements APIGoogleMap {
     @FXML private VBox listInfo;
 
     @FXML private TableView<Champ> tableView;
-    @FXML private TableColumn<Champ, String> column_type_culture;
+    @FXML private TableColumn<Champ, Culture> column_type_culture;
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
     @FXML private TableColumn<Champ, String> column_adresse;
 
@@ -51,9 +54,9 @@ public class ChampController implements APIGoogleMap {
         gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
 
-        column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
-        column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
-        column_adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+        column_type_culture.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getType_culture()));
+        column_proprietaire.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProprietaire()));
+        column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAdresse()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_type_culture.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 20% width

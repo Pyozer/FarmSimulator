@@ -7,19 +7,19 @@ import javafx.beans.property.SimpleStringProperty;
 
 public abstract class Vehicule extends Element {
 
-    private SimpleStringProperty type;
-    private SimpleStringProperty marque;
-    private SimpleStringProperty modele;
-    private SimpleStringProperty etat;
-    private SimpleObjectProperty<Point> position;
+    private String type;
+    private String marque;
+    private String modele;
+    private String etat;
+    private Point position;
 
     public Vehicule(int id, String type, String marque, String modele, String etat, Point position) {
         super(id);
-        this.type = new SimpleStringProperty(type);
-        this.marque = new SimpleStringProperty(marque);
-        this.modele = new SimpleStringProperty(modele);
-        this.etat = new SimpleStringProperty(etat);
-        this.position = new SimpleObjectProperty<>(position);
+        this.type = type;
+        this.marque = marque;
+        this.modele = modele;
+        this.etat = etat;
+        this.position = position;
 
         getInformations().add(new ElementPair("Type", type));
         getInformations().add(new ElementPair("Marque", marque));
@@ -29,47 +29,47 @@ public abstract class Vehicule extends Element {
     }
 
     public String getType() {
-        return type.get();
+        return type;
     }
 
     public void setType(String type) {
-        this.type.set(type);
+        this.type = type;
     }
 
     public String getMarque() {
-        return marque.get();
+        return marque;
     }
 
     public void setMarque(String marque) {
-        this.marque.set(marque);
+        this.marque = marque;
     }
 
     public String getModele() {
-        return modele.get();
+        return modele;
     }
 
     public void setModele(String modele) {
-        this.modele.set(modele);
+        this.modele= modele;
     }
 
     public String getEtat() {
-        return etat.get();
+        return etat;
     }
 
     public void setEtat(String etat) {
-        this.etat.set(etat);
+        this.etat = etat;
     }
 
     public Point getPosition() {
-        return position.get();
+        return position;
     }
 
     public void setPosition(Point position) {
-        this.position.set(position);
+        this.position = position;
     }
 
     @Override
     public String toString() {
-        return type.get() + " - " + marque.get() + " " + modele.get();
+        return type + " - " + marque + " " + modele;
     }
 }

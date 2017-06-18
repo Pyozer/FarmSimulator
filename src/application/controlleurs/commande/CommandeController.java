@@ -7,6 +7,8 @@ import application.modeles.Agriculteur;
 import application.modeles.Commande;
 import application.modeles.CommandeSQL;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -69,13 +71,14 @@ public class CommandeController {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
-        column_date_todo.setCellValueFactory(new PropertyValueFactory<>("date"));
+        // TableView commande à faire
+        column_date_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
         column_client_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getProprietaire()));
         column_adr_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
         column_surf_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getSurface()));
-        column_transport_todo.setCellValueFactory(new PropertyValueFactory<>("transport"));
-        column_type_bott_todo.setCellValueFactory(new PropertyValueFactory<>("typebott"));
-        column_tonn_max_todo.setCellValueFactory(new PropertyValueFactory<>("taillemax"));
+        column_transport_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransport()));
+        column_type_bott_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypebott()));
+        column_tonn_max_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTaillemax()));
 
         tableView_todo.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_date_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
@@ -86,15 +89,16 @@ public class CommandeController {
         column_type_bott_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
         column_tonn_max_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
 
-        column_date_make.setCellValueFactory(new PropertyValueFactory<>("date"));
+        // TableView commande faites
+        column_date_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
         column_client_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getProprietaire()));
         column_adr_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
         column_surf_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getSurface()));
-        column_transport_make.setCellValueFactory(new PropertyValueFactory<>("transport"));
-        column_type_bott_make.setCellValueFactory(new PropertyValueFactory<>("typebott"));
-        column_tonn_max_make.setCellValueFactory(new PropertyValueFactory<>("taillemax"));
-        column_tonn_make.setCellValueFactory(new PropertyValueFactory<>("tonne"));
-        column_cout_make.setCellValueFactory(new PropertyValueFactory<>("cout"));
+        column_transport_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransport()));
+        column_type_bott_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypebott()));
+        column_tonn_max_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTaillemax()));
+        column_tonn_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTonne()));
+        column_cout_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCout()));
 
         tableView_make.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_date_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
