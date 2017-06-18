@@ -43,6 +43,7 @@ public class EditChampController implements APIGoogleMap {
 
         gMaps = new GoogleMaps("champ/maps_add_champ", this);
         gMaps.setParent(googleMaps);
+        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         liste_type.getItems().setAll(ChampSQL.getTypeChampList());
         liste_type.setValue(liste_type.getItems().get(0));

@@ -93,7 +93,6 @@ public class UserSQL implements Constant {
 
             res.next();
             count = res.getInt("rowCount");
-            System.out.println(count);
 
             res.close();
             nbAccount.close();

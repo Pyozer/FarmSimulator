@@ -52,6 +52,7 @@ public class VehiculeController implements APIGoogleMap {
 
         gMaps = new GoogleMaps("vehicule/maps_vehicule", this);
         gMaps.setParent(googleMaps);
+        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_type.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
         column_marque.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque()));

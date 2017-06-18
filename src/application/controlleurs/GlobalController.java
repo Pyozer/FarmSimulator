@@ -55,6 +55,7 @@ public class GlobalController implements APIGoogleMap {
 
         gMaps = new GoogleMaps("global/maps_global", this);
         gMaps.setParent(googleMaps);
+        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_date.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));

@@ -5,6 +5,7 @@ import application.classes.*;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
+import application.modeles.EtaSettings;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -50,6 +51,7 @@ public class ClientController implements APIGoogleMap  {
 
         gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
+        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_nom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
         column_prenom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));

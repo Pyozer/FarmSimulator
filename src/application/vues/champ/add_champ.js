@@ -1,13 +1,17 @@
 var map;
+var map_center_pos;
 var polygon;
 var drawingManager;
 
+function defineMapCenter(lat, long) {
+    map_center_pos = new google.maps.LatLng(lat, long); // Correspond au coordonnées de l'ETA
+}
+
 function initMap() {
-    var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14, // Zoom par défaut
-        center: latLng, // Coordonnées de départ de la carte de type latLng
+        center: map_center_pos, // Coordonnées de départ de la carte de type latLng
         streetViewControl: false, // On désactive le streetview
         mapTypeId: google.maps.MapTypeId.ROADMAP // Type de carte ( HYBRID, ROADMAP, SATELLITE ou TERRAIN )
     });
