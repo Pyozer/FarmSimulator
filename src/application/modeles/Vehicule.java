@@ -2,8 +2,6 @@ package application.modeles;
 
 import application.classes.ElementPair;
 import application.classes.Point;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public abstract class Vehicule extends Element {
 
