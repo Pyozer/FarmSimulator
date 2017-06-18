@@ -3,10 +3,10 @@ package application.classes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class SHA1 {
+public class Sha1 {
 
     public static String cryptToSHA1(String value) throws NoSuchAlgorithmException {
-        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+        MessageDigest mDigest = MessageDigest.getInstance("Sha1");
         byte[] result = mDigest.digest(value.getBytes());
         StringBuffer sb = new StringBuffer();
         for (byte aResult : result) {

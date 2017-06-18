@@ -41,7 +41,6 @@ public class GlobalController implements APIGoogleMap {
     @FXML private TableColumn<Commande, String> column_date;
     @FXML private TableColumn<Commande, String> column_adresse;
     @FXML private TableColumn<Commande, String> column_transport;
-    @FXML private TableColumn<Commande, String> column_type_bott;
 
     private GoogleMaps gMaps;
 
@@ -59,7 +58,11 @@ public class GlobalController implements APIGoogleMap {
         column_date.setCellValueFactory(new PropertyValueFactory<>("date"));
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
         column_transport.setCellValueFactory(new PropertyValueFactory<>("transport"));
-        column_type_bott.setCellValueFactory(new PropertyValueFactory<>("typebott"));
+
+        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_date.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 25% width
+        column_adresse.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        column_transport.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 25% width
 
         tableView.setRowFactory(row -> new TableRow<Commande>(){
             @Override
@@ -68,16 +71,17 @@ public class GlobalController implements APIGoogleMap {
 
                 if (item != null && !empty) {
                     // Si la date de la commande est passé
-                    for(Node child : getChildren()){
-                        if (item.getDate().isBefore(LocalDate.now())) {
-                            //We apply now the changes in all the cells of the row
+                    if (item.getDate().isBefore(LocalDate.now())) {
+                        //We apply now the changes in all the cells of the row
+                        for(Node child : getChildren()) {
                             ((Labeled) child).setTextFill(Color.RED);
-                            child.setStyle("-fx-font-weight: bold;");
-                        } else {
-                            ((Labeled) child).setTextFill(Color.BLACK);
-                            child.setStyle("-fx-font-weight: normal;");
+                            child.setStyle("-fx-font-weight: bold;-fx-text-fill: RED;");
                         }
-
+                    } else {
+                        for(Node child : getChildren()) {
+                            ((Labeled) child).setTextFill(Color.BLACK);
+                            child.setStyle("-fx-font-weight: normal;-fx-text-fill: BLACK;");
+                        }
                     }
                 }
             }

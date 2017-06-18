@@ -21,10 +21,10 @@
 
                             <TableView fx:id="tableView"  minHeight="200.0" maxHeight="200" minWidth="500">
                                 <columns>
-                                    <TableColumn fx:id="column_type" minWidth="125.0" text="Type" />
-                                    <TableColumn fx:id="column_marque" minWidth="150.0" text="Marque" />
-                                    <TableColumn fx:id="column_modele" minWidth="150.0" text="Modèle" />
-                                    <TableColumn fx:id="column_etat" minWidth="75.0" text="Etat" />
+                                    <TableColumn fx:id="column_type" text="Type" />
+                                    <TableColumn fx:id="column_marque" text="Marque" />
+                                    <TableColumn fx:id="column_modele" text="Modèle" />
+                                    <TableColumn fx:id="column_etat" text="Etat" />
                                 </columns>
                             </TableView>
                         </VBox>

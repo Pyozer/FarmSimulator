@@ -41,7 +41,6 @@
                                 <TableColumn fx:id="column_date" text="Date" />
                                 <TableColumn fx:id="column_adresse" text="Adresse" />
                                 <TableColumn fx:id="column_transport" text="Transport" />
-                                <TableColumn fx:id="column_type_bott" text="Type de botte" />
                             </columns>
                         </TableView>
 

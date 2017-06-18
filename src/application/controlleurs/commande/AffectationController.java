@@ -49,6 +49,10 @@ public class AffectationController {
         column_type.setCellValueFactory(new PropertyValueFactory<>("type"));
         column_vehicule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque() + " " + cellData.getValue().getModele()));
 
+        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 15% width
+        column_vehicule.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 35% width
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> vehiculeSelected(newvalue));
 
         bpane.setOnMouseClicked(event -> clearAllSelection());
@@ -96,7 +100,7 @@ public class AffectationController {
 
     @FXML
     public void newRapport() {
-        SwitchView switchView = new SwitchView("commande/edit_moisson_app", Constant.ADD_VEHICULE_APP_TITLE);
+        SwitchView switchView = new SwitchView("commande/edit_moisson_app", Constant.RAPPORT_MOISSON_APP_TITLE);
         switchView.setPopUp();
         EditMoissonController editMoissonController = switchView.getFxmlLoader().getController();
 

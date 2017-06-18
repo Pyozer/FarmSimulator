@@ -6,7 +6,6 @@ import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,6 +52,10 @@ public class ClientController implements APIGoogleMap  {
 
         column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+
+        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_nom.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        column_prenom.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
         tableView.getStyleClass().add("custom-table-view");

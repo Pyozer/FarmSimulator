@@ -57,6 +57,12 @@ public class VehiculeController implements APIGoogleMap {
         column_modele.setCellValueFactory(new PropertyValueFactory<>("modele"));
         column_etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
 
+        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_marque.setMaxWidth( 1f * Integer.MAX_VALUE * 35 ); // 35% width
+        column_modele.setMaxWidth( 1f * Integer.MAX_VALUE * 35 ); // 35% width
+        column_etat.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         resetListInfo();
@@ -113,7 +119,7 @@ public class VehiculeController implements APIGoogleMap {
         SwitchView switchView;
 
         if (vehiculeSelected instanceof Botteleuse){
-            switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.EDIT_BOTTELEUSE_APP_TITLE);
             switchView.setPopUp();
             EditBotteleuseController editBotController = switchView.getFxmlLoader().getController();
             editBotController.setEditionMode(true);
@@ -122,7 +128,7 @@ public class VehiculeController implements APIGoogleMap {
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Moissonneuse){
-            switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.EDIT_MOISSONNEUSE_APP_TITLE);
             switchView.setPopUp();
             EditMoissonneuseController editMoiController = switchView.getFxmlLoader().getController();
             editMoiController.setEditionMode(true);
@@ -131,7 +137,7 @@ public class VehiculeController implements APIGoogleMap {
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Tracteur) {
-            switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.EDIT_TRACTEUR_APP_TITLE);
             switchView.setPopUp();
             EditTracteurController editTraController = switchView.getFxmlLoader().getController();
             editTraController.setEditionMode(true);

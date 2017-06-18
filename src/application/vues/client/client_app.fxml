@@ -5,7 +5,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.client.ClientController">
     <center>
         <VBox BorderPane.alignment="TOP_LEFT">
@@ -20,8 +19,8 @@
                             <Label text="Tous les clients" styleClass="pane_title" prefHeight="75.0" />
                             <TableView fx:id="tableView" minHeight="215.0" maxHeight="215">
                                 <columns>
-                                    <TableColumn fx:id="column_nom" minWidth="245.0" text="Nom" />
-                                    <TableColumn fx:id="column_prenom" minWidth="245.0" text="Prenom" />
+                                    <TableColumn fx:id="column_nom" text="Nom" />
+                                    <TableColumn fx:id="column_prenom" text="Prenom" />
                                 </columns>
                             </TableView>
                         </VBox>

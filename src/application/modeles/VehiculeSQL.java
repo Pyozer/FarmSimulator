@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.Properties;
 
 public class VehiculeSQL implements Constant {
 
@@ -68,7 +69,8 @@ public class VehiculeSQL implements Constant {
     }
 
     public static Point getActualPositionVehicule(int id_vehi) {
-        Point position = JSONManager.readPoint(SettingsProperties.loadSettingsPropertiesFile().getProperty(PROP_ETA_POSITION, PROP_ETA_POSITION_DEF));
+
+        Point position = JSONManager.readPoint(SettingsProperties.loadSettingsPropertiesFile().getProperty(PROP_ETA_POSITION, null));
         try {
             String requestPosition = "SELECT coord_centre_champ FROM Champ " +
                     "INNER JOIN Commande ON Commande.id_champ=Champ.id_champ " +

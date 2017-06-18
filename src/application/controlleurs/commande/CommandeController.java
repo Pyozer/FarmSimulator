@@ -77,6 +77,15 @@ public class CommandeController {
         column_type_bott_todo.setCellValueFactory(new PropertyValueFactory<>("typebott"));
         column_tonn_max_todo.setCellValueFactory(new PropertyValueFactory<>("taillemax"));
 
+        tableView_todo.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_date_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
+        column_client_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_adr_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 20% width
+        column_surf_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
+        column_transport_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_type_bott_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_tonn_max_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+
         column_date_make.setCellValueFactory(new PropertyValueFactory<>("date"));
         column_client_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getProprietaire()));
         column_adr_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
@@ -86,6 +95,17 @@ public class CommandeController {
         column_tonn_max_make.setCellValueFactory(new PropertyValueFactory<>("taillemax"));
         column_tonn_make.setCellValueFactory(new PropertyValueFactory<>("tonne"));
         column_cout_make.setCellValueFactory(new PropertyValueFactory<>("cout"));
+
+        tableView_make.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_date_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
+        column_client_make.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_adr_make.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 20% width
+        column_surf_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
+        column_transport_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
+        column_type_bott_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
+        column_tonn_max_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
+        column_tonn_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
+        column_cout_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
 
         tableView_todo.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
 

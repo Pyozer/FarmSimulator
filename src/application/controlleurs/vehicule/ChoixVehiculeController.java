@@ -39,7 +39,7 @@ public class ChoixVehiculeController {
         img_botteleuse.setImage(new Image(Constant.IMAGE_PATH + "choix_botteleuse.png"));
         img_moissonneuse.setImage(new Image(Constant.IMAGE_PATH + "choix_moissonneuse.png"));
 
-        botteleuse.getStyleClass().add("box_selected");
+        botteleuse.getStyleClass().setAll("box_selected");
     }
 
     @FXML
@@ -75,21 +75,21 @@ public class ChoixVehiculeController {
     public void nextStep() {
         SwitchView switchView;
         if (tracteur_selected) {
-            switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_VEHICULE_APP_TITLE);
+                switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_TRACTEUR_APP_TITLE);
             switchView.setPopUp();
             EditTracteurController editTracteurController = switchView.getFxmlLoader().getController();
             editTracteurController.defineVehiculeController(vehiculeController);
             editTracteurController.setEditionMode(false);
             switchView.showScene();
         } else if(moissonneuse_selected) {
-            switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.ADD_MOISSONNEUSE_APP_TITLE);
             switchView.setPopUp();
             EditMoissonneuseController editMoissonneuseController = switchView.getFxmlLoader().getController();
             editMoissonneuseController.defineVehiculeController(vehiculeController);
             editMoissonneuseController.setEditionMode(false);
             switchView.showScene();
         } else if(botteleuse_selected) {
-            switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.ADD_VEHICULE_APP_TITLE);
+            switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.ADD_BOTTELEUSE_APP_TITLE);
             switchView.setPopUp();
             EditBotteleuseController editBotteleuseController = switchView.getFxmlLoader().getController();
             editBotteleuseController.defineVehiculeController(vehiculeController);

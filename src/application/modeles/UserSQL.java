@@ -1,7 +1,7 @@
 package application.modeles;
 
 import application.Constant;
-import application.classes.SHA1;
+import application.classes.Sha1;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 
@@ -22,7 +22,7 @@ public class UserSQL implements Constant {
         try {
             NamedParameterStatement stmt = new NamedParameterStatement(DBConnection.getConnection(), request);
             stmt.setString("email", email);
-            stmt.setString("password", SHA1.cryptToSHA1(password));
+            stmt.setString("password", Sha1.cryptToSHA1(password));
             // execute select SQL statement
             ResultSet rs = stmt.executeQuery();
 
@@ -48,7 +48,7 @@ public class UserSQL implements Constant {
             addAccount.setString("nom", nom);
             addAccount.setString("prenom", prenom);
             addAccount.setString("email", email);
-            addAccount.setString("password", SHA1.cryptToSHA1(password));
+            addAccount.setString("password", Sha1.cryptToSHA1(password));
 
             // Execute SQL statement
             addAccount.executeUpdate();

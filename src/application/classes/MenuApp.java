@@ -93,7 +93,7 @@ public class MenuApp {
             switchView.showScene();
         });
         commande_item.setOnAction(event -> {
-            SwitchView switchViewCom = new SwitchView("commande/commande_app", Constant.GLOBAL_APP_TITLE, parent);
+            SwitchView switchViewCom = new SwitchView("commande/commande_app", Constant.COMMANDE_APP_TITLE, parent);
             switchViewCom.showScene();
         });
         add_commande_item.setOnAction(event -> {

@@ -23,10 +23,10 @@
                         <TableColumn fx:id="column_date_todo" text="Date" />
                         <TableColumn fx:id="column_adr_todo" text="Adresse champ" />
                         <TableColumn fx:id="column_client_todo" text="Client" />
-                        <TableColumn fx:id="column_surf_todo" minWidth="140.0" text="Surface champ" />
-                        <TableColumn fx:id="column_transport_todo" minWidth="110.0" text="Transport" />
-                        <TableColumn fx:id="column_type_bott_todo" minWidth="190" text="Type de botteulage" />
-                        <TableColumn fx:id="column_tonn_max_todo" minWidth="150.0" text="Tonnes maximum" />
+                        <TableColumn fx:id="column_surf_todo" text="Surface champ" />
+                        <TableColumn fx:id="column_transport_todo" text="Transport" />
+                        <TableColumn fx:id="column_type_bott_todo" text="Type de botteulage" />
+                        <TableColumn fx:id="column_tonn_max_todo" text="Tonnes maximum" />
                     </columns>
                 </TableView>
 
@@ -66,12 +66,12 @@
                         <TableColumn fx:id="column_date_make" text="Date" />
                         <TableColumn fx:id="column_adr_make" text="Adresse champ" />
                         <TableColumn fx:id="column_client_make" text="Client" />
-                        <TableColumn fx:id="column_surf_make" minWidth="140.0" text="Surface champ" />
-                        <TableColumn fx:id="column_transport_make" minWidth="110.0" text="Transport" />
-                        <TableColumn fx:id="column_type_bott_make" minWidth="190" text="Type de botteulage" />
-                        <TableColumn fx:id="column_tonn_max_make" minWidth="150.0" text="Tonnes maximum" />
-                        <TableColumn fx:id="column_tonn_make" minWidth="150.0" text="Tonnes récoltés" />
-                        <TableColumn fx:id="column_cout_make" minWidth="120.0" text="Coût final" />
+                        <TableColumn fx:id="column_surf_make" text="Surface champ" />
+                        <TableColumn fx:id="column_transport_make" text="Transport" />
+                        <TableColumn fx:id="column_type_bott_make" text="Type de botteulage" />
+                        <TableColumn fx:id="column_tonn_max_make" text="Tonnes maximum" />
+                        <TableColumn fx:id="column_tonn_make" text="Tonnes récoltés" />
+                        <TableColumn fx:id="column_cout_make" text="Coût final" />
                     </columns>
                 </TableView>
             </VBox>

@@ -19,8 +19,8 @@
 
                 <TableView fx:id="tableView" minHeight="290.0" maxHeight="290.0" minWidth="600" maxWidth="600">
                     <columns>
-                        <TableColumn fx:id="column_type" minWidth="180.0" text="Type véhicule" />
-                        <TableColumn fx:id="column_vehicule" minWidth="280.0" text="Vehicule" />
+                        <TableColumn fx:id="column_type" text="Type véhicule" />
+                        <TableColumn fx:id="column_vehicule" text="Vehicule" />
                     </columns>
                 </TableView>
                 <HBox spacing="15" alignment="TOP_CENTER">

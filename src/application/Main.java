@@ -30,7 +30,7 @@ public class Main extends Application implements Constant {
             e.printStackTrace();
         }
 
-        SwitchView switchView = new SwitchView("parametre/params_home", Constant.PARAMS_APP_TITLE);
+        SwitchView switchView = new SwitchView("parametre/params_home", Constant.FIRST_PARAMS_HOME_TITLE);
 
         Properties properties = SettingsProperties.loadSettingsPropertiesFile();
         if(properties != null && properties.getProperty(PROP_ALREADY_RUN).equals("true") && UserSQL.getNbAccount() > 0 && EtaSettings.isAlreadyETA())

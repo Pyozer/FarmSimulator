@@ -29,6 +29,7 @@ public class ChampController implements APIGoogleMap {
     @FXML private TableView<Champ> tableView;
     @FXML private TableColumn<Champ, String> column_type_culture;
     @FXML private TableColumn<Champ, Agriculteur> column_proprietaire;
+    @FXML private TableColumn<Champ, String> column_adresse;
 
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
@@ -52,6 +53,12 @@ public class ChampController implements APIGoogleMap {
 
         column_type_culture.setCellValueFactory(new PropertyValueFactory<>("type_culture"));
         column_proprietaire.setCellValueFactory(new PropertyValueFactory<>("proprietaire"));
+        column_adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+
+        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_type_culture.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 20% width
+        column_proprietaire.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 30% width
+        column_adresse.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
@@ -80,7 +87,7 @@ public class ChampController implements APIGoogleMap {
 
     @FXML
     public void addChamp() {
-        SwitchView switchView = new SwitchView("champ/edit_champ_app", Constant.ADD_VEHICULE_APP_TITLE);
+        SwitchView switchView = new SwitchView("champ/edit_champ_app", Constant.EDIT_CHAMP_APP_TITLE);
         switchView.setPopUp();
         EditChampController editChampController = switchView.getFxmlLoader().getController();
         editChampController.defineChampController(this);

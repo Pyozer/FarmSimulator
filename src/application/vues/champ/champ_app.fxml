@@ -19,8 +19,9 @@
                             <Label text="Tous les champs" styleClass="pane_title" prefHeight="75.0" />
                             <TableView fx:id="tableView" minHeight="200.0" maxHeight="200">
                                 <columns>
-                                    <TableColumn fx:id="column_type_culture" minWidth="225.0" text="Type de culture" />
-                                    <TableColumn fx:id="column_proprietaire" minWidth="300.0" text="Proprietaire" />
+                                    <TableColumn fx:id="column_type_culture" text="Type de culture" />
+                                    <TableColumn fx:id="column_proprietaire"  text="Proprietaire" />
+                                    <TableColumn fx:id="column_adresse" text="Adresse" />
                                 </columns>
                             </TableView>
                         </VBox>

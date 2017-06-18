@@ -31,7 +31,9 @@ public interface Constant {
     String ADD_BOTTELEUSE_APP_TITLE = "Ajouter une botteleuse";
     String ADD_TRACTEUR_APP_TITLE = "Ajouter un tracteur";
     String ADD_MOISSONNEUSE_APP_TITLE = "Ajouter une moissonneuse";
-    String EDIT_VEHICULE_APP_TITLE = "Modifier un véhicule";
+    String EDIT_BOTTELEUSE_APP_TITLE = "Modifier une botteleuse";
+    String EDIT_TRACTEUR_APP_TITLE = "Modifier un tracteur";
+    String EDIT_MOISSONNEUSE_APP_TITLE = "Modifier une moissonneuse";
     String CHAMP_APP_TITLE = "Gestion des champs";
     String ADD_CHAMP_APP_TITLE = "Ajouter un champ";
     String EDIT_CHAMP_APP_TITLE = "Modifier un champ";
@@ -40,7 +42,7 @@ public interface Constant {
     String ADD_COMMANDE_APP_TITLE = "Ajouter une commande";
     String EDIT_COMMANDE_APP_TITLE = "Modifier une commande";
     String AFFECTATION_APP_TITLE = "Affectations véhicules de la commande";
-    String ADD_AFFECTATION_APP_TITLE = "Ajouter une affectations pour la commande";
+    String ADD_AFFECTATION_APP_TITLE = "Affectation(s) commande";
     String RAPPORT_MOISSON_APP_TITLE = "Rapport de moisson";
 
     // DIMENSIONS DE L'APPLICATION
@@ -55,10 +57,6 @@ public interface Constant {
     Double HEURE_PAR_JOUR = 24.00;
     Double HEURE_PAR_MINUTE = 0.16666; // (1/60)
     Double HEURE_PAR_SECONDE = 0.000278; // (1/3600)
-
-    // Couleurs par defaut
-    Color SUCCESS_COLOR = Color.LIMEGREEN;
-    Color ERROR_COLOR = Color.rgb(235, 47, 47);
 
     String TYPE_BOTT_ROND = "Ronde";
     String TYPE_BOTT_CARRE = "Carré";
@@ -75,11 +73,8 @@ public interface Constant {
     String PROP_PASS_DEF = "";
 
     String PROP_ETA_NAME = "name_eta";
-    String PROP_ETA_NAME_DEF = "Nom de l'Eta";
     String PROP_ETA_ADRESSE = "adresse_eta";
-    String PROP_ETA_ADRESSE_DEF = "Adresse de l'Eta";
     String PROP_ETA_POSITION = "position_eta";
-    String PROP_ETA_POSITION_DEF = "[48.086004,-0.759585]";
 
     String PROP_ALREADY_RUN = "already_run";
     String PROP_ALREADY_RUN_DEF = "false";
