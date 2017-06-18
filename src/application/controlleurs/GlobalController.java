@@ -96,6 +96,8 @@ public class GlobalController implements APIGoogleMap {
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
 
+        toggleButton.setSelected(true);
+
         toggleButton.selectedProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue)
                 gMaps.enableFlightItinerary();

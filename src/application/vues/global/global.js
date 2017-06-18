@@ -13,7 +13,7 @@ var champs = [];
 var markers = [];
 var oms;
 
-var byFlight = false;
+var byFlight = true;
 
 function initMap() {
     var latLng = new google.maps.LatLng(47.970787, -1.448450); // Correspond au coordonnées de Les rivière, 35000 Janzé
@@ -263,7 +263,8 @@ function calculate(origin, destination) {
         var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
         directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
             if (status == 'OK') {
-                //infowindow.close();
+                if(byFlight)
+                    infowindow.close();
                 directionsDisplay.setMap(map);
                 directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                 document.getElementById("road").style.display = "block";
