@@ -5,10 +5,16 @@ import java.security.NoSuchAlgorithmException;
 
 public class Sha1 {
 
+    /**
+     * Crypte une chaine de caractère en SHA1
+     * @param value Chaine à crypter
+     * @return Chaine crypté en SHA1
+     * @throws NoSuchAlgorithmException
+     */
     public static String cryptToSHA1(String value) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("Sha1");
         byte[] result = mDigest.digest(value.getBytes());
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (byte aResult : result) {
             sb.append(Integer.toString((aResult & 0xff) + 0x100, 16).substring(1));
         }
@@ -16,7 +22,4 @@ public class Sha1 {
         return sb.toString();
     }
 
-    public static boolean checkEquality(String string, String sha1) throws NoSuchAlgorithmException {
-        return cryptToSHA1(string).equals(sha1);
-    }
 }

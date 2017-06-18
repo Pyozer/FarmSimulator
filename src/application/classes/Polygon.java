@@ -43,6 +43,7 @@ public class Polygon {
 	/**
 	 * @return l'ensemble des points de la droite
 	 */
+	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder("[");
 
