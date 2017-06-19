@@ -39,7 +39,7 @@ public class SwitchView {
             newStage = new Stage();
             newStage.setScene(scene);
             newStage.setTitle(title + " - " + Constant.TITLE_APP);
-            newStage.getIcons().add(new Image("../images/icon_app.png"));
+            newStage.getIcons().add(new Image("application/images/icon_app.png"));
 
             newStage.setMinHeight(Constant.MIN_HEIGHT);
             newStage.setMinWidth(Constant.MIN_WIDTH);
