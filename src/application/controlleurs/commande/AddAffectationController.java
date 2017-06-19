@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 /**
  * Controlleur de la vue de l'ajout d'une affectation à une commande
  */
@@ -33,7 +35,14 @@ public class AddAffectationController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        liste_vehicule.getItems().setAll(VehiculeSQL.getVehiculeList());
+        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday(selectedCommande);
+        List<Vehicule> allVehicules = VehiculeSQL.getVehiculeList();
+
+        for(int i = 0;i < allVehicules.size();i++)
+            if(vehiculeUsedToday.contains(allVehicules.get(i).getId()))
+                allVehicules.remove(allVehicules.get(i));
+
+        liste_vehicule.getItems().setAll(allVehicules);
         liste_vehicule.setValue(liste_vehicule.getItems().get(0));
     }
 
