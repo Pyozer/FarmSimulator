@@ -4,6 +4,7 @@ import application.Constant;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,9 +35,11 @@ public class SwitchView {
             Parent root = fxmlLoader.getRoot();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(Constant.STYLE_PATH + STYLECSS);
+
             newStage = new Stage();
             newStage.setScene(scene);
             newStage.setTitle(title + " - " + Constant.TITLE_APP);
+            newStage.getIcons().add(new Image("../images/icon_app.png"));
 
             newStage.setMinHeight(Constant.MIN_HEIGHT);
             newStage.setMinWidth(Constant.MIN_WIDTH);
