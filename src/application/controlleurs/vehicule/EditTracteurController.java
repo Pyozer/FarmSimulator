@@ -61,44 +61,49 @@ public class EditTracteurController {
     @FXML
     public void handleSaveTracteur() {
         String inputEtat = liste_etat.getValue();
-        String inputMarque = marque.getText();
-        String inputModele = modele.getText();
-        String inputCapRem = cap_rem.getText();
+        String inputMarque = marque.getText().trim();
+        String inputModele = modele.getText().trim();
+        String inputCapRem = cap_rem.getText().trim();
 
-        if(inputMarque.isEmpty() || inputModele.isEmpty() || inputCapRem.isEmpty() || inputEtat.isEmpty()) {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
-            alert.show();
-        } else {
-            String message = "La botteleuse a bien été";
-
-            int cap_rem = Integer.parseInt(inputCapRem);
-
-            if(isEdit) {
-                tracteurToEdit.setEtat(inputEtat);
-                tracteurToEdit.setMarque(inputMarque);
-                tracteurToEdit.setModele(inputModele);
-                tracteurToEdit.setCapacite_remorque(cap_rem);
-
-                VehiculeSQL.editTracteur(tracteurToEdit);
-
-                message += " modifié !";
+        try {
+            if(inputMarque.isEmpty() || inputModele.isEmpty() || inputCapRem.isEmpty() || inputEtat.isEmpty()) {
+                AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+                alert.show();
             } else {
-                VehiculeSQL.addTracteur(inputModele, inputMarque, cap_rem, inputEtat);
+                String message = "La botteleuse a bien été";
 
-                message += " ajouté !";
+                int cap_rem = Integer.parseInt(inputCapRem.replace(',', '.'));
+
+                if(isEdit) {
+                    tracteurToEdit.setEtat(inputEtat);
+                    tracteurToEdit.setMarque(inputMarque);
+                    tracteurToEdit.setModele(inputModele);
+                    tracteurToEdit.setCapacite_remorque(cap_rem);
+
+                    VehiculeSQL.editTracteur(tracteurToEdit);
+
+                    message += " modifié !";
+                } else {
+                    VehiculeSQL.addTracteur(inputModele, inputMarque, cap_rem, inputEtat);
+
+                    message += " ajouté !";
+                }
+
+                AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+                alert.show();
+
+                vehiculeController.initData();
+                vehiculeController.clearAllSelection();
+
+                if(choixVehiculeController != null)
+                    choixVehiculeController.closeWindow();
+
+                Stage stage = (Stage) bpane.getScene().getWindow();
+                stage.close();
             }
-
-            AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+        } catch (NumberFormatException  e){
+            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
-
-            vehiculeController.initData();
-            vehiculeController.clearAllSelection();
-
-            if(choixVehiculeController != null)
-                choixVehiculeController.closeWindow();
-
-            Stage stage = (Stage) bpane.getScene().getWindow();
-            stage.close();
         }
     }
 

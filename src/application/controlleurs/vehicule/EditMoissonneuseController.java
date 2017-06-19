@@ -77,16 +77,16 @@ public class EditMoissonneuseController {
     @FXML
     public void handleSaveMoissonneuse() {
         String inputEtat = liste_etat.getValue();
-        String inputMarque = marque.getText();
-        String inputModele = modele.getText();
-        String inputTailleTremisString = taille_tremis.getText();
-        String inputTailleReservoirString = taille_reservoir.getText();
-        String inputLargeurRouteString = largeur_route.getText();
-        String inputLargeurCoupeString = largeur_route.getText();
-        String inputConsoFonctionnementString = conso_fonctionnement.getText();
-        String inputConsoRouteString = conso_route.getText();
-        String inputPoidsString = poids.getText();
-        String inputHauteurString = hauteur.getText();
+        String inputMarque = marque.getText().trim();
+        String inputModele = modele.getText().trim();
+        String inputTailleTremisString = taille_tremis.getText().trim();
+        String inputTailleReservoirString = taille_reservoir.getText().trim();
+        String inputLargeurRouteString = largeur_route.getText().trim();
+        String inputLargeurCoupeString = largeur_route.getText().trim();
+        String inputConsoFonctionnementString = conso_fonctionnement.getText().trim();
+        String inputConsoRouteString = conso_route.getText().trim();
+        String inputPoidsString = poids.getText().trim();
+        String inputHauteurString = hauteur.getText().trim();
 
         try {
             if(inputMarque.isEmpty() || inputModele.isEmpty() || inputTailleReservoirString.isEmpty() || inputEtat.isEmpty() || inputTailleTremisString.isEmpty() ||
