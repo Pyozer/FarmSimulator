@@ -106,15 +106,6 @@ function addMarker(id, latitude, longitude, title, type, etat) {
     });
     markers.push(marker);
 
-    oms.addListener('format', function(marker, status) {
-      var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? icons[type].icon :
-        status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? '../../images/marker_plus.png' :
-        status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? icons[type].icon :
-        null;
-      marker.setIcon({
-        url: iconURL
-      });
-    });
     oms.addMarker(marker);  // adds the marker to the spiderfier _and_ the map
 }
 
