@@ -88,36 +88,44 @@ public class EditMoissonController implements Constant {
     @FXML
     public void handleSaveMoisson() {
 
-        Float inputPoidRecolte= Float.parseFloat(poid_recolte.getText());
-        Float inputNbKilo = Float.parseFloat(nb_Kilo.getText());
+        try {
+            String inputPoidRecolte= poid_recolte.getText().trim();
+            String inputNbKilo = nb_Kilo.getText().trim();
 
-        LocalDate inputDateDebut = date_debut.getValue();
-        LocalTime inputTimeDebut = time_debut.getValue();
+            LocalDate inputDateDebut = date_debut.getValue();
+            LocalTime inputTimeDebut = time_debut.getValue();
 
-        LocalDate inputDateFin = date_fin.getValue();
-        LocalTime inputTimeFin = time_fin.getValue();
+            LocalDate inputDateFin = date_fin.getValue();
+            LocalTime inputTimeFin = time_fin.getValue();
 
-        if (inputDateDebut.toString().isEmpty() || inputDateFin.toString().isEmpty() || inputTimeDebut.toString().isEmpty() || inputTimeFin.toString().isEmpty()) {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+            if (inputPoidRecolte.isEmpty() || inputNbKilo.isEmpty() || inputDateDebut.toString().isEmpty() || inputDateFin.toString().isEmpty() || inputTimeDebut.toString().isEmpty() || inputTimeFin.toString().isEmpty()) {
+                AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+                alert.show();
+            } else {
+                Float poidRecolte = Float.parseFloat(inputPoidRecolte.replace(',', '.'));
+                Float nbKilo = Float.parseFloat(inputNbKilo.replace(',', '.'));
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
+                LocalDateTime tempInputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
+
+                String inputDateTimeFin = tempInputDateTimeFin.format(formatter);
+                String inputDateTimeDebut = tempInputDateTimeDebut.format(formatter);
+
+                MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDateTimeDebut, inputDateTimeFin, nbKilo, poidRecolte);
+
+                AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la moficiation", "Le rapport de moisson à bien été modifié !");
+                alert.show();
+
+                affectationController.defineCommandeSelected(selectedCommande);
+
+                Stage stage = (Stage) bpane.getScene().getWindow();
+                stage.close();
+            }
+        } catch (NumberFormatException  e){
+            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
-        } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-            LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
-            LocalDateTime tempInputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
-
-            String inputDateTimeFin = tempInputDateTimeFin.format(formatter);
-            String inputDateTimeDebut = tempInputDateTimeDebut.format(formatter);
-
-            MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDateTimeDebut, inputDateTimeFin, inputNbKilo, inputPoidRecolte);
-
-            AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la moficiation", "Le rapport de moisson à bien été modifié !");
-            alert.show();
-
-            affectationController.defineCommandeSelected(selectedCommande);
-
-            Stage stage = (Stage) bpane.getScene().getWindow();
-            stage.close();
         }
     }
 

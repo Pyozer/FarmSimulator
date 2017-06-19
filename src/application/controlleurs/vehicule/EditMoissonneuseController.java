@@ -87,59 +87,63 @@ public class EditMoissonneuseController {
         String inputConsoRouteString = conso_route.getText();
         String inputPoidsString = poids.getText();
         String inputHauteurString = hauteur.getText();
-        
 
-        if(inputMarque.isEmpty() || inputModele.isEmpty() || inputTailleReservoirString.isEmpty() || inputEtat.isEmpty() || inputTailleTremisString.isEmpty() ||
-                inputLargeurRouteString.isEmpty() || inputTailleReservoirString.isEmpty() || inputLargeurCoupeString.isEmpty() || inputConsoFonctionnementString.isEmpty() ||
-                inputConsoRouteString.isEmpty() || inputPoidsString.isEmpty() || inputHauteurString.isEmpty()) {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
-            alert.show();
-        } else {
-            String message = "La moissonneuse a bien été";
-
-            int inputTailleReservoir = Integer.parseInt(inputTailleReservoirString);
-            float inputLargeurRoute = Float.parseFloat(inputLargeurRouteString);
-            float inputLargeurCoupe = Float.parseFloat(inputLargeurCoupeString);
-            int inputConsoFonctionnement = Integer.parseInt(inputConsoFonctionnementString);
-            int inputConsoRoute = Integer.parseInt(inputConsoRouteString);
-            float inputPoids = Float.parseFloat(inputPoidsString);
-            float inputHauteur = Float.parseFloat(inputHauteurString);
-            int inputTailleTremis = Integer.parseInt(inputTailleTremisString);
-
-            if(isEdit) {
-
-                moissonneuseToEdit.setEtat(inputEtat);
-                moissonneuseToEdit.setMarque(inputMarque);
-                moissonneuseToEdit.setModele(inputModele);
-                moissonneuseToEdit.setCapacite_reservoir(inputTailleReservoir);
-                moissonneuseToEdit.setCapacite_tremis(inputTailleTremis);
-                moissonneuseToEdit.setConso_fonctionnement(inputConsoFonctionnement);
-                moissonneuseToEdit.setHauteur(inputHauteur);
-                moissonneuseToEdit.setLargeur(inputLargeurRoute);
-                moissonneuseToEdit.setConso_route(inputConsoRoute);
-                moissonneuseToEdit.setPoids(inputPoids);
-                moissonneuseToEdit.setTaille_coupe(inputLargeurCoupe);
-
-                VehiculeSQL.editMoissonneuse(moissonneuseToEdit);
-
-                message += " modifié !";
+        try {
+            if(inputMarque.isEmpty() || inputModele.isEmpty() || inputTailleReservoirString.isEmpty() || inputEtat.isEmpty() || inputTailleTremisString.isEmpty() ||
+                    inputLargeurRouteString.isEmpty() || inputTailleReservoirString.isEmpty() || inputLargeurCoupeString.isEmpty() || inputConsoFonctionnementString.isEmpty() ||
+                    inputConsoRouteString.isEmpty() || inputPoidsString.isEmpty() || inputHauteurString.isEmpty()) {
+                AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
+                alert.show();
             } else {
-                VehiculeSQL.addMoissonneuse(inputModele, inputMarque, inputEtat, inputConsoFonctionnement, inputConsoRoute, inputHauteur, inputLargeurCoupe, inputLargeurRoute, inputPoids, inputTailleReservoir, inputTailleTremis);
+                String message = "La moissonneuse a bien été";
 
-                message += " ajouté !";
+                int inputTailleReservoir = Integer.parseInt(inputTailleReservoirString.replace(',', '.'));
+                float inputLargeurRoute = Float.parseFloat(inputLargeurRouteString.replace(',', '.'));
+                float inputLargeurCoupe = Float.parseFloat(inputLargeurCoupeString.replace(',', '.'));
+                int inputConsoFonctionnement = Integer.parseInt(inputConsoFonctionnementString.replace(',', '.'));
+                int inputConsoRoute = Integer.parseInt(inputConsoRouteString.replace(',', '.'));
+                float inputPoids = Float.parseFloat(inputPoidsString.replace(',', '.'));
+                float inputHauteur = Float.parseFloat(inputHauteurString.replace(',', '.'));
+                int inputTailleTremis = Integer.parseInt(inputTailleTremisString.replace(',', '.'));
+
+                if(isEdit) {
+
+                    moissonneuseToEdit.setEtat(inputEtat);
+                    moissonneuseToEdit.setMarque(inputMarque);
+                    moissonneuseToEdit.setModele(inputModele);
+                    moissonneuseToEdit.setCapacite_reservoir(inputTailleReservoir);
+                    moissonneuseToEdit.setCapacite_tremis(inputTailleTremis);
+                    moissonneuseToEdit.setConso_fonctionnement(inputConsoFonctionnement);
+                    moissonneuseToEdit.setHauteur(inputHauteur);
+                    moissonneuseToEdit.setLargeur(inputLargeurRoute);
+                    moissonneuseToEdit.setConso_route(inputConsoRoute);
+                    moissonneuseToEdit.setPoids(inputPoids);
+                    moissonneuseToEdit.setTaille_coupe(inputLargeurCoupe);
+
+                    VehiculeSQL.editMoissonneuse(moissonneuseToEdit);
+
+                    message += " modifié !";
+                } else {
+                    VehiculeSQL.addMoissonneuse(inputModele, inputMarque, inputEtat, inputConsoFonctionnement, inputConsoRoute, inputHauteur, inputLargeurCoupe, inputLargeurRoute, inputPoids, inputTailleReservoir, inputTailleTremis);
+
+                    message += " ajouté !";
+                }
+
+                AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+                alert.show();
+
+                vehiculeController.initData();
+                vehiculeController.clearAllSelection();
+
+                if(choixVehiculeController != null)
+                    choixVehiculeController.closeWindow();
+
+                Stage stage = (Stage) bpane.getScene().getWindow();
+                stage.close();
             }
-
-            AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+        } catch (NumberFormatException  e){
+            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
-
-            vehiculeController.initData();
-            vehiculeController.clearAllSelection();
-
-            if(choixVehiculeController != null)
-                choixVehiculeController.closeWindow();
-
-            Stage stage = (Stage) bpane.getScene().getWindow();
-            stage.close();
         }
     }
 

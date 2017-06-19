@@ -95,40 +95,45 @@ public class EditChampController implements APIGoogleMap {
         String inputAdresse = adresse.getText();
         String inputSurface = surface.getText();
 
-        if(inputProprio == null || inputCulture == null || coords_edited.isEmpty() || inputAdresse.isEmpty()|| inputSurface.isEmpty()) {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
-            alert.show();
-        } else {
-            String message = "Le champ a bien été";
-
-            Polygon champ = JSONManager.readPolygon(coords_edited);
-            System.out.println(champ);
-            Float surface = Float.parseFloat(inputSurface);
-
-            if(isEdit) {
-                selectedChamp.setProprietaire(inputProprio);
-                selectedChamp.setTypeCulture(inputCulture);
-                selectedChamp.setCoordChamp(champ);
-                selectedChamp.setSurface(surface);
-                selectedChamp.setAdresse(inputAdresse);
-
-                ChampSQL.editChamp(selectedChamp);
-
-                message += " modifié !";
+        try {
+            if (inputProprio == null || inputCulture == null || coords_edited.isEmpty() || inputAdresse.isEmpty() || inputSurface.isEmpty()) {
+                AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
+                alert.show();
             } else {
-                ChampSQL.addChamp(surface, inputAdresse, champ.getCenter(), champ, inputCulture, inputProprio);
+                String message = "Le champ a bien été";
 
-                message += " ajouté !";
+                Polygon champ = JSONManager.readPolygon(coords_edited);
+                System.out.println(champ);
+                Float surface = Float.parseFloat(inputSurface.replace(',', '.'));
+
+                if (isEdit) {
+                    selectedChamp.setProprietaire(inputProprio);
+                    selectedChamp.setTypeCulture(inputCulture);
+                    selectedChamp.setCoordChamp(champ);
+                    selectedChamp.setSurface(surface);
+                    selectedChamp.setAdresse(inputAdresse);
+
+                    ChampSQL.editChamp(selectedChamp);
+
+                    message += " modifié !";
+                } else {
+                    ChampSQL.addChamp(surface, inputAdresse, champ.getCenter(), champ, inputCulture, inputProprio);
+
+                    message += " ajouté !";
+                }
+
+                AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+                alert.show();
+
+                champController.initData();
+                champController.clearAllSelection();
+
+                Stage stage = (Stage) bpane.getScene().getWindow();
+                stage.close();
             }
-
-            AlertDialog alert = new AlertDialog("Succès", null, message, Alert.AlertType.INFORMATION);
+        } catch (NumberFormatException  e){
+            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
-
-            champController.initData();
-            champController.clearAllSelection();
-
-            Stage stage = (Stage) bpane.getScene().getWindow();
-            stage.close();
         }
     }
 
