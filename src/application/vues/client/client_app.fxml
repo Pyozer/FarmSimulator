@@ -21,6 +21,7 @@
                                 <columns>
                                     <TableColumn fx:id="column_nom" text="Nom" />
                                     <TableColumn fx:id="column_prenom" text="Prenom" />
+                                    <TableColumn fx:id="column_color" text="Code" />
                                 </columns>
                             </TableView>
                         </VBox>

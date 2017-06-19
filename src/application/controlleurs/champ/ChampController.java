@@ -49,7 +49,6 @@ public class ChampController implements APIGoogleMap {
 
         gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
-        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_type_culture.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getType_culture()));
         column_proprietaire.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProprietaire()));
@@ -141,6 +140,13 @@ public class ChampController implements APIGoogleMap {
         for (Champ champ : ChampSQL.getChampsList()) {
             gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
         }
+    }
+
+    public double getPosEtaX() {
+        return EtaSettings.getInfosEta().getPosition().getX();
+    }
+    public double getPosEtaY() {
+        return EtaSettings.getInfosEta().getPosition().getY();
     }
 
     public void initData() {

@@ -6,11 +6,9 @@ var markerOrigin;
 var markers = [];
 var oms;
 
-function defineMapCenter(lat, long) {
-    map_center_pos = new google.maps.LatLng(lat, long); // Correspond au coordonnées de l'ETA
-}
-
 function initMap() {
+
+    map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, // Zoom par défaut

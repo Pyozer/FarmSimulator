@@ -7,12 +7,15 @@ import application.modeles.Champ;
 import application.modeles.ClientSQL;
 import application.modeles.EtaSettings;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.Optional;
 
@@ -30,6 +33,7 @@ public class ClientController implements APIGoogleMap  {
 	@FXML private TableView<Agriculteur> tableView;
     @FXML private TableColumn<Agriculteur, String> column_nom;
     @FXML private TableColumn<Agriculteur, String> column_prenom;
+    @FXML private TableColumn<Agriculteur, Shape> column_color;
 
 	@FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
@@ -50,14 +54,15 @@ public class ClientController implements APIGoogleMap  {
 
         gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
-        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_nom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
         column_prenom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));
+        column_color.setCellValueFactory(cellData -> new SimpleObjectProperty<>(new Rectangle(42, 20, cellData.getValue().getCouleur())));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_nom.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
-        column_prenom.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        column_nom.setMaxWidth( 1f * Integer.MAX_VALUE * 43 ); // 50% width
+        column_prenom.setMaxWidth( 1f * Integer.MAX_VALUE * 43 ); // 50% width
+        column_color.setMaxWidth( 1f * Integer.MAX_VALUE * 14 ); // 50% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
         tableView.getStyleClass().add("custom-table-view");
@@ -130,6 +135,13 @@ public class ClientController implements APIGoogleMap  {
         for(Champ champ : ClientSQL.getClientsChampsList()) {
             gMaps.addChamp(champ);
         }
+    }
+
+    public double getPosEtaX() {
+        return EtaSettings.getInfosEta().getPosition().getX();
+    }
+    public double getPosEtaY() {
+        return EtaSettings.getInfosEta().getPosition().getY();
     }
 
     public void clearAllSelection() {

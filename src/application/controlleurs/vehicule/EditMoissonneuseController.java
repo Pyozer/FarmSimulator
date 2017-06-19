@@ -34,6 +34,7 @@ public class EditMoissonneuseController {
     @FXML private Label title;
 
     private VehiculeController vehiculeController;
+    private ChoixVehiculeController choixVehiculeController;
     private Moissonneuse moissonneuseToEdit;
 
     private boolean isEdit = false;
@@ -134,12 +135,16 @@ public class EditMoissonneuseController {
             vehiculeController.initData();
             vehiculeController.clearAllSelection();
 
+            if(choixVehiculeController != null)
+                choixVehiculeController.closeWindow();
+
             Stage stage = (Stage) bpane.getScene().getWindow();
             stage.close();
         }
     }
 
-    public void defineVehiculeController(VehiculeController vehiculeController) {
+    public void defineVehiculeController(VehiculeController vehiculeController, ChoixVehiculeController choixVehiculeController) {
         this.vehiculeController = vehiculeController;
+        this.choixVehiculeController = choixVehiculeController;
     }
 }

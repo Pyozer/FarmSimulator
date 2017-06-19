@@ -51,7 +51,6 @@ public class VehiculeController implements APIGoogleMap {
 
         gMaps = new GoogleMaps("vehicule/maps_vehicule", this);
         gMaps.setParent(googleMaps);
-        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_type.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getType()));
         column_marque.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque()));
@@ -125,7 +124,7 @@ public class VehiculeController implements APIGoogleMap {
             EditBotteleuseController editBotController = switchView.getFxmlLoader().getController();
             editBotController.setEditionMode(true);
             editBotController.initView((Botteleuse) vehiculeSelected);
-            editBotController.defineVehiculeController(this);
+            editBotController.defineVehiculeController(this, null);
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Moissonneuse){
@@ -134,7 +133,7 @@ public class VehiculeController implements APIGoogleMap {
             EditMoissonneuseController editMoiController = switchView.getFxmlLoader().getController();
             editMoiController.setEditionMode(true);
             editMoiController.initView((Moissonneuse) vehiculeSelected);
-            editMoiController.defineVehiculeController(this);
+            editMoiController.defineVehiculeController(this, null);
             switchView.showScene();
 
         } else if (vehiculeSelected instanceof Tracteur) {
@@ -143,7 +142,7 @@ public class VehiculeController implements APIGoogleMap {
             EditTracteurController editTraController = switchView.getFxmlLoader().getController();
             editTraController.setEditionMode(true);
             editTraController.initView((Tracteur) vehiculeSelected);
-            editTraController.defineVehiculeController(this);
+            editTraController.defineVehiculeController(this, null);
             switchView.showScene();
         }
     }
@@ -153,6 +152,13 @@ public class VehiculeController implements APIGoogleMap {
         for(Vehicule vehicule : vehiculeList) {
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
         }
+    }
+
+    public double getPosEtaX() {
+        return EtaSettings.getInfosEta().getPosition().getX();
+    }
+    public double getPosEtaY() {
+        return EtaSettings.getInfosEta().getPosition().getY();
     }
 	
 	public void clearAllSelection() {

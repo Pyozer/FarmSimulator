@@ -54,7 +54,6 @@ public class GlobalController implements APIGoogleMap {
 
         gMaps = new GoogleMaps("global/maps_global", this);
         gMaps.setParent(googleMaps);
-        gMaps.defineETAMarker(EtaSettings.getInfosEta().getPosition());
 
         column_date.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
@@ -130,6 +129,13 @@ public class GlobalController implements APIGoogleMap {
 
         for(Vehicule vehicule : VehiculeSQL.getVehiculeList())
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+    }
+
+    public double getPosEtaX() {
+        return EtaSettings.getInfosEta().getPosition().getX();
+    }
+    public double getPosEtaY() {
+        return EtaSettings.getInfosEta().getPosition().getY();
     }
 
     @FXML

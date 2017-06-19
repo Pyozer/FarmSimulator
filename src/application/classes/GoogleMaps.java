@@ -124,6 +124,7 @@ public class GoogleMaps extends Region {
      */
     public void enableFlightItinerary() {
         javascriptOBJ.call("enableFlightItinerary");
+        javascriptOBJ.call("checkIfItinerary");
     }
 
     /**
@@ -131,14 +132,7 @@ public class GoogleMaps extends Region {
      */
     public void disableFlightItinerary() {
         javascriptOBJ.call("disableFlightItinerary");
-    }
-
-    /**
-     * Défini le centre le map (Position de l'ETA)
-     * @param position Position de l'ETA
-     */
-    public void defineETAMarker(Point position) {
-        javascriptOBJ.call("defineMapCenter", position.getX(), position.getY());
+        javascriptOBJ.call("hideFlightPath");
     }
 
 }

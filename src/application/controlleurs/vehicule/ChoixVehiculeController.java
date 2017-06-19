@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controlleur pour le choix de véhicue à ajouter
@@ -78,21 +79,21 @@ public class ChoixVehiculeController {
                 switchView = new SwitchView("vehicule/edit_tracteur_app", Constant.ADD_TRACTEUR_APP_TITLE);
             switchView.setPopUp();
             EditTracteurController editTracteurController = switchView.getFxmlLoader().getController();
-            editTracteurController.defineVehiculeController(vehiculeController);
+            editTracteurController.defineVehiculeController(vehiculeController, this);
             editTracteurController.setEditionMode(false);
             switchView.showScene();
         } else if(moissonneuse_selected) {
             switchView = new SwitchView("vehicule/edit_moissonneuse_app", Constant.ADD_MOISSONNEUSE_APP_TITLE);
             switchView.setPopUp();
             EditMoissonneuseController editMoissonneuseController = switchView.getFxmlLoader().getController();
-            editMoissonneuseController.defineVehiculeController(vehiculeController);
+            editMoissonneuseController.defineVehiculeController(vehiculeController, this);
             editMoissonneuseController.setEditionMode(false);
             switchView.showScene();
         } else if(botteleuse_selected) {
             switchView = new SwitchView("vehicule/edit_botteleuse_app", Constant.ADD_BOTTELEUSE_APP_TITLE);
             switchView.setPopUp();
             EditBotteleuseController editBotteleuseController = switchView.getFxmlLoader().getController();
-            editBotteleuseController.defineVehiculeController(vehiculeController);
+            editBotteleuseController.defineVehiculeController(vehiculeController, this);
             editBotteleuseController.setEditionMode(false);
             switchView.showScene();
         }
@@ -100,5 +101,10 @@ public class ChoixVehiculeController {
 
     public void defineVehiculeController(VehiculeController vehiculeController) {
         this.vehiculeController = vehiculeController;
+    }
+
+    public void closeWindow() {
+        Stage stage = (Stage) bpane.getScene().getWindow();
+        stage.close();
     }
 }

@@ -16,11 +16,9 @@ var oms;
 
 var byFlight = true;
 
-function defineMapCenter(lat, long) {
-    map_center_pos = new google.maps.LatLng(lat, long); // Correspond au coordonnées de l'ETA
-}
-
 function initMap() {
+
+    map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, // Zoom par défaut
@@ -55,9 +53,7 @@ function initMap() {
     createCircle(map, map_center_pos);
 
     map.addListener("click", function() {
-        if (flightPath != null) {
-            flightPath.setMap(null);
-        }
+        hideFlightPath();
         flightPlanCoordinates = [];
         for (var i = 0; i < champs.length; i++)
             champs[i].setOptions({
@@ -67,7 +63,6 @@ function initMap() {
             });
 
         champsSelected = [0, 0];
-        infowindow.close();
         destSelect = false;
         originSelected = false;
 
@@ -194,10 +189,11 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
                     fillColor: champs[i].couleur
                 });
 
-        if (flightPath != null) {
-            flightPath.setMap(null);
-        }
+        hideFlightPath();
         flightPlanCoordinates[0] = getPolygonCenter(polygon);
+        if (directionsDisplay != null) {
+            directionsDisplay.setMap(null);
+        }
 
         polygon.setOptions(selectedStyle);
 
@@ -222,6 +218,9 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
             flightPath.setMap(null);
         }
         flightPlanCoordinates[1] = getPolygonCenter(polygon);
+        if (directionsDisplay != null) {
+            directionsDisplay.setMap(null);
+        }
 
         polygon.setOptions(selectedStyle);
 
@@ -249,6 +248,12 @@ function checkIfItinerary() {
         if(byFlight)
             calcFlightPath(flightPlanCoordinates);
     }
+}
+function hideFlightPath() {
+    if (flightPath != null) {
+        flightPath.setMap(null);
+    }
+    infowindow.close();
 }
 
 /** Calcule un itinéraire entre 2 points **/

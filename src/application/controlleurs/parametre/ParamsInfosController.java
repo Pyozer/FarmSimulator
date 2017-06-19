@@ -69,6 +69,13 @@ public class ParamsInfosController implements APIGoogleMap, Constant {
         switchView.showScene();
 	}
 
+    public double getPosEtaX() {
+        return EtaSettings.getInfosEta().getPosition().getX();
+    }
+    public double getPosEtaY() {
+        return EtaSettings.getInfosEta().getPosition().getY();
+    }
+
 	public void setMarkerEdited(String marker_pos) {
         if(marker_pos.isEmpty()) {
             position_eta = null;

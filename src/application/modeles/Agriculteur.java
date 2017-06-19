@@ -29,7 +29,6 @@ public class Agriculteur extends Element {
         getInformations().add(new ElementPair("Numéro téléphone", num_tel));
         getInformations().add(new ElementPair("Adresse", adresse));
         getInformations().add(new ElementPair("Email", email));
-        getInformations().add(new ElementPair("Couleur", couleur));
     }
 
     public String getNom() {

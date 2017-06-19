@@ -93,14 +93,15 @@ public class EditCommandeController implements Constant {
         Champ inputChamp = liste_champs.getValue();
         String inputTransport = liste_transport.getValue();
         String inputTypeBott = liste_type_bott.getValue();
-        String inputTMaxTranspString = tMaxTransp.getText();
+        String inputTMaxTranspString = tMaxTransp.getText().trim();
 
         if(inputDate.toString().isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTranspString.isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
             try {
-                float inputTMaxTransp = Float.parseFloat(inputTMaxTranspString);
+
+                float inputTMaxTransp = Float.parseFloat(inputTMaxTranspString.replace(',', '.'));
                 String message = "La commande a bien été";
                 if(isEdit) {
                     commandeToEdit.setDate(inputDate);
@@ -127,7 +128,7 @@ public class EditCommandeController implements Constant {
                 stage.close();
 
             } catch (NumberFormatException  e){
-                AlertDialog alert = new AlertDialog("Erreur", null, "Le format de la taille maximale doit être un nombre !\nUtilisez un . pour les nombres décimaux.", Alert.AlertType.ERROR);
+                AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
                 alert.show();
             }
         }

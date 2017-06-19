@@ -3,11 +3,9 @@ var map_center_pos;
 var polygon;
 var drawingManager;
 
-function defineMapCenter(lat, long) {
-    map_center_pos = new google.maps.LatLng(lat, long); // Correspond au coordonnées de l'ETA
-}
-
 function initMap() {
+
+    map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14, // Zoom par défaut
