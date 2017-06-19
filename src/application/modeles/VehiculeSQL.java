@@ -347,30 +347,30 @@ public class VehiculeSQL implements Constant {
     }
 
     public static List<Integer> getVehiculeUseToday(Commande commande) {
+        System.out.println(commande.getId());
+
         String request = "SELECT Vehicule.id_vehi FROM Vehicule " +
                 "INNER JOIN Ordre ON Vehicule.id_vehi=Ordre.id_vehi " +
                 "INNER JOIN Commande ON Commande.id_com=Ordre.id_com " +
-                "WHERE date_com=:today AND Commande.id_com=:id_com";
+                "WHERE date_com=:today AND Commande.id_com=:idCom";
 
         List<Integer> listId = new ArrayList<>();
 
         try {
             NamedParameterStatement getVehiculeUsedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             getVehiculeUsedStatement.setString("today", LocalDate.now().toString());
-            getVehiculeUsedStatement.setInt("id_com", commande.getId());
+            getVehiculeUsedStatement.setInt("idCom", commande.getId());
             // Execute select SQL statement
             ResultSet rs = getVehiculeUsedStatement.executeQuery();
 
             while (rs.next())
                 listId.add(rs.getInt("id_vehi"));
 
-
             rs.close();
             getVehiculeUsedStatement.close();
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        System.out.println(listId);
         return listId;
     }
 }

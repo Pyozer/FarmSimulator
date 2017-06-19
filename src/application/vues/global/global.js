@@ -46,7 +46,8 @@ function initMap() {
     oms = new OverlappingMarkerSpiderfier(map, {
             markersWontMove: true,
             markersWontHide: true,
-            basicFormatEvents: true
+            basicFormatEvents: true,
+            keepSpiderfied: true
         });
 
     // Rayon de 20km autour du point de départ
@@ -104,6 +105,16 @@ function addMarker(id, latitude, longitude, title, type, etat) {
         infowindow.open(map, marker);
     });
     markers.push(marker);
+
+    oms.addListener('format', function(marker, status) {
+      var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? icons[type].icon :
+        status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? '../../images/marker_plus.png' :
+        status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? icons[type].icon :
+        null;
+      marker.setIcon({
+        url: iconURL
+      });
+    });
     oms.addMarker(marker);  // adds the marker to the spiderfier _and_ the map
 }
 

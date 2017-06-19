@@ -35,15 +35,6 @@ public class AddAffectationController {
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday(selectedCommande);
-        List<Vehicule> allVehicules = VehiculeSQL.getVehiculeList();
-
-        for(int i = 0;i < allVehicules.size();i++)
-            if(vehiculeUsedToday.contains(allVehicules.get(i).getId()))
-                allVehicules.remove(allVehicules.get(i));
-
-        liste_vehicule.getItems().setAll(allVehicules);
-        liste_vehicule.setValue(liste_vehicule.getItems().get(0));
     }
 
     @FXML
@@ -68,6 +59,16 @@ public class AddAffectationController {
     public void defineCommandeSelected(Commande commande) {
         selectedCommande = commande;
         titleCommandeSelected.setText(selectedCommande.toString());
+
+        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday(selectedCommande);
+        List<Vehicule> allVehicules = VehiculeSQL.getVehiculeList();
+
+        for(int i = 0;i < allVehicules.size();i++)
+            if(vehiculeUsedToday.contains(allVehicules.get(i).getId()))
+                allVehicules.remove(allVehicules.get(i));
+
+        liste_vehicule.getItems().setAll(allVehicules);
+        liste_vehicule.setValue(liste_vehicule.getItems().get(0));
     }
 
     public void defineAffectController(AffectationController affectationController) {
