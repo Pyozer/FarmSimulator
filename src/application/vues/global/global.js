@@ -18,7 +18,8 @@ var byFlight = true;
 
 function initMap() {
 
-    map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
+    //map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
+    map_center_pos = new google.maps.LatLng(47.96959919884257,-1.4487806226730346); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, // Zoom par défaut
@@ -35,7 +36,10 @@ function initMap() {
     markerOrigin = createMarker(map, map_center_pos);
 
     directionsDisplay = new google.maps.DirectionsRenderer({
-        map: map
+        map: map,
+        suppressMarkers: true,
+        polylineOptions: { strokeColor: "#1897cd", strokeOpacity: 0.6, strokeWeight: 5 }
+
     });
     directionsDisplay.setPanel(document.getElementById('road'));
 
@@ -191,7 +195,6 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
                     fillColor: champs[i].couleur
                 });
 
-        hideFlightPath();
         flightPlanCoordinates[0] = getPolygonCenter(polygon);
         if (directionsDisplay != null) {
             directionsDisplay.setMap(null);
@@ -246,6 +249,7 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
 }
 
 function checkIfItinerary() {
+    hideFlightPath();
     if (originSelect && destSelect) { // Si origin et dest sélectionnés
         if(byFlight)
             calcFlightPath(flightPlanCoordinates);
@@ -269,29 +273,31 @@ function calculate(origin, destination) {
             optimizeWaypoints: true,
             avoidHighways: true,
             avoidTolls: true,
-            unitSystem: google.maps.UnitSystem.METRIC
+            unitSystem: google.maps.UnitSystem.METRIC,
+            provideRouteAlternatives: true
         };
         var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
         directionsService.route(request, function(response, status) { // Envoie de la requête pour calculer le parcours
             if (status == 'OK') {
                 if(!byFlight)
                     infowindow.close();
+                else {
+                    var paths = response.routes[0].overview_path;
+                    flightPlanCoordinates[0] = paths[0];
+                    flightPlanCoordinates[1] = paths[paths.length - 1];
+                    calcFlightPath(flightPlanCoordinates);
+                }
+
                 directionsDisplay.setMap(map);
                 directionsDisplay.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                 document.getElementById("road").style.display = "block";
                 document.getElementById("map").className = "dividedWidth";
-
-                setTimeout(function(){
-                    map.setZoom(map.getZoom() - 1);
-                    map.setZoom(map.getZoom() + 1);
-                }, 200);
-
             }
         });
     }
 };
 
-/** Récupère le centre entre 2 point **/
+/** Récupère le centre entre des points **/
 function getLineCenter(linePoints) {
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < linePoints.length; i++) {
@@ -302,16 +308,41 @@ function getLineCenter(linePoints) {
 
 /** Met une ligne entre 2 points **/
 function calcFlightPath(coordinates) {
+    hideFlightPath();
+
+    var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 4,
+        strokeColor: '#FF0000'
+      };
+
     flightPath = new google.maps.Polyline({
         path: coordinates,
         geodesic: true,
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
-        strokeWeight: 2
+        strokeWeight: 2,
+        icons: [{
+          icon: lineSymbol,
+          offset: '100%'
+        }],
     });
     flightPath.setMap(map);
 
     showDist(coordinates);
+
+    animateArrow(flightPath);
+}
+
+function animateArrow(line) {
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 200;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+  }, 35);
 }
 
 /** Affiche l'infowindow sur la ligne **/
