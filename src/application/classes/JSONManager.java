@@ -36,37 +36,4 @@ public class JSONManager {
 
 		return new Point(jsonarray.getDouble(0), jsonarray.getDouble(1));
 	}
-	
-	/**
-	 * Encode un POLYGON au format JSON
-	 * @param coords le tableau de points
-	 * @return la chaîne de caractère au format JSON
-	 */
-	public static String writePolygon(Point[] coords) {
-        JSONArray jsonArr = new JSONArray();
-
-		for (Point point : coords) {
-		    JSONArray pointArray = new JSONArray();
-		    pointArray.put(point.getX());
-		    pointArray.put(point.getY());
-            jsonArr.put(pointArray);
-		}
-
-		return jsonArr.toString();
-	}
-
-	/**
-	 * Encode un POINT au format JSON
-	 * @param point le points
-	 * @return la chaîne de caractère au format JSON
-	 */
-	public static String writePoint(Point point) {
-
-        JSONArray jsonArr = new JSONArray();
-
-        jsonArr.put(point.getX());
-        jsonArr.put(point.getY());
-
-        return jsonArr.toString();
-	}
 }

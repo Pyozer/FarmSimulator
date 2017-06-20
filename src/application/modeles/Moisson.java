@@ -1,5 +1,8 @@
 package application.modeles;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 /**
  * Classe pour les Moisson
  */
@@ -8,29 +11,26 @@ public class Moisson {
     private int id;
     private Commande commande;
     private Vehicule vehicule;
-    private String datetime_fin, datetime_debut;
-    private Float nbKilo, nbTonne;
+    private LocalDateTime datetime_fin, datetime_debut;
+    private Float nbKm, nbTonne;
 
 
-    public Moisson(int id, Commande commande, Vehicule vehicule, String datetime_debut, String datetime_fin, Float nbKilo, Float nbTonne) {
+    public Moisson(int id, Commande commande, Vehicule vehicule, LocalDateTime datetime_debut, LocalDateTime datetime_fin, Float nbKm, Float nbTonne) {
         this.id = id;
         this.commande = commande;
         this.vehicule = vehicule;
         this.datetime_fin = datetime_fin;
         this.datetime_debut = datetime_debut;
-        this.nbKilo = nbKilo;
+        this.nbKm = nbKm;
         this.nbTonne = nbTonne;
-
-        System.out.println(datetime_debut);
-        System.out.println(datetime_fin);
     }
 
 
-    public String getDatetimeDebut() {
+    public LocalDateTime getDatetimeDebut() {
         return datetime_debut;
     }
 
-    public void setDatetimeDebut(String datetime_debut) {
+    public void setDatetimeDebut(LocalDateTime datetime_debut) {
         this.datetime_debut = datetime_debut;
     }
 
@@ -58,20 +58,20 @@ public class Moisson {
         this.vehicule = vehicule;
     }
 
-    public String getDatetimeFin() {
+    public LocalDateTime getDatetimeFin() {
         return datetime_fin;
     }
 
-    public void setDatetimeFin(String datetime_fin) {
+    public void setDatetimeFin(LocalDateTime datetime_fin) {
         this.datetime_fin = datetime_fin;
     }
 
-    public Float getNbKilo() {
-        return nbKilo;
+    public Float getNbKm() {
+        return nbKm;
     }
 
-    public void setNbKilo(Float nbKilo) {
-        this.nbKilo = nbKilo;
+    public void setNbKm(Float nbKm) {
+        this.nbKm = nbKm;
     }
 
     public Float getNbTonne() {
@@ -80,5 +80,9 @@ public class Moisson {
 
     public void setNbTonne(Float nbTonne) {
         this.nbTonne = nbTonne;
+    }
+
+    public double getDuree() {
+        return ChronoUnit.HOURS.between(datetime_debut, datetime_fin);
     }
 }

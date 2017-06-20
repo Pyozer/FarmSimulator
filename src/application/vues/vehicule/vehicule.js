@@ -36,6 +36,7 @@ function initMap() {
 
     map.addListener('click', function(event) {
         infowindow.close();
+        refresh();
     });
 
     google.maps.event.addListener(map, "tilesloaded", function() {

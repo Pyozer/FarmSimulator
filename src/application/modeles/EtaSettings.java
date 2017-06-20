@@ -66,10 +66,10 @@ public class EtaSettings implements Constant {
             String eta_name = prop.getProperty(PROP_ETA_NAME).trim();
             String eta_adresse = prop.getProperty(PROP_ETA_ADRESSE).trim();
             String eta_position = prop.getProperty(PROP_ETA_POSITION).trim();
-
             if (!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty()) {
-                Point position_eta = JSONManager.readPoint(eta_position);
-                eta = new Eta(1, eta_name, eta_adresse, position_eta);
+                Point point_eta = JSONManager.readPoint(eta_position);
+
+                eta = new Eta(1, eta_name, eta_adresse, point_eta);
             }
         }
 

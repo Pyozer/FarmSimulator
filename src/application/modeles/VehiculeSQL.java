@@ -5,7 +5,6 @@ import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
-import application.properties.SettingsProperties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -71,7 +70,7 @@ public class VehiculeSQL implements Constant {
 
     public static Point getActualPositionVehicule(int id_vehi) {
 
-        Point position = JSONManager.readPoint(SettingsProperties.loadSettingsPropertiesFile().getProperty(PROP_ETA_POSITION, null));
+        Point position = EtaSettings.getInfosEta().getPositionVehi();
         try {
             String requestPosition = "SELECT coord_centre_champ FROM Champ " +
                     "INNER JOIN Commande ON Commande.id_champ=Champ.id_champ " +

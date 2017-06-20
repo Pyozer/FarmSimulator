@@ -49,6 +49,9 @@ public interface Constant {
     int PREF_WIDTH = 1400;
     int PREF_HEIGHT = 1000;
 
+    double DECALAGE_LAT = 0.001;
+    double DECALAGE_LONG = 0.0002;
+
     // VALEUR POUR LocalDate / LocalTime
     Double HEURE_PAR_AN = 8765.82;
     Double HEURE_PAR_MOIS = 730.5;

@@ -35,6 +35,7 @@ public class GoogleMaps extends Region {
         javascriptOBJ.setMember("jsInterface", controller);
         webEngine.setOnAlert(e -> System.out.println(e.toString()));
         webEngine.setOnError(e -> System.err.println(e.toString()));
+
     }
 
     public void setParent(StackPane parent) {

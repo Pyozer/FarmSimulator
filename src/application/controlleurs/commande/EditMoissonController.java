@@ -67,11 +67,13 @@ public class EditMoissonController implements Constant {
             moissonToEdit = moisson;
 
             poid_recolte.setText(moissonToEdit.getNbTonne().toString());
-            nb_Kilo.setText(moissonToEdit.getNbKilo().toString());
+            nb_Kilo.setText(moissonToEdit.getNbKm().toString());
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             System.out.println(moissonToEdit.getDatetimeFin());
+
+            //TODO : Mettre dans la classe Moisson
             LocalDateTime fin = LocalDateTime.parse(moissonToEdit.getDatetimeFin(), formatter);
             LocalDateTime debut = LocalDateTime.parse(moissonToEdit.getDatetimeDebut(), formatter);
 
@@ -105,17 +107,12 @@ public class EditMoissonController implements Constant {
                 Float poidRecolte = Float.parseFloat(inputPoidRecolte.replace(',', '.'));
                 Float nbKilo = Float.parseFloat(inputNbKilo.replace(',', '.'));
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
                 LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
                 LocalDateTime tempInputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
 
-                String inputDateTimeFin = tempInputDateTimeFin.format(formatter);
-                String inputDateTimeDebut = tempInputDateTimeDebut.format(formatter);
+                MoissonSQL.editMoisson(selectedCommande, selectedVehicule, tempInputDateTimeDebut, tempInputDateTimeFin, nbKilo, poidRecolte);
 
-                MoissonSQL.editMoisson(selectedCommande, selectedVehicule, inputDateTimeDebut, inputDateTimeFin, nbKilo, poidRecolte);
-
-                AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la moficiation", "Le rapport de moisson à bien été modifié !");
+                AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la modification", "Le rapport de moisson à bien été modifié !");
                 alert.show();
 
                 affectationController.defineCommandeSelected(selectedCommande);

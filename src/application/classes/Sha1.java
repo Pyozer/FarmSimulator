@@ -21,5 +21,4 @@ public class Sha1 {
 
         return sb.toString();
     }
-
 }

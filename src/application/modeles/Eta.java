@@ -1,21 +1,24 @@
 package application.modeles;
 
+import application.Constant;
 import application.classes.Point;
 
 /**
  * Classe pour l'Eta
  */
-public class Eta extends Element {
+public class Eta extends Element implements Constant {
 
     private String nom; // Nom de l'Eta
     private String adresse; // Adresse postal de l'Eta
-    private Point position; // Position de l'Eta
+    private Point position_eta; // Position de l'Eta
+    private Point position_vehi; // Position des véhicules
 
-    public Eta(int id, String nom, String adresse, Point position) {
+    public Eta(int id, String nom, String adresse, Point position_eta) {
         super(id);
         this.nom = nom;
         this.adresse = adresse;
-        this.position = position;
+        this.position_eta = position_eta;
+        this.position_vehi = new Point(position_eta.getX() - DECALAGE_LAT, position_eta.getY() - DECALAGE_LONG);
 
     }
 
@@ -36,11 +39,15 @@ public class Eta extends Element {
     }
 
     public Point getPosition() {
-        return position;
+        return position_eta;
     }
 
-    public void setPosition(Point position) {
-        this.position = position;
+    public void setPosition(Point position_eta) {
+        this.position_eta = position_eta;
+    }
+
+    public Point getPositionVehi() {
+        return position_vehi;
     }
 
     public String toString() {

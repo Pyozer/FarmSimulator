@@ -45,6 +45,15 @@
                         </graphic>
                     </JFXButton>
                 </HBox>
+
+                <TableView fx:id="tableView_rapport" minHeight="290.0" maxHeight="290.0" minWidth="600" maxWidth="600">
+                    <columns>
+                        <TableColumn fx:id="column_date" text="Date" />
+                        <TableColumn fx:id="column_duree" text="Durée" />
+                        <TableColumn fx:id="column_poids" text="Poids récolté" />
+                        <TableColumn fx:id="column_nb_km" text="KM parcourus" />
+                    </columns>
+                </TableView>
             </VBox>
         </VBox>
     </center>

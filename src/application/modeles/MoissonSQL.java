@@ -5,20 +5,27 @@ import application.database.NamedParameterStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MoissonSQL {
 
-    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, String heure_debut, String heure_fin, Float inputNbKilo, Float inputNbTonne) {
+    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, LocalDateTime heure_debut, LocalDateTime heure_fin, Float inputNbKilo, Float inputNbTonne) {
         String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, heure_arrive_ordre=:heureArrive, heure_fin_ordre=:heureFin " +
                 "WHERE id_vehi=:vehi AND id_com=:com";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateTimeFin = heure_fin.format(formatter);
+        String dateTimeDebut = heure_debut.format(formatter);
 
         try {
             NamedParameterStatement editMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
             editMoissonStatement.setFloat("tonnes", inputNbTonne);
             editMoissonStatement.setFloat("nbKilo", inputNbKilo);
-            editMoissonStatement.setString("heureArrive", heure_debut);
-            editMoissonStatement.setString("heureFin", heure_fin);
+            editMoissonStatement.setString("heureArrive", dateTimeDebut);
+            editMoissonStatement.setString("heureFin", dateTimeFin);
             editMoissonStatement.setInt("vehi", inputVehicule.getId());
             editMoissonStatement.setInt("com", inputCommande.getId());
 
@@ -70,15 +77,15 @@ public class MoissonSQL {
             ResultSet rs = getMoissonSelected.executeQuery();
             rs.next();
 
-            String inputDebut = rs.getString("heure_arrive_ordre");
-            String inputFin = rs.getString("heure_fin_ordre");
+            LocalDate date_debut = LocalDate.parse(rs.getString("heure_arrive_ordre"));
+            LocalDate date_fin = LocalDate.parse(rs.getString("heure_fin_ordre"));
 
             Moisson moisson = new Moisson(
                     rs.getInt("id_ordre"),
                     selectedCommande,
                     selectedVehicule,
-                    inputDebut.substring(0, inputDebut.length() - 2),
-                    inputFin.substring(0, inputFin.length() - 2),
+                    date_debut,
+                    date_fin,
                     rs.getFloat("nb_km_ordre"),
                     rs.getFloat("tonnes_ordre")
             );

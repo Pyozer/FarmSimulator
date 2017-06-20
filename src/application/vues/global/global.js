@@ -284,7 +284,7 @@ function calculate(origin, destination) {
                 setTimeout(function(){
                     map.setZoom(map.getZoom() - 1);
                     map.setZoom(map.getZoom() + 1);
-                }, 150);
+                }, 200);
 
             }
         });

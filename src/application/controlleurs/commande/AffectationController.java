@@ -3,16 +3,15 @@ package application.controlleurs.commande;
 import application.Constant;
 import application.classes.MenuApp;
 import application.classes.SwitchView;
-import application.modeles.AffectationSQL;
-import application.modeles.Commande;
-import application.modeles.MoissonSQL;
-import application.modeles.Vehicule;
+import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -28,10 +27,15 @@ public class AffectationController {
     @FXML private TableColumn<Vehicule, String> column_type;
     @FXML private TableColumn<Vehicule, String> column_vehicule;
 
+    @FXML private TableView<Moisson> tableView_rapport;
+    @FXML private TableColumn<Moisson, LocalDate> column_date;
+    @FXML private TableColumn<Moisson, Double> column_duree;
+    @FXML private TableColumn<Moisson, Float> column_poids;
+    @FXML private TableColumn<Moisson, Float> column_nb_km;
+
 	@FXML private JFXButton delete_btn;
 	@FXML private JFXButton add_rapport_btn;
     @FXML private JFXButton delete_rapport_btn;
-
 
     private Vehicule selectedVehicule = null;
     private Commande selectedCommande = null;
@@ -49,12 +53,22 @@ public class AffectationController {
         column_vehicule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque() + " " + cellData.getValue().getModele()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 15% width
-        column_vehicule.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 35% width
+        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        column_vehicule.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> vehiculeSelected(newvalue));
 
+        column_date.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDatetimeDebut().toLocalDate()));
+        column_duree.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDuree()));
+        column_poids.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNbTonne()));
+        column_nb_km.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNbKm()));
+
+        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        column_vehicule.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+
         bpane.setOnMouseClicked(event -> clearAllSelection());
+
     }
 
     private void vehiculeSelected(Vehicule vehicule) {
