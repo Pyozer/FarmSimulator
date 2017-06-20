@@ -8,7 +8,8 @@ var oms;
 
 function initMap() {
 
-    map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
+   // map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
+    map_center_pos = new google.maps.LatLng(47, 0.8); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, // Zoom par défaut
@@ -64,7 +65,8 @@ function addMarker(id, latitude, longitude, title, type, etat) {
             'Type: ' + marker.type + '<br />' +
             'Etat: ' + marker.etat;
 
-    marker.addListener('click', function(event) {
+    marker.addListener('spider_click', function(event) {
+        jsInterface.selectVehiculeByID(marker.id);
         infowindow.setContent(contentString);
         infowindow.open(map, marker);
     });

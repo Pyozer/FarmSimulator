@@ -44,8 +44,9 @@ public class GoogleMaps extends Region {
 
     /**
      * Affiche L'itineraire entre 2 points sur la Map
+     *
      * @param originNew String
-     * @param destNew String
+     * @param destNew   String
      */
     public void changeRoute(String originNew, String destNew) {
         javascriptOBJ.call("calculate", originNew, destNew);
@@ -53,11 +54,12 @@ public class GoogleMaps extends Region {
 
     /**
      * Ajoute un Point sur la Map
-     * @param id int
+     *
+     * @param id       int
      * @param position Point
-     * @param title String
-     * @param type String
-     * @param etat String
+     * @param title    String
+     * @param type     String
+     * @param etat     String
      */
     public void addMarker(int id, Point position, String title, String type, String etat) {
         System.out.println("addMarker('" + id + "','" + position.getX() + "','" + position.getY() + "','" + title + "','" + type + "','" + etat + "');");
@@ -66,25 +68,12 @@ public class GoogleMaps extends Region {
 
     /**
      * Ajoute un Champ sur la Map
+     *
      * @param champ Champ
      */
     public void addChamp(Champ champ) {
-        addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
-    }
-
-    /**
-     *
-     * @param id String
-     * @param culture Culture
-     * @param proprio Agriculteur
-     * @param adresse String
-     * @param surface float
-     * @param coords Polygon
-     * @param couleur Color
-     */
-    public void addChamp(int id, Culture culture, Agriculteur proprio, String adresse, float surface, Polygon coords, Color couleur) {
         try {
-            javascriptOBJ.call("addChamp", id, culture.toString(), proprio.toString(), adresse, surface, coords.toString(), ConvertColor.ColorFXToWeb(couleur));
+            javascriptOBJ.call("addChamp", champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getProprietaire().getId(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), ConvertColor.ColorFXToWeb(champ.getProprietaire().getCouleur()));
         } catch (JSException e) {
             e.printStackTrace();
         }

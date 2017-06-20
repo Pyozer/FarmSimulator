@@ -6,6 +6,7 @@ import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -37,6 +38,7 @@ public class ChampController implements APIGoogleMap {
 
     private GoogleMaps gMaps;
     private Champ selectedChamp = null;
+    private ObservableList<Champ> listChamps;
 
     /**
      * Initializes the controller class.
@@ -80,7 +82,7 @@ public class ChampController implements APIGoogleMap {
                 listInfos.getItems().add(information);
 
             gMaps.removeAllChamps();
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
+            gMaps.addChamp(champ);
         }
     }
 
@@ -137,8 +139,8 @@ public class ChampController implements APIGoogleMap {
 
     public void askToLoadChamps() {
         gMaps.removeAllChamps();
-        for (Champ champ : ChampSQL.getChampsList()) {
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
+        for (Champ champ : listChamps) {
+            gMaps.addChamp(champ);
         }
     }
 
@@ -149,8 +151,16 @@ public class ChampController implements APIGoogleMap {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
 
+    public void selectByChamp(int id) {
+        for(Champ champ : listChamps) {
+            if(champ.getId() == id)
+                tableView.getSelectionModel().select(champ);
+        }
+    }
+
     public void initData() {
-        tableView.getItems().setAll(ChampSQL.getChampsList());
+        listChamps = ChampSQL.getChampsList();
+        tableView.getItems().setAll(listChamps);
     }
 
     private void resetListInfo() {

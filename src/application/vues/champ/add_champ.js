@@ -45,7 +45,7 @@ function initMap() {
 }
 
 /** Ajouter un champ à la Map **/
-function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
+function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, couleur) {
 
     polygon = new google.maps.Polygon({
       paths: toJavascriptArray(coords),

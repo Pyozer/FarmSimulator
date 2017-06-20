@@ -2,13 +2,11 @@ package application.controlleurs.client;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.Agriculteur;
-import application.modeles.Champ;
-import application.modeles.ClientSQL;
-import application.modeles.EtaSettings;
+import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -42,6 +40,8 @@ public class ClientController implements APIGoogleMap  {
 
     private GoogleMaps gMaps;
     private Agriculteur selectedAgri = null;
+    private ObservableList<Agriculteur> listClient;
+    private ObservableList<Champ> listChamps;
 
     /**
      * Initializes the controller class.
@@ -132,7 +132,8 @@ public class ClientController implements APIGoogleMap  {
 
     public void askToLoadChamps() {
         gMaps.removeAllChamps();
-        for(Champ champ : ClientSQL.getClientsChampsList()) {
+        listChamps = ClientSQL.getClientsChampsList();
+        for(Champ champ : listChamps) {
             gMaps.addChamp(champ);
         }
     }
@@ -156,8 +157,14 @@ public class ClientController implements APIGoogleMap  {
     }
 
     public void initData() {
-        tableView.getItems().setAll(ClientSQL.getClientsList());
-        tableView.getItems().addAll(ClientSQL.getClientsList());
+        listClient = ClientSQL.getClientsList();
+        tableView.getItems().setAll(listClient);
+    }
+
+    public void selectByChamp(int id) {
+        for(Agriculteur agriculteur : listClient)
+            if(agriculteur.getId() == id)
+                tableView.getSelectionModel().select(agriculteur);
     }
 
     private void defineStateElements(boolean state) {

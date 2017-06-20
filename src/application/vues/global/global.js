@@ -134,13 +134,14 @@ function showAll() {
 }
 
 /** Ajouter un champ à la Map **/
-function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
+function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, couleur) {
 
     var polygon = new google.maps.Polygon({
       paths: toJavascriptArray(coords),
       id: id,
       culture: culture,
       proprio: proprio,
+      id_proprio: id_proprio,
       adresse: adresse,
       surface: surface,
       couleur

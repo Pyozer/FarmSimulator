@@ -46,13 +46,14 @@ function initMap() {
 }
 
 /** Ajouter un champ à la Map **/
-function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
+function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, couleur) {
 
     var polygon = new google.maps.Polygon({
       paths: toJavascriptArray(coords),
       id: id,
       culture: culture,
       proprio: proprio,
+      id_proprio: id,
       adresse: adresse,
       surface: surface,
       couleur: couleur
@@ -88,6 +89,8 @@ function addChamp(id, culture, proprio, adresse, surface, coords, couleur) {
 
         champsSelected = polygon.id;
         polygon.setOptions(selectedStyle);
+
+        jsInterface.selectByChamp(polygon.id_proprio);
 
         var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
         'Culture: ' + polygon.culture + '<br />' +

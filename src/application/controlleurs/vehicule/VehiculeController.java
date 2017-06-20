@@ -160,6 +160,13 @@ public class VehiculeController implements APIGoogleMap {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+
+    public void selectVehiculeByID(int id) {
+        for(Vehicule vehicule : vehiculeList)
+            if(vehicule.getId() == id)
+                tableView.getSelectionModel().select(vehicule);
+
+    }
 	
 	public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();

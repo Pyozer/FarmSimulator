@@ -125,7 +125,7 @@ public class GlobalController implements APIGoogleMap {
     public void askToLoadData() {
         gMaps.removeAllChampsMarkers();
         for (Champ champ : ChampSQL.getChampsList())
-            gMaps.addChamp(champ.getId(), champ.getType_culture(), champ.getProprietaire(), champ.getAdresse(), champ.getSurface(), champ.getCoordChamp(), champ.getProprietaire().getCouleur());
+            gMaps.addChamp(champ);
 
         for(Vehicule vehicule : VehiculeSQL.getVehiculeList())
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
