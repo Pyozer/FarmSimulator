@@ -2,7 +2,10 @@ package application.controlleurs.client;
 
 import application.Constant;
 import application.classes.*;
-import application.modeles.*;
+import application.modeles.Agriculteur;
+import application.modeles.Champ;
+import application.modeles.ClientSQL;
+import application.modeles.EtaSettings;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

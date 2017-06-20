@@ -1,12 +1,9 @@
 package application.classes;
 
 import application.Constant;
-import application.modeles.Agriculteur;
 import application.modeles.Champ;
-import application.modeles.Culture;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSException;
