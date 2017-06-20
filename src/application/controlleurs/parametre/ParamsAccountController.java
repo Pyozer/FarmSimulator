@@ -15,10 +15,12 @@ import javafx.scene.layout.BorderPane;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
+import static application.Constant.PROP_ALREADY_RUN;
+
 /**
  * Controlleur de la vue de création d'un compte admin
  */
-public class ParamsAccountController implements Constant {
+public class ParamsAccountController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;

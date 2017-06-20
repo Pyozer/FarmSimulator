@@ -1,17 +1,18 @@
 package application.properties;
 
-import application.Constant;
-
 import java.io.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.Constant.PROP_ALREADY_RUN;
+import static application.Constant.PROP_ALREADY_RUN_DEF;
+
 /**
  * Classe pour la gestion des paramètres du logiciel
  * Utilisation d'un fichier "settings.properties".
  */
-public class SettingsProperties implements Constant {
+public class SettingsProperties {
 
     private final static String FILE_CONFIG = "settings.properties";
 

@@ -12,10 +12,12 @@ import javafx.scene.layout.StackPane;
 
 import java.util.Properties;
 
+import static application.Constant.PROP_ALREADY_RUN;
+
 /**
  * Controlleur de la vue de paramétrage des infos de l'Eta
  */
-public class ParamsInfosController implements APIGoogleMap, Constant {
+public class ParamsInfosController implements APIGoogleMap {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;

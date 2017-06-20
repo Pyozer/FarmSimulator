@@ -1,6 +1,10 @@
 package application.classes;
 
 import application.Constant;
+import application.controlleurs.champ.ChampController;
+import application.controlleurs.client.ClientController;
+import application.controlleurs.commande.CommandeController;
+import application.controlleurs.vehicule.VehiculeController;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -58,9 +62,8 @@ public class MenuApp {
             SwitchView switchView = new SwitchView("client/client_app", Constant.CLIENT_APP_TITLE, parent);
             switchView.showScene();
 
-            SwitchView switchViewAdd = new SwitchView("client/edit_client_app", Constant.ADD_CLIENT_APP_TITLE);
-            switchViewAdd.setPopUp();
-            switchViewAdd.showScene();
+            ClientController clientController = switchView.getFxmlLoader().getController();
+            clientController.addClient();
         });
         vehicules_item.setOnAction(event -> {
             SwitchView switchView = new SwitchView("vehicule/vehicule_app", Constant.VEHICULE_APP_TITLE, parent);
@@ -70,9 +73,8 @@ public class MenuApp {
             SwitchView switchView = new SwitchView("vehicule/vehicule_app", Constant.VEHICULE_APP_TITLE, parent);
             switchView.showScene();
 
-            SwitchView switchViewAdd = new SwitchView("vehicule/choix_vehicule_app", Constant.ADD_VEHICULE_APP_TITLE);
-            switchViewAdd.setPopUp();
-            switchViewAdd.showScene();
+            VehiculeController vehiculeController = switchView.getFxmlLoader().getController();
+            vehiculeController.addVehicule();
         });
         champs_item.setOnAction(event -> {
             SwitchView switchView = new SwitchView("champ/champ_app", Constant.CHAMP_APP_TITLE, parent);
@@ -82,11 +84,8 @@ public class MenuApp {
             SwitchView switchView = new SwitchView("champ/champ_app", Constant.CHAMP_APP_TITLE, parent);
             switchView.showScene();
 
-            SwitchView switchViewAdd = new SwitchView("champ/edit_champ_app", Constant.ADD_CHAMP_APP_TITLE);
-            switchViewAdd.setPopUp();
-            switchViewAdd.showScene();
-
-            closeStage(parent);
+            ChampController champController = switchView.getFxmlLoader().getController();
+            champController.addChamp();
         });
         global_item.setOnAction(event -> {
             SwitchView switchView = new SwitchView("global/global_app", Constant.GLOBAL_APP_TITLE, parent);
@@ -97,12 +96,12 @@ public class MenuApp {
             switchViewCom.showScene();
         });
         add_commande_item.setOnAction(event -> {
-            SwitchView switchViewCom = new SwitchView("commande/commande_app", Constant.GLOBAL_APP_TITLE, parent);
-            switchViewCom.showScene();
+            SwitchView switchView = new SwitchView("commande/commande_app", Constant.GLOBAL_APP_TITLE, parent);
+            switchView.showScene();
 
-            SwitchView switchViewAddCom = new SwitchView("commande/edit_commande_app", Constant.ADD_COMMANDE_APP_TITLE);
-            switchViewAddCom.setPopUp();
-            switchViewAddCom.showScene();
+            CommandeController commandeController = switchView.getFxmlLoader().getController();
+            commandeController.addCommande();
+
         });
         parametres.setOnAction(event -> {
             SwitchView switchView = new SwitchView("parametre/params_app", Constant.PARAMS_APP_TITLE, parent);

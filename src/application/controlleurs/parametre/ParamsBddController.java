@@ -1,6 +1,5 @@
 package application.controlleurs.parametre;
 
-import application.Constant;
 import application.classes.AlertDialog;
 import application.database.DBConnection;
 import application.properties.DBProperties;
@@ -13,10 +12,12 @@ import javafx.stage.Stage;
 
 import java.util.Properties;
 
+import static application.Constant.*;
+
 /**
  * Controlleur de la vue de paramétrage de la BDD
  */
-public class ParamsBddController implements Constant {
+public class ParamsBddController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;

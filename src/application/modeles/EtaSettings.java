@@ -1,16 +1,17 @@
 package application.modeles;
 
-import application.Constant;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.properties.SettingsProperties;
 
 import java.util.Properties;
 
+import static application.Constant.*;
+
 /**
  * Classe pour la gestion des Eta
  */
-public class EtaSettings implements Constant {
+public class EtaSettings {
 
     public static void addEta(String nom, String adresse, Point position) {
 

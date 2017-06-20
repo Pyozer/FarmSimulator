@@ -1,6 +1,5 @@
 package application.controlleurs.vehicule;
 
-import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Botteleuse;
 import application.modeles.VehiculeSQL;
@@ -12,10 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import static application.Constant.TYPE_BOTT_CARRE;
+import static application.Constant.TYPE_BOTT_ROND;
+
 /**
  * Controlleur pour gestion (Ajout/Modification) d'une botteleuse
  */
-public class EditBotteleuseController implements Constant{
+public class EditBotteleuseController {
 
     /** Layout **/
     @FXML private BorderPane bpane;

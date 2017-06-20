@@ -1,13 +1,15 @@
 package application.modeles;
 
-import application.Constant;
 import application.classes.ElementPair;
 import application.classes.Point;
+
+import static application.Constant.TYPE_BOTT_CARRE;
+import static application.Constant.TYPE_BOTT_ROND;
 
 /**
  * Classe pour les Botteleuse
  */
-public class Botteleuse extends Vehicule implements Constant {
+public class Botteleuse extends Vehicule {
 
     private boolean botte_ronde; // Si bottellage rond ou carré
 

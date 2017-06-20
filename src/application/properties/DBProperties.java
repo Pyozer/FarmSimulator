@@ -1,17 +1,17 @@
 package application.properties;
 
-import application.Constant;
-
 import java.io.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.Constant.*;
+
 /**
  * Classe pour la gestion des paramètres de connexion à la base de données.
  * Utilisation d'un fichier "database.properties".
  */
-public class DBProperties implements Constant {
+public class DBProperties {
 
     private Properties properties = new Properties();
     private final static String FILE_CONFIG = "database.properties";

@@ -5,14 +5,15 @@ import application.classes.MenuApp;
 import application.classes.SwitchView;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import static application.Constant.DATE_TIME_FORMAT;
 
 /**
  * Controlleur de la vue de la gestion des affectations de l'Eta
@@ -28,10 +29,10 @@ public class AffectationController {
     @FXML private TableColumn<Vehicule, String> column_vehicule;
 
     @FXML private TableView<Moisson> tableView_rapport;
-    @FXML private TableColumn<Moisson, LocalDate> column_date;
-    @FXML private TableColumn<Moisson, Double> column_duree;
-    @FXML private TableColumn<Moisson, Float> column_poids;
-    @FXML private TableColumn<Moisson, Float> column_nb_km;
+    @FXML private TableColumn<Moisson, String> column_date;
+    @FXML private TableColumn<Moisson, String> column_duree;
+    @FXML private TableColumn<Moisson, String> column_poids;
+    @FXML private TableColumn<Moisson, String> column_nb_km;
 
 	@FXML private JFXButton delete_btn;
 	@FXML private JFXButton add_rapport_btn;
@@ -58,14 +59,19 @@ public class AffectationController {
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> vehiculeSelected(newvalue));
 
-        column_date.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDatetimeDebut().toLocalDate()));
-        column_duree.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDuree()));
-        column_poids.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNbTonne()));
-        column_nb_km.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNbKm()));
+        column_date.setCellValueFactory(cellData -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+            return new SimpleStringProperty(cellData.getValue().getDatetimeDebut().format(formatter));
+        });
+        column_duree.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDuree() + " heure(s)"));
+        column_poids.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNbTonne() + " tonne(s)"));
+        column_nb_km.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNbKm() + " km(s)"));
 
-        tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
-        column_vehicule.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        tableView_rapport.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
+        column_date.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 50% width
+        column_duree.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 50% width
+        column_poids.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 50% width
+        column_nb_km.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 50% width
 
         bpane.setOnMouseClicked(event -> clearAllSelection());
 
@@ -79,6 +85,8 @@ public class AffectationController {
 
             defineStateElements(true);
             defineStateDeleteRapport(MoissonSQL.isRapportExist(selectedCommande, selectedVehicule));
+
+            fillTableViewRapport();
 		}
     }
 
@@ -147,11 +155,36 @@ public class AffectationController {
         titleCommandeSelected.setText(selectedCommande.toString());
         tableView.getItems().setAll(AffectationSQL.getVehiculeAffect(selectedCommande));
     }
+
+    public void defineVehiculeSelected(Vehicule vehicule) {
+        selectedVehicule = vehicule;
+        tableView.getSelectionModel().select(vehicule);
+        fillTableViewRapport();
+    }
 	
 	private void clearAllSelection() {
         defineStateElements(false);
         defineStateDeleteRapport(false);
         tableView.getSelectionModel().clearSelection();
+        hideMoissonTable();
+    }
+
+    private void fillTableViewRapport() {
+        Moisson moisson = MoissonSQL.getMoissonSelected(selectedCommande, selectedVehicule);
+        if(moisson != null) {
+            tableView_rapport.setManaged(true);
+            tableView_rapport.setVisible(true);
+            tableView_rapport.getItems().setAll(MoissonSQL.getMoissonSelected(selectedCommande, selectedVehicule));
+        } else {
+            hideMoissonTable();
+        }
+    }
+
+    private void hideMoissonTable() {
+        tableView_rapport.getSelectionModel().clearSelection();
+        tableView_rapport.getItems().clear();
+        tableView_rapport.setVisible(false);
+        tableView_rapport.setManaged(false);
     }
 
     private void defineStateElements(boolean state) {
@@ -161,9 +194,9 @@ public class AffectationController {
         add_rapport_btn.setManaged(state);
     }
 
-    private void defineStateDeleteRapport(boolean b) {
-        delete_rapport_btn.setVisible(b);
-        delete_rapport_btn.setManaged(b);
+    private void defineStateDeleteRapport(boolean state) {
+        delete_rapport_btn.setVisible(state);
+        delete_rapport_btn.setManaged(state);
     }
 
 

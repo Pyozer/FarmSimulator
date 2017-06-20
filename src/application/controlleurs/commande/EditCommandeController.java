@@ -1,6 +1,5 @@
 package application.controlleurs.commande;
 
-import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Champ;
 import application.modeles.ChampSQL;
@@ -18,10 +17,13 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.List;
 
+import static application.Constant.TYPE_BOTT_CARRE;
+import static application.Constant.TYPE_BOTT_ROND;
+
 /**
  * Controlleur pour la gestion d'une commande (Ajout/Modification) d'une commande
  */
-public class EditCommandeController implements Constant {
+public class EditCommandeController {
 
     /** Layout **/
     @FXML private BorderPane bpane;

@@ -24,20 +24,15 @@ public class Polygon {
 	}
 
 	public Point getCenter() {
-		double x = 0.;
-		double y = 0.;
+		double centroidX = 0, centroidY = 0;
 
-		int pointCount = points.length;
-		for (int i = 0;i < pointCount - 1;i++){
-			final Point point = points[i];
-			x += point.getX();
-			y += point.getY();
+		for(Point point : getPoints()) {
+			System.out.println("ok");
+			centroidX += point.getX();
+			centroidY += point.getY();
 		}
-
-		x = x/pointCount;
-		y = y/pointCount;
-
-		return new Point(x, y);
+		System.out.println("ok");
+		return new Point(centroidX / getPoints().length, centroidY / getPoints().length);
 	}
 	
 	/**

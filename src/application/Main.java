@@ -11,7 +11,10 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Main extends Application implements Constant {
+import static application.Constant.FIRST_PARAMS_HOME_TITLE;
+import static application.Constant.PROP_ALREADY_RUN;
+
+public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -30,7 +33,7 @@ public class Main extends Application implements Constant {
             e.printStackTrace();
         }
 
-        SwitchView switchView = new SwitchView("parametre/params_home", Constant.FIRST_PARAMS_HOME_TITLE);
+        SwitchView switchView = new SwitchView("parametre/params_home", FIRST_PARAMS_HOME_TITLE);
 
         Properties properties = SettingsProperties.loadSettingsPropertiesFile();
         if(properties != null && properties.getProperty(PROP_ALREADY_RUN).equals("true") && UserSQL.getNbAccount() > 0 && EtaSettings.isAlreadyETA())

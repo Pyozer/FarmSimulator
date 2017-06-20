@@ -1,6 +1,5 @@
 package application.modeles;
 
-import application.Constant;
 import application.classes.Sha1;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 /**
  * Classe pour la gestion des comptes utilisateurs
  */
-public class UserSQL implements Constant {
+public class UserSQL {
 
     public static boolean checkIdentifiants(String email, String password) throws NoSuchAlgorithmException {
         boolean login_ok = false;

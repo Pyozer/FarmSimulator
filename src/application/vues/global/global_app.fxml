@@ -12,7 +12,7 @@
                 <Label styleClass="pane_title" text="GLOBAL" textFill="white" />
             </StackPane>
             <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES">
-                <VBox fx:id="infoContent" maxWidth="525" minWidth="525" spacing="25">
+                <VBox fx:id="infoContent" minWidth="700" maxWidth="700" spacing="25">
                     <padding><Insets bottom="15" left="20" right="20" top="15" /></padding>
                     <VBox spacing="18">
                         <Label text="Calculer un itinéraire">
@@ -36,7 +36,7 @@
                             <font><Font name="Roboto Medium" size="30.0" /></font>
                         </Label>
 
-                        <TableView fx:id="tableView" maxHeight="200.0" minHeight="200.0">
+                        <TableView fx:id="tableView" maxHeight="200.0" minHeight="200.0" minWidth="500">
                             <columns>
                                 <TableColumn fx:id="column_date" text="Date" />
                                 <TableColumn fx:id="column_adresse" text="Adresse" />

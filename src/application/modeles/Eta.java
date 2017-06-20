@@ -1,12 +1,14 @@
 package application.modeles;
 
-import application.Constant;
 import application.classes.Point;
+
+import static application.Constant.DECALAGE_LAT;
+import static application.Constant.DECALAGE_LONG;
 
 /**
  * Classe pour l'Eta
  */
-public class Eta extends Element implements Constant {
+public class Eta extends Element {
 
     private String nom; // Nom de l'Eta
     private String adresse; // Adresse postal de l'Eta

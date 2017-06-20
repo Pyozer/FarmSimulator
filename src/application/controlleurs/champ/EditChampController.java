@@ -110,6 +110,7 @@ public class EditChampController implements APIGoogleMap {
                     selectedChamp.setProprietaire(inputProprio);
                     selectedChamp.setTypeCulture(inputCulture);
                     selectedChamp.setCoordChamp(champ);
+                    selectedChamp.setCoordCenter(champ.getCenter());
                     selectedChamp.setSurface(surface);
                     selectedChamp.setAdresse(inputAdresse);
 

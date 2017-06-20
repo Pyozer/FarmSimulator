@@ -11,10 +11,12 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.Constant.*;
+
 /**
  * Classe pour gérer la connexion à la base de donnée
  */
-public class DBConnection implements Constant {
+public class DBConnection {
 
     private static Connection con;
     private static String url;

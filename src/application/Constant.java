@@ -3,80 +3,76 @@ package application;
 /**
  * Toutes les constantes de l'application
  */
-public interface Constant {
+public final class Constant {
 
     // TITRE DE L'APPLICATION
-    String TITLE_APP = "Farm Simulator";
+    public final static String TITLE_APP = "Farm Simulator";
 
     // CHEMINS D'ACCES
-    String LAYOUT_PATH = "/application/vues/";
-    String STYLE_PATH = "/application/styles/";
-    String IMAGE_PATH = "/application/images/";
+    public final static String LAYOUT_PATH = "/application/vues/";
+    public final static String STYLE_PATH = "/application/styles/";
+    public final static String IMAGE_PATH = "/application/images/";
 
     // TITRE DES VUES
-    String HOME_LOGIN_TITLE = "Connexion au compte";
-    String PARAMS_ACCOUNT_TITLE = "Configuration du compte";
-    String FIRST_PARAMS_HOME_TITLE = "Configuration du logiciel";
-    String FIRST_PARAMS_INFOS_TITLE = "Configuration des informations";
-    String FIRST_PARAMS_BDD_TITLE = "Configuration de la base de données";
-    String PARAMS_APP_TITLE = "Paramètres du logiciel";
-    String ACCUEIL_APP_TITLE = "Accueil principale";
-    String CLIENT_APP_TITLE = "Gestion des clients";
-    String ADD_CLIENT_APP_TITLE = "Ajouter un client";
-    String EDIT_CLIENT_APP_TITLE = "Modificer un client";
-    String VEHICULE_APP_TITLE = "Gestions des véhicules";
-    String ADD_VEHICULE_APP_TITLE = "Ajouter un véhicule";
-    String ADD_BOTTELEUSE_APP_TITLE = "Ajouter une botteleuse";
-    String ADD_TRACTEUR_APP_TITLE = "Ajouter un tracteur";
-    String ADD_MOISSONNEUSE_APP_TITLE = "Ajouter une moissonneuse";
-    String EDIT_BOTTELEUSE_APP_TITLE = "Modifier une botteleuse";
-    String EDIT_TRACTEUR_APP_TITLE = "Modifier un tracteur";
-    String EDIT_MOISSONNEUSE_APP_TITLE = "Modifier une moissonneuse";
-    String CHAMP_APP_TITLE = "Gestion des champs";
-    String ADD_CHAMP_APP_TITLE = "Ajouter un champ";
-    String EDIT_CHAMP_APP_TITLE = "Modifier un champ";
-    String GLOBAL_APP_TITLE = "Vue globale";
-    String COMMANDE_APP_TITLE = "Gestion des commandes";
-    String ADD_COMMANDE_APP_TITLE = "Ajouter une commande";
-    String EDIT_COMMANDE_APP_TITLE = "Modifier une commande";
-    String AFFECTATION_APP_TITLE = "Affectations véhicules de la commande";
-    String ADD_AFFECTATION_APP_TITLE = "Affectation(s) commande";
-    String RAPPORT_MOISSON_APP_TITLE = "Rapport de moisson";
+    public final static String HOME_LOGIN_TITLE = "Connexion au compte";
+    public final static String PARAMS_ACCOUNT_TITLE = "Configuration du compte";
+    public final static String FIRST_PARAMS_HOME_TITLE = "Configuration du logiciel";
+    public final static String FIRST_PARAMS_INFOS_TITLE = "Configuration des informations";
+    public final static String FIRST_PARAMS_BDD_TITLE = "Configuration de la base de données";
+    public final static String PARAMS_APP_TITLE = "Paramètres du logiciel";
+    public final static String ACCUEIL_APP_TITLE = "Accueil principale";
+    public final static String CLIENT_APP_TITLE = "Gestion des clients";
+    public final static String ADD_CLIENT_APP_TITLE = "Ajouter un client";
+    public final static String EDIT_CLIENT_APP_TITLE = "Modificer un client";
+    public final static String VEHICULE_APP_TITLE = "Gestions des véhicules";
+    public final static String ADD_VEHICULE_APP_TITLE = "Ajouter un véhicule";
+    public final static String ADD_BOTTELEUSE_APP_TITLE = "Ajouter une botteleuse";
+    public final static String ADD_TRACTEUR_APP_TITLE = "Ajouter un tracteur";
+    public final static String ADD_MOISSONNEUSE_APP_TITLE = "Ajouter une moissonneuse";
+    public final static String EDIT_BOTTELEUSE_APP_TITLE = "Modifier une botteleuse";
+    public final static String EDIT_TRACTEUR_APP_TITLE = "Modifier un tracteur";
+    public final static String EDIT_MOISSONNEUSE_APP_TITLE = "Modifier une moissonneuse";
+    public final static String CHAMP_APP_TITLE = "Gestion des champs";
+    public final static String ADD_CHAMP_APP_TITLE = "Ajouter un champ";
+    public final static String EDIT_CHAMP_APP_TITLE = "Modifier un champ";
+    public final static String GLOBAL_APP_TITLE = "Vue globale";
+    public final static String COMMANDE_APP_TITLE = "Gestion des commandes";
+    public final static String ADD_COMMANDE_APP_TITLE = "Ajouter une commande";
+    public final static String EDIT_COMMANDE_APP_TITLE = "Modifier une commande";
+    public final static String AFFECTATION_APP_TITLE = "Affectations véhicules de la commande";
+    public final static String ADD_AFFECTATION_APP_TITLE = "Affectation(s) commande";
+    public final static String RAPPORT_MOISSON_APP_TITLE = "Rapport de moisson";
 
     // DIMENSIONS DE L'APPLICATION
-    int MIN_WIDTH = 1300;
-    int MIN_HEIGHT = 900;
-    int PREF_WIDTH = 1400;
-    int PREF_HEIGHT = 1000;
+    public final static int MIN_WIDTH = 1000;
+    public final static int MIN_HEIGHT = 900;
+    public final static int PREF_WIDTH = 1400;
+    public final static int PREF_HEIGHT = 1000;
 
-    double DECALAGE_LAT = 0.001;
-    double DECALAGE_LONG = 0.0002;
+    public final static double DECALAGE_LAT = 0.001;
+    public final static double DECALAGE_LONG = 0.0002;
 
     // VALEUR POUR LocalDate / LocalTime
-    Double HEURE_PAR_AN = 8765.82;
-    Double HEURE_PAR_MOIS = 730.5;
-    Double HEURE_PAR_JOUR = 24.00;
-    Double HEURE_PAR_MINUTE = 0.16666; // (1/60)
-    Double HEURE_PAR_SECONDE = 0.000278; // (1/3600)
+    public final static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    String TYPE_BOTT_ROND = "Ronde";
-    String TYPE_BOTT_CARRE = "Carré";
+    public final static String TYPE_BOTT_ROND = "Ronde";
+    public final static String TYPE_BOTT_CARRE = "Carré";
 
-    String PROP_HOST = "host";
-    String PROP_HOST_DEF = "localhost";
-    String PROP_PORT = "port";
-    String PROP_PORT_DEF = "3306";
-    String PROP_DB = "db";
-    String PROP_DB_DEF = "pts2";
-    String PROP_USER = "user";
-    String PROP_USER_DEF = "root";
-    String PROP_PASS = "password";
-    String PROP_PASS_DEF = "";
+    public final static String PROP_HOST = "host";
+    public final static String PROP_HOST_DEF = "localhost";
+    public final static String PROP_PORT = "port";
+    public final static String PROP_PORT_DEF = "3306";
+    public final static String PROP_DB = "db";
+    public final static String PROP_DB_DEF = "pts2";
+    public final static String PROP_USER = "user";
+    public final static String PROP_USER_DEF = "root";
+    public final static String PROP_PASS = "password";
+    public final static String PROP_PASS_DEF = "";
 
-    String PROP_ETA_NAME = "name_eta";
-    String PROP_ETA_ADRESSE = "adresse_eta";
-    String PROP_ETA_POSITION = "position_eta";
+    public final static String PROP_ETA_NAME = "name_eta";
+    public final static String PROP_ETA_ADRESSE = "adresse_eta";
+    public final static String PROP_ETA_POSITION = "position_eta";
 
-    String PROP_ALREADY_RUN = "already_run";
-    String PROP_ALREADY_RUN_DEF = "false";
+    public final static String PROP_ALREADY_RUN = "already_run";
+    public final static String PROP_ALREADY_RUN_DEF = "false";
 }

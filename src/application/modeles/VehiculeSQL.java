@@ -1,6 +1,5 @@
 package application.modeles;
 
-import application.Constant;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehiculeSQL implements Constant {
+public class VehiculeSQL {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
 
@@ -79,6 +78,7 @@ public class VehiculeSQL implements Constant {
                     "WHERE date_com=:date AND Vehicule.id_vehi=:idVehi";
 
             NamedParameterStatement getPositionVehi = new NamedParameterStatement(DBConnection.getConnection(), requestPosition);
+            System.out.println(LocalDate.now().toString());
             getPositionVehi.setString("date", LocalDate.now().toString());
             getPositionVehi.setInt("idVehi", id_vehi);
             // Execute select SQL statement
@@ -87,8 +87,10 @@ public class VehiculeSQL implements Constant {
             if (rs_position.next()) {
                 String position_vehi = rs_position.getString("coord_centre_champ");
 
-                if (!position_vehi.isEmpty())
+                if (!position_vehi.isEmpty()) {
                     position = JSONManager.readPoint(position_vehi);
+                    System.out.println(position);
+                }
             }
 
         } catch (SQLException e) {

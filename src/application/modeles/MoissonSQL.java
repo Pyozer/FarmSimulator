@@ -5,7 +5,6 @@ import application.database.NamedParameterStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -68,27 +67,32 @@ public class MoissonSQL {
     }
 
     public static Moisson getMoissonSelected(Commande selectedCommande, Vehicule selectedVehicule) {
-        String request = "SELECT id_ordre, heure_arrive_ordre, heure_fin_ordre, nb_km_ordre, tonnes_ordre FROM Ordre Where id_vehi=:id_vehi AND id_com=:id_com";
+        String request = "SELECT id_ordre, heure_arrive_ordre, heure_fin_ordre, nb_km_ordre, tonnes_ordre FROM Ordre Where id_vehi=:id_vehi AND id_com=:id_com AND heure_arrive_ordre IS NOT NULL";
+
+        Moisson moisson = null;
         try {
             NamedParameterStatement getMoissonSelected = new NamedParameterStatement(DBConnection.getConnection(), request);
             getMoissonSelected.setInt("id_vehi", selectedVehicule.getId());
             getMoissonSelected.setInt("id_com", selectedCommande.getId());
 
             ResultSet rs = getMoissonSelected.executeQuery();
-            rs.next();
+            if(rs.next()) {
 
-            LocalDate date_debut = LocalDate.parse(rs.getString("heure_arrive_ordre"));
-            LocalDate date_fin = LocalDate.parse(rs.getString("heure_fin_ordre"));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-            Moisson moisson = new Moisson(
-                    rs.getInt("id_ordre"),
-                    selectedCommande,
-                    selectedVehicule,
-                    date_debut,
-                    date_fin,
-                    rs.getFloat("nb_km_ordre"),
-                    rs.getFloat("tonnes_ordre")
-            );
+                LocalDateTime date_debut = LocalDateTime.parse(rs.getString("heure_arrive_ordre").substring(0, 19), formatter);
+                LocalDateTime date_fin = LocalDateTime.parse(rs.getString("heure_fin_ordre").substring(0, 19), formatter);
+
+                moisson = new Moisson(
+                        rs.getInt("id_ordre"),
+                        selectedCommande,
+                        selectedVehicule,
+                        date_debut,
+                        date_fin,
+                        rs.getFloat("nb_km_ordre"),
+                        rs.getFloat("tonnes_ordre")
+                );
+            }
 
             getMoissonSelected.close();
 

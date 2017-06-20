@@ -6,7 +6,7 @@ import application.classes.Point;
 /**
  * Classe pour les Tracteurs
  */
-public class Tracteur extends Vehicule{
+public class Tracteur extends Vehicule {
 
     private int capacite_remorque; // Capacité de la remorque en KG
 

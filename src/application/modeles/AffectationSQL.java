@@ -1,6 +1,5 @@
 package application.modeles;
 
-import application.Constant;
 import application.classes.Point;
 import application.database.DBConnection;
 import application.database.NamedParameterStatement;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 /**
  * Classe pour la gestion des affectations d'un véhicule à une commande.
  */
-public class AffectationSQL implements Constant {
+public class AffectationSQL {
 
     private static ObservableList<Vehicule> vehiculeList = FXCollections.observableArrayList();
 

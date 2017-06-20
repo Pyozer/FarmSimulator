@@ -1,6 +1,5 @@
 package application.controlleurs.commande;
 
-import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Commande;
 import application.modeles.Moisson;
@@ -17,10 +16,8 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
-public class EditMoissonController implements Constant {
+public class EditMoissonController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -69,13 +66,8 @@ public class EditMoissonController implements Constant {
             poid_recolte.setText(moissonToEdit.getNbTonne().toString());
             nb_Kilo.setText(moissonToEdit.getNbKm().toString());
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-            System.out.println(moissonToEdit.getDatetimeFin());
-
-            //TODO : Mettre dans la classe Moisson
-            LocalDateTime fin = LocalDateTime.parse(moissonToEdit.getDatetimeFin(), formatter);
-            LocalDateTime debut = LocalDateTime.parse(moissonToEdit.getDatetimeDebut(), formatter);
+            LocalDateTime fin = moissonToEdit.getDatetimeFin();
+            LocalDateTime debut = moissonToEdit.getDatetimeDebut();
 
             date_debut.setValue(debut.toLocalDate());
             time_debut.setValue(debut.toLocalTime());
@@ -115,7 +107,7 @@ public class EditMoissonController implements Constant {
                 AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la modification", "Le rapport de moisson à bien été modifié !");
                 alert.show();
 
-                affectationController.defineCommandeSelected(selectedCommande);
+                affectationController.defineVehiculeSelected(selectedVehicule);
 
                 Stage stage = (Stage) bpane.getScene().getWindow();
                 stage.close();
@@ -124,35 +116,6 @@ public class EditMoissonController implements Constant {
             AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
         }
-    }
-
-    private Float getDuree(LocalDate inputDateDebut, LocalTime inputTimeDebut, LocalDate inputDateFin, LocalTime inputTimeFin) {
-        LocalDateTime inputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
-
-        LocalDateTime inputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
-
-        LocalDateTime tempDateTime = LocalDateTime.from( inputDateTimeDebut );
-
-        long years = tempDateTime.until( inputDateTimeFin, ChronoUnit.YEARS);
-        tempDateTime = tempDateTime.plusYears( years );
-
-        long months = tempDateTime.until( inputDateTimeFin, ChronoUnit.MONTHS);
-        tempDateTime = tempDateTime.plusMonths( months );
-
-        long days = tempDateTime.until( inputDateTimeFin, ChronoUnit.DAYS);
-        tempDateTime = tempDateTime.plusDays( days );
-
-        long hours = tempDateTime.until( inputDateTimeFin, ChronoUnit.HOURS);
-        tempDateTime = tempDateTime.plusHours( hours );
-
-        long minutes = tempDateTime.until( inputDateTimeFin, ChronoUnit.MINUTES);
-        tempDateTime = tempDateTime.plusMinutes( minutes );
-
-        long seconds = tempDateTime.until( inputDateTimeFin, ChronoUnit.SECONDS);
-
-        Double inputDuree = (years*Constant.HEURE_PAR_AN + months*Constant.HEURE_PAR_MOIS + days*Constant.HEURE_PAR_JOUR + minutes*Constant.HEURE_PAR_MINUTE + seconds*Constant.HEURE_PAR_SECONDE);
-
-        return inputDuree.floatValue();
     }
 
     public void defineVariableMoisson(Commande commande, Vehicule vehicule) {
