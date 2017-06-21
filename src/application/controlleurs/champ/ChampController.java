@@ -153,7 +153,7 @@ public class ChampController implements APIGoogleMap {
 
     public void selectByChamp(int id) {
         for(Champ champ : listChamps) {
-            if(champ.getId() == id)
+            if(champ.getProprietaire().getId() == id)
                 tableView.getSelectionModel().select(champ);
         }
     }

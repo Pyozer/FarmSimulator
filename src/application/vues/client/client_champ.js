@@ -53,7 +53,7 @@ function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, co
       id: id,
       culture: culture,
       proprio: proprio,
-      id_proprio: id,
+      id_proprio: id_proprio,
       adresse: adresse,
       surface: surface,
       couleur: couleur

@@ -165,9 +165,13 @@ public class ClientController implements APIGoogleMap  {
     }
 
     public void selectByChamp(int id) {
-        for(Agriculteur agriculteur : listClient)
-            if(agriculteur.getId() == id)
+        for(Agriculteur agriculteur : listClient) {
+            if (agriculteur.getId() == id) {
                 tableView.getSelectionModel().select(agriculteur);
+                System.out.println("NIQUE TA MERE");
+            }
+            System.out.println(agriculteur.getId() + "   " + id);
+        }
     }
 
     private void defineStateElements(boolean state) {

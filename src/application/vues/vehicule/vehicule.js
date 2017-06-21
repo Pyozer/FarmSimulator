@@ -8,8 +8,7 @@ var oms;
 
 function initMap() {
 
-   // map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
-    map_center_pos = new google.maps.LatLng(47, 0.8); // Correspond au coordonnées de l'ETA
+   map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, // Zoom par défaut
