@@ -211,7 +211,7 @@ public class CommandeController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                commandeSelect.setEffectuer(true);
+                commandeSelect.setEffectuer(false);
                 CommandeSQL.editCommande(commandeSelect);
                 tableView_make.getItems().remove(commandeSelect);
                 tableView_todo.getItems().add(commandeSelect);
