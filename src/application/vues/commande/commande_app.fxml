@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.commande.CommandeController">
     <center>
         <VBox BorderPane.alignment="CENTER">
@@ -74,6 +75,11 @@
                         <TableColumn fx:id="column_cout_make" text="Coût final" />
                     </columns>
                 </TableView>
+                <JFXButton fx:id="undoCommandeDone" onAction="#undoCommandeDone" visible="false" managed="false" prefHeight="40" styleClass="btn, btn-primary" text="Annuler validation commande">
+                    <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="16.0" wrappingWidth="18" />
+                    </graphic>
+                </JFXButton>
             </VBox>
         </VBox>
     </center>

@@ -56,6 +56,7 @@ public class CommandeController {
     @FXML private JFXButton edit_btn;
     @FXML private JFXButton markToDone_btn;
     @FXML private JFXButton affect_btn;
+    @FXML private JFXButton undoCommandeDone;
 
     private Commande selectedCommande = null;
 
@@ -110,7 +111,8 @@ public class CommandeController {
 
         tableView_todo.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
 
-        tableView_make.setSelectionModel(null);
+        tableView_make.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButnUndoDone(newvalue));
+
         initData();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
@@ -122,6 +124,16 @@ public class CommandeController {
         if (commande != null) {
             selectedCommande = commande;
             defineStateElements(true);
+        }
+    }
+
+    private void showButnUndoDone(Commande commande) {
+        if(commande != null) {
+            undoCommandeDone.setManaged(true);
+            undoCommandeDone.setVisible(true);
+        } else {
+            undoCommandeDone.setVisible(false);
+            undoCommandeDone.setManaged(false);
         }
     }
 
@@ -189,6 +201,27 @@ public class CommandeController {
     }
 
     @FXML
+    public void undoCommandeDone() {
+        Commande commandeSelect = tableView_make.getSelectionModel().getSelectedItem();
+        if(commandeSelect != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validation commande");
+            alert.setHeaderText("Confirmation d'annulation de validation");
+            alert.setContentText("Voulez-vous vraiment marquer comme non effectué la commande\n" + commandeSelect + " ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                commandeSelect.setEffectuer(true);
+                CommandeSQL.editCommande(commandeSelect);
+                tableView_make.getItems().remove(commandeSelect);
+                tableView_todo.getItems().add(commandeSelect);
+            } else {
+                alert.close();
+            }
+        }
+    }
+
+    @FXML
     public void showAffects() {
         SwitchView switchViewData = new SwitchView("commande/affectations_app", Constant.ADD_AFFECTATION_APP_TITLE);
         switchViewData.setPopUp();
@@ -206,6 +239,7 @@ public class CommandeController {
         selectedCommande = null;
 
         tableView_todo.getSelectionModel().clearSelection();
+        tableView_make.getSelectionModel().clearSelection();
         defineStateElements(false);
     }
 
@@ -218,5 +252,7 @@ public class CommandeController {
         markToDone_btn.setManaged(state);
         affect_btn.setVisible(state);
         affect_btn.setManaged(state);
+        undoCommandeDone.setVisible(state);
+        undoCommandeDone.setManaged(state);
     }
 }
