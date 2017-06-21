@@ -5,12 +5,10 @@ import application.controlleurs.champ.ChampController;
 import application.controlleurs.client.ClientController;
 import application.controlleurs.commande.CommandeController;
 import application.controlleurs.vehicule.VehiculeController;
-import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 public class MenuApp {
 
@@ -109,14 +107,10 @@ public class MenuApp {
         });
 
         menuBar.getMenus().setAll(accueil, clients, vehicules, champs, global, parametres);
+
     }
 
     public MenuBar getMenuBar() {
         return menuBar;
-    }
-
-    private void closeStage(Parent parent) {
-        Stage stage = (Stage) parent.getScene().getWindow();
-        stage.close();
     }
 }
