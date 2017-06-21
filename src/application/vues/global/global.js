@@ -39,7 +39,6 @@ function initMap() {
         map: map,
         suppressMarkers: true,
         polylineOptions: { strokeColor: "#1897cd", strokeOpacity: 0.6, strokeWeight: 5 }
-
     });
     directionsDisplay.setPanel(document.getElementById('road'));
 
@@ -54,7 +53,6 @@ function initMap() {
             keepSpiderfied: true
         });
 
-    // Rayon de 20km autour du point de départ
     createCircle(map, map_center_pos);
 
     map.addListener("click", function() {
@@ -104,7 +102,7 @@ function addMarker(id, latitude, longitude, title, type, etat) {
 
     marker.addListener('click', function(event) {
         var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
-        'Type: ' + marker.type + '<br />' +
+        marker.title + '<br />' +
         'Etat: ' + marker.etat + '<br />';
 
         infowindow.setContent(contentString);
@@ -248,7 +246,6 @@ function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, co
     });
 
     champs.push(polygon);
-
 }
 
 function checkIfItinerary() {

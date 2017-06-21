@@ -31,8 +31,6 @@ function initMap() {
         polygon = e.overlay;
         polygon.type = e.type;
 
-        console.log(polygon);
-
         google.maps.event.addListener(polygon, 'rightclick', deleteNode);
         jsInterface.setPolygonEdited(toJavaArray(polygon));
     });

@@ -26,7 +26,6 @@ function initMap() {
 
     jsInterface.askToLoadChamps(); // On demande à Java de setup les champs
 
-    // Rayon de 20km autour du point de départ
     createCircle(map, map_center_pos);
 
     map.addListener("click", function(){
