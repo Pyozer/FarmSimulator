@@ -84,6 +84,8 @@ function initMap() {
     });
 
     jsInterface.askToLoadData(); // On demande à Java de setup les champs et véhicules
+
+    byFlight = jsInterface.isToggleButtonSelected();
 }
 
 /** Ajouter un marker à la Map **/

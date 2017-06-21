@@ -4,11 +4,13 @@ import application.Constant;
 import application.classes.*;
 import application.controlleurs.commande.AffectationController;
 import application.modeles.*;
+import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -19,6 +21,10 @@ import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Properties;
+
+import static application.Constant.PROP_FIGHT_MODE_STATE;
+import static application.Constant.PROP_FIGHT_MODE_STATE_DEF;
 
 /**
  * Controlleur de la vue Global
@@ -46,6 +52,8 @@ public class GlobalController implements APIGoogleMap {
 
     private Commande commandeSelected;
 
+    private Properties prop;
+
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
@@ -69,40 +77,37 @@ public class GlobalController implements APIGoogleMap {
             public void updateItem(Commande item, boolean empty){
                 super.updateItem(item, empty);
 
-                if (item != null && !empty) {
-                    // Si la date de la commande est passé
-                    if (item.getDate().isBefore(LocalDate.now())) {
-                        //We apply now the changes in all the cells of the row
-                        for(Node child : getChildren()) {
-                            ((Labeled) child).setTextFill(Color.RED);
+                if (item != null && !empty)
+                    if (item.getDate().isBefore(LocalDate.now()))
+                        for(Node child : getChildren())
                             child.setStyle("-fx-font-weight: bold;-fx-text-fill: RED;");
-                        }
-                    } else {
-                        for(Node child : getChildren()) {
-                            ((Labeled) child).setTextFill(Color.BLACK);
+                    else
+                        for(Node child : getChildren())
                             child.setStyle("-fx-font-weight: normal;-fx-text-fill: BLACK;");
-                        }
-                    }
-                }
             }
         });
 
         tableView.getItems().setAll(CommandeSQL.getCommandeMakedList(false));
 
-        tableView.refresh();
-
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showButtons(newvalue));
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
 
-        toggleButton.setSelected(true);
+        prop = SettingsProperties.loadSettingsPropertiesFile();
 
-        toggleButton.selectedProperty().addListener(((observable, oldValue, newValue) -> {
-            if(newValue)
-                gMaps.enableFlightItinerary();
-            else
-                gMaps.disableFlightItinerary();
-        }));
+        toggleButton.selectedProperty().addListener((observable, oldValue, newValue) -> defineFlightStateOnMap(newValue));
+        toggleButton.setSelected(Boolean.parseBoolean(prop.getProperty(PROP_FIGHT_MODE_STATE, PROP_FIGHT_MODE_STATE_DEF)));
+    }
+
+    private void defineFlightStateOnMap(boolean value) {
+        if(value) {
+            gMaps.enableFlightItinerary();
+            prop.setProperty(PROP_FIGHT_MODE_STATE, "true");
+        } else {
+            gMaps.disableFlightItinerary();
+            prop.setProperty(PROP_FIGHT_MODE_STATE, "false");
+        }
+        SettingsProperties.makeSettingsProperties(prop);
     }
 
     public void setFirstChamp(String firstChamp) {
@@ -129,6 +134,7 @@ public class GlobalController implements APIGoogleMap {
 
         for(Vehicule vehicule : VehiculeSQL.getVehiculeList())
             gMaps.addMarker(vehicule.getId(), vehicule.getPosition(), vehicule.toString(), vehicule.getType(), vehicule.getEtat());
+
     }
 
     public double getPosEtaX() {
@@ -136,6 +142,10 @@ public class GlobalController implements APIGoogleMap {
     }
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
+    }
+
+    public boolean isToggleButtonSelected() {
+        return toggleButton.isSelected();
     }
 
     @FXML

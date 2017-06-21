@@ -75,4 +75,7 @@ public final class Constant {
 
     public final static String PROP_ALREADY_RUN = "already_run";
     public final static String PROP_ALREADY_RUN_DEF = "false";
+
+    public final static String PROP_FIGHT_MODE_STATE = "flightModeState";
+    public final static String PROP_FIGHT_MODE_STATE_DEF = "true";
 }
