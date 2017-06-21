@@ -61,7 +61,7 @@ function addMarker(id, latitude, longitude, title, type, etat) {
     });
 
     var contentString = '<span class="label"><strong>INFORMATIONS</strong></span><br /><br />' +
-            'Type: ' + marker.type + '<br />' +
+            marker.title + '<br />' +
             'Etat: ' + marker.etat;
 
     marker.addListener('spider_click', function(event) {
