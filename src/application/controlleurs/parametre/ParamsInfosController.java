@@ -2,6 +2,7 @@ package application.controlleurs.parametre;
 
 import application.Constant;
 import application.classes.*;
+import application.modeles.Eta;
 import application.modeles.EtaSettings;
 import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXTextField;
@@ -28,6 +29,7 @@ public class ParamsInfosController implements APIGoogleMap {
     @FXML private StackPane googleMaps;
 
     private Point position_eta = null;
+    private GoogleMaps gMaps;
 
     /**
      * Initializes the controller class.
@@ -35,8 +37,15 @@ public class ParamsInfosController implements APIGoogleMap {
 	public void initialize() {
 		bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
-        GoogleMaps gMaps = new GoogleMaps("parametre/maps_eta_position", this);
+        gMaps = new GoogleMaps("parametre/maps_eta_position", this);
         gMaps.setParent(googleMaps);
+
+        Eta eta = EtaSettings.getInfosEta();
+        if(eta != null) {
+            name_eta.setText(eta.getNom());
+            adr_eta.setText(eta.getAdresse());
+            position_eta = eta.getPosition();
+        }
 	}
 
 	@FXML
@@ -45,7 +54,7 @@ public class ParamsInfosController implements APIGoogleMap {
 	    String adresseInput = adr_eta.getText().trim();
 
 		if (!nomInput.isEmpty() && !adresseInput.isEmpty() && position_eta != null) {
-		    if(!EtaSettings.checkIfExists(nomInput, adresseInput)) {
+		    /*if(!EtaSettings.checkIfExists(nomInput, adresseInput)) {*/
                 EtaSettings.addEta(nomInput, adresseInput, position_eta);
 
                 Properties prop = SettingsProperties.loadSettingsPropertiesFile();
@@ -56,10 +65,10 @@ public class ParamsInfosController implements APIGoogleMap {
                 SettingsProperties.makeSettingsProperties(prop);
 
                 loadLogin();
-            } else {
+            /*} else {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Un Eta possède déjà le même nom ou la même adresse !", Alert.AlertType.ERROR);
                 alert.show();
-            }
+            }*/
 		} else {
 			AlertDialog alert = new AlertDialog("Erreur", null, "Veuillez saisir tous les champs de texte !", Alert.AlertType.ERROR);
 			alert.show();
@@ -84,6 +93,11 @@ public class ParamsInfosController implements APIGoogleMap {
         } else {
             position_eta = JSONManager.readPoint(marker_pos);
         }
+    }
+
+    public void askToLoadData() {
+	    if(position_eta != null)
+            gMaps.addMarker(1, position_eta, null, null, null);
     }
 
     public void log(String msg) {
