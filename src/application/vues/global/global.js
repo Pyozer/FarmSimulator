@@ -18,8 +18,7 @@ var byFlight = true;
 
 function initMap() {
 
-    //map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
-    map_center_pos = new google.maps.LatLng(47.96959919884257,-1.4487806226730346); // Correspond au coordonnées de l'ETA
+    map_center_pos = new google.maps.LatLng(jsInterface.getPosEtaX(), jsInterface.getPosEtaY()); // Correspond au coordonnées de l'ETA
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, // Zoom par défaut
@@ -249,7 +248,6 @@ function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, co
 }
 
 function checkIfItinerary() {
-    hideFlightPath();
     if (originSelect && destSelect) { // Si origin et dest sélectionnés
         if(byFlight)
             calcFlightPath(flightPlanCoordinates);

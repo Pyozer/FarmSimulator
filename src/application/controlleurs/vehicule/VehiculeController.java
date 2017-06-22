@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Optional;
+
+import static application.Constant.searchValueInList;
 
 /**
  * Controlleur de la vue de la gestion des véhicules de l'Eta
@@ -33,6 +36,8 @@ public class VehiculeController implements APIGoogleMap {
 	
 	@FXML private JFXButton edit_btn;
 	@FXML private JFXButton delete_btn;
+
+	@FXML private JFXTextField search_field;
 
     @FXML private ListView<ElementPair> listInfos;
     private ObservableList<Vehicule> vehiculeList;
@@ -58,12 +63,16 @@ public class VehiculeController implements APIGoogleMap {
         column_etat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEtat()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
-        column_marque.setMaxWidth( 1f * Integer.MAX_VALUE * 35 ); // 35% width
-        column_modele.setMaxWidth( 1f * Integer.MAX_VALUE * 35 ); // 35% width
-        column_etat.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 15% width
+        column_marque.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 35% width
+        column_modele.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 35% width
+        column_etat.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 15% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
+
+        search_field.textProperty().addListener((observable, oldValue, newValue) ->
+                tableView.getItems().setAll(searchValueInList(vehiculeList, search_field.getText()))
+        );
 
         resetListInfo();
         initData();
@@ -159,6 +168,9 @@ public class VehiculeController implements APIGoogleMap {
     }
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
+    }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
     }
 
     public void selectVehiculeByID(int id) {

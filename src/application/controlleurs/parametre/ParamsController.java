@@ -14,10 +14,19 @@ import java.io.IOException;
  */
 public class ParamsController {
 
-    /** Layout **/
-    @FXML private BorderPane bpane;
-    @FXML private Tab bdd_tab;
-    @FXML private Tab info_tab;
+    /**
+     * Layout
+     **/
+    @FXML
+    private BorderPane bpane;
+    @FXML
+    private Tab bdd_tab;
+    @FXML
+    private Tab info_tab;
+    @FXML
+    private Tab account_tab;
+
+    private FXMLLoader fxmlLoader;
 
     /**
      * Initializes the controller class.
@@ -28,11 +37,32 @@ public class ParamsController {
         MenuApp menuApp = new MenuApp(bpane);
         bpane.setTop(menuApp.getMenuBar());
 
+        fxmlLoader = loadFXML("parametre/params_bdd.fxml");
+        ParamsBddController bddParam = fxmlLoader.getController();
+        bddParam.setToEditionMode();
+        bdd_tab.setContent(fxmlLoader.getRoot());
+
+        fxmlLoader = loadFXML("parametre/params_infos.fxml");
+        ParamsInfosController infoParam = fxmlLoader.getController();
+        infoParam.setToEditionMode();
+        info_tab.setContent(fxmlLoader.getRoot());
+
+        fxmlLoader = loadFXML("parametre/params_account.fxml");
+        ParamsAccountController accountParam = fxmlLoader.getController();
+        accountParam.setToEditionMode();
+        account_tab.setContent(fxmlLoader.getRoot());
+
+    }
+
+    public FXMLLoader loadFXML(String fxmlFile) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource(Constant.LAYOUT_PATH + fxmlFile));
         try {
-            bdd_tab.setContent(FXMLLoader.load(getClass().getResource(Constant.LAYOUT_PATH  + "parametre/params_bdd.fxml")));
-            info_tab.setContent(FXMLLoader.load(getClass().getResource(Constant.LAYOUT_PATH  + "parametre/params_infos.fxml")));
-         } catch (IOException e) {
+            fxmlLoader.load();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return fxmlLoader;
     }
 }

@@ -9,6 +9,7 @@
       <JFXTabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
           <Tab fx:id="bdd_tab" text="Base de données"/>
           <Tab fx:id="info_tab" text="ETA" />
+          <Tab fx:id="account_tab" text="Compte utilisateur" />
       </JFXTabPane>
    </center>
 </BorderPane>

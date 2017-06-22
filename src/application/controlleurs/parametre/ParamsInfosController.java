@@ -31,6 +31,8 @@ public class ParamsInfosController implements APIGoogleMap {
     private Point position_eta = null;
     private GoogleMaps gMaps;
 
+    private boolean isEdition = false;
+
     /**
      * Initializes the controller class.
      */
@@ -64,7 +66,11 @@ public class ParamsInfosController implements APIGoogleMap {
 
                 SettingsProperties.makeSettingsProperties(prop);
 
-                loadLogin();
+                AlertDialog alert = new AlertDialog("Succès", null, "Les informations de l'ETA ont bien été enregistrés.", Alert.AlertType.INFORMATION);
+                alert.show();
+
+                if(!isEdition)
+                    loadLogin();
             /*} else {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Un Eta possède déjà le même nom ou la même adresse !", Alert.AlertType.ERROR);
                 alert.show();
@@ -86,6 +92,9 @@ public class ParamsInfosController implements APIGoogleMap {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+    public String getEtaNom() {
+        return name_eta.getText().trim();
+    }
 
 	public void setMarkerEdited(String marker_pos) {
         if(marker_pos.isEmpty()) {
@@ -98,6 +107,10 @@ public class ParamsInfosController implements APIGoogleMap {
     public void askToLoadData() {
 	    if(position_eta != null)
             gMaps.addMarker(1, position_eta, null, null, null);
+    }
+
+    public void setToEditionMode() {
+        isEdition = true;
     }
 
     public void log(String msg) {

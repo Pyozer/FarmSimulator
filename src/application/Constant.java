@@ -1,5 +1,10 @@
 package application;
 
+import application.modeles.Agriculteur;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Toutes les constantes de l'application
  */
@@ -78,4 +83,16 @@ public final class Constant {
 
     public final static String PROP_FIGHT_MODE_STATE = "flightModeState";
     public final static String PROP_FIGHT_MODE_STATE_DEF = "true";
+
+    public static <T> List<T> searchValueInList(List<T> data, String search) {
+        List<T> listObject = new ArrayList<>();
+        listObject.addAll(data);
+        for(T object : data) {
+            String value = search.trim().toLowerCase();
+            String lineValue = object.toString().toLowerCase();
+            if(!lineValue.matches(".*" + value + ".*"))
+                listObject.remove(object);
+        }
+        return listObject;
+    }
 }

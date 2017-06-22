@@ -19,9 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import static application.Constant.searchValueInList;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'Eta
@@ -76,16 +75,9 @@ public class ClientController implements APIGoogleMap  {
 
         listInfos.getStyleClass().add("custom-list-view");
 
-        search_field.textProperty().addListener((observable, oldValue, newValue) -> {
-            List<Agriculteur> listAgri = listClient;
-            for(Agriculteur agri : listAgri) {
-                if(!agri.getNom().matches("(" + search_field.getText() + ")?") && !agri.getPrenom().matches("(" + search_field.getText() + ")?") ) {
-                //if(!agri.getNom().matches(".*ital.*") && !agri.getPrenom().matches("(" + search_field.getText() + ")?") ) {
-                    listAgri.remove(agri);
-                }
-            }
-            tableView.getItems().setAll(listAgri);
-        });
+        search_field.textProperty().addListener((observable, oldValue, newValue) ->
+            tableView.getItems().setAll(searchValueInList(listClient, search_field.getText()))
+        );
 
         resetListInfo();
         initData();
@@ -161,6 +153,9 @@ public class ClientController implements APIGoogleMap  {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
+    }
 
     public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
@@ -178,9 +173,9 @@ public class ClientController implements APIGoogleMap  {
         tableView.getItems().setAll(listClient);
     }
 
-    public void selectByChamp(int id) {
+    public void selectByChamp(int id_champ, int id_proprio) {
         for(Agriculteur agriculteur : listClient) {
-            if (agriculteur.getId() == id) {
+            if (agriculteur.getId() == id_proprio) {
                 tableView.getSelectionModel().select(agriculteur);
                 tableView.scrollTo(agriculteur);
             }

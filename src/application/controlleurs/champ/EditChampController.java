@@ -88,6 +88,9 @@ public class EditChampController implements APIGoogleMap {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
+    }
 
     public void onSubmit() {
         Agriculteur inputProprio = liste_proprio.getValue();

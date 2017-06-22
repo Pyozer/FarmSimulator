@@ -89,7 +89,7 @@ function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, co
         champsSelected = polygon.id;
         polygon.setOptions(selectedStyle);
 
-        jsInterface.selectByChamp(polygon.id_proprio);
+        jsInterface.selectByChamp(polygon.id, polygon.id_proprio);
 
         var contentString = '<strong>INFORMATIONS</strong><br /><br />' +
         'Culture: ' + polygon.culture + '<br />' +
