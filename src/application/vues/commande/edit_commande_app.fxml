@@ -32,13 +32,17 @@
                 <Label text="Transport :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <JFXComboBox fx:id="liste_transport" promptText="Type de Transport" labelFloat="true" minWidth="350" prefWidth="350.0"  GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Taille de transport :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label text="Taille de max véhicule :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <JFXTextField fx:id="tMaxTransp" promptText="Taille de transport" labelFloat="true" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                <Label text="Bottelage :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <JFXComboBox fx:id="liste_type_bott" promptText="Type de Botteleuse" labelFloat="true" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Coût de la commande :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <JFXTextField fx:id="coutCom" promptText="Coût de transport" labelFloat="true" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                <JFXButton text="Valider" onAction="#onSubmit" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                <Label text="Bottelage :" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <JFXComboBox fx:id="liste_type_bott" promptText="Type de Botteleuse" labelFloat="true" minWidth="350" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <JFXButton text="Valider" onAction="#onSubmit" styleClass="btn, btn-primary" buttonType="RAISED" minWidth="350.0" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
             </GridPane>
         </VBox>
     </center>

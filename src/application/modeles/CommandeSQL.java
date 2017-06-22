@@ -15,8 +15,8 @@ import java.sql.SQLException;
 
 public class CommandeSQL {
 
-    public static void addCommande(String inputDate, String inputTypeBott, String inputTransport, float inputTailleMax, Champ inputChamp) {
-        String request = "INSERT INTO Commande(date_com, bott_com, transp_com, taille_max_transp_com, id_champ) VALUES(:date, :bott, :transp, :tMaxTransp, :champ)";
+    public static void addCommande(String inputDate, String inputTypeBott, String inputTransport, float inputTailleMax, Champ inputChamp, float inputCout) {
+        String request = "INSERT INTO Commande(date_com, bott_com, transp_com, taille_max_transp_com, cout_com, id_champ) VALUES(:date, :bott, :transp, :tMaxTransp, :cout, :champ)";
 
         try {
             NamedParameterStatement addCommandeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -25,6 +25,7 @@ public class CommandeSQL {
             addCommandeStatement.setString("bott", inputTypeBott);
             addCommandeStatement.setString("transp", inputTransport);
             addCommandeStatement.setFloat("tMaxTransp", inputTailleMax);
+            addCommandeStatement.setFloat("cout", inputCout);
             addCommandeStatement.setInt("champ", inputChamp.getId());
 
             // Execute SQL statement
@@ -37,7 +38,7 @@ public class CommandeSQL {
     }
 
     public static void editCommande(Commande commande) {
-        String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, effectuer_com=:effectuer_com WHERE id_com=:id_com";
+        String request = "UPDATE Commande SET date_com=:date_com, bott_com=:bott_com, transp_com=:transp_com, taille_max_transp_com=:taille_max_transp_com, cout_com=:cout,  effectuer_com=:effectuer_com WHERE id_com=:id_com";
 
         try {
             NamedParameterStatement editCommandeStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
@@ -47,6 +48,7 @@ public class CommandeSQL {
             editCommandeStatement.setString("transp_com", commande.getTransport());
             editCommandeStatement.setFloat("taille_max_transp_com", commande.getTaillemax());
             editCommandeStatement.setInt("id_com", commande.getId());
+            editCommandeStatement.setFloat("cout", commande.getCout());
             editCommandeStatement.setInt("effectuer_com", commande.isEffectuer() ? 1 : 0);
 
             // Execute SQL statement

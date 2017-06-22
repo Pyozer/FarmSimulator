@@ -33,6 +33,7 @@ public class EditCommandeController {
     @FXML private JFXComboBox<String> liste_transport;
     @FXML private JFXComboBox<String> liste_type_bott;
     @FXML private JFXTextField tMaxTransp;
+    @FXML private JFXTextField coutCom;
 
     @FXML private Label title;
 
@@ -86,6 +87,7 @@ public class EditCommandeController {
             liste_transport.setValue(commande.getTransport());
             liste_type_bott.setValue(commande.getTypebott());
             tMaxTransp.setText(String.valueOf(commande.getTaillemax()));
+            coutCom.setText(String.valueOf(commande.getCout()));
         }
     }
 
@@ -96,14 +98,17 @@ public class EditCommandeController {
         String inputTransport = liste_transport.getValue();
         String inputTypeBott = liste_type_bott.getValue();
         String inputTMaxTranspString = tMaxTransp.getText().trim();
+        String inputCoutComString = coutCom.getText().trim();
 
-        if(inputDate.toString().isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTranspString.isEmpty()) {
+        if(inputDate.toString().isEmpty() || inputTransport.isEmpty() || inputTypeBott.isEmpty() || inputChamp == null || inputTMaxTranspString.isEmpty() || inputCoutComString.isEmpty()) {
             AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs de texte !", Alert.AlertType.ERROR);
             alert.show();
         } else {
             try {
 
                 float inputTMaxTransp = Float.parseFloat(inputTMaxTranspString.replace(',', '.'));
+                float inputCoutCom = Float.parseFloat(inputCoutComString.replace(',', '.'));
+
                 String message = "La commande a bien été";
                 if(isEdit) {
                     commandeToEdit.setDate(inputDate);
@@ -111,12 +116,13 @@ public class EditCommandeController {
                     commandeToEdit.setTransport(inputTransport);
                     commandeToEdit.setTypebott(inputTypeBott);
                     commandeToEdit.setTailleMax(inputTMaxTransp);
+                    commandeToEdit.setCout(inputCoutCom);
 
                     CommandeSQL.editCommande(commandeToEdit);
 
                     message += " modifié !";
                 } else {
-                    CommandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTMaxTransp, inputChamp); //0 = T max
+                    CommandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTMaxTransp, inputChamp, inputCoutCom); //0 = T max
 
                     message += " ajouté !";
                 }
