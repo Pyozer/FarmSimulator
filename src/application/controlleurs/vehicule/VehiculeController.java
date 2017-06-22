@@ -98,7 +98,7 @@ public class VehiculeController implements APIGoogleMap {
     @FXML
     public void deleteVehicule() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Suppresion véhicule");
+        alert.setTitle("Suppression véhicule");
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce véhicule ?\n" + selectedVehicule.toString());
 

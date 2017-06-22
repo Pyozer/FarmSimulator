@@ -150,7 +150,7 @@ public class CommandeController {
     public void deleteCommande() {
         if (selectedCommande != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Suppresion commande");
+            alert.setTitle("Suppression commande");
             alert.setHeaderText("Confirmation de suppression");
             alert.setContentText("Voulez-vous vraiment supprimer cette commande ?\n" + selectedCommande.toString());
             alert.setResizable(true);

@@ -106,7 +106,7 @@ public class ClientController implements APIGoogleMap  {
     @FXML
     public void deleteClient() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Suppresion client");
+        alert.setTitle("Suppression client");
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce client ?\n" + selectedAgri.toString());
 
@@ -168,9 +168,8 @@ public class ClientController implements APIGoogleMap  {
         for(Agriculteur agriculteur : listClient) {
             if (agriculteur.getId() == id) {
                 tableView.getSelectionModel().select(agriculteur);
-                System.out.println("NIQUE TA MERE");
             }
-            System.out.println(agriculteur.getId() + "   " + id);
+           // System.out.println(agriculteur.getId() + "   " + id);
         }
     }
 

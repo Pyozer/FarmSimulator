@@ -70,7 +70,7 @@ public class EditTracteurController {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Vous devez remplir tous les champs !", Alert.AlertType.ERROR);
                 alert.show();
             } else {
-                String message = "La botteleuse a bien été";
+                String message = "Le tracteur a bien été";
 
                 int cap_rem = Integer.parseInt(inputCapRem.replace(',', '.'));
 
@@ -102,7 +102,7 @@ public class EditTracteurController {
                 stage.close();
             }
         } catch (NumberFormatException  e){
-            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
+            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doivent être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
         }
     }
