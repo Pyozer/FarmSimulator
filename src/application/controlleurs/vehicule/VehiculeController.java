@@ -63,10 +63,10 @@ public class VehiculeController implements APIGoogleMap {
         column_etat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEtat()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
-        column_marque.setMaxWidth( 1f * Integer.MAX_VALUE * 35 ); // 35% width
-        column_modele.setMaxWidth( 1f * Integer.MAX_VALUE * 35 ); // 35% width
-        column_etat.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 15% width
+        column_marque.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 35% width
+        column_modele.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 35% width
+        column_etat.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 15% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
@@ -168,6 +168,9 @@ public class VehiculeController implements APIGoogleMap {
     }
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
+    }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
     }
 
     public void selectVehiculeByID(int id) {

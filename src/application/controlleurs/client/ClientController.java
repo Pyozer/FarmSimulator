@@ -153,6 +153,9 @@ public class ClientController implements APIGoogleMap  {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
+    }
 
     public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
@@ -170,9 +173,9 @@ public class ClientController implements APIGoogleMap  {
         tableView.getItems().setAll(listClient);
     }
 
-    public void selectByChamp(int id) {
+    public void selectByChamp(int id_champ, int id_proprio) {
         for(Agriculteur agriculteur : listClient) {
-            if (agriculteur.getId() == id) {
+            if (agriculteur.getId() == id_proprio) {
                 tableView.getSelectionModel().select(agriculteur);
                 tableView.scrollTo(agriculteur);
             }

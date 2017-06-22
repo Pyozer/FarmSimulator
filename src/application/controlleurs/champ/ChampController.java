@@ -159,12 +159,15 @@ public class ChampController implements APIGoogleMap {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
+    }
 
-    public void selectByChamp(int id) {
+    public void selectByChamp(int id_champ, int id_proprio) {
         for(Champ champ : listChamps) {
-            if(champ.getProprietaire().getId() == id) {
+            if(champ.getId() == id_champ) {
                 tableView.getSelectionModel().select(champ);
-                tableView.scrollTo(champ);
+                //tableView.scrollTo(champ);
             }
         }
     }

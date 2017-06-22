@@ -29,6 +29,8 @@ public class ParamsBddController {
 	@FXML private JFXTextField identifiant_bdd; // Champs utilisateur bdd
 	@FXML private JFXPasswordField password_bdd; // Champs mot de passe bdd
 
+    private boolean isEdition = false;
+
     /**
      * Initializes the controller class.
      */
@@ -56,7 +58,8 @@ public class ParamsBddController {
 
             disableFields();
 
-            exitWindow();
+            if(!isEdition)
+                exitWindow();
         } else {
             enableFields();
 
@@ -79,6 +82,10 @@ public class ParamsBddController {
         dbname_bdd.setDisable(true);
         identifiant_bdd.setDisable(true);
         password_bdd.setDisable(true);
+    }
+
+    public void setToEditionMode() {
+	    isEdition = true;
     }
 
 	private void exitWindow() {

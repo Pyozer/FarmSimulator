@@ -53,6 +53,6 @@ public class Eta extends Element {
     }
 
     public String toString() {
-        return nom + " - " + adresse;
+        return "ETA " + nom + " - " + adresse;
     }
 }

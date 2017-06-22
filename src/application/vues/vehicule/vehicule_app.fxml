@@ -17,19 +17,18 @@
                     <top>
                         <VBox spacing="10">
                             <padding><Insets top="5" left="20" right="20" bottom="5"/></padding>
-                                <GridPane alignment="CENTER_LEFT" hgap="25" prefHeight="75" vgap="25">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="LEFT" percentWidth="50.0" />
-                                        <ColumnConstraints halignment="RIGHT" percentWidth="50.0" />
-                                    </columnConstraints>
 
-                                    <padding><Insets bottom="10.0" top="30.0" /></padding>
+                            <GridPane alignment="CENTER_LEFT" hgap="25" prefHeight="75" vgap="25">
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" percentWidth="50.0" />
+                                    <ColumnConstraints halignment="RIGHT" percentWidth="50.0" />
+                                </columnConstraints>
 
-                                    <Label styleClass="pane_title" text="Tous les véhicules" GridPane.columnIndex="0" />
-                                    <JFXTextField fx:id="search_field" labelFloat="true" promptText="Recherche" GridPane.columnIndex="1" />
-                                </GridPane>
+                                <padding><Insets bottom="10.0" top="30.0" /></padding>
 
-                            <Label text="Tous les véhicules" styleClass="pane_title" prefHeight="75.0" />
+                                <Label styleClass="pane_title" text="Tous les véhicules" GridPane.columnIndex="0" />
+                                <JFXTextField fx:id="search_field" labelFloat="true" promptText="Recherche" GridPane.columnIndex="1" />
+                            </GridPane>
 
                             <TableView fx:id="tableView"  minHeight="200.0" maxHeight="200" minWidth="500">
                                 <columns>

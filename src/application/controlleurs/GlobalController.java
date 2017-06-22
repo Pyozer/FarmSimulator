@@ -143,6 +143,9 @@ public class GlobalController implements APIGoogleMap {
     public double getPosEtaY() {
         return EtaSettings.getInfosEta().getPosition().getY();
     }
+    public String getEtaNom() {
+        return EtaSettings.getInfosEta().toString();
+    }
 
     public boolean isToggleButtonSelected() {
         return toggleButton.isSelected();

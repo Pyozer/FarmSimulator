@@ -31,6 +31,8 @@ public class ParamsAccountController {
 	@FXML private JFXTextField email; // Adresse mail
 	@FXML private JFXPasswordField password; // Mot de passe
 	@FXML private JFXPasswordField passwordconfirm; // Confirmation du mot de passe
+
+	private boolean isEdition = false;
 	
     /**
      * Initializes the controller class.
@@ -55,7 +57,8 @@ public class ParamsAccountController {
 					AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous pourrez vous connectez avec ces identifiants.");
 					alert.show();
 
-					loadParamsInfos();
+					if(!isEdition)
+						loadParamsInfos();
 				} else {
 					AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nL'adresse mail existe déjà !", Alert.AlertType.ERROR);
 					alert.show();
@@ -90,4 +93,11 @@ public class ParamsAccountController {
 		}
 	}
 
+	public void initView() {
+
+    }
+
+	public void setToEditionMode() {
+		isEdition = true;
+	}
 }
