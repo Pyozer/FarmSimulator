@@ -47,6 +47,11 @@ public class MenuApp {
         MenuItem parametres_item = new MenuItem("Accéder");
         parametres.getItems().add(parametres_item);
 
+        Menu deco = new Menu("Déconnexion");
+        MenuItem deco_item = new MenuItem("Se déconnecter");
+        deco.getItems().add(deco_item);
+
+
         accueil_item.setOnAction(actionEvent -> {
             SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE, parent);
             switchView.showScene();
@@ -103,6 +108,10 @@ public class MenuApp {
         });
         parametres.setOnAction(event -> {
             SwitchView switchView = new SwitchView("parametre/params_app", Constant.PARAMS_APP_TITLE, parent);
+            switchView.showScene();
+        });
+        deco.setOnAction(event -> {
+            SwitchView switchView = new SwitchView("home_login", Constant.HOME_LOGIN_TITLE, parent);
             switchView.showScene();
         });
 

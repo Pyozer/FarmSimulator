@@ -78,7 +78,7 @@ public class VehiculeSQL {
                     "WHERE date_com=:date AND Vehicule.id_vehi=:idVehi";
 
             NamedParameterStatement getPositionVehi = new NamedParameterStatement(DBConnection.getConnection(), requestPosition);
-            System.out.println(LocalDate.now().toString());
+
             getPositionVehi.setString("date", LocalDate.now().toString());
             getPositionVehi.setInt("idVehi", id_vehi);
             // Execute select SQL statement
@@ -89,7 +89,6 @@ public class VehiculeSQL {
 
                 if (!position_vehi.isEmpty()) {
                     position = JSONManager.readPoint(position_vehi);
-                    System.out.println(position);
                 }
             }
 
