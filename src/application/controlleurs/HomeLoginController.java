@@ -1,6 +1,5 @@
 package application.controlleurs;
 
-import application.Constant;
 import application.classes.AlertDialog;
 import application.classes.SwitchView;
 import application.modeles.UserSQL;
@@ -11,6 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
 import java.security.NoSuchAlgorithmException;
+
+import static application.Constant.ACCUEIL_APP_TITLE;
+import static application.Constant.isValidEmailAddress;
 
 /**
  * Controlleur de la vue de connexion au logiciel
@@ -43,16 +45,21 @@ public class HomeLoginController {
 	}
 
 	private void login(String email, String password) throws NoSuchAlgorithmException {
-		if(UserSQL.checkIdentifiants(email, password))
-			loadHome();
-		else {
-			AlertDialog alert = new AlertDialog("Erreur", null, "Identifiants incorrectes !\nRéessayez.", Alert.AlertType.ERROR);
+		if(isValidEmailAddress(email)) {
+			if (UserSQL.checkIdentifiants(email, password))
+				loadHome();
+			else {
+				AlertDialog alert = new AlertDialog("Erreur", null, "Identifiants incorrectes !\nRéessayez.", Alert.AlertType.ERROR);
+				alert.show();
+			}
+		} else {
+			AlertDialog alert = new AlertDialog("Erreur", null, "L'email saisie n'est pas valide !", Alert.AlertType.ERROR);
 			alert.show();
 		}
     }
 
 	private void loadHome() {
-        SwitchView switchView = new SwitchView("accueil_app", Constant.ACCUEIL_APP_TITLE,bpane);
+        SwitchView switchView = new SwitchView("accueil_app", ACCUEIL_APP_TITLE,bpane);
         switchView.showScene();
 	}
 

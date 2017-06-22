@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 import static application.Constant.PROP_ALREADY_RUN;
+import static application.Constant.isValidEmailAddress;
 
 /**
  * Controlleur de la vue de création d'un compte admin
@@ -76,25 +77,30 @@ public class ParamsAccountController {
 
         if(isOk) {
             if (passwordInput.equals(passwordConfInput)) {
-                if (!isEdition) {
-                    userDefine = new User(0, nomInput, prenomInput, emailInput, passwordInput);
+                if(isValidEmailAddress(emailInput)) {
+                    if (!isEdition) {
+                        userDefine = new User(0, nomInput, prenomInput, emailInput, passwordInput);
 
-                    UserSQL.addAccount(userDefine);
+                        UserSQL.addAccount(userDefine);
+                    } else {
+                        userDefine.setNom(nomInput);
+                        userDefine.setPrenom(prenomInput);
+                        userDefine.setEmail(emailInput);
+                        if (!passwordInput.isEmpty())
+                            userDefine.setPassword(passwordInput);
+
+                        UserSQL.editAccount(userDefine);
+                    }
+
+                    AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous pourrez vous connectez avec ces identifiants.");
+                    alert.show();
+
+                    if (!isEdition)
+                        loadParamsInfos();
                 } else {
-                    userDefine.setNom(nomInput);
-                    userDefine.setPrenom(prenomInput);
-                    userDefine.setEmail(emailInput);
-                    if (!passwordInput.isEmpty())
-                        userDefine.setPassword(passwordInput);
-
-                    UserSQL.editAccount(userDefine);
+                    AlertDialog alert = new AlertDialog("Erreur", null, "L'email saisie n'est pas valide !", Alert.AlertType.ERROR);
+                    alert.show();
                 }
-
-                AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous pourrez vous connectez avec ces identifiants.");
-                alert.show();
-
-                if (!isEdition)
-                    loadParamsInfos();
             } else {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nLa confirmation du mot de passe est incorrecte.", Alert.AlertType.ERROR);
                 alert.show();

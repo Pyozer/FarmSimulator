@@ -77,12 +77,13 @@ public class AffectationSQL {
             while (rs.next()) {
 
                 Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
+                String etat = VehiculeSQL.getActualEtatVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Tracteur(
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
-                        rs.getString("etat_vehi"),
+                        etat,
                         position,
                         rs.getInt("cap_rem_tract")
                 ));
@@ -109,12 +110,13 @@ public class AffectationSQL {
 
             while (rs.next()) {
                 Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
+                String etat = VehiculeSQL.getActualEtatVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Botteleuse(
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
-                        rs.getString("etat_vehi"),
+                        etat,
                         position,
                         rs.getBoolean("type_bott")
                 ));
@@ -140,12 +142,13 @@ public class AffectationSQL {
 
             while (rs.next()) {
                 Point position = VehiculeSQL.getActualPositionVehicule(rs.getInt("id_vehi"));
+                String etat = VehiculeSQL.getActualEtatVehicule(rs.getInt("id_vehi"));
 
                 vehiculeList.add(new Moissonneuse(
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
-                        rs.getString("etat_vehi"),
+                        etat,
                         position,
                         rs.getInt("taille_tremis_moi"),
                         rs.getInt("taille_reserve_moi"),
@@ -159,6 +162,7 @@ public class AffectationSQL {
             }
             rs.close();
             loadMoissonneuseStatement.close();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }

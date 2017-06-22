@@ -80,7 +80,6 @@ public class ChampController extends CarteController {
                 tableView.getItems().setAll(rechercherValeurListe(listChamps, search_field.getText()))
         );
 
-        resetListInfo();
         initData();
 
         infoContent.setOnMouseClicked(event -> clearAllSelection());
@@ -125,9 +124,8 @@ public class ChampController extends CarteController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 ChampSQL.deleteChamp(selectedChamp);
-                tableView.getItems().remove(selectedChamp);
+                initData();
                 clearAllSelection();
-                askToLoadChamps();
             } else {
                 alert.close();
             }
@@ -149,15 +147,14 @@ public class ChampController extends CarteController {
 
     public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
-        resetListInfo();
         defineStateElements(false);
         askToLoadChamps();
     }
 
     public void askToLoadChamps() {
         gMaps.removeAllChamps();
-        for (Champ champ : listChamps) {
-            gMaps.addChamp(champ);
+        for (int i = 0;i < listChamps.size(); i++) {
+            gMaps.addChamp(listChamps.get(i));
         }
     }
 
@@ -165,7 +162,7 @@ public class ChampController extends CarteController {
         for(Champ champ : listChamps) {
             if(champ.getId() == id_champ) {
                 tableView.getSelectionModel().select(champ);
-                //tableView.scrollTo(champ);
+                tableView.scrollTo(champ);
             }
         }
     }
@@ -173,10 +170,6 @@ public class ChampController extends CarteController {
     public void initData() {
         listChamps = ChampSQL.getChampsList();
         tableView.getItems().setAll(listChamps);
-    }
-
-    private void resetListInfo() {
-        listInfos.getItems().setAll(new ElementPair("Aucune information", "Selectionnez un élément du tableau"));
     }
 
     private void defineStateElements(boolean state) {

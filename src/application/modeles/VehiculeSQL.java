@@ -1,5 +1,6 @@
 package application.modeles;
 
+import application.Constant;
 import application.classes.JSONManager;
 import application.classes.Point;
 import application.database.DBConnection;
@@ -14,6 +15,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static application.Constant.*;
 
 public class VehiculeSQL {
 
@@ -98,6 +101,39 @@ public class VehiculeSQL {
         return position;
     }
 
+    public static String getActualEtatVehicule(int id_vehi) {
+
+        String etat_vehicule = ETAT_VEHI_NOT_USE;
+
+        try {
+            String requestPosition = "SELECT etat_vehi FROM Vehicule " +
+                    "INNER JOIN Ordre ON Vehicule.id_vehi=Ordre.id_vehi " +
+                    "INNER JOIN Commande ON Ordre.id_com=Commande.id_com " +
+                    "WHERE date_com=:date AND Vehicule.id_vehi=:idVehi";
+
+            NamedParameterStatement getPositionVehi = new NamedParameterStatement(DBConnection.getConnection(), requestPosition);
+
+            getPositionVehi.setString("date", LocalDate.now().toString());
+            getPositionVehi.setInt("idVehi", id_vehi);
+            // Execute select SQL statement
+            ResultSet rs_position = getPositionVehi.executeQuery();
+
+            if (rs_position.next()) {
+                String etat_get = rs_position.getString("etat_vehi");
+
+                if (!etat_get.equals(ETAT_VEHI_REPAIR)) {
+                    etat_vehicule = ETAT_VEHI_USE;
+                } else {
+                    etat_vehicule = etat_get;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return etat_vehicule;
+    }
+
     private static void loadTracteur() {
         String request = "SELECT Vehicule.id_vehi, marque_vehi, modele_vehi, etat_vehi, cap_rem_tract FROM Vehicule " +
                 "INNER JOIN Tracteur ON Vehicule.id_vehi=Tracteur.id_vehi";
@@ -113,7 +149,7 @@ public class VehiculeSQL {
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
-                        rs.getString("etat_vehi"),
+                        getActualEtatVehicule(rs.getInt("id_vehi")),
                         getActualPositionVehicule(rs.getInt("id_vehi")),
                         rs.getInt("cap_rem_tract")
                 ));
@@ -141,7 +177,7 @@ public class VehiculeSQL {
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
-                        rs.getString("etat_vehi"),
+                        getActualEtatVehicule(rs.getInt("id_vehi")),
                         getActualPositionVehicule(rs.getInt("id_vehi")),
                         rs.getBoolean("type_bott")
                 ));
@@ -168,7 +204,7 @@ public class VehiculeSQL {
                         rs.getInt("id_vehi"),
                         rs.getString("marque_vehi"),
                         rs.getString("modele_vehi"),
-                        rs.getString("etat_vehi"),
+                        getActualEtatVehicule(rs.getInt("id_vehi")),
                         getActualPositionVehicule(rs.getInt("id_vehi")),
                         rs.getInt("taille_tremis_moi"),
                         rs.getInt("taille_reserve_moi"),
@@ -346,20 +382,18 @@ public class VehiculeSQL {
         }
     }
 
-    public static List<Integer> getVehiculeUseToday(Commande commande) {
-        System.out.println(commande.getId());
+    public static List<Integer> getVehiculeUseToday() {
 
         String request = "SELECT Vehicule.id_vehi FROM Vehicule " +
                 "INNER JOIN Ordre ON Vehicule.id_vehi=Ordre.id_vehi " +
                 "INNER JOIN Commande ON Commande.id_com=Ordre.id_com " +
-                "WHERE date_com=:today AND Commande.id_com=:idCom";
+                "WHERE date_com=:today";
 
         List<Integer> listId = new ArrayList<>();
 
         try {
             NamedParameterStatement getVehiculeUsedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
             getVehiculeUsedStatement.setString("today", LocalDate.now().toString());
-            getVehiculeUsedStatement.setInt("idCom", commande.getId());
             // Execute select SQL statement
             ResultSet rs = getVehiculeUsedStatement.executeQuery();
 
@@ -368,6 +402,30 @@ public class VehiculeSQL {
 
             rs.close();
             getVehiculeUsedStatement.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return listId;
+    }
+
+    public static List<Integer> getVehiculeInRepair() {
+
+        String request = "SELECT id_vehi FROM Vehicule WHERE etat_vehi=:maintenance";
+
+        List<Integer> listId = new ArrayList<>();
+
+        try {
+            NamedParameterStatement getVehiculeInRepair = new NamedParameterStatement(DBConnection.getConnection(), request);
+            getVehiculeInRepair.setString("maintenance", Constant.ETAT_VEHI_REPAIR);
+            // Execute select SQL statement
+            ResultSet rs = getVehiculeInRepair.executeQuery();
+
+            while (rs.next())
+                listId.add(rs.getInt("id_vehi"));
+
+            rs.close();
+            getVehiculeInRepair.close();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }

@@ -32,7 +32,23 @@ function initMap() {
         polygon.type = e.type;
 
         google.maps.event.addListener(polygon, 'rightclick', deleteNode);
-        jsInterface.setPolygonEdited(toJavaArray(polygon));
+        jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
+
+        polygon.getPaths().forEach(function(path, index){
+                jsInterface.log("ok");
+                google.maps.event.addListener(path, 'insert_at', function(){
+                    jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
+                });
+
+                google.maps.event.addListener(path, 'remove_at', function(){
+                    jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
+                });
+
+                google.maps.event.addListener(path, 'set_at', function(){
+                    jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
+                });
+            });
+
     });
 
     google.maps.event.addListener(map, "tilesloaded", function() {
@@ -60,16 +76,17 @@ function addChamp(id, culture, proprio, id_proprio, adresse, surface, coords, co
     polygon.addListener('rightclick', deleteNode);
 
     polygon.getPaths().forEach(function(path, index){
+        jsInterface.log("ok");
         google.maps.event.addListener(path, 'insert_at', function(){
-            jsInterface.setPolygonEdited(toJavaArray(polygon));
+            jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
         });
 
         google.maps.event.addListener(path, 'remove_at', function(){
-            jsInterface.setPolygonEdited(toJavaArray(polygon));
+            jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
         });
 
         google.maps.event.addListener(path, 'set_at', function(){
-            jsInterface.setPolygonEdited(toJavaArray(polygon));
+            jsInterface.setPolygonEdited(toJavaArray(polygon), google.maps.geometry.spherical.computeArea(polygon.getPath()));
         });
     });
 

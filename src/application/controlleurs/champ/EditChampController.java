@@ -139,8 +139,9 @@ public class EditChampController extends CarteController {
         this.champController = champController;
     }
 
-    public void setPolygonEdited(String polygon) {
+    public void setPolygonEdited(String polygon, String surfaceCalc) {
         coords_edited = polygon;
+        surface.setText(String.valueOf(Math.round(Double.parseDouble(surfaceCalc) * 100.0) / 100.0));
     }
 
 }

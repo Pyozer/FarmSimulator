@@ -63,6 +63,10 @@ public final class Constant {
     public final static String TYPE_BOTT_ROND = "Ronde";
     public final static String TYPE_BOTT_CARRE = "Carré";
 
+    public final static String ETAT_VEHI_USE = "Utilisé";
+    public final static String ETAT_VEHI_NOT_USE = "Non utilisé";
+    public final static String ETAT_VEHI_REPAIR = "En maintenance";
+
     public final static String PROP_HOST = "host";
     public final static String PROP_HOST_DEF = "localhost";
     public final static String PROP_PORT = "port";

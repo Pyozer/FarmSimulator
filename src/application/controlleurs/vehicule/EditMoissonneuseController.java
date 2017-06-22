@@ -1,5 +1,6 @@
 package application.controlleurs.vehicule;
 
+import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Moissonneuse;
 import application.modeles.VehiculeSQL;
@@ -46,7 +47,7 @@ public class EditMoissonneuseController {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
 
         // Initalisation des Comboox
-        liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
+        liste_etat.getItems().setAll(Constant.ETAT_VEHI_NOT_USE, Constant.ETAT_VEHI_REPAIR);
         liste_etat.setValue(liste_etat.getItems().get(0));
     }
 

@@ -1,5 +1,6 @@
 package application.controlleurs.vehicule;
 
+import application.Constant;
 import application.classes.AlertDialog;
 import application.modeles.Botteleuse;
 import application.modeles.VehiculeSQL;
@@ -45,7 +46,8 @@ public class EditBotteleuseController {
         // Initalisation des ComboBox
         type.getItems().addAll(TYPE_BOTT_ROND, TYPE_BOTT_CARRE);
         type.setValue(type.getItems().get(0));
-        liste_etat.getItems().setAll("En maitenance", "Utilisé", "Non utilisé");
+
+        liste_etat.getItems().setAll(Constant.ETAT_VEHI_NOT_USE, Constant.ETAT_VEHI_REPAIR);
         liste_etat.setValue(liste_etat.getItems().get(2));
     }
 

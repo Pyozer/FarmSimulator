@@ -59,11 +59,13 @@ public class AddAffectationController {
         selectedCommande = commande;
         titleCommandeSelected.setText(selectedCommande.toString());
 
-        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday(selectedCommande);
+        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday();
+        List<Integer> vehiculeInRepair = VehiculeSQL.getVehiculeInRepair();
+
         List<Vehicule> allVehicules = VehiculeSQL.getVehiculeList();
 
         for(int i = 0;i < allVehicules.size();i++)
-            if(vehiculeUsedToday.contains(allVehicules.get(i).getId()))
+            if(vehiculeUsedToday.contains(allVehicules.get(i).getId()) || vehiculeInRepair.contains(allVehicules.get(i).getId()))
                 allVehicules.remove(allVehicules.get(i));
 
         liste_vehicule.getItems().setAll(allVehicules);
