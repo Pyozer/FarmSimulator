@@ -64,9 +64,9 @@ public class EtaSettings {
         Properties prop = SettingsProperties.loadSettingsPropertiesFile();
 
         if (prop != null) {
-            String eta_name = prop.getProperty(PROP_ETA_NAME).trim();
-            String eta_adresse = prop.getProperty(PROP_ETA_ADRESSE).trim();
-            String eta_position = prop.getProperty(PROP_ETA_POSITION).trim();
+            String eta_name = prop.getProperty(PROP_ETA_NAME, "").trim();
+            String eta_adresse = prop.getProperty(PROP_ETA_ADRESSE, "").trim();
+            String eta_position = prop.getProperty(PROP_ETA_POSITION, "").trim();
             if (!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty()) {
                 Point point_eta = JSONManager.readPoint(eta_position);
 

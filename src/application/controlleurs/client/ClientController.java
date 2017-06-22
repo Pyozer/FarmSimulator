@@ -7,6 +7,7 @@ import application.modeles.Champ;
 import application.modeles.ClientSQL;
 import application.modeles.EtaSettings;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -18,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,12 +42,13 @@ public class ClientController implements APIGoogleMap  {
 	@FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
 
+    @FXML private JFXTextField search_field;
+
     @FXML private ListView<ElementPair> listInfos;
 
     private GoogleMaps gMaps;
     private Agriculteur selectedAgri = null;
     private ObservableList<Agriculteur> listClient;
-    private ObservableList<Champ> listChamps;
 
     /**
      * Initializes the controller class.
@@ -71,6 +75,17 @@ public class ClientController implements APIGoogleMap  {
         tableView.getStyleClass().add("custom-table-view");
 
         listInfos.getStyleClass().add("custom-list-view");
+
+        search_field.textProperty().addListener((observable, oldValue, newValue) -> {
+            List<Agriculteur> listAgri = listClient;
+            for(Agriculteur agri : listAgri) {
+                if(!agri.getNom().matches("(" + search_field.getText() + ")?") && !agri.getPrenom().matches("(" + search_field.getText() + ")?") ) {
+                //if(!agri.getNom().matches(".*ital.*") && !agri.getPrenom().matches("(" + search_field.getText() + ")?") ) {
+                    listAgri.remove(agri);
+                }
+            }
+            tableView.getItems().setAll(listAgri);
+        });
 
         resetListInfo();
         initData();
@@ -135,8 +150,7 @@ public class ClientController implements APIGoogleMap  {
 
     public void askToLoadChamps() {
         gMaps.removeAllChamps();
-        listChamps = ClientSQL.getClientsChampsList();
-        for(Champ champ : listChamps) {
+        for(Champ champ : ClientSQL.getClientsChampsList()) {
             gMaps.addChamp(champ);
         }
     }
@@ -168,9 +182,8 @@ public class ClientController implements APIGoogleMap  {
         for(Agriculteur agriculteur : listClient) {
             if (agriculteur.getId() == id) {
                 tableView.getSelectionModel().select(agriculteur);
-                System.out.println("NIQUE TA MERE");
+                tableView.scrollTo(agriculteur);
             }
-            System.out.println(agriculteur.getId() + "   " + id);
         }
     }
 

@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.client.ClientController">
     <center>
         <VBox BorderPane.alignment="TOP_LEFT">
-            <StackPane styleClass="header_colored" minHeight="130">
-                <Label text="CLIENTS" styleClass="pane_title" textFill="white" />
+            <StackPane minHeight="130" styleClass="header_colored">
+                <Label styleClass="pane_title" text="CLIENTS" textFill="white" />
             </StackPane>
-            <SplitPane dividerPositions="0.4" VBox.vgrow="SOMETIMES" BorderPane.alignment="CENTER">
-                <BorderPane fx:id="infoContent" minWidth="550" maxWidth="550">
+            <SplitPane dividerPositions="0.4" BorderPane.alignment="CENTER" VBox.vgrow="SOMETIMES">
+                <BorderPane fx:id="infoContent" maxWidth="550" minWidth="550">
                     <top>
                         <VBox spacing="10">
-                            <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
-                            <Label text="Tous les clients" styleClass="pane_title" prefHeight="75.0" />
-                            <TableView fx:id="tableView" minHeight="215.0" maxHeight="215">
+                            <padding><Insets bottom="15" left="20" right="20" top="5" /></padding>
+
+                            <GridPane alignment="CENTER_LEFT" hgap="25" prefHeight="75" vgap="25">
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" percentWidth="50.0" />
+                                    <ColumnConstraints halignment="RIGHT" percentWidth="50.0" />
+                                </columnConstraints>
+
+                                <padding><Insets bottom="10.0" top="30.0" /></padding>
+
+                                <Label styleClass="pane_title" text="Tous les clients" GridPane.columnIndex="0" />
+                                <JFXTextField fx:id="search_field" labelFloat="true" promptText="Recherche" GridPane.columnIndex="1" />
+                            </GridPane>
+
+                            <TableView fx:id="tableView" maxHeight="215" minHeight="215.0">
                                 <columns>
                                     <TableColumn fx:id="column_nom" text="Nom" />
                                     <TableColumn fx:id="column_prenom" text="Prenom" />
@@ -28,24 +52,24 @@
                     </top>
                     <center>
                         <VBox>
-                            <VBox fx:id="listInfo" spacing="10" managed="false" visible="false">
-                                <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
-                                <Label text="Informations" styleClass="pane_title" prefHeight="75.0" />
-                                <ListView fx:id="listInfos" styleClass="custom" minHeight="100" maxHeight="270"/>
+                            <VBox fx:id="listInfo" managed="false" spacing="10" visible="false">
+                                <padding><Insets bottom="15" left="20" right="20" top="5" /></padding>
+                                <Label prefHeight="75.0" styleClass="pane_title" text="Informations" />
+                                <ListView fx:id="listInfos" maxHeight="270" minHeight="100" styleClass="custom" />
                             </VBox>
                             <HBox alignment="CENTER_LEFT" spacing="15">
-                                <padding><Insets top="5" left="20" right="20" bottom="15"/></padding>
-                                <JFXButton text="Ajouter un client" onAction="#addClient" styleClass="btn, btn-success" prefHeight="40">
+                                <padding><Insets bottom="15" left="20" right="20" top="5" /></padding>
+                                <JFXButton onAction="#addClient" prefHeight="40" styleClass="btn, btn-success" text="Ajouter un client">
                                     <graphic>
                                         <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="16.0" wrappingWidth="18" />
                                     </graphic>
                                 </JFXButton>
-                                <JFXButton fx:id="edit_btn" text="Modifier le client" managed="false" onAction="#editClient" styleClass="btn, btn-primary" prefHeight="40">
+                                <JFXButton fx:id="edit_btn" managed="false" onAction="#editClient" prefHeight="40" styleClass="btn, btn-primary" text="Modifier le client">
                                     <graphic>
                                         <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="16.0" wrappingWidth="18" />
                                     </graphic>
                                 </JFXButton>
-                                <JFXButton fx:id="delete_btn" text="Supprimer le client" managed="false" onAction="#deleteClient" styleClass="btn, btn-danger" prefHeight="40">
+                                <JFXButton fx:id="delete_btn" managed="false" onAction="#deleteClient" prefHeight="40" styleClass="btn, btn-danger" text="Supprimer le client">
                                     <graphic>
                                         <FontAwesomeIconView fill="WHITE" glyphName="TRASH_ALT" size="16.0" wrappingWidth="18" />
                                     </graphic>

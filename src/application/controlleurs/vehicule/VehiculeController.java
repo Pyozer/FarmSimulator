@@ -163,8 +163,10 @@ public class VehiculeController implements APIGoogleMap {
 
     public void selectVehiculeByID(int id) {
         for(Vehicule vehicule : vehiculeList)
-            if(vehicule.getId() == id)
+            if(vehicule.getId() == id) {
                 tableView.getSelectionModel().select(vehicule);
+                tableView.scrollTo(vehicule);
+            }
 
     }
 	
