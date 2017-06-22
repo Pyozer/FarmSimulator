@@ -2,6 +2,7 @@ package application.controlleurs.parametre;
 
 import application.Constant;
 import application.classes.MenuApp;
+import application.modeles.UserSQL;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -50,6 +51,7 @@ public class ParamsController {
         fxmlLoader = loadFXML("parametre/params_account.fxml");
         ParamsAccountController accountParam = fxmlLoader.getController();
         accountParam.setToEditionMode();
+        accountParam.initView(UserSQL.getUser());
         account_tab.setContent(fxmlLoader.getRoot());
 
     }

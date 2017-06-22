@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.AlertDialog;
 import application.classes.SwitchView;
 import application.modeles.EtaSettings;
+import application.modeles.User;
 import application.modeles.UserSQL;
 import application.properties.SettingsProperties;
 import com.jfoenix.controls.JFXPasswordField;
@@ -32,8 +33,9 @@ public class ParamsAccountController {
 	@FXML private JFXPasswordField password; // Mot de passe
 	@FXML private JFXPasswordField passwordconfirm; // Confirmation du mot de passe
 
+	private User userDefine;
 	private boolean isEdition = false;
-	
+
     /**
      * Initializes the controller class.
      */
@@ -49,28 +51,55 @@ public class ParamsAccountController {
 		String passwordInput = password.getText().trim();
 		String passwordConfInput = passwordconfirm.getText().trim();
 
-		if (!nomInput.isEmpty() && !prenomInput.isEmpty()&& !emailInput.isEmpty() && !passwordInput.isEmpty() && !passwordConfInput.isEmpty()) {
-		    if(passwordInput.equals(passwordConfInput)) {
-		    	if(!UserSQL.checkIfExists(email.getText())) {
-					UserSQL.addAccount(nomInput, prenomInput, emailInput, passwordInput);
+		boolean isOk = false;
 
-					AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous pourrez vous connectez avec ces identifiants.");
-					alert.show();
+		if(!isEdition) {
+            if (!nomInput.isEmpty() && !prenomInput.isEmpty()&& !emailInput.isEmpty() && !passwordInput.isEmpty() && !passwordConfInput.isEmpty()) {
+                if(!UserSQL.checkIfExists(email.getText())) {
+                    isOk = true;
+                } else {
+                    AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nLa confirmation du mot de passe est incorrecte.", Alert.AlertType.ERROR);
+                    alert.show();
+                }
+            } else {
+                AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée !\nVeuillez saisir tous les champs de texte.", Alert.AlertType.ERROR);
+                alert.show();
+            }
+        } else {
+            if (!nomInput.isEmpty() && !prenomInput.isEmpty()&& !emailInput.isEmpty() && ((passwordInput.isEmpty() && passwordConfInput.isEmpty()) || (!passwordInput.isEmpty() && !passwordConfInput.isEmpty()))) {
+                isOk = true;
+            } else{
+                AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée !\nVeuillez saisir tous les champs de texte.", Alert.AlertType.ERROR);
+                alert.show();
+            }
+        }
 
-					if(!isEdition)
-						loadParamsInfos();
-				} else {
-					AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nL'adresse mail existe déjà !", Alert.AlertType.ERROR);
-					alert.show();
-				}
+        if(isOk) {
+            if (passwordInput.equals(passwordConfInput)) {
+                if (!isEdition) {
+                    userDefine = new User(0, nomInput, prenomInput, emailInput, passwordInput);
+
+                    UserSQL.addAccount(userDefine);
+                } else {
+                    userDefine.setNom(nomInput);
+                    userDefine.setPrenom(prenomInput);
+                    userDefine.setEmail(emailInput);
+                    if (!passwordInput.isEmpty())
+                        userDefine.setPassword(passwordInput);
+
+                    UserSQL.editAccount(userDefine);
+                }
+
+                AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous pourrez vous connectez avec ces identifiants.");
+                alert.show();
+
+                if (!isEdition)
+                    loadParamsInfos();
             } else {
                 AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nLa confirmation du mot de passe est incorrecte.", Alert.AlertType.ERROR);
                 alert.show();
             }
-		} else {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée !\nVeuillez saisir tous les champs de texte.", Alert.AlertType.ERROR);
-            alert.show();
-		}
+        }
 	}
 
 	/**
@@ -93,8 +122,11 @@ public class ParamsAccountController {
 		}
 	}
 
-	public void initView() {
-
+	public void initView(User user) {
+        userDefine = user;
+        nom.setText(userDefine.getNom());
+        prenom.setText(userDefine.getPrenom());
+        email.setText(userDefine.getEmail());
     }
 
 	public void setToEditionMode() {

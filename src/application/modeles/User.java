@@ -5,18 +5,18 @@ package application.modeles;
  */
 public class User {
 
+    private int id;
     private String nom;
     private String prenom;
     private String password;
     private String email;
-    private  int id;
 
-    public User(String nom, String prenom, String password, String email, int id) {
+    public User(int id, String nom, String prenom, String email, String password) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
         this.email = email;
-        this.id = id;
     }
 
     public String getNom() {
