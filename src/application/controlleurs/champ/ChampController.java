@@ -4,6 +4,7 @@ import application.Constant;
 import application.classes.*;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -14,6 +15,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Optional;
+
+import static application.Constant.searchValueInList;
 
 /**
  * Controlleur de la vue de la gestion des champs de l'Eta
@@ -33,6 +36,8 @@ public class ChampController implements APIGoogleMap {
 
     @FXML private JFXButton delete_btn;
     @FXML private JFXButton edit_btn;
+
+    @FXML private JFXTextField search_field;
 
     @FXML private ListView<ElementPair> listInfos;
 
@@ -62,6 +67,10 @@ public class ChampController implements APIGoogleMap {
         column_adresse.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
+
+        search_field.textProperty().addListener((observable, oldValue, newValue) ->
+                tableView.getItems().setAll(searchValueInList(listChamps, search_field.getText()))
+        );
 
         resetListInfo();
         initData();
