@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXTextField?>
 <BorderPane fx:id="bpane" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controlleurs.vehicule.VehiculeController">
     <center>
         <VBox BorderPane.alignment="TOP_LEFT">
@@ -16,6 +17,17 @@
                     <top>
                         <VBox spacing="10">
                             <padding><Insets top="5" left="20" right="20" bottom="5"/></padding>
+                                <GridPane alignment="CENTER_LEFT" hgap="25" prefHeight="75" vgap="25">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="LEFT" percentWidth="50.0" />
+                                        <ColumnConstraints halignment="RIGHT" percentWidth="50.0" />
+                                    </columnConstraints>
+
+                                    <padding><Insets bottom="10.0" top="30.0" /></padding>
+
+                                    <Label styleClass="pane_title" text="Tous les véhicules" GridPane.columnIndex="0" />
+                                    <JFXTextField fx:id="search_field" labelFloat="true" promptText="Recherche" GridPane.columnIndex="1" />
+                                </GridPane>
 
                             <Label text="Tous les véhicules" styleClass="pane_title" prefHeight="75.0" />
 
