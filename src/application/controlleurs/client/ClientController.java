@@ -121,7 +121,7 @@ public class ClientController implements APIGoogleMap  {
     @FXML
     public void deleteClient() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Suppresion client");
+        alert.setTitle("Suppression client");
         alert.setHeaderText("Confirmation de suppression");
         alert.setContentText("Voulez-vous vraiment supprimer ce client ?\n" + selectedAgri.toString());
 
