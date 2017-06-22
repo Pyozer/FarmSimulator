@@ -57,7 +57,7 @@ public class ChampController implements APIGoogleMap {
         gMaps = new GoogleMaps("client/maps_client_champ", this);
         gMaps.setParent(googleMaps);
 
-        column_type_culture.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getType_culture()));
+        column_type_culture.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTypeCulture()));
         column_proprietaire.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProprietaire()));
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAdresse()));
 

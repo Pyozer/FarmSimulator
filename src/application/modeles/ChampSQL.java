@@ -88,18 +88,18 @@ public class ChampSQL {
         return listCulture;
     }
 
-    public static void addChamp(float surf_champ, String adr_champ, Point coord_centre, Polygon coords_champ, Culture type_champ, Agriculteur proprio) {
+    public static void addChamp(Champ champ) {
         String request = "INSERT INTO Champ(surf_champ, adr_champ, coord_centre_champ, coords_champ, type_champ, id_agri) " +
                 "VALUES(:surf_champ, :adr_champ, :coord_centre_champ, :coords_champ, :type_champ, :id_agri)";
 
         try {
             NamedParameterStatement addChampStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            addChampStatement.setFloat("surf_champ", surf_champ);
-            addChampStatement.setString("adr_champ", adr_champ);
-            addChampStatement.setString("coord_centre_champ", coord_centre.toString());
-            addChampStatement.setString("coords_champ", coords_champ.toString());
-            addChampStatement.setInt("type_champ", type_champ.getId());
-            addChampStatement.setInt("id_agri", proprio.getId());
+            addChampStatement.setFloat("surf_champ", champ.getSurface());
+            addChampStatement.setString("adr_champ", champ.getAdresse());
+            addChampStatement.setString("coord_centre_champ", champ.getCoordCenter().toString());
+            addChampStatement.setString("coords_champ", champ.getCoordChamp().toString());
+            addChampStatement.setInt("type_champ", champ.getTypeCulture().getId());
+            addChampStatement.setInt("id_agri", champ.getProprietaire().getId());
 
             addChampStatement.executeUpdate();
 
@@ -120,7 +120,7 @@ public class ChampSQL {
             editChampStatement.setString("adr_champ", champ.getAdresse());
             editChampStatement.setString("coord_centre_champ", champ.getCoordCenter().toString());
             editChampStatement.setString("coords_champ", champ.getCoordChamp().toString());
-            editChampStatement.setInt("type_champ", champ.getType_culture().getId());
+            editChampStatement.setInt("type_champ", champ.getTypeCulture().getId());
             editChampStatement.setInt("id_agri", champ.getProprietaire().getId());
             editChampStatement.setInt("id_champ", champ.getId());
 

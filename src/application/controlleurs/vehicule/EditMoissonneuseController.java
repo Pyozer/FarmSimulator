@@ -63,12 +63,12 @@ public class EditMoissonneuseController {
             modele.setText(moissonneuse.getModele());
             marque.setText(moissonneuse.getMarque());
             liste_etat.setValue(moissonneuse.getEtat());
-            taille_tremis.setText(String.valueOf(moissonneuse.getCapacite_tremis()));
-            taille_reservoir.setText(String.valueOf(moissonneuse.getCapacite_reservoir()));
+            taille_tremis.setText(String.valueOf(moissonneuse.getCapaciteTremis()));
+            taille_reservoir.setText(String.valueOf(moissonneuse.getCapaciteReservoir()));
             largeur_route.setText(String.valueOf(moissonneuse.getLargeur()));
-            largeur_coupe.setText(String.valueOf(moissonneuse.getTaille_coupe()));
-            conso_fonctionnement.setText(String.valueOf(moissonneuse.getConso_fonctionnement()));
-            conso_route.setText(String.valueOf(moissonneuse.getConso_route()));
+            largeur_coupe.setText(String.valueOf(moissonneuse.getTailleCoupe()));
+            conso_fonctionnement.setText(String.valueOf(moissonneuse.getConsoFonctionnement()));
+            conso_route.setText(String.valueOf(moissonneuse.getConsoRoute()));
             poids.setText(String.valueOf(moissonneuse.getPoids()));
             hauteur.setText(String.valueOf(moissonneuse.getHauteur()));
         }
@@ -124,7 +124,9 @@ public class EditMoissonneuseController {
 
                     message += " modifié !";
                 } else {
-                    VehiculeSQL.addMoissonneuse(inputModele, inputMarque, inputEtat, inputConsoFonctionnement, inputConsoRoute, inputHauteur, inputLargeurCoupe, inputLargeurRoute, inputPoids, inputTailleReservoir, inputTailleTremis);
+                    VehiculeSQL.addMoissonneuse(
+                            new Moissonneuse(0, inputMarque,inputModele, inputEtat, null, inputTailleTremis, inputTailleReservoir, inputLargeurCoupe, inputHauteur, inputLargeurCoupe, inputConsoFonctionnement, inputConsoRoute, inputPoids)
+                    );
 
                     message += " ajouté !";
                 }

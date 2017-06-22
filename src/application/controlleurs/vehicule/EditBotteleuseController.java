@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 import static application.Constant.TYPE_BOTT_CARRE;
 import static application.Constant.TYPE_BOTT_ROND;
 
@@ -93,7 +95,8 @@ public class EditBotteleuseController {
 
                 message += " modifié !";
             } else {
-                VehiculeSQL.addBotteleuse(inputModele, inputMarque, inputType, inputEtat);
+                boolean bottRonde = inputType.equals(TYPE_BOTT_ROND);
+                VehiculeSQL.addBotteleuse(new Botteleuse(0, inputMarque, inputModele, inputEtat, null, bottRonde));
 
                 message += " ajouté !";
             }

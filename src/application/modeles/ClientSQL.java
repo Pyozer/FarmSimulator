@@ -8,7 +8,6 @@ import application.database.DBConnection;
 import application.database.NamedParameterStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Color;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,19 +102,19 @@ public class ClientSQL {
         return clientChampList;
     }
 
-    public static void addClient(String inputNom, String inputPrenom, String inputTel, String inputAdresse, String inputEmail, Color inputCouleur) {
+    public static void addClient(Agriculteur agri) {
         String request = "INSERT INTO Agriculteur(nom_agri, prenom_agri, adr_agri, tel_agri, email_agri, couleur_agri) " +
                 "VALUES(:nom, :prenom, :adresse, :tel, :email, :couleur)";
 
         try {
             NamedParameterStatement addClientStratement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            addClientStratement.setString("nom", inputNom);
-            addClientStratement.setString("prenom", inputPrenom);
-            addClientStratement.setString("tel", inputTel);
-            addClientStratement.setString("adresse", inputAdresse);
-            addClientStratement.setString("email", inputEmail);
-            addClientStratement.setString("couleur", ConvertColor.ColorFXToWeb(inputCouleur));
+            addClientStratement.setString("nom", agri.getNom());
+            addClientStratement.setString("prenom", agri.getPrenom());
+            addClientStratement.setString("tel", agri.getNumTel());
+            addClientStratement.setString("adresse", agri.getAdresse());
+            addClientStratement.setString("email", agri.getEmail());
+            addClientStratement.setString("couleur", ConvertColor.ColorFXToWeb(agri.getCouleur()));
 
             // Execute SQL statement
             addClientStratement.executeUpdate();
@@ -137,7 +136,7 @@ public class ClientSQL {
             editClientStatement.setString("nom_agri", agri.getNom());
             editClientStatement.setString("prenom_agri", agri.getPrenom());
             editClientStatement.setString("adr_agri", agri.getAdresse());
-            editClientStatement.setString("tel_agri", agri.getNum_tel());
+            editClientStatement.setString("tel_agri", agri.getNumTel());
             editClientStatement.setString("email_agri", agri.getEmail());
             editClientStatement.setString("couleur_agri", ConvertColor.ColorFXToWeb(agri.getCouleur()));
             editClientStatement.setInt("id_agri", agri.getId());

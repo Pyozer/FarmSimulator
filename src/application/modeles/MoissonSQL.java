@@ -10,23 +10,23 @@ import java.time.format.DateTimeFormatter;
 
 public class MoissonSQL {
 
-    public static void editMoisson(Commande inputCommande, Vehicule inputVehicule, LocalDateTime heure_debut, LocalDateTime heure_fin, Float inputNbKilo, Float inputNbTonne) {
+    public static void editMoisson(Moisson moisson) {
         String request = "UPDATE Ordre SET tonnes_ordre=:tonnes, nb_km_ordre=:nbKilo, heure_arrive_ordre=:heureArrive, heure_fin_ordre=:heureFin " +
                 "WHERE id_vehi=:vehi AND id_com=:com";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateTimeFin = heure_fin.format(formatter);
-        String dateTimeDebut = heure_debut.format(formatter);
+        String dateTimeFin = moisson.getDatetimeDebut().format(formatter);
+        String dateTimeDebut =  moisson.getDatetimeFin().format(formatter);
 
         try {
             NamedParameterStatement editMoissonStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
 
-            editMoissonStatement.setFloat("tonnes", inputNbTonne);
-            editMoissonStatement.setFloat("nbKilo", inputNbKilo);
+            editMoissonStatement.setFloat("tonnes", moisson.getNbTonne());
+            editMoissonStatement.setFloat("nbKilo", moisson.getNbKm());
             editMoissonStatement.setString("heureArrive", dateTimeDebut);
             editMoissonStatement.setString("heureFin", dateTimeFin);
-            editMoissonStatement.setInt("vehi", inputVehicule.getId());
-            editMoissonStatement.setInt("com", inputCommande.getId());
+            editMoissonStatement.setInt("vehi", moisson.getVehicule().getId());
+            editMoissonStatement.setInt("com", moisson.getCommande().getId());
 
             // Execute SQL statement
             editMoissonStatement.executeUpdate();
@@ -39,7 +39,7 @@ public class MoissonSQL {
     }
 
     public static void deleteMoisson(Vehicule vehicule, Commande commande) {
-        editMoisson(commande, vehicule, null, null, (float) 0, (float) 0);
+        editMoisson(new Moisson(0, commande, vehicule, null, null, (float) 0, (float) 0));
     }
 
     public static boolean isRapportExist(Commande selectedCommande, Vehicule selectedVehicule) {

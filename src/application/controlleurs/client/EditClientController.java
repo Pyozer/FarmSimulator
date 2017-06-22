@@ -55,7 +55,7 @@ public class EditClientController {
 
             nom_client.setText(agriculteur.getNom());
             prenom_client.setText(agriculteur.getPrenom());
-            tel_client.setText(agriculteur.getNum_tel());
+            tel_client.setText(agriculteur.getNumTel());
             adresse_client.setText(agriculteur.getAdresse());
             email_client.setText(agriculteur.getEmail());
             couleur_client.setValue(agriculteur.getCouleur());
@@ -89,7 +89,7 @@ public class EditClientController {
 
                 message += " modifié !";
             } else {
-                ClientSQL.addClient(inputNom, inputPrenom, inputTel, inputAdresse, inputEmail, inputCouleur);
+                ClientSQL.addClient(new Agriculteur(0, inputNom, inputPrenom, inputTel, inputAdresse, inputEmail, inputCouleur));
 
                 message += " ajouté !";
             }

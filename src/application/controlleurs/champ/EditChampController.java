@@ -65,10 +65,10 @@ public class EditChampController implements APIGoogleMap {
             surface.setText(String.valueOf(champ.getSurface()));
 
             for (int i = 0;i < liste_type.getItems().size();i++)
-                if (liste_type.getItems().get(i).equals(champ.getType_culture()))
+                if (liste_type.getItems().get(i).equals(champ.getTypeCulture()))
                     liste_type.getItems().remove(liste_type.getItems().get(i));
-            liste_type.getItems().add(champ.getType_culture());
-            liste_type.setValue(champ.getType_culture());
+            liste_type.getItems().add(champ.getTypeCulture());
+            liste_type.setValue(champ.getTypeCulture());
 
             for (int i = 0;i < liste_proprio.getItems().size();i++)
                 if (liste_proprio.getItems().get(i).equals(champ.getProprietaire()))
@@ -121,7 +121,7 @@ public class EditChampController implements APIGoogleMap {
 
                     message += " modifié !";
                 } else {
-                    ChampSQL.addChamp(surface, inputAdresse, champ.getCenter(), champ, inputCulture, inputProprio);
+                    ChampSQL.addChamp(new Champ(0, surface, inputAdresse, champ.getCenter(), champ, inputCulture, inputProprio));
 
                     message += " ajouté !";
                 }

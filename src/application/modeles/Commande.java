@@ -12,18 +12,18 @@ public class Commande extends Element {
 
     private Champ champCommande;
     private String transport; //transport de la commande
-    private String typebott;// type de boot commande
-    private float taillemax;// taille max commande
+    private String typeBott;// type de boot commande
+    private float tailleMax;// taille max commande
     private LocalDate date;
     private float tonne;
     private float cout;
     private boolean effectuer;
 
-    public Commande(int id, String transport, String typebott, float taillemax, String date, float tonne, float cout, Champ champCommande, boolean effectuer) {
+    public Commande(int id, String transport, String typeBott, float tailleMax, String date, float tonne, float cout, Champ champCommande, boolean effectuer) {
         super(id);
         this.transport = transport;
-        this.typebott = typebott;
-        this.taillemax = taillemax;
+        this.typeBott = typeBott;
+        this.tailleMax = tailleMax;
         this.date = LocalDate.parse(date);
         this.tonne = tonne;
         this.cout = cout;
@@ -60,20 +60,20 @@ public class Commande extends Element {
         this.transport = transport;
     }
 
-    public String getTypebott() {
-        return typebott;
+    public String getTypeBott() {
+        return typeBott;
     }
 
-    public void setTypebott(String typebott) {
-        this.typebott = typebott;
+    public void setTypeBott(String typeBott) {
+        this.typeBott = typeBott;
     }
 
-    public float getTaillemax() {
-        return taillemax;
+    public float getTailleMax() {
+        return tailleMax;
     }
 
-    public void setTailleMax(float taillemax) {
-        this.taillemax = taillemax;
+    public void setTailleMax(float tailleMax) {
+        this.tailleMax = tailleMax;
     }
 
     public float getTonne() {

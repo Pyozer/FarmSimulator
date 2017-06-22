@@ -75,8 +75,8 @@ public class CommandeController {
         column_adr_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
         column_surf_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getSurface()));
         column_transport_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransport()));
-        column_type_bott_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypebott()));
-        column_tonn_max_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTaillemax()));
+        column_type_bott_todo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypeBott()));
+        column_tonn_max_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTailleMax()));
 
         tableView_todo.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
         column_date_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
@@ -93,8 +93,8 @@ public class CommandeController {
         column_adr_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getChampCommande().getAdresse()));
         column_surf_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getChampCommande().getSurface()));
         column_transport_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransport()));
-        column_type_bott_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypebott()));
-        column_tonn_max_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTaillemax()));
+        column_type_bott_make.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTypeBott()));
+        column_tonn_max_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTailleMax()));
         column_tonn_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTonne()));
         column_cout_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCout()));
 

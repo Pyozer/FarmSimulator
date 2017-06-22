@@ -62,7 +62,7 @@ public class Champ extends Element {
         this.coord_champ = coordChamp;
     }
 
-    public Culture getType_culture() {
+    public Culture getTypeCulture() {
         return type_culture;
     }
 
@@ -80,7 +80,7 @@ public class Champ extends Element {
 
     @Override
     public String toString() {
-        return getType_culture() + " : " + getAdresse() + " - " + getProprietaire();
+        return getTypeCulture() + " : " + getAdresse() + " - " + getProprietaire();
     }
 
     @Override

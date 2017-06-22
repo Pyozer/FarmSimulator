@@ -41,7 +41,7 @@ public class Moissonneuse extends Vehicule {
         getInformations().add(new ElementPair("Poids", poids + " Tonnes"));
     }
 
-    public int getCapacite_tremis() {
+    public int getCapaciteTremis() {
         return capacite_tremis;
     }
 
@@ -49,7 +49,7 @@ public class Moissonneuse extends Vehicule {
         this.capacite_tremis = capacite_tremis;
     }
 
-    public int getCapacite_reservoir() {
+    public int getCapaciteReservoir() {
         return capacite_reservoir;
     }
 
@@ -73,7 +73,7 @@ public class Moissonneuse extends Vehicule {
         this.hauteur = hauteur;
     }
 
-    public float getTaille_coupe() {
+    public float getTailleCoupe() {
         return taille_coupe;
     }
 
@@ -81,7 +81,7 @@ public class Moissonneuse extends Vehicule {
         this.taille_coupe = taille_coupe;
     }
 
-    public int getConso_fonctionnement() {
+    public int getConsoFonctionnement() {
         return conso_fonctionnement;
     }
 
@@ -89,7 +89,7 @@ public class Moissonneuse extends Vehicule {
         this.conso_fonctionnement = conso_fonctionnement;
     }
 
-    public int getConso_route() {
+    public int getConsoRoute() {
         return conso_route;
     }
 

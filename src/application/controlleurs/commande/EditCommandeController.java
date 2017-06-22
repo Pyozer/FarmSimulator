@@ -85,8 +85,8 @@ public class EditCommandeController {
             liste_champs.setValue(commande.getChampCommande());
 
             liste_transport.setValue(commande.getTransport());
-            liste_type_bott.setValue(commande.getTypebott());
-            tMaxTransp.setText(String.valueOf(commande.getTaillemax()));
+            liste_type_bott.setValue(commande.getTypeBott());
+            tMaxTransp.setText(String.valueOf(commande.getTailleMax()));
             coutCom.setText(String.valueOf(commande.getCout()));
         }
     }
@@ -114,7 +114,7 @@ public class EditCommandeController {
                     commandeToEdit.setDate(inputDate);
                     commandeToEdit.setChampCommande(inputChamp);
                     commandeToEdit.setTransport(inputTransport);
-                    commandeToEdit.setTypebott(inputTypeBott);
+                    commandeToEdit.setTypeBott(inputTypeBott);
                     commandeToEdit.setTailleMax(inputTMaxTransp);
                     commandeToEdit.setCout(inputCoutCom);
 
@@ -122,7 +122,7 @@ public class EditCommandeController {
 
                     message += " modifié !";
                 } else {
-                    CommandeSQL.addCommande(inputDate.toString(), inputTypeBott, inputTransport, inputTMaxTransp, inputChamp, inputCoutCom); //0 = T max
+                    CommandeSQL.addCommande(new Commande(0, inputTransport, inputTypeBott, inputTMaxTransp, inputDate.toString(), 0, 0, inputChamp, false)); //0 = T max
 
                     message += " ajouté !";
                 }

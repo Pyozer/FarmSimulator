@@ -102,7 +102,15 @@ public class EditMoissonController {
                 LocalDateTime tempInputDateTimeFin = LocalDateTime.of(inputDateFin, inputTimeFin);
                 LocalDateTime tempInputDateTimeDebut = LocalDateTime.of(inputDateDebut, inputTimeDebut);
 
-                MoissonSQL.editMoisson(selectedCommande, selectedVehicule, tempInputDateTimeDebut, tempInputDateTimeFin, nbKilo, poidRecolte);
+                if(isEdit) {
+                    moissonToEdit.setDatetimeDebut(tempInputDateTimeDebut);
+                    moissonToEdit.setDatetimeFin(tempInputDateTimeFin);
+                    moissonToEdit.setNbTonne(poidRecolte);
+                    moissonToEdit.setNbKm(nbKilo);
+                } else {
+                    moissonToEdit = new Moisson(0, selectedCommande, selectedVehicule, tempInputDateTimeDebut, tempInputDateTimeFin, nbKilo, poidRecolte);
+                }
+                MoissonSQL.editMoisson(moissonToEdit);
 
                 AlertDialog alert = new AlertDialog("Modification du rapport", "Succès de la modification", "Le rapport de moisson à bien été modifié !");
                 alert.show();

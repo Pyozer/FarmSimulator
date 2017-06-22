@@ -47,7 +47,7 @@ public class Agriculteur extends Element {
         this.prenom = prenom;
     }
 
-    public String getNum_tel() {
+    public String getNumTel() {
         return num_tel;
     }
 

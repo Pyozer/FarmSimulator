@@ -19,7 +19,7 @@ public class Tracteur extends Vehicule {
         getInformations().add(new ElementPair("Capacité remorque", capacite_remorque + " Litres"));
     }
 
-    public int getCapacite_remorque() {
+    public int getCapaciteRemorque() {
         return capacite_remorque;
     }
 

@@ -53,7 +53,7 @@ public class EditTracteurController {
 
             modele.setText(tracteur.getModele());
             marque.setText(tracteur.getMarque());
-            cap_rem.setText(String.valueOf(tracteur.getCapacite_remorque()));
+            cap_rem.setText(String.valueOf(tracteur.getCapaciteRemorque()));
             liste_etat.setValue(tracteur.getEtat());
         }
     }
@@ -84,7 +84,7 @@ public class EditTracteurController {
 
                     message += " modifié !";
                 } else {
-                    VehiculeSQL.addTracteur(inputModele, inputMarque, cap_rem, inputEtat);
+                    VehiculeSQL.addTracteur(new Tracteur(0, inputMarque, inputMarque, inputEtat, null, cap_rem));
 
                     message += " ajouté !";
                 }
