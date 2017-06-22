@@ -50,7 +50,7 @@ public class DBModel {
 
             pst.close();
 
-            System.out.println("Base de donnée crée avec succès !");
+            System.out.println("Base de donnée créée avec succès !");
 
         } catch (SQLException ex) {
             System.err.println(ex);

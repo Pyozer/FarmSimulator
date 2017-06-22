@@ -142,7 +142,7 @@ public class EditMoissonneuseController {
                 stage.close();
             }
         } catch (NumberFormatException  e){
-            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doit être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
+            AlertDialog alert = new AlertDialog("Erreur", null, "Les champs de texte à chiffres doivent être un nombre !\nUtilisez un . ou , pour les nombres décimaux.", Alert.AlertType.ERROR);
             alert.show();
         }
     }

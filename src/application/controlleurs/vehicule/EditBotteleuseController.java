@@ -65,8 +65,6 @@ public class EditBotteleuseController {
         }
         else{
             title.setText("Ajouter une botteleuse");
-
-            System.err.println("66");
         }
     }
 

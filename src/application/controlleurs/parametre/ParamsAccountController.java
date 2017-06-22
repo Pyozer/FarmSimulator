@@ -52,20 +52,20 @@ public class ParamsAccountController {
 		    	if(!UserSQL.checkIfExists(email.getText())) {
 					UserSQL.addAccount(nomInput, prenomInput, emailInput, passwordInput);
 
-					AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous vous connecterez avec ces identifiants.");
+					AlertDialog alert = new AlertDialog("Information", null, "Compte administrateur enregistré.\nDès à présent vous pourrez vous connectez avec ces identifiants.");
 					alert.show();
 
 					loadParamsInfos();
 				} else {
-					AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échoué.\nL'adresse mail existe déjà !", Alert.AlertType.ERROR);
+					AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nL'adresse mail existe déjà !", Alert.AlertType.ERROR);
 					alert.show();
 				}
             } else {
-                AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échoué.\nLa confirmation du mot de passe est incorrecte.", Alert.AlertType.ERROR);
+                AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée.\nLa confirmation du mot de passe est incorrecte.", Alert.AlertType.ERROR);
                 alert.show();
             }
 		} else {
-            AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échoué !\nVeuillez saisir tous les champs de texte.", Alert.AlertType.ERROR);
+            AlertDialog alert = new AlertDialog("Erreur", null, "Création du compte échouée !\nVeuillez saisir tous les champs de texte.", Alert.AlertType.ERROR);
             alert.show();
 		}
 	}
