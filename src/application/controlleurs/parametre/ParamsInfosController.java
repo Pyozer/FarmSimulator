@@ -49,6 +49,10 @@ public class ParamsInfosController extends CarteController {
             adr_eta.setText(eta.getAdresse());
             position_eta = eta.getPosition();
         }
+
+        adr_eta.textProperty().addListener((observable, oldValue, newValue) -> {
+            gMaps.zoomToAddress(newValue);
+        });
 	}
 
 	@FXML

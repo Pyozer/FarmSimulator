@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import java.util.Optional;
 
 import static application.Constant.rechercherValeurListe;
+import static application.Constant.setWidthColumn;
 
 /**
  * Controlleur de la vue de la gestion des véhicules de l'Eta
@@ -64,10 +65,10 @@ public class VehiculeController extends CarteController {
         column_etat.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEtat()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 15% width
-        column_marque.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 35% width
-        column_modele.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 35% width
-        column_etat.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 15% width
+        setWidthColumn(column_type, 20); // 15% width
+        setWidthColumn(column_marque, 30); // 35% width
+        setWidthColumn(column_modele, 30); // 35% width
+        setWidthColumn(column_etat, 20); // 15% width
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 

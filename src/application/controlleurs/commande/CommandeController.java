@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static application.Constant.setWidthColumn;
+
 /**
  * Controlleur de la vue de la gestion des commandes de l'Eta
  */
@@ -79,13 +81,13 @@ public class CommandeController {
         column_tonn_max_todo.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTailleMax()));
 
         tableView_todo.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_date_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
-        column_client_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
-        column_adr_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 20% width
-        column_surf_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
-        column_transport_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
-        column_type_bott_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
-        column_tonn_max_todo.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
+        setWidthColumn(column_date_todo, 10); // 10% width
+        setWidthColumn(column_client_todo, 15); // 15% width
+        setWidthColumn(column_adr_todo, 20); // 20% width
+        setWidthColumn(column_surf_todo, 10); // 10% width
+        setWidthColumn(column_transport_todo, 15); // 15% width
+        setWidthColumn(column_type_bott_todo, 15); // 15% width
+        setWidthColumn(column_tonn_max_todo, 15); // 15% width
 
         // TableView commande faites
         column_date_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDate()));
@@ -99,15 +101,15 @@ public class CommandeController {
         column_cout_make.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCout()));
 
         tableView_make.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_date_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
-        column_client_make.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 15% width
-        column_adr_make.setMaxWidth( 1f * Integer.MAX_VALUE * 15 ); // 20% width
-        column_surf_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 10% width
-        column_transport_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
-        column_type_bott_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
-        column_tonn_max_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
-        column_tonn_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
-        column_cout_make.setMaxWidth( 1f * Integer.MAX_VALUE * 10 ); // 15% width
+        setWidthColumn(column_date_make, 10); // 10% width
+        setWidthColumn(column_client_make, 15); // 15% width
+        setWidthColumn(column_adr_make, 15); // 15% width
+        setWidthColumn(column_surf_make, 10); // 10% width
+        setWidthColumn(column_transport_make, 10); // 10% width
+        setWidthColumn(column_type_bott_make, 10); // 10% width
+        setWidthColumn(column_tonn_max_make, 10); // 10% width
+        setWidthColumn(column_tonn_make, 10); // 10% width
+        setWidthColumn(column_cout_make, 10); // 10% width
 
         tableView_todo.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsCommande(newvalue));
 

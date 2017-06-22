@@ -43,6 +43,7 @@ public class EditBotteleuseController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
         // Initalisation des ComboBox
         type.getItems().addAll(TYPE_BOTT_ROND, TYPE_BOTT_CARRE);
         type.setValue(type.getItems().get(0));

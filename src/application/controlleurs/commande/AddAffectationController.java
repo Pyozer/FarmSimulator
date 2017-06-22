@@ -34,7 +34,6 @@ public class AddAffectationController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
-
     }
 
     @FXML

@@ -22,6 +22,7 @@ import javafx.scene.shape.Shape;
 
 import java.util.Optional;
 import static application.Constant.rechercherValeurListe;
+import static application.Constant.setWidthColumn;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'Eta
@@ -67,9 +68,9 @@ public class ClientController extends CarteController {
         column_color.setCellValueFactory(cellData -> new SimpleObjectProperty<>(new Rectangle(42, 20, cellData.getValue().getCouleur())));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_nom.setMaxWidth( 1f * Integer.MAX_VALUE * 43 ); // 50% width
-        column_prenom.setMaxWidth( 1f * Integer.MAX_VALUE * 43 ); // 50% width
-        column_color.setMaxWidth( 1f * Integer.MAX_VALUE * 14 ); // 50% width
+        setWidthColumn(column_nom, 43);
+        setWidthColumn(column_prenom, 43);
+        setWidthColumn(column_color, 14);
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsClient(newvalue));
         tableView.getStyleClass().add("custom-table-view");

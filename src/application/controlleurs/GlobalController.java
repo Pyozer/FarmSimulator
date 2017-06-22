@@ -25,6 +25,7 @@ import java.util.Properties;
 
 import static application.Constant.PROP_FIGHT_MODE_STATE;
 import static application.Constant.PROP_FIGHT_MODE_STATE_DEF;
+import static application.Constant.setWidthColumn;
 
 /**
  * Controlleur de la vue Global
@@ -68,9 +69,9 @@ public class GlobalController extends CarteController {
         column_transport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTransport()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_date.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 25% width
-        column_adresse.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
-        column_transport.setMaxWidth( 1f * Integer.MAX_VALUE * 25 ); // 25% width
+        setWidthColumn(column_date, 25); // 25% width
+        setWidthColumn(column_adresse, 50); // 50% width
+        setWidthColumn(column_transport, 25); // 25% width
 
         tableView.setRowFactory(row -> new TableRow<Commande>(){
             @Override

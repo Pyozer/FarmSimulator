@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static application.Constant.DATE_TIME_FORMAT;
+import static application.Constant.setWidthColumn;
 
 /**
  * Controlleur de la vue de la gestion des affectations de l'Eta
@@ -55,8 +56,8 @@ public class AffectationController {
         column_vehicule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque() + " " + cellData.getValue().getModele()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
-        column_vehicule.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        setWidthColumn(column_type, 50);
+        setWidthColumn(column_vehicule, 50);
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> vehiculeSelected(newvalue));
 

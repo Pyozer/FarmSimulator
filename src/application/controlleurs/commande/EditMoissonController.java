@@ -53,7 +53,6 @@ public class EditMoissonController {
         time_fin.setValue(LocalTime.now());
     }
 
-
     public void setEditionMode(boolean state) {
         isEdit = state;
     }
@@ -74,10 +73,8 @@ public class EditMoissonController {
 
             date_fin.setValue(fin.toLocalDate());
             time_fin.setValue(fin.toLocalTime());
-
         }
     }
-
 
     @FXML
     public void handleSaveMoisson() {
