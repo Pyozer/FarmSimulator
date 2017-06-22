@@ -1,9 +1,15 @@
 package application.controlleurs.champ;
 
 import application.Constant;
-import application.classes.*;
+import application.classes.ElementPair;
+import application.classes.GoogleMaps;
+import application.classes.MenuApp;
+import application.classes.SwitchView;
 import application.controlleurs.CarteController;
-import application.modeles.*;
+import application.modeles.Agriculteur;
+import application.modeles.Champ;
+import application.modeles.ChampSQL;
+import application.modeles.Culture;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleObjectProperty;

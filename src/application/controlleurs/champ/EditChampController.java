@@ -1,6 +1,9 @@
 package application.controlleurs.champ;
 
-import application.classes.*;
+import application.classes.AlertDialog;
+import application.classes.GoogleMaps;
+import application.classes.JSONManager;
+import application.classes.Polygon;
 import application.controlleurs.CarteController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXComboBox;

@@ -1,12 +1,14 @@
 package application.controlleurs.client;
 
 import application.Constant;
-import application.classes.*;
+import application.classes.ElementPair;
+import application.classes.GoogleMaps;
+import application.classes.MenuApp;
+import application.classes.SwitchView;
 import application.controlleurs.CarteController;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
-import application.modeles.EtaSettings;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.Optional;
+
 import static application.Constant.rechercherValeurListe;
 import static application.Constant.setWidthColumn;
 

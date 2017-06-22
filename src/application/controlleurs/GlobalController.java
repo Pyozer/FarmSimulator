@@ -1,7 +1,10 @@
 package application.controlleurs;
 
 import application.Constant;
-import application.classes.*;
+import application.classes.AlertDialog;
+import application.classes.GoogleMaps;
+import application.classes.MenuApp;
+import application.classes.SwitchView;
 import application.controlleurs.commande.AffectationController;
 import application.modeles.*;
 import application.properties.SettingsProperties;
@@ -10,22 +13,18 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Properties;
 
-import static application.Constant.PROP_FIGHT_MODE_STATE;
-import static application.Constant.PROP_FIGHT_MODE_STATE_DEF;
-import static application.Constant.setWidthColumn;
+import static application.Constant.*;
 
 /**
  * Controlleur de la vue Global

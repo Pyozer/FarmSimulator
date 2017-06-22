@@ -1,7 +1,10 @@
 package application.controlleurs.vehicule;
 
 import application.Constant;
-import application.classes.*;
+import application.classes.ElementPair;
+import application.classes.GoogleMaps;
+import application.classes.MenuApp;
+import application.classes.SwitchView;
 import application.controlleurs.CarteController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;

@@ -11,8 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
 import static application.Constant.TYPE_BOTT_CARRE;
 import static application.Constant.TYPE_BOTT_ROND;
 
