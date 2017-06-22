@@ -15,8 +15,8 @@ public class Eta extends Element {
     private Point position_eta; // Position de l'Eta
     private Point position_vehi; // Position des véhicules
 
-    public Eta(int id, String nom, String adresse, Point position_eta) {
-        super(id);
+    public Eta(String nom, String adresse, Point position_eta) {
+        super(0);
         this.nom = nom;
         this.adresse = adresse;
         this.position_eta = position_eta;

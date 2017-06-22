@@ -1,6 +1,7 @@
 package application.controlleurs.champ;
 
 import application.classes.*;
+import application.controlleurs.CarteController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * Controlleur pour l'ajout d'un champ
  */
-public class EditChampController implements APIGoogleMap {
+public class EditChampController extends CarteController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -82,16 +83,6 @@ public class EditChampController implements APIGoogleMap {
         gMaps.addChamp(selectedChamp);
     }
 
-    public double getPosEtaX() {
-        return EtaSettings.getInfosEta().getPosition().getX();
-    }
-    public double getPosEtaY() {
-        return EtaSettings.getInfosEta().getPosition().getY();
-    }
-    public String getEtaNom() {
-        return EtaSettings.getInfosEta().toString();
-    }
-
     public void onSubmit() {
         Agriculteur inputProprio = liste_proprio.getValue();
         Culture inputCulture = liste_type.getValue();
@@ -149,8 +140,4 @@ public class EditChampController implements APIGoogleMap {
         coords_edited = polygon;
     }
 
-    @Override
-    public void log(String msg) {
-        System.out.println(msg);
-    }
 }

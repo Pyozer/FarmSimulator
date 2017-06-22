@@ -2,6 +2,7 @@ package application.controlleurs.client;
 
 import application.Constant;
 import application.classes.*;
+import application.controlleurs.CarteController;
 import application.modeles.Agriculteur;
 import application.modeles.Champ;
 import application.modeles.ClientSQL;
@@ -20,12 +21,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.Optional;
-import static application.Constant.searchValueInList;
+import static application.Constant.rechercherValeurListe;
 
 /**
  * Controlleur de la vue de la gestion des clients de l'Eta
  */
-public class ClientController implements APIGoogleMap  {
+public class ClientController extends CarteController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -76,7 +77,7 @@ public class ClientController implements APIGoogleMap  {
         listInfos.getStyleClass().add("custom-list-view");
 
         search_field.textProperty().addListener((observable, oldValue, newValue) ->
-            tableView.getItems().setAll(searchValueInList(listClient, search_field.getText()))
+            tableView.getItems().setAll(rechercherValeurListe(listClient, search_field.getText()))
         );
 
         resetListInfo();
@@ -147,16 +148,6 @@ public class ClientController implements APIGoogleMap  {
         }
     }
 
-    public double getPosEtaX() {
-        return EtaSettings.getInfosEta().getPosition().getX();
-    }
-    public double getPosEtaY() {
-        return EtaSettings.getInfosEta().getPosition().getY();
-    }
-    public String getEtaNom() {
-        return EtaSettings.getInfosEta().toString();
-    }
-
     public void clearAllSelection() {
         tableView.getSelectionModel().clearSelection();
         resetListInfo();
@@ -191,7 +182,4 @@ public class ClientController implements APIGoogleMap  {
         listInfo.setManaged(state);
     }
 
-    public void log(String msg) {
-        System.err.println(msg);
-    }
 }

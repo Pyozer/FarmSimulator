@@ -2,6 +2,7 @@ package application.controlleurs.parametre;
 
 import application.Constant;
 import application.classes.*;
+import application.controlleurs.CarteController;
 import application.modeles.Eta;
 import application.modeles.EtaSettings;
 import application.properties.SettingsProperties;
@@ -18,7 +19,7 @@ import static application.Constant.PROP_ALREADY_RUN;
 /**
  * Controlleur de la vue de paramétrage des infos de l'Eta
  */
-public class ParamsInfosController implements APIGoogleMap {
+public class ParamsInfosController extends CarteController {
 
 	/** Layout **/
 	@FXML private BorderPane bpane;
@@ -86,12 +87,7 @@ public class ParamsInfosController implements APIGoogleMap {
         switchView.showScene();
 	}
 
-    public double getPosEtaX() {
-        return EtaSettings.getInfosEta().getPosition().getX();
-    }
-    public double getPosEtaY() {
-        return EtaSettings.getInfosEta().getPosition().getY();
-    }
+	@Override
     public String getEtaNom() {
         return name_eta.getText().trim();
     }
@@ -111,10 +107,6 @@ public class ParamsInfosController implements APIGoogleMap {
 
     public void setToEditionMode() {
         isEdition = true;
-    }
-
-    public void log(String msg) {
-        System.err.println(msg);
     }
 
 }

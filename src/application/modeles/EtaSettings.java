@@ -70,7 +70,7 @@ public class EtaSettings {
             if (!eta_name.isEmpty() || !eta_adresse.isEmpty() || !eta_position.isEmpty()) {
                 Point point_eta = JSONManager.readPoint(eta_position);
 
-                eta = new Eta(1, eta_name, eta_adresse, point_eta);
+                eta = new Eta(eta_name, eta_adresse, point_eta);
             }
         }
 

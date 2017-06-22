@@ -1,6 +1,7 @@
 package application.classes;
 
 import application.Constant;
+import application.controlleurs.CarteController;
 import application.modeles.Champ;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -19,7 +20,7 @@ public class GoogleMaps extends Region {
     private WebView webView;
     private JSObject javascriptOBJ;
 
-    public GoogleMaps(String mapHTML, APIGoogleMap controller) {
+    public GoogleMaps(String mapHTML, CarteController controller) {
 
         webView = new WebView();
         WebEngine webEngine = webView.getEngine();

@@ -2,6 +2,7 @@ package application.controlleurs.vehicule;
 
 import application.Constant;
 import application.classes.*;
+import application.controlleurs.CarteController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -15,12 +16,12 @@ import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
-import static application.Constant.searchValueInList;
+import static application.Constant.rechercherValeurListe;
 
 /**
  * Controlleur de la vue de la gestion des véhicules de l'Eta
  */
-public class VehiculeController implements APIGoogleMap {
+public class VehiculeController extends CarteController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -71,7 +72,7 @@ public class VehiculeController implements APIGoogleMap {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsVehicule(newvalue));
 
         search_field.textProperty().addListener((observable, oldValue, newValue) ->
-                tableView.getItems().setAll(searchValueInList(vehiculeList, search_field.getText()))
+                tableView.getItems().setAll(rechercherValeurListe(vehiculeList, search_field.getText()))
         );
 
         resetListInfo();
@@ -163,16 +164,6 @@ public class VehiculeController implements APIGoogleMap {
         }
     }
 
-    public double getPosEtaX() {
-        return EtaSettings.getInfosEta().getPosition().getX();
-    }
-    public double getPosEtaY() {
-        return EtaSettings.getInfosEta().getPosition().getY();
-    }
-    public String getEtaNom() {
-        return EtaSettings.getInfosEta().toString();
-    }
-
     public void selectVehiculeByID(int id) {
         for(Vehicule vehicule : vehiculeList)
             if(vehicule.getId() == id) {
@@ -208,7 +199,4 @@ public class VehiculeController implements APIGoogleMap {
         listInfo.setManaged(state);
     }
 
-    public void log(String msg) {
-        System.out.println(msg);
-    }
 }

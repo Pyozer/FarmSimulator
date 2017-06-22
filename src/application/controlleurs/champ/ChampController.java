@@ -2,6 +2,7 @@ package application.controlleurs.champ;
 
 import application.Constant;
 import application.classes.*;
+import application.controlleurs.CarteController;
 import application.modeles.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -16,12 +17,13 @@ import javafx.scene.layout.VBox;
 
 import java.util.Optional;
 
-import static application.Constant.searchValueInList;
+import static application.Constant.rechercherValeurListe;
+import static application.Constant.setWidthColumn;
 
 /**
  * Controlleur de la vue de la gestion des champs de l'Eta
  */
-public class ChampController implements APIGoogleMap {
+public class ChampController extends CarteController {
 
     /** Layout **/
     @FXML private BorderPane bpane;
@@ -62,14 +64,14 @@ public class ChampController implements APIGoogleMap {
         column_adresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAdresse()));
 
         tableView.setColumnResizePolicy( TableView.CONSTRAINED_RESIZE_POLICY );
-        column_type_culture.setMaxWidth( 1f * Integer.MAX_VALUE * 20 ); // 20% width
-        column_proprietaire.setMaxWidth( 1f * Integer.MAX_VALUE * 30 ); // 30% width
-        column_adresse.setMaxWidth( 1f * Integer.MAX_VALUE * 50 ); // 50% width
+        setWidthColumn(column_type_culture, 20);
+        setWidthColumn(column_proprietaire, 30);
+        setWidthColumn(column_adresse, 50);
 
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldvalue, newvalue) -> showInformationsChamp(newvalue));
 
         search_field.textProperty().addListener((observable, oldValue, newValue) ->
-                tableView.getItems().setAll(searchValueInList(listChamps, search_field.getText()))
+                tableView.getItems().setAll(rechercherValeurListe(listChamps, search_field.getText()))
         );
 
         resetListInfo();
@@ -153,16 +155,6 @@ public class ChampController implements APIGoogleMap {
         }
     }
 
-    public double getPosEtaX() {
-        return EtaSettings.getInfosEta().getPosition().getX();
-    }
-    public double getPosEtaY() {
-        return EtaSettings.getInfosEta().getPosition().getY();
-    }
-    public String getEtaNom() {
-        return EtaSettings.getInfosEta().toString();
-    }
-
     public void selectByChamp(int id_champ, int id_proprio) {
         for(Champ champ : listChamps) {
             if(champ.getId() == id_champ) {
@@ -188,9 +180,5 @@ public class ChampController implements APIGoogleMap {
         delete_btn.setManaged(state);
         listInfo.setVisible(state);
         listInfo.setManaged(state);
-    }
-
-    public void log(String msg) {
-        System.err.println(msg);
     }
 }

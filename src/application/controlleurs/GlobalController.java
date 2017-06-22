@@ -29,7 +29,7 @@ import static application.Constant.PROP_FIGHT_MODE_STATE_DEF;
 /**
  * Controlleur de la vue Global
  */
-public class GlobalController implements APIGoogleMap {
+public class GlobalController extends CarteController {
 
     @FXML private BorderPane bpane;
     @FXML private VBox infoContent;
@@ -137,16 +137,6 @@ public class GlobalController implements APIGoogleMap {
 
     }
 
-    public double getPosEtaX() {
-        return EtaSettings.getInfosEta().getPosition().getX();
-    }
-    public double getPosEtaY() {
-        return EtaSettings.getInfosEta().getPosition().getY();
-    }
-    public String getEtaNom() {
-        return EtaSettings.getInfosEta().toString();
-    }
-
     public boolean isToggleButtonSelected() {
         return toggleButton.isSelected();
     }
@@ -213,9 +203,5 @@ public class GlobalController implements APIGoogleMap {
         btn_markDone.setManaged(state);
         btn_affects.setVisible(state);
         btn_affects.setManaged(state);
-    }
-
-    public void log(String msg) {
-        System.err.println(msg);
     }
 }
