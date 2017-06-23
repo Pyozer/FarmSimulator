@@ -59,7 +59,7 @@ public class AddAffectationController {
         selectedCommande = commande;
         titleCommandeSelected.setText(selectedCommande.toString());
 
-        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday();
+        List<Integer> vehiculeUsedToday = VehiculeSQL.getVehiculeUseToday(selectedCommande);
         List<Integer> vehiculeInRepair = VehiculeSQL.getVehiculeInRepair();
 
         List<Vehicule> allVehicules = VehiculeSQL.getVehiculeList();

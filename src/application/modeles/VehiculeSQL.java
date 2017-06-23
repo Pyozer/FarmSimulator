@@ -382,7 +382,7 @@ public class VehiculeSQL {
         }
     }
 
-    public static List<Integer> getVehiculeUseToday() {
+    public static List<Integer> getVehiculeUseToday(Commande commande) {
 
         String request = "SELECT Vehicule.id_vehi FROM Vehicule " +
                 "INNER JOIN Ordre ON Vehicule.id_vehi=Ordre.id_vehi " +
@@ -393,7 +393,7 @@ public class VehiculeSQL {
 
         try {
             NamedParameterStatement getVehiculeUsedStatement = new NamedParameterStatement(DBConnection.getConnection(), request);
-            getVehiculeUsedStatement.setString("today", LocalDate.now().toString());
+            getVehiculeUsedStatement.setString("today", commande.getDate().toString());
             // Execute select SQL statement
             ResultSet rs = getVehiculeUsedStatement.executeQuery();
 
