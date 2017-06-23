@@ -19,12 +19,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
-        System.setProperty("http.proxyHost", "proxy.univ-lemans.fr");
+        /*System.setProperty("http.proxyHost", "proxy.univ-lemans.fr");
         System.setProperty("http.proxyPort", "3128");
         System.setProperty("https.proxyHost", "proxy.univ-lemans.fr");
-        System.setProperty("https.proxyPort", "3128");
-        
+        System.setProperty("https.proxyPort", "3128");*/
 
         // Connexion et création de la bdd
         try {
