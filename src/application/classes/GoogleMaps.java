@@ -122,6 +122,10 @@ public class GoogleMaps extends Region {
         javascriptOBJ.call("hideFlightPath");
     }
 
+    /**
+     * Zoom vers une adresse spécifié
+     * @param adresse Adresse
+     */
     public void zoomToAddress(String adresse) {
         javascriptOBJ.call("zoomToAddress", adresse);
     }

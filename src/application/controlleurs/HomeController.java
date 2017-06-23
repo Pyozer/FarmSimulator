@@ -1,6 +1,7 @@
 package application.controlleurs;
 
 import application.Constant;
+import application.classes.MenuApp;
 import application.classes.SwitchView;
 import application.modeles.EtaSettings;
 import javafx.fxml.FXML;
@@ -25,6 +26,9 @@ public class HomeController {
      */
     public void initialize() {
         bpane.setOnMouseClicked(e -> bpane.requestFocus());
+
+        MenuApp menuApp = new MenuApp(bpane);
+        bpane.setTop(menuApp.getMenuBar());
 
         title.setText(EtaSettings.getInfosEta().toString());
 

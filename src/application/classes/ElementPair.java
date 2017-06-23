@@ -10,14 +10,6 @@ public class ElementPair {
 		this.elem2 = elem2;
 	}
 
-	public Object getElem1() {
-		return this.elem1;
-	}
-
-	public Object getElem2() {
-		return this.elem2;
-	}
-
 	public String toString() {
 		return elem1 + " : " + elem2;
 	}

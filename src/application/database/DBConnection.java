@@ -44,12 +44,8 @@ public class DBConnection {
         defineProperties();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Driver O.K.");
-            System.out.println(url);
-            System.out.println(user);
-            System.out.println(pass);
             con = DriverManager.getConnection(url, user, pass);
-            System.out.println("Connexion effective !");
+            System.out.println("Connexion base de données effective !");
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
