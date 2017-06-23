@@ -48,7 +48,7 @@ public class EditBotteleuseController {
         type.setValue(type.getItems().get(0));
 
         liste_etat.getItems().setAll(Constant.ETAT_VEHI_NOT_USE, Constant.ETAT_VEHI_REPAIR);
-        liste_etat.setValue(liste_etat.getItems().get(2));
+        liste_etat.setValue(liste_etat.getItems().get(0));
     }
 
     public void setEditionMode(boolean state) {

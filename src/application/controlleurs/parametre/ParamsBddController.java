@@ -50,8 +50,10 @@ public class ParamsBddController {
     private void btnCheckAction() {
         DBProperties properties = new DBProperties();
 
+        properties.makeDbProperties(hote_bdd.getText().trim(), port_bdd.getText().trim(), dbname_bdd.getText().trim(), identifiant_bdd.getText().trim(), password_bdd.getText().trim());
+
+
         if (DBConnection.checkConnection()) {
-            properties.makeDbProperties(hote_bdd.getText().trim(), port_bdd.getText().trim(), dbname_bdd.getText().trim(), identifiant_bdd.getText().trim(), password_bdd.getText().trim());
 
             AlertDialog alert = new AlertDialog("Information", null, "Connexion à la base de donnée réussi !");
             alert.show();
